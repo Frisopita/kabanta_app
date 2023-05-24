@@ -1,11 +1,16 @@
 //Test de kabanta UX
 
 import 'package:flutter/material.dart';
+import 'package:kabanta_app1/Pages/ECG.dart';
+import 'package:kabanta_app1/Pages/History.dart';
+import 'package:kabanta_app1/Pages/Scenery.dart';
+import 'package:kabanta_app1/Pages/Vital.dart';
 
 void main() {
   runApp(const MyKabantaApp());
 }
 
+// Inicializaci¨®n de la APP
 class MyKabantaApp extends StatefulWidget {
   const MyKabantaApp({super.key});
   @override
@@ -21,6 +26,8 @@ class _MyKabantaAppState extends State<MyKabantaApp> {
   }
 }
 
+//Data main screen
+
 class DataPage extends StatefulWidget {
   const DataPage({super.key});
 
@@ -30,93 +37,73 @@ class DataPage extends StatefulWidget {
 
 class _DataPageState extends State<DataPage> {
 
-    static const TextStyle optionStyle = TextStyle(
-    fontSize: 30, 
-    fontWeight: 
-    FontWeight.bold
-    );
-
-    static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: ECG page',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Vital Signs Page',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 3: Scenery Page',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 4: History Page',
-      style: optionStyle,
-    ),
-  ];
-
   int currentIndex = 0;
-  void _onItemTapped(int index) {
+
+    void _onItemTapped(int index) {
     setState(() {
       currentIndex = index;
     });
   }
 
+  final List<Widget> screens = [
+    const ECG(),
+    const Vital(),
+    const Scenery(),
+    const History(),
+  ];
+
+  final PageStorageBucket bucket = PageStorageBucket();
+  Widget currerntScreen = const ECG();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Image.asset('Images/original.png', fit: BoxFit.cover, height:100,width:130),//const Text('Kabsim App', style: TextStyle(color: Colors.black),),
-        backgroundColor: Colors.white,
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.settings,
-            color: Colors.black,
-            ),
-            tooltip: 'Settings',
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Settings')));
-            },
-          ),
-        ]
+      body: PageStorage(
+        child: currerntScreen,
+        bucket: bucket,
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(currentIndex),
-      ),
+      //ECG
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.monitor_heart,
-              color: Colors.black,
-              ),
-            label: 'ECG',
+        items: <BottomNavigationBarItem>[
+          //ECG Button
+         BottomNavigationBarItem(
+          label: 'ECG',
+          icon: Icon(
+            Icons.monitor_heart,
+            color: currentIndex == 0 ? Colors.blueGrey : Colors.black
           ),
+         ),
+          //Vital Button
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.accessibility_new,
-              color: Colors.black,),
-            label: 'Vital Signs',
+          label: 'Vital Signs',
+          icon: Icon(
+            Icons.accessibility_new,
+            color: currentIndex == 1 ? Colors.blueGrey : Colors.black
           ),
+          ),
+           //Scenery Button
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.tag,
-              color: Colors.black,
-              ),
-            label: 'Scenery',
+          label: 'Scenery',
+          icon: Icon(
+            Icons.tag,
+            color: currentIndex == 2 ?  Colors.blueGrey : Colors.black
           ),
+          ),
+           //History Button
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.history,
-              color: Colors.black,),
-            label: 'History',
+          label: 'History',
+          icon: Icon(
+            Icons.history,
+            color: currentIndex == 3 ? Colors.blueGrey : Colors.black
           ),
-        ],
-        currentIndex: currentIndex,
-        selectedItemColor: Colors.blueGrey,
-        onTap: _onItemTapped,
+          ),
+       ],
+      currentIndex: currentIndex,
+      selectedItemColor: Colors.blueGrey,
+      onTap: _onItemTapped,
       ),
+    // VITAL
+    
     );
   }
 }

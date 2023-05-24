@@ -1,15 +1,15 @@
-//History Page
+//Vital Signs Page
 
 import 'package:flutter/material.dart';
 
-class History extends StatefulWidget {
-  const History({super.key});
+class Vital extends StatefulWidget {
+  const Vital({super.key});
 
   @override
-  State<History> createState() => _HistoryState();
+  State<Vital> createState() => _VitalState();
 }
 
-class _HistoryState extends State<History> {
+class _VitalState extends State<Vital> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
