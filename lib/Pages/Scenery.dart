@@ -1,5 +1,3 @@
-//Scenery Page 
-
 import 'package:flutter/material.dart';
 
 class Scenery extends StatefulWidget {
@@ -15,7 +13,7 @@ class _SceneryState extends State<Scenery> {
     return Scaffold(
       appBar: AppBar(
         title: Image.asset('Images/original.png', fit: BoxFit.cover, height:100,width:130),//const Text('Kabsim App', style: TextStyle(color: Colors.black),),
-        backgroundColor: Color.fromARGB(255, 84, 57, 141),
+        backgroundColor: const Color.fromARGB(255, 84, 57, 141),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.settings,

@@ -1,10 +1,10 @@
 //Test de kabanta UX
 
 import 'package:flutter/material.dart';
-import 'package:kabanta_app1/Pages/ECG.dart';
-import 'package:kabanta_app1/Pages/History.dart';
-import 'package:kabanta_app1/Pages/Scenery.dart';
-import 'package:kabanta_app1/Pages/Vital.dart';
+import 'package:kabanta_app1/Pages/ecg.dart';
+import 'package:kabanta_app1/Pages/history.dart';
+import 'package:kabanta_app1/Pages/scenery.dart';
+import 'package:kabanta_app1/Pages/vital.dart';
 
 void main() {
   runApp(const MyKabantaApp());
@@ -30,7 +30,6 @@ class _MyKabantaAppState extends State<MyKabantaApp> {
 
 class DataPage extends StatefulWidget {
   const DataPage({super.key});
-
   @override
   State<DataPage> createState() => _DataPageState();
 }
@@ -45,8 +44,6 @@ class _DataPageState extends State<DataPage> {
     const Scenery(),
     const History(),
   ];
-
-  final PageStorageBucket bucket = PageStorageBucket();
 
   @override
   Widget build(BuildContext context) {
