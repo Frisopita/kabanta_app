@@ -1,3 +1,7 @@
+double _value = 20;
+String _status = 'idle';
+Color _statusColor = Colors.amber;
+
 Column(
   crossAxisAlignment: CrossAxisAlignment.start,
   children: [
