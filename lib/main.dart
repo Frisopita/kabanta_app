@@ -37,7 +37,7 @@ class DataPage extends StatefulWidget {
 
 class _DataPageState extends State<DataPage> {
 
-  int currentIndex = 0;
+  int currentIndex= 0;
 
   final List<Widget> _widgetOptions = <Widget> [
     const ECG(),
@@ -47,47 +47,21 @@ class _DataPageState extends State<DataPage> {
   ];
 
   final PageStorageBucket bucket = PageStorageBucket();
-  Widget currerntScreen = const ECG();
-
-  void _onItemTapped(int index) {
-  if(currentIndex == 0) {
-    setState(() {
-      currerntScreen = const ECG();
-    });
-  } 
-  if(currentIndex == 1) {
-    setState(() {
-      currerntScreen = const Vital();
-    });
-  } 
-  if(currentIndex == 2) {
-    setState(() {
-      currerntScreen = const Scenery();
-    });
-  } 
-  if(currentIndex == 3) {
-    setState(() {
-      currerntScreen = const History();
-    });
-  } 
-  else {
-    setState(() {
-      currentIndex = index;
-    });
-  }
-}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageStorage(
-        child: _widgetOptions.elementAt(currentIndex),
-        bucket: bucket,
-      ),
-      //ECG
+      body: _widgetOptions[currentIndex],
+      //Botones de Navegaci¨®n
       bottomNavigationBar: BottomNavigationBar(
+        onTap: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
+        currentIndex: currentIndex,
         items: <BottomNavigationBarItem>[
-          //ECG Button
+      //ECG Button
          BottomNavigationBarItem(
           label: 'ECG',
           icon: Icon(
@@ -95,7 +69,7 @@ class _DataPageState extends State<DataPage> {
             color: currentIndex == 0 ? Colors.blueGrey : Colors.black
           ),
          ),
-          //Vital Button
+      //Vital Button
           BottomNavigationBarItem(
           label: 'Vital Signs',
           icon: Icon(
@@ -103,7 +77,7 @@ class _DataPageState extends State<DataPage> {
             color: currentIndex == 1 ? Colors.blueGrey : Colors.black
           ),
           ),
-           //Scenery Button
+      //Scenery Button
           BottomNavigationBarItem(
           label: 'Scenery',
           icon: Icon(
@@ -111,7 +85,7 @@ class _DataPageState extends State<DataPage> {
             color: currentIndex == 2 ?  Colors.blueGrey : Colors.black
           ),
           ),
-           //History Button
+      //History Button
           BottomNavigationBarItem(
           label: 'History',
           icon: Icon(
@@ -120,12 +94,8 @@ class _DataPageState extends State<DataPage> {
           ),
           ),
        ],
-      currentIndex: currentIndex,
       selectedItemColor: Colors.blueGrey,
-      onTap: _onItemTapped,
-      ),
-    // VITAL
-    
+      ), 
     );
   }
 }
