@@ -15,7 +15,7 @@ class _VitalState extends State<Vital> {
     return Scaffold(
       appBar: AppBar(
         title: Image.asset('Images/original.png', fit: BoxFit.cover, height:100,width:130),//const Text('Kabsim App', style: TextStyle(color: Colors.black),),
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromARGB(255, 210, 25, 9),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.settings,

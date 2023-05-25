@@ -39,13 +39,7 @@ class _DataPageState extends State<DataPage> {
 
   int currentIndex = 0;
 
-    void _onItemTapped(int index) {
-    setState(() {
-      currentIndex = index;
-    });
-  }
-
-  final List<Widget> screens = [
+  final List<Widget> _widgetOptions = <Widget> [
     const ECG(),
     const Vital(),
     const Scenery(),
@@ -55,11 +49,39 @@ class _DataPageState extends State<DataPage> {
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currerntScreen = const ECG();
 
+  void _onItemTapped(int index) {
+  if(currentIndex == 0) {
+    setState(() {
+      currerntScreen = const ECG();
+    });
+  } 
+  if(currentIndex == 1) {
+    setState(() {
+      currerntScreen = const Vital();
+    });
+  } 
+  if(currentIndex == 2) {
+    setState(() {
+      currerntScreen = const Scenery();
+    });
+  } 
+  if(currentIndex == 3) {
+    setState(() {
+      currerntScreen = const History();
+    });
+  } 
+  else {
+    setState(() {
+      currentIndex = index;
+    });
+  }
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageStorage(
-        child: currerntScreen,
+        child: _widgetOptions.elementAt(currentIndex),
         bucket: bucket,
       ),
       //ECG
