@@ -6,7 +6,6 @@ import 'package:kabanta_app1/Pages/history.dart';
 import 'package:kabanta_app1/Pages/scenery.dart';
 import 'package:kabanta_app1/Pages/vital.dart';
 
-
 void main() {
   runApp(const MyKabantaApp());
 }

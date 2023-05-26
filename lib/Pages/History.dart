@@ -12,21 +12,26 @@ class _HistoryState extends State<History> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Image.asset('Images/original.png', fit: BoxFit.cover, height:100,width:130),//const Text('Kabsim App', style: TextStyle(color: Colors.black),),
-        backgroundColor: const Color.fromARGB(255, 182, 51, 169),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.settings,
-            color: Colors.black,
+          title: Image.asset('Images/original.png',
+              fit: BoxFit.cover,
+              height: 100,
+              width:
+                  130), //const Text('Kabsim App', style: TextStyle(color: Colors.black),),
+          backgroundColor: Colors.white,
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(
+                Icons.settings,
+                color: Colors.black,
+              ),
+              tooltip: 'Settings',
+              onPressed: () {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(const SnackBar(content: Text('Settings')));
+              },
             ),
-            tooltip: 'Settings',
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Settings')));
-            },
-          ),
-        ]
-      ),
+          ],
+        ),
     );
   }
 }
