@@ -358,4 +358,5 @@ class DeviceScreen extends StatelessWidget {
     subscription.cancel();
     // Device disconnected, stopping RSSI stream
   }
+
 }

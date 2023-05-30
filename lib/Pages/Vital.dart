@@ -1,7 +1,8 @@
 //Vital Signs Page
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+
 
 double _currentSliderValue1 = 30;
 double _currentSliderValue2 = 35;
@@ -74,6 +75,8 @@ class Vital extends StatefulWidget {
 }
 
 class _VitalState extends State<Vital> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,8 +84,7 @@ class _VitalState extends State<Vital> {
         title: Image.asset('Images/original.png',
             fit: BoxFit.cover,
             height: 100,
-            width:
-                130), //const Text('Kabsim App', style: TextStyle(color: Colors.black),),
+            width: 130),
         backgroundColor: Colors.white,
         actions: <Widget>[
           IconButton(
@@ -113,6 +115,7 @@ class Contentvital extends StatefulWidget {
 }
 
 class _ContentvitalState extends State<Contentvital> {
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
