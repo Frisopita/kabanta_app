@@ -1,13 +1,31 @@
 //Test de kabanta UX
-
+import 'dart:async';
+import 'dart:io';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:kabanta_app1/Pages/ecg.dart';
 import 'package:kabanta_app1/Pages/history.dart';
 import 'package:kabanta_app1/Pages/scenery.dart';
 import 'package:kabanta_app1/Pages/vital.dart';
+import 'widgets.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() {
-  runApp(const MyKabantaApp());
+  if (Platform.isAndroid) {
+    WidgetsFlutterBinding.ensureInitialized();
+    [
+      Permission.location,
+      Permission.storage,
+      Permission.bluetooth,
+      Permission.bluetoothConnect,
+      Permission.bluetoothScan
+    ].request().then((status) {
+      runApp(const MyKabantaApp());
+    });
+  } else{
+    runApp(const MyKabantaApp());
+  }  
 }
 
 
