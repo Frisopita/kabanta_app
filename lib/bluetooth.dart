@@ -1,11 +1,10 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:math';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';// Quitar 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'widgets.dart';
 import 'main.dart';
-
 
 class FlutterBlueApp extends StatelessWidget {
   const FlutterBlueApp({Key? key}) : super(key: key);
@@ -192,21 +191,22 @@ class _DeviceScreenState extends State<DeviceScreen> {
         .map(
           (s) => ServiceTile(
             service: s,
-            characteristicTiles: s.characteristics
-                .map(
-                  (c) => CharacteristicTile(
-                    characteristic: c,
-                    onReadPressed: () => c.read(),
-                    onWritePressed: () async {
-                      await c.write(_getRandomBytes(), withoutResponse: true);
-                    },
-                    onNotificationPressed: () async {
-                      await c.setNotifyValue(!c.isNotifying);
-                      await c.read();
-                    },
-                  ),
-                )
-                .toList(),
+            characteristicTiles: s.characteristics.map((c) {
+              double sliderValue = 0;
+              return CharacteristicTile(
+                characteristic: c,
+                onReadPressed: () => c.read(),
+                onWritePressed: (value) async {
+                  // <-- Change here
+                  sliderValue = value[0].toDouble();
+                  await c.write([sliderValue.toInt()], withoutResponse: true);
+                },
+                onNotificationPressed: () async {
+                  await c.setNotifyValue(!c.isNotifying);
+                  await c.read();
+                },
+              );
+            }).toList(),
           ),
         )
         .toList();
@@ -303,7 +303,6 @@ class _DeviceScreenState extends State<DeviceScreen> {
                 );
               },
             ),
-
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(220, 222, 18, 164),

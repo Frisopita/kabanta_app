@@ -26,8 +26,6 @@ void main() {
   } else{
     runApp(const MyKabantaApp());
   }
-  
-  
 }
 
 

@@ -8,8 +8,8 @@ import 'dart:convert';
 
 final Map<String, String> characteristicNames = {
   'beb5483e-36e1-4688-b7f5-ea07361b26a8': 'Temperature',
-  'cc42e1b1-53da-4a07-b55e-6d0b6a45cdb7': 'Humidity',
-  '8bdf0a1a-a48e-4dc3-8bab-ad0c1f7ed218': 'Mes',
+  '8bdf0a1a-a48e-4dc3-8bab-ad0c1f7ed218': 'Humidity',
+  '4fafc201-1fb5-459e-8fcc-c5c9c331914b': 'Mes',
   // Add more characteristic UUIDs here
 };
 
@@ -166,7 +166,7 @@ class ServiceTile extends StatelessWidget {
 class CharacteristicTile extends StatefulWidget {
   final BluetoothCharacteristic characteristic;
   final VoidCallback? onReadPressed;
-  final VoidCallback? onWritePressed;
+  final ValueChanged<List<int>>? onWritePressed;
   final VoidCallback? onNotificationPressed;
 
   const CharacteristicTile(
@@ -238,7 +238,11 @@ class _CharacteristicTileState extends State<CharacteristicTile> {
               IconButton(
                 icon: Icon(Icons.edit,
                     color: Theme.of(context).iconTheme.color?.withOpacity(0.5)),
-                onPressed: widget.onWritePressed,
+                //onPressed: widget.onWritePressed!([currentSliderValue.toInt()]),
+                onPressed: () {
+                  final List<int> result = [currentSliderValue.toInt()];
+                  widget.onWritePressed?.call(result);
+                },
               ),
               IconButton(
                 icon: Icon(
