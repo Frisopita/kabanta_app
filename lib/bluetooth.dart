@@ -1,17 +1,21 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:math';
 import 'package:flutter/material.dart';// Quitar 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:kabanta_app1/Pages/ecg.dart';
+import 'package:kabanta_app1/temp_provider.dart';
 import 'widgets.dart';
-import 'main.dart';
+import 'package:provider/provider.dart';
 
 class FlutterBlueApp extends StatelessWidget {
   const FlutterBlueApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ChangeNotifierProvider(
+      create: (BuildContext context) => TempProvider(),
+      child: MaterialApp(
+      debugShowCheckedModeBanner: false,
       color: Colors.lightBlue,
       home: StreamBuilder<BluetoothState>(
           stream: FlutterBluePlus.instance.state,
@@ -23,7 +27,8 @@ class FlutterBlueApp extends StatelessWidget {
             }
             return BluetoothOffScreen(state: state);
           }),
-    );
+    ),
+   );
   }
 }
 
@@ -72,13 +77,15 @@ class FindDevicesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Consumer<TempProvider>(
+            builder: (context, temp, _) => Text(temp.temp)),
         title: const Text('Find Devices'),
         actions: [
           ElevatedButton(
             child: const Text('TURN OFF'),
             style: ElevatedButton.styleFrom(
-              primary: Colors.black,
-              onPrimary: Colors.white,
+              foregroundColor: Colors.white,
+	      backgroundColor: Colors.black,
             ),
             onPressed: Platform.isAndroid
                 ? () => FlutterBluePlus.instance.turnOff()
@@ -176,15 +183,6 @@ class DeviceScreen extends StatefulWidget {
 }
 
 class _DeviceScreenState extends State<DeviceScreen> {
-  List<int> _getRandomBytes() {
-    final math = Random();
-    return [
-      math.nextInt(255),
-      math.nextInt(255),
-      math.nextInt(255),
-      math.nextInt(255)
-    ];
-  }
 
   List<Widget> _buildServiceTiles(List<BluetoothService> services) {
     return services
@@ -244,7 +242,7 @@ class _DeviceScreenState extends State<DeviceScreen> {
                     text,
                     style: Theme.of(context)
                         .primaryTextTheme
-                        .button
+                        .labelLarge
                         ?.copyWith(color: Colors.white),
                   ));
             },
@@ -281,11 +279,11 @@ class _DeviceScreenState extends State<DeviceScreen> {
                       ),
                       const IconButton(
                         icon: SizedBox(
+                          width: 18.0,
+                          height: 18.0,
                           child: CircularProgressIndicator(
                             valueColor: AlwaysStoppedAnimation(Colors.grey),
                           ),
-                          width: 18.0,
-                          height: 18.0,
                         ),
                         onPressed: null,
                       )
@@ -309,7 +307,7 @@ class _DeviceScreenState extends State<DeviceScreen> {
                   foregroundColor: Colors.white),
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => const MyKabantaApp(),
+                  builder: (BuildContext context) => const ECG(),
                 ));
               },
               child: const Text('Home'),

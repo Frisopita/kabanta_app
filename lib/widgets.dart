@@ -4,14 +4,20 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'dart:convert';
+import 'package:provider/provider.dart';
+import 'temp_provider.dart';
 
 final Map<String, String> characteristicNames = {
-  'beb5483e-36e1-4688-b7f5-ea07361b26a8': 'Temperature',
-  '8bdf0a1a-a48e-4dc3-8bab-ad0c1f7ed218': 'Humidity',
-  '4fafc201-1fb5-459e-8fcc-c5c9c331914b': 'Mes',
+  'beb5483e-36e1-4688-b7f5-ea07361b26a8': 'SP02',
+  '8bdf0a1a-a48e-4dc3-8bab-ad0c1f7ed218': 'Temperatura',
+  '4fafc201-1fb5-459e-8fcc-c5c9c331914b': 'Frecuencia',
   // Add more characteristic UUIDs here
 };
+
+final List<String> excludedServiceUUIDs = [
+  '00001800-0000-1000-8000-00805f9b34fb',
+  '00001801-0000-1000-8000-00805f9b34fb'
+];
 
 class ScanResultTile extends StatelessWidget {
   const ScanResultTile({Key? key, required this.result, this.onTap})
@@ -32,7 +38,7 @@ class ScanResultTile extends StatelessWidget {
           ),
           Text(
             result.device.id.toString(),
-            style: Theme.of(context).textTheme.caption,
+            style: Theme.of(context).textTheme.bodySmall,
           )
         ],
       );
@@ -47,7 +53,7 @@ class ScanResultTile extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title, style: Theme.of(context).textTheme.caption),
+          Text(title, style: Theme.of(context).textTheme.bodySmall),
           const SizedBox(
             width: 12.0,
           ),
@@ -56,7 +62,7 @@ class ScanResultTile extends StatelessWidget {
               value,
               style: Theme.of(context)
                   .textTheme
-                  .caption
+                  .bodySmall
                   ?.apply(color: Colors.black),
               softWrap: true,
             ),
@@ -100,12 +106,12 @@ class ScanResultTile extends StatelessWidget {
       title: _buildTitle(context),
       leading: Text(result.rssi.toString()),
       trailing: ElevatedButton(
-        child: const Text('CONNECT'),
         style: ElevatedButton.styleFrom(
-          primary: Colors.black,
-          onPrimary: Colors.white,
+          foregroundColor: Colors.white,
+          backgroundColor: Colors.black,
         ),
         onPressed: (result.advertisementData.connectable) ? onTap : null,
+        child: const Text('CONNECT'),
       ),
       children: <Widget>[
         _buildAdvRow(
@@ -138,27 +144,28 @@ class ServiceTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (characteristicTiles.isNotEmpty) {
-      return Column(
-        children: <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const Text('Service'),
-              Text('0x${service.uuid.toString().toUpperCase().substring(4, 8)}',
-                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                      color: Theme.of(context).textTheme.caption?.color))
-            ],
-          ),
-          ...characteristicTiles,
-        ],
-      );
+      if (excludedServiceUUIDs.contains(service.uuid.toString())) {
+        return Container(); // Oculta el servicio
+      } else {
+        return Column(
+          children: <Widget>[
+            const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text('Variables'),
+                //Text(
+                //    '0x${service.uuid.toString().toUpperCase().substring(4, 8)}',
+                //    style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                //        color: Theme.of(context).textTheme.caption?.color))
+              ],
+            ),
+            ...characteristicTiles,
+          ],
+        );
+      }
     } else {
-      return ListTile(
-        title: const Text('Service'),
-        subtitle:
-            Text('0x${service.uuid.toString().toUpperCase().substring(4, 8)}'),
-      );
+      return Text('0x${service.uuid.toString().toUpperCase().substring(4, 8)}');
     }
   }
 }
@@ -186,55 +193,60 @@ class _CharacteristicTileState extends State<CharacteristicTile> {
   String currentSetValue = '';
   @override
   Widget build(BuildContext context) {
+    final providerTemp = Provider.of<TempProvider>(context);
     return StreamBuilder<List<int>>(
       stream: widget.characteristic.value,
       initialData: widget.characteristic.lastValue,
       builder: (c, snapshot) {
         final value = snapshot.data;
         String asciiString = value != null ? String.fromCharCodes(value) : '';
-        return ExpansionTile(
-          title: ListTile(
-            title: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  '${characteristicNames[widget.characteristic.uuid.toString().toLowerCase()] ?? widget.characteristic.uuid.toString().toUpperCase()}',
-                ),
-                Slider(
-                  value: currentSliderValue,
-                  max: 100,
-                  divisions: 10,
-                  label: currentSliderValue.round().toString(),
-                  activeColor: Colors.blueGrey,
-                  inactiveColor: Colors.blueGrey.shade200,
-                  onChanged: (double value) {
-                    setState(() {
-                      currentSliderValue = value;
-                      currentSetValue = '${currentSliderValue.round()}';
-                    });
-                  },
-                ),
-                Text(asciiString),
-                const Text('Characteristic'),
-                Text(
-                    '0x${widget.characteristic.uuid.toString().toUpperCase().substring(4, 8)}',
-                    style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                        color: Theme.of(context).textTheme.caption?.color))
-              ],
-            ),
-            contentPadding: const EdgeInsets.all(0.0),
+        return ListTile(
+          title: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                characteristicNames[
+                        widget.characteristic.uuid.toString().toLowerCase()] ??
+                    widget.characteristic.uuid.toString().toUpperCase(),
+              ),
+              Slider(
+                value: currentSliderValue,
+                max: 100,
+                divisions: 10,
+                label: currentSliderValue.round().toString(),
+                activeColor: Colors.blueGrey,
+                inactiveColor: Colors.blueGrey.shade200,
+                onChanged: (double value) {
+                  setState(() {
+                    currentSliderValue = value;
+                    currentSetValue = '${currentSliderValue.round()}';
+                  });
+                },
+              ),
+              Text(asciiString),
+              //const Text('Characteristic'),
+              //Text(
+              //    '0x${widget.characteristic.uuid.toString().toUpperCase().substring(4, 8)}',
+              //    style: Theme.of(context).textTheme.bodyText1?.copyWith(
+              //        color: Theme.of(context).textTheme.caption?.color))
+            ],
           ),
+          contentPadding: const EdgeInsets.all(0.0),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               IconButton(
-                icon: Icon(
-                  Icons.remove_red_eye,
-                  color: Theme.of(context).iconTheme.color?.withOpacity(0.5),
-                ),
-                onPressed: widget.onReadPressed,
-              ),
+                  icon: Icon(
+                    Icons.remove_red_eye,
+                    color: Theme.of(context).iconTheme.color?.withOpacity(0.5),
+                  ),
+                  onPressed: () async {
+                    widget.characteristic.read();
+                    List<int> readValues =
+                        await widget.characteristic.value.first;
+                    providerTemp.temp = String.fromCharCodes(readValues);
+                  }),
               IconButton(
                 icon: Icon(Icons.edit,
                     color: Theme.of(context).iconTheme.color?.withOpacity(0.5)),
@@ -245,13 +257,15 @@ class _CharacteristicTileState extends State<CharacteristicTile> {
                 },
               ),
               IconButton(
-                icon: Icon(
-                    widget.characteristic.isNotifying
-                        ? Icons.sync_disabled
-                        : Icons.sync,
-                    color: Theme.of(context).iconTheme.color?.withOpacity(0.5)),
-                onPressed: widget.onNotificationPressed,
-              )
+                  icon: Icon(
+                      widget.characteristic.isNotifying
+                          ? Icons.sync_disabled
+                          : Icons.sync,
+                      color:
+                          Theme.of(context).iconTheme.color?.withOpacity(0.5)),
+                  onPressed: () {
+                    widget.onNotificationPressed;
+                  })
             ],
           ),
         );
@@ -259,8 +273,6 @@ class _CharacteristicTileState extends State<CharacteristicTile> {
     );
   }
 }
-
-
 
 class AdapterStateTile extends StatelessWidget {
   const AdapterStateTile({Key? key, required this.state}) : super(key: key);
@@ -274,11 +286,11 @@ class AdapterStateTile extends StatelessWidget {
       child: ListTile(
         title: Text(
           'Bluetooth adapter is ${state.toString().substring(15)}',
-          style: Theme.of(context).primaryTextTheme.subtitle2,
+          style: Theme.of(context).primaryTextTheme.titleSmall,
         ),
         trailing: Icon(
           Icons.error,
-          color: Theme.of(context).primaryTextTheme.subtitle2?.color,
+          color: Theme.of(context).primaryTextTheme.titleSmall?.color,
         ),
       ),
     );

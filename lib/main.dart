@@ -28,7 +28,6 @@ void main() {
   }
 }
 
-
 // Inicializaci¨®n de la APP
 class MyKabantaApp extends StatefulWidget {
   const MyKabantaApp({super.key});
