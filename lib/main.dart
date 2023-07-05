@@ -7,6 +7,9 @@ import 'package:kabanta_app1/Pages/ecg.dart';
 import 'package:kabanta_app1/Pages/history.dart';
 import 'package:kabanta_app1/Pages/scenery.dart';
 import 'package:kabanta_app1/Pages/vital.dart';
+import 'package:kabanta_app1/bluetooth.dart';
+import 'package:provider/provider.dart';
+import 'temp_provider.dart';
 import 'widgets.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -23,24 +26,36 @@ void main() {
     ].request().then((status) {
       runApp(const MyKabantaApp());
     });
-  } else{
+  } else {
     runApp(const MyKabantaApp());
   }
 }
 
 // Inicializaci¨®n de la APP
-class MyKabantaApp extends StatefulWidget {
+class MyKabantaApp extends StatelessWidget {
   const MyKabantaApp({super.key});
   @override
-  State<MyKabantaApp> createState() => _MyKabantaAppState();
-}
-
-class _MyKabantaAppState extends State<MyKabantaApp> {
-  @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-        debugShowCheckedModeBanner: false, home: DataPage(),
-        );
+    return ChangeNotifierProvider(
+      create: (BuildContext context) => TempProvider(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        color: Colors.lightBlue,
+        home: StreamBuilder<BluetoothState>(
+            stream: FlutterBluePlus.instance.state,
+            initialData: BluetoothState.unknown,
+            builder: (c, snapshot) {
+              final state = snapshot.data;
+              if (state == BluetoothState.on) {
+                return const DataPage();
+              }
+              return const Center(
+                child:
+                    Text('Su bluetooth esta apagado, es necesario prenderlo'),
+              );
+            }),
+      ),
+    );
   }
 }
 
@@ -53,10 +68,9 @@ class DataPage extends StatefulWidget {
 }
 
 class _DataPageState extends State<DataPage> {
+  int currentIndex = 0;
 
-  int currentIndex= 0;
-
-  final List<Widget> _widgetOptions = <Widget> [
+  final List<Widget> _widgetOptions = <Widget>[
     const ECG(),
     const Vital(),
     const Scenery(),
@@ -76,41 +90,33 @@ class _DataPageState extends State<DataPage> {
         },
         currentIndex: currentIndex,
         items: <BottomNavigationBarItem>[
-      //ECG Button
-         BottomNavigationBarItem(
-          label: 'ECG',
-          icon: Icon(
-            Icons.monitor_heart,
-            color: currentIndex == 0 ? Colors.blueGrey : Colors.black
-          ),
-         ),
-      //Vital Button
+          //ECG Button
           BottomNavigationBarItem(
-          label: 'Vital Signs',
-          icon: Icon(
-            Icons.accessibility_new,
-            color: currentIndex == 1 ? Colors.blueGrey : Colors.black
+            label: 'ECG',
+            icon: Icon(Icons.monitor_heart,
+                color: currentIndex == 0 ? Colors.blueGrey : Colors.black),
           ),
-          ),
-      //Scenery Button
+          //Vital Button
           BottomNavigationBarItem(
-          label: 'Scenery',
-          icon: Icon(
-            Icons.tag,
-            color: currentIndex == 2 ?  Colors.blueGrey : Colors.black
+            label: 'Vital Signs',
+            icon: Icon(Icons.accessibility_new,
+                color: currentIndex == 1 ? Colors.blueGrey : Colors.black),
           ),
-          ),
-      //History Button
+          //Scenery Button
           BottomNavigationBarItem(
-          label: 'History',
-          icon: Icon(
-            Icons.history,
-            color: currentIndex == 3 ? Colors.blueGrey : Colors.black
+            label: 'Scenery',
+            icon: Icon(Icons.tag,
+                color: currentIndex == 2 ? Colors.blueGrey : Colors.black),
           ),
+          //History Button
+          BottomNavigationBarItem(
+            label: 'History',
+            icon: Icon(Icons.history,
+                color: currentIndex == 3 ? Colors.blueGrey : Colors.black),
           ),
-       ],
-      selectedItemColor: Colors.blueGrey,
-      ), 
+        ],
+        selectedItemColor: Colors.blueGrey,
+      ),
     );
   }
 }

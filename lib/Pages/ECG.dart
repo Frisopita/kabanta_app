@@ -66,7 +66,7 @@ class _ECGState extends State<ECG> {
             tooltip: 'Settings',
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => const FlutterBlueApp(),
+                builder: (BuildContext context) => const FindDevicesScreen(),
               ));
             },
           ),

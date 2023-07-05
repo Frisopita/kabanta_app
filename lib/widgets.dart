@@ -8,11 +8,14 @@ import 'package:provider/provider.dart';
 import 'temp_provider.dart';
 
 final Map<String, String> characteristicNames = {
-  'beb5483e-36e1-4688-b7f5-ea07361b26a8': 'SP02',
-  '8bdf0a1a-a48e-4dc3-8bab-ad0c1f7ed218': 'Temperatura',
-  '4fafc201-1fb5-459e-8fcc-c5c9c331914b': 'Frecuencia',
-  // Add more characteristic UUIDs here
-};
+  'beb5483e-36e1-4688-b7f5-ea07361b26a8': 'Heart Rate',
+  '8bdf0a1a-a48e-4dc3-8bab-ad0c1f7ed218': 'Temperature',
+  '411fcc1c-e7a5-4a61-82fe-0004993dd1f4': 'SP02',
+  'c608f523-aa19-40d1-8359-ad43409c34d7': 'Systolic Preasure',
+  '52294b4d-d66e-4d68-9782-1e5bb8f7ba14': 'Diastolic Preasure',
+  '7533653f-6f0e-41fa-8fa6-9892a1904db1': 'Frecuency',
+  '607a2edc-007d-4d51-a3a6-58fad0db3c37': 'CO2',
+  };
 
 final List<String> excludedServiceUUIDs = [
   '00001800-0000-1000-8000-00805f9b34fb',
