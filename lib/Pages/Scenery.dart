@@ -90,175 +90,168 @@ class _SceneryState extends State<Scenery> {
           ),
         ],
       ),
-      body: Container(
-        color: Colors.white,
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            //0
-
-            Align(
-              alignment: Alignment.topCenter,
-              child: Container(
-                width: double.infinity,
-                height: 50,
-                color: Colors.blueGrey.shade100,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          //0
+          Container(
+            width: double.infinity,
+            height: 50,
+            color: Colors.blueGrey.shade100,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(
+                      5, //left
+                      9, //top
+                      5, //right
+                      9 //botton
+                      ),
+                  child: Container(
+                    width: 60,
+                    decoration: BoxDecoration(
+                        color: Colors.blueGrey.shade300,
+                        borderRadius: BorderRadius.circular(2)),
+                    child: Center(
+                      child: Text(
+                        'NS',
+                        style: signalabel,
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: SizedBox(
+                      width: 250,
+                      height: 40,
+                      child: Image.asset(
+                        'Images/arryt.png',
+                        fit: BoxFit.contain,
+                      )),
+                ),
+              ],
+            ),
+          ),
+          //1
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: SizedBox(
+                child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+                      child: Text(
+                        'Predefinidos',
+                        style: labelStyle,
+                      ),
+                    ))),
+          ),
+          //2
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(
-                          5, //left
-                          9, //top
-                          5, //right
-                          9 //botton
-                          ),
-                      child: Container(
-                        width: 60,
-                        decoration: BoxDecoration(
-                            color: Colors.blueGrey.shade300,
-                            borderRadius: BorderRadius.circular(2)),
-                        child: Center(
-                            child: Text(
-                          'NS',
-                          style: signalabel,
-                        )),
+                      padding: EdgeInsets.fromLTRB(
+                          spaceleft, spacetop, spaceright, spacebott),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: colorbackbutt2,
+                            foregroundColor: colorforebutt2),
+                        onPressed: () {
+                          setState(() {
+                            buttConstName = 'Clicked';
+                          });
+                          print('Holiwis');
+                        },
+                        child: Text(buttName4),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: SizedBox(
-                          width: 250,
-                          height: 40,
-                          child: Image.asset(
-                            'Images/arryt.png',
-                            fit: BoxFit.contain,
-                          )),
+                      padding: EdgeInsets.fromLTRB(
+                          spaceleft, spacetop, spaceright, spacebott),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: colorbackbutt2,
+                            foregroundColor: colorforebutt2),
+                        onPressed: () {
+                          setState(() {
+                            buttConstName = 'Clicked';
+                          });
+                          print('Holiwis');
+                        },
+                        child: Text(buttName5),
+                      ),
                     ),
                   ],
                 ),
-              ),
-            ),
-            //1
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: SizedBox(
-                  child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
-                        child: Text(
-                          'Predefinidos',
-                          style: labelStyle,
-                        ),
-                      ))),
-            ),
-            //2
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                  child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(
-                            spaceleft, spacetop, spaceright, spacebott),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: colorbackbutt2,
-                              foregroundColor: colorforebutt2),
-                          onPressed: () {
-                            setState(() {
-                              buttConstName = 'Clicked';
-                            });
-                            print('Holiwis');
-                          },
-                          child: Text(buttName4),
-                        ),
+                Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(
+                          spaceleft, spacetop, spaceright, spacebott),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: colorbackbutt2,
+                            foregroundColor: colorforebutt2),
+                        onPressed: () {
+                          setState(() {
+                            buttConstName = 'Clicked';
+                          });
+                          print('Holiwis');
+                        },
+                        child: Text(buttName6),
                       ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(
-                            spaceleft, spacetop, spaceright, spacebott),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: colorbackbutt2,
-                              foregroundColor: colorforebutt2),
-                          onPressed: () {
-                            setState(() {
-                              buttConstName = 'Clicked';
-                            });
-                            print('Holiwis');
-                          },
-                          child: Text(buttName5),
-                        ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(
+                          spaceleft, spacetop, spaceright, spacebott),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: colorbackbutt2,
+                            foregroundColor: colorforebutt2),
+                        onPressed: () {
+                          setState(() {
+                            buttConstName = 'Clicked';
+                          });
+                          print('Holiwis');
+                        },
+                        child: Text(buttName7),
                       ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(
-                            spaceleft, spacetop, spaceright, spacebott),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: colorbackbutt2,
-                              foregroundColor: colorforebutt2),
-                          onPressed: () {
-                            setState(() {
-                              buttConstName = 'Clicked';
-                            });
-                            print('Holiwis');
-                          },
-                          child: Text(buttName6),
-                        ),
+                    ),
+                  ],
+                ),
+              ],
+            )),
+          ),
+          //3
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: SizedBox(
+                child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+                      child: Text(
+                        'Personalizados',
+                        style: labelStyle,
                       ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(
-                            spaceleft, spacetop, spaceright, spacebott),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: colorbackbutt2,
-                              foregroundColor: colorforebutt2),
-                          onPressed: () {
-                            setState(() {
-                              buttConstName = 'Clicked';
-                            });
-                            print('Holiwis');
-                          },
-                          child: Text(buttName7),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              )),
-            ),
-            //3
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: SizedBox(
-                  child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
-                        child: Text(
-                          'Personalizados',
-                          style: labelStyle,
-                        ),
-                      ))),
-            ),
-            //4
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: SizedBox(
-                  child: Row(
+                    ))),
+          ),
+          //4
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: SizedBox(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -335,10 +328,10 @@ class _SceneryState extends State<Scenery> {
                     ],
                   ),
                 ],
-              )),
-            )
-          ],
-        ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

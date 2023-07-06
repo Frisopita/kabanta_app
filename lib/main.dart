@@ -49,10 +49,11 @@ class MyKabantaApp extends StatelessWidget {
               if (state == BluetoothState.on) {
                 return const DataPage();
               }
-              return const Center(
+              return const DataPage();
+              /*const Center(
                 child:
                     Text('Su bluetooth esta apagado, es necesario prenderlo'),
-              );
+              );*/
             }),
       ),
     );

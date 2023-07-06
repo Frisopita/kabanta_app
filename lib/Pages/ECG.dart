@@ -96,8 +96,8 @@ class _ECGState extends State<ECG> {
         width: double.infinity,
         height: double.infinity,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //0
             Container(
@@ -155,8 +155,8 @@ class _ECGState extends State<ECG> {
                         padding: EdgeInsets.fromLTRB(
                             spaceleft, spacetop, spaceright, spacebott),
                         child: Container(
-                          width: 60,
-                          height: 20,
+                          width: 80,
+                          height: 35,
                           decoration: BoxDecoration(
                           color: Colors.blueGrey.shade300,
                           borderRadius: BorderRadius.circular(2),
@@ -178,17 +178,25 @@ class _ECGState extends State<ECG> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(
                             spaceleft, spacetop, spaceright, spacebott),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: colorbackbutt1,
-                              foregroundColor: colorforebutt1),
-                          onPressed: () {
-                            setState(() {
-                              buttConstName = 'Clicked';
-                            });
-                            print('Holiwis');
-                          },
-                          child: Text(buttName2),
+                        child: Container(
+                          width: 80,
+                          height: 35,
+                          decoration: BoxDecoration(
+                          color: Colors.blueGrey.shade300,
+                          borderRadius: BorderRadius.circular(2),
+                          ),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: colorbackbutt1,
+                                foregroundColor: colorforebutt1),
+                            onPressed: () {
+                              setState(() {
+                                buttConstName = 'Clicked';
+                              });
+                              print('Holiwis');
+                            },
+                            child: Text(buttName2),
+                          ),
                         ),
                       ),
                       Padding(
