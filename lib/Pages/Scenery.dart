@@ -8,6 +8,9 @@ class Scenery extends StatefulWidget {
 }
 
 class _SceneryState extends State<Scenery> {
+  final TextStyle labelStyle = const TextStyle(
+    fontSize: 16.0,
+  );
   String buttName1 = 'NS';
   String buttName2 = 'BS';
   String buttName3 = 'TS';
@@ -73,220 +76,231 @@ class _SceneryState extends State<Scenery> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            //2
-            const SizedBox(
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(
-                   15,
-                   15,
-                   15,
-                   15),
-                  child:  Text('Predefinidos'),
-                  )
-              )
+            //1
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: SizedBox(
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const  EdgeInsets.fromLTRB(
+                     15,
+                     15,
+                     15,
+                     15),
+                    child:  Text('Predefinidos', style: labelStyle,),
+                    )
+                )
+              ),
             ),            
+            //2
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                  child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(
+                        spaceleft, 
+                        spacetop, 
+                        spaceright, 
+                        spacebott),
+                        child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: colorbackbutt2,
+                            foregroundColor: colorforebutt2),
+                        onPressed: () {
+                          setState(() {
+                            buttConstName = 'Clicked';
+                          });
+                          print('Holiwis');
+                        },
+                        child: Text(buttName4),
+                      ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(
+                        spaceleft, 
+                        spacetop, 
+                        spaceright, 
+                        spacebott),
+                        child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: colorbackbutt2,
+                            foregroundColor: colorforebutt2),
+                        onPressed: () {
+                          setState(() {
+                            buttConstName = 'Clicked';
+                          });
+                          print('Holiwis');
+                        },
+                        child: Text(buttName5),
+                      ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(
+                        spaceleft, 
+                        spacetop, 
+                        spaceright, 
+                        spacebott),
+                        child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: colorbackbutt2,
+                            foregroundColor: colorforebutt2),
+                        onPressed: () {
+                          setState(() {
+                            buttConstName = 'Clicked';
+                          });
+                          print('Holiwis');
+                        },
+                        child: Text(buttName6),
+                      ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(
+                        spaceleft, 
+                        spacetop, 
+                        spaceright, 
+                        spacebott),
+                        child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: colorbackbutt2,
+                            foregroundColor: colorforebutt2),
+                        onPressed: () {
+                          setState(() {
+                            buttConstName = 'Clicked';
+                          });
+                          print('Holiwis');
+                        },
+                        child: Text(buttName7),
+                      ),
+                      ),
+                    ],
+                  ),
+                ],
+              )),
+            ),
             //3
-            Expanded(
-                child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(
-                      spaceleft, 
-                      spacetop, 
-                      spaceright, 
-                      spacebott),
-                      child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: colorbackbutt2,
-                          foregroundColor: colorforebutt2),
-                      onPressed: () {
-                        setState(() {
-                          buttConstName = 'Clicked';
-                        });
-                        print('Holiwis');
-                      },
-                      child: Text(buttName4),
-                    ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(
-                      spaceleft, 
-                      spacetop, 
-                      spaceright, 
-                      spacebott),
-                      child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: colorbackbutt2,
-                          foregroundColor: colorforebutt2),
-                      onPressed: () {
-                        setState(() {
-                          buttConstName = 'Clicked';
-                        });
-                        print('Holiwis');
-                      },
-                      child: Text(buttName5),
-                    ),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(
-                      spaceleft, 
-                      spacetop, 
-                      spaceright, 
-                      spacebott),
-                      child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: colorbackbutt2,
-                          foregroundColor: colorforebutt2),
-                      onPressed: () {
-                        setState(() {
-                          buttConstName = 'Clicked';
-                        });
-                        print('Holiwis');
-                      },
-                      child: Text(buttName6),
-                    ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(
-                      spaceleft, 
-                      spacetop, 
-                      spaceright, 
-                      spacebott),
-                      child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: colorbackbutt2,
-                          foregroundColor: colorforebutt2),
-                      onPressed: () {
-                        setState(() {
-                          buttConstName = 'Clicked';
-                        });
-                        print('Holiwis');
-                      },
-                      child: Text(buttName7),
-                    ),
-                    ),
-                  ],
-                ),
-              ],
-            )),
+             Padding(
+               padding: const EdgeInsets.all(15),
+               child: SizedBox(
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(
+                     15,
+                     15,
+                     15,
+                     15),
+                    child:  Text('Personalizados', style: labelStyle,),
+                    )
+                )
+                         ),
+             ), 
             //4
-             const SizedBox(
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(
-                   15,
-                   15,
-                   15,
-                   15),
-                  child:  Text('Personalizados'),
-                  )
-              )
-            ), 
-            
-            //5
-            Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                  
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(
-                      spaceleft, 
-                      spacetop, 
-                      spaceright, 
-                      spacebott),
-                      child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: colorbackbutt2,
-                          foregroundColor: colorforebutt2),
-                      onPressed: () {
-                        setState(() {
-                          buttConstName = 'Clicked';
-                        });
-                        print('Holiwis');
-                      },
-                      child: Text(buttName11),
-                    ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(
-                      spaceleft, 
-                      spacetop, 
-                      spaceright, 
-                      spacebott),
-                      child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: colorbackbutt2,
-                          foregroundColor: colorforebutt2),
-                      onPressed: () {
-                        setState(() {
-                          buttConstName = 'Clicked';
-                        });
-                        print('Holiwis');
-                      },
-                      child: Text(buttName12),
-                    ),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(
-                      spaceleft, 
-                      spacetop, 
-                      spaceright, 
-                      spacebott),
-                      child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: colorbackbutt2,
-                          foregroundColor: colorforebutt2),
-                      onPressed: () {
-                        setState(() {
-                          buttConstName = 'Clicked';
-                        });
-                        print('Holiwis');
-                      },
-                      child: Text(buttName13),
-                    ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(
-                      spaceleft, 
-                      spacetop, 
-                      spaceright, 
-                      spacebott),
-                      child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: colorbackbutt2,
-                          foregroundColor: colorforebutt2),
-                      onPressed: () {
-                        setState(() {
-                          buttConstName = 'Clicked';
-                        });
-                        print('Holiwis');
-                      },
-                      child: Text(buttName14),
-                    ),
-                    ),
-                  ],
-                ),
-              ],
-            ))
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: SizedBox(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                    
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(
+                        spaceleft, 
+                        spacetop, 
+                        spaceright, 
+                        spacebott),
+                        child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: colorbackbutt2,
+                            foregroundColor: colorforebutt2),
+                        onPressed: () {
+                          setState(() {
+                            buttConstName = 'Clicked';
+                          });
+                          print('Holiwis');
+                        },
+                        child: Text(buttName11),
+                      ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(
+                        spaceleft, 
+                        spacetop, 
+                        spaceright, 
+                        spacebott),
+                        child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: colorbackbutt2,
+                            foregroundColor: colorforebutt2),
+                        onPressed: () {
+                          setState(() {
+                            buttConstName = 'Clicked';
+                          });
+                          print('Holiwis');
+                        },
+                        child: Text(buttName12),
+                      ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(
+                        spaceleft, 
+                        spacetop, 
+                        spaceright, 
+                        spacebott),
+                        child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: colorbackbutt2,
+                            foregroundColor: colorforebutt2),
+                        onPressed: () {
+                          setState(() {
+                            buttConstName = 'Clicked';
+                          });
+                          print('Holiwis');
+                        },
+                        child: Text(buttName13),
+                      ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(
+                        spaceleft, 
+                        spacetop, 
+                        spaceright, 
+                        spacebott),
+                        child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: colorbackbutt2,
+                            foregroundColor: colorforebutt2),
+                        onPressed: () {
+                          setState(() {
+                            buttConstName = 'Clicked';
+                          });
+                          print('Holiwis');
+                        },
+                        child: Text(buttName14),
+                      ),
+                      ),
+                    ],
+                  ),
+                ],
+              )),
+            )
           ],
         ),
       ),

@@ -27,10 +27,8 @@ class _HistoryState extends State<History> {
   String time6 = '03:00';
   String time7 = '03:55';
 
-  Color colorbackbutt1 = Colors.indigo.shade700;
+  Color colorbackbutt1 = Colors.blueGrey.shade300;
   Color colorforebutt1 = Colors.white;
-  Color colorbackbutt2 = Colors.white;
-  Color colorforebutt2 = Colors.indigo;
 
   @override
   Widget build(BuildContext context) {
@@ -74,11 +72,17 @@ class _HistoryState extends State<History> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
                       child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: colorbackbutt1,
+                            foregroundColor: colorforebutt1),
                           onPressed: () {}, child: const Text('Programado')),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
                       child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: colorbackbutt1,
+                            foregroundColor: colorforebutt1),
                           onPressed: () {}, child: const Text('Historial')),
                     )
                   ],
