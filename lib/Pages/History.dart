@@ -8,6 +8,18 @@ class History extends StatefulWidget {
 }
 
 class _HistoryState extends State<History> {
+  final TextStyle signalabel = 
+   const TextStyle(
+    fontSize: 18.0,
+    color: Colors.black,
+    //backgroundColor: Colors.blue.shade100
+  );
+   final TextStyle timeLabel = 
+   const TextStyle(
+    fontSize: 25.0,
+    color: Colors.black,
+    //backgroundColor: Colors.blue.shade100
+  );
   final TextStyle labelStyle = const TextStyle(
     fontSize: 16.0,
   );
@@ -41,6 +53,15 @@ class _HistoryState extends State<History> {
                 130), //const Text('Kabsim App', style: TextStyle(color: Colors.black),),
         backgroundColor: Colors.white,
         actions: <Widget>[
+          Align(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: SizedBox(
+                child: Text('00:00:00', style: timeLabel,),
+              ),
+            ),
+          ),
           IconButton(
             icon: const Icon(
               Icons.settings,
@@ -63,6 +84,46 @@ class _HistoryState extends State<History> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+                 //0
+               
+                Container(
+                  width: double.infinity,
+                  height: 50,
+                  color: Colors.blueGrey.shade100,
+                  child:  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                         Padding(
+                          padding: const  EdgeInsets.fromLTRB(
+                           5,//left
+                           9, //top
+                           5, //right
+                           9 //botton
+                           ),
+                          child: Container(
+                            width: 60,
+                            decoration: BoxDecoration(
+                              color: Colors.blueGrey.shade300,
+                              borderRadius: BorderRadius.circular(2)),
+                            child: Center(child: Text('NS', style: signalabel,)),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: SizedBox(
+                            width: 250,
+                            height: 40,
+                            child:Image.asset(
+                              'Images/arryt.png',
+                              fit: BoxFit.contain,
+                            )
+                          ),
+                        ),
+                      ],
+                  ),
+                             ),
+              
               //2
               SizedBox(
                 child: Row(
@@ -70,7 +131,7 @@ class _HistoryState extends State<History> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+                      padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: colorbackbutt1,
@@ -78,7 +139,7 @@ class _HistoryState extends State<History> {
                           onPressed: () {}, child: const Text('Programado')),
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+                      padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: colorbackbutt1,

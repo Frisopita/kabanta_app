@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 
-
 double _currentSliderValue1 = 30;
 double _currentSliderValue2 = 35;
 double _currentSliderValue3 = 70;
@@ -62,10 +61,6 @@ String buttonName5 = 'Time';
 String buttonName6 = 'Time';
 String buttonName7 = 'Time';
 
-
-
-
-
 class Vital extends StatefulWidget {
   const Vital({super.key});
 
@@ -74,18 +69,37 @@ class Vital extends StatefulWidget {
 }
 
 class _VitalState extends State<Vital> {
-
+  final TextStyle signalabel = const TextStyle(
+    fontSize: 18.0,
+    color: Colors.black,
+    //backgroundColor: Colors.blue.shade100
+  );
+  final TextStyle timeLabel = const TextStyle(
+    fontSize: 25.0,
+    color: Colors.black,
+    //backgroundColor: Colors.blue.shade100
+  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Image.asset('Images/original.png',
-            fit: BoxFit.cover,
-            height: 100,
-            width: 130),
+            fit: BoxFit.cover, height: 100, width: 130),
         backgroundColor: Colors.white,
         actions: <Widget>[
+          Align(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: SizedBox(
+                child: Text(
+                  '00:00:00',
+                  style: timeLabel,
+                ),
+              ),
+            ),
+          ),
           IconButton(
             icon: const Icon(
               Icons.settings,
@@ -114,6 +128,11 @@ class Contentvital extends StatefulWidget {
 }
 
 class _ContentvitalState extends State<Contentvital> {
+  final TextStyle signalabel = const TextStyle(
+    fontSize: 18.0,
+    color: Colors.black,
+    //backgroundColor: Colors.blue.shade100
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -126,6 +145,48 @@ class _ContentvitalState extends State<Contentvital> {
             width: constraints.maxWidth / 1.5,
             child: Column(
               children: <Widget>[
+                //0
+
+                Container(
+                  width: double.infinity,
+                  height: 50,
+                  color: Colors.blueGrey.shade100,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(
+                            5, //left
+                            9, //top
+                            5, //right
+                            9 //botton
+                            ),
+                        child: Container(
+                          width: 60,
+                          decoration: BoxDecoration(
+                              color: Colors.blueGrey.shade300,
+                              borderRadius: BorderRadius.circular(2)),
+                          child: Center(
+                              child: Text(
+                            'NS',
+                            style: signalabel,
+                          )),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: SizedBox(
+                            width: 250,
+                            height: 40,
+                            child: Image.asset(
+                              'Images/arryt.png',
+                              fit: BoxFit.contain,
+                            )),
+                      ),
+                    ],
+                  ),
+                ),
                 //Heart Rate
                 SizedBox(
                   width: textwidht,
@@ -385,7 +446,6 @@ class _ContentvitalState extends State<Contentvital> {
               ],
             ),
           ),
-
         ],
       );
     });

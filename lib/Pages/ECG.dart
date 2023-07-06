@@ -12,6 +12,16 @@ class ECG extends StatefulWidget {
 }
 
 class _ECGState extends State<ECG> {
+  final TextStyle timeLabel = const TextStyle(
+    fontSize: 25.0,
+    color: Colors.black,
+    //backgroundColor: Colors.blue.shade100
+  );
+  final TextStyle signalabel = const TextStyle(
+    fontSize: 18.0,
+    color: Colors.black,
+    //backgroundColor: Colors.blue.shade100
+  );
   String buttName1 = 'NS';
   String buttName2 = 'BS';
   String buttName3 = 'TS';
@@ -32,10 +42,8 @@ class _ECGState extends State<ECG> {
   String buttName18 = 'B';
   String buttConstName = 'Cliked';
 
-  double ecgbutwid = 120;
-  double ecgbuthei = 66;
   bool isClicked = false;
-  
+
   Color colorbackbutt1 = Colors.indigo.shade700;
   Color colorforebutt1 = Colors.white;
   Color colorbackbutt2 = Colors.white;
@@ -45,7 +53,6 @@ class _ECGState extends State<ECG> {
   double spacetop = 5;
   double spaceright = 5;
   double spacebott = 2;
-
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +65,18 @@ class _ECGState extends State<ECG> {
                 130), //const Text('Kabsim App', style: TextStyle(color: Colors.black),),
         backgroundColor: Colors.white,
         actions: <Widget>[
+          Align(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: SizedBox(
+                child: Text(
+                  '00:00:00',
+                  style: timeLabel,
+                ),
+              ),
+            ),
+          ),
           IconButton(
             icon: const Icon(
               Icons.settings,
@@ -80,9 +99,51 @@ class _ECGState extends State<ECG> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            //0
+            Container(
+              width: double.infinity,
+              height: 50,
+              color: Colors.blueGrey.shade100,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(
+                        5, //left
+                        9, //top
+                        5, //right
+                        9 //botton
+                        ),
+                    child: Container(
+                      width: 60,
+                      decoration: BoxDecoration(
+                          color: Colors.blueGrey.shade300,
+                          borderRadius: BorderRadius.circular(2)),
+                      child: Center(
+                          child: Text(
+                        'NS',
+                        style: signalabel,
+                      )),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: SizedBox(
+                        width: 250,
+                        height: 40,
+                        child: Image.asset(
+                          'Images/arryt.png',
+                          fit: BoxFit.contain,
+                        )),
+                  ),
+                ],
+              ),
+            ),
+
             //1
             Padding(
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(10),
               child: SizedBox(
                 child: Center(
                   child: Row(
@@ -91,10 +152,7 @@ class _ECGState extends State<ECG> {
                     children: [
                       Padding(
                         padding: EdgeInsets.fromLTRB(
-                          spaceleft, 
-                          spacetop, 
-                          spaceright, 
-                          spacebott),
+                            spaceleft, spacetop, spaceright, spacebott),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: colorbackbutt1,
@@ -110,10 +168,7 @@ class _ECGState extends State<ECG> {
                       ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(
-                          spaceleft, 
-                          spacetop, 
-                          spaceright, 
-                          spacebott),
+                            spaceleft, spacetop, spaceright, spacebott),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: colorbackbutt1,
@@ -129,10 +184,7 @@ class _ECGState extends State<ECG> {
                       ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(
-                          spaceleft, 
-                          spacetop, 
-                          spaceright, 
-                          spacebott),
+                            spaceleft, spacetop, spaceright, spacebott),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: colorbackbutt1,
@@ -154,20 +206,14 @@ class _ECGState extends State<ECG> {
             //2
             const Padding(
               padding: EdgeInsets.all(15),
-              child: const SizedBox(
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(
-                     15,
-                     0,
-                     0,
-                     0),
-                    child:  Text('TACHYCARDIA'),
-                    )
-                )
-              ),
-            ),            
+              child: SizedBox(
+                  child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        child: Text('TACHYCARDIA'),
+                      ))),
+            ),
             //3
             Padding(
               padding: const EdgeInsets.all(15),
@@ -180,41 +226,35 @@ class _ECGState extends State<ECG> {
                     children: [
                       Padding(
                         padding: EdgeInsets.fromLTRB(
-                        spaceleft, 
-                        spacetop, 
-                        spaceright, 
-                        spacebott),
+                            spaceleft, spacetop, spaceright, spacebott),
                         child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt2,
-                            foregroundColor: colorforebutt2),
-                        onPressed: () {
-                          setState(() {
-                            buttConstName = 'Clicked';
-                          });
-                          print('Holiwis');
-                        },
-                        child: Text(buttName4),
-                      ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt2,
+                              foregroundColor: colorforebutt2),
+                          onPressed: () {
+                            setState(() {
+                              buttConstName = 'Clicked';
+                            });
+                            print('Holiwis');
+                          },
+                          child: Text(buttName4),
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(
-                        spaceleft, 
-                        spacetop, 
-                        spaceright, 
-                        spacebott),
+                            spaceleft, spacetop, spaceright, spacebott),
                         child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt2,
-                            foregroundColor: colorforebutt2),
-                        onPressed: () {
-                          setState(() {
-                            buttConstName = 'Clicked';
-                          });
-                          print('Holiwis');
-                        },
-                        child: Text(buttName5),
-                      ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt2,
+                              foregroundColor: colorforebutt2),
+                          onPressed: () {
+                            setState(() {
+                              buttConstName = 'Clicked';
+                            });
+                            print('Holiwis');
+                          },
+                          child: Text(buttName5),
+                        ),
                       ),
                     ],
                   ),
@@ -222,41 +262,35 @@ class _ECGState extends State<ECG> {
                     children: [
                       Padding(
                         padding: EdgeInsets.fromLTRB(
-                        spaceleft, 
-                        spacetop, 
-                        spaceright, 
-                        spacebott),
+                            spaceleft, spacetop, spaceright, spacebott),
                         child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt2,
-                            foregroundColor: colorforebutt2),
-                        onPressed: () {
-                          setState(() {
-                            buttConstName = 'Clicked';
-                          });
-                          print('Holiwis');
-                        },
-                        child: Text(buttName6),
-                      ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt2,
+                              foregroundColor: colorforebutt2),
+                          onPressed: () {
+                            setState(() {
+                              buttConstName = 'Clicked';
+                            });
+                            print('Holiwis');
+                          },
+                          child: Text(buttName6),
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(
-                        spaceleft, 
-                        spacetop, 
-                        spaceright, 
-                        spacebott),
+                            spaceleft, spacetop, spaceright, spacebott),
                         child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt2,
-                            foregroundColor: colorforebutt2),
-                        onPressed: () {
-                          setState(() {
-                            buttConstName = 'Clicked';
-                          });
-                          print('Holiwis');
-                        },
-                        child: Text(buttName7),
-                      ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt2,
+                              foregroundColor: colorforebutt2),
+                          onPressed: () {
+                            setState(() {
+                              buttConstName = 'Clicked';
+                            });
+                            print('Holiwis');
+                          },
+                          child: Text(buttName7),
+                        ),
                       ),
                     ],
                   ),
@@ -264,41 +298,35 @@ class _ECGState extends State<ECG> {
                     children: [
                       Padding(
                         padding: EdgeInsets.fromLTRB(
-                        spaceleft, 
-                        spacetop, 
-                        spaceright, 
-                        spacebott),
+                            spaceleft, spacetop, spaceright, spacebott),
                         child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt2,
-                            foregroundColor: colorforebutt2),
-                        onPressed: () {
-                          setState(() {
-                            buttConstName = 'Clicked';
-                          });
-                          print('Holiwis');
-                        },
-                        child: Text(buttName8),
-                      ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt2,
+                              foregroundColor: colorforebutt2),
+                          onPressed: () {
+                            setState(() {
+                              buttConstName = 'Clicked';
+                            });
+                            print('Holiwis');
+                          },
+                          child: Text(buttName8),
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(
-                        spaceleft, 
-                        spacetop, 
-                        spaceright, 
-                        spacebott),
+                            spaceleft, spacetop, spaceright, spacebott),
                         child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt2,
-                            foregroundColor: colorforebutt2),
-                        onPressed: () {
-                          setState(() {
-                            buttConstName = 'Clicked';
-                          });
-                          print('Holiwis');
-                        },
-                        child: Text(buttName9),
-                      ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt2,
+                              foregroundColor: colorforebutt2),
+                          onPressed: () {
+                            setState(() {
+                              buttConstName = 'Clicked';
+                            });
+                            print('Holiwis');
+                          },
+                          child: Text(buttName9),
+                        ),
                       ),
                     ],
                   ),
@@ -307,27 +335,21 @@ class _ECGState extends State<ECG> {
             ),
             //4
             const Padding(
-               padding: const EdgeInsets.all(15),
-               child: const SizedBox(
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(
-                     15,
-                     0,
-                     0,
-                     0),
-                    child:  Text('BRADYCARDIA'),
-                    )
-                )
-                         ),
-             ), 
-            
+              padding: EdgeInsets.all(10),
+              child: SizedBox(
+                  child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        child: Text('BRADYCARDIA'),
+                      ))),
+            ),
+
             //5
             Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(10),
               child: SizedBox(
-              child: Row(
+                  child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -335,60 +357,51 @@ class _ECGState extends State<ECG> {
                     children: [
                       Padding(
                         padding: EdgeInsets.fromLTRB(
-                        spaceleft, 
-                        spacetop, 
-                        spaceright, 
-                        spacebott),
+                            spaceleft, spacetop, spaceright, spacebott),
                         child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt2,
-                            foregroundColor: colorforebutt2),
-                        onPressed: () {
-                          setState(() {
-                            buttConstName = 'Clicked';
-                          });
-                          print('Holiwis');
-                        },
-                        child: Text(buttName10),
-                      ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt2,
+                              foregroundColor: colorforebutt2),
+                          onPressed: () {
+                            setState(() {
+                              buttConstName = 'Clicked';
+                            });
+                            print('Holiwis');
+                          },
+                          child: Text(buttName10),
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(
-                        spaceleft, 
-                        spacetop, 
-                        spaceright, 
-                        spacebott),
+                            spaceleft, spacetop, spaceright, spacebott),
                         child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt2,
-                            foregroundColor: colorforebutt2),
-                        onPressed: () {
-                          setState(() {
-                            buttConstName = 'Clicked';
-                          });
-                          print('Holiwis');
-                        },
-                        child: Text(buttName11),
-                      ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt2,
+                              foregroundColor: colorforebutt2),
+                          onPressed: () {
+                            setState(() {
+                              buttConstName = 'Clicked';
+                            });
+                            print('Holiwis');
+                          },
+                          child: Text(buttName11),
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(
-                        spaceleft, 
-                        spacetop, 
-                        spaceright, 
-                        spacebott),
+                            spaceleft, spacetop, spaceright, spacebott),
                         child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt2,
-                            foregroundColor: colorforebutt2),
-                        onPressed: () {
-                          setState(() {
-                            buttConstName = 'Clicked';
-                          });
-                          print('Holiwis');
-                        },
-                        child: Text(buttName12),
-                      ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt2,
+                              foregroundColor: colorforebutt2),
+                          onPressed: () {
+                            setState(() {
+                              buttConstName = 'Clicked';
+                            });
+                            print('Holiwis');
+                          },
+                          child: Text(buttName12),
+                        ),
                       ),
                     ],
                   ),
@@ -396,60 +409,51 @@ class _ECGState extends State<ECG> {
                     children: [
                       Padding(
                         padding: EdgeInsets.fromLTRB(
-                        spaceleft, 
-                        spacetop, 
-                        spaceright, 
-                        spacebott),
+                            spaceleft, spacetop, spaceright, spacebott),
                         child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt2,
-                            foregroundColor: colorforebutt2),
-                        onPressed: () {
-                          setState(() {
-                            buttConstName = 'Clicked';
-                          });
-                          print('Holiwis');
-                        },
-                        child: Text(buttName13),
-                      ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt2,
+                              foregroundColor: colorforebutt2),
+                          onPressed: () {
+                            setState(() {
+                              buttConstName = 'Clicked';
+                            });
+                            print('Holiwis');
+                          },
+                          child: Text(buttName13),
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(
-                        spaceleft, 
-                        spacetop, 
-                        spaceright, 
-                        spacebott),
+                            spaceleft, spacetop, spaceright, spacebott),
                         child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt2,
-                            foregroundColor: colorforebutt2),
-                        onPressed: () {
-                          setState(() {
-                            buttConstName = 'Clicked';
-                          });
-                          print('Holiwis');
-                        },
-                        child: Text(buttName14),
-                      ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt2,
+                              foregroundColor: colorforebutt2),
+                          onPressed: () {
+                            setState(() {
+                              buttConstName = 'Clicked';
+                            });
+                            print('Holiwis');
+                          },
+                          child: Text(buttName14),
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(
-                        spaceleft, 
-                        spacetop, 
-                        spaceright, 
-                        spacebott),
+                            spaceleft, spacetop, spaceright, spacebott),
                         child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt2,
-                            foregroundColor: colorforebutt2),
-                        onPressed: () {
-                          setState(() {
-                            buttConstName = 'Clicked';
-                          });
-                          print('Holiwis');
-                        },
-                        child: Text(buttName15),
-                      ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt2,
+                              foregroundColor: colorforebutt2),
+                          onPressed: () {
+                            setState(() {
+                              buttConstName = 'Clicked';
+                            });
+                            print('Holiwis');
+                          },
+                          child: Text(buttName15),
+                        ),
                       ),
                     ],
                   ),
@@ -457,60 +461,51 @@ class _ECGState extends State<ECG> {
                     children: [
                       Padding(
                         padding: EdgeInsets.fromLTRB(
-                        spaceleft, 
-                        spacetop, 
-                        spaceright, 
-                        spacebott),
+                            spaceleft, spacetop, spaceright, spacebott),
                         child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt2,
-                            foregroundColor: colorforebutt2),
-                        onPressed: () {
-                          setState(() {
-                            buttConstName = 'Clicked';
-                          });
-                          print('Holiwis');
-                        },
-                        child: Text(buttName16),
-                      ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt2,
+                              foregroundColor: colorforebutt2),
+                          onPressed: () {
+                            setState(() {
+                              buttConstName = 'Clicked';
+                            });
+                            print('Holiwis');
+                          },
+                          child: Text(buttName16),
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(
-                        spaceleft, 
-                        spacetop, 
-                        spaceright, 
-                        spacebott),
+                            spaceleft, spacetop, spaceright, spacebott),
                         child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt2,
-                            foregroundColor: colorforebutt2),
-                        onPressed: () {
-                          setState(() {
-                            buttConstName = 'Clicked';
-                          });
-                          print('Holiwis');
-                        },
-                        child: Text(buttName17),
-                      ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt2,
+                              foregroundColor: colorforebutt2),
+                          onPressed: () {
+                            setState(() {
+                              buttConstName = 'Clicked';
+                            });
+                            print('Holiwis');
+                          },
+                          child: Text(buttName17),
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(
-                        spaceleft, 
-                        spacetop, 
-                        spaceright, 
-                        spacebott),
+                            spaceleft, spacetop, spaceright, spacebott),
                         child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt2,
-                            foregroundColor: colorforebutt2),
-                        onPressed: () {
-                          setState(() {
-                            buttConstName = 'Clicked';
-                          });
-                          print('Holiwis');
-                        },
-                        child: Text(buttName18),
-                      ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt2,
+                              foregroundColor: colorforebutt2),
+                          onPressed: () {
+                            setState(() {
+                              buttConstName = 'Clicked';
+                            });
+                            print('Holiwis');
+                          },
+                          child: Text(buttName18),
+                        ),
                       ),
                     ],
                   ),
