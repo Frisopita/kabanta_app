@@ -121,10 +121,11 @@ class _ECGState extends State<ECG> {
                           color: Colors.blueGrey.shade300,
                           borderRadius: BorderRadius.circular(2)),
                       child: Center(
-                          child: Text(
-                        'NS',
-                        style: signalabel,
-                      )),
+                        child: Text(
+                          'NS',
+                          style: signalabel,
+                        ),
+                      ),
                     ),
                   ),
                   Padding(
@@ -153,17 +154,25 @@ class _ECGState extends State<ECG> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(
                             spaceleft, spacetop, spaceright, spacebott),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: colorbackbutt1,
-                              foregroundColor: colorforebutt1),
-                          onPressed: () {
-                            setState(() {
-                              buttConstName = 'Clicked';
-                            });
-                            print('Holiwis');
-                          },
-                          child: Text(buttName1),
+                        child: Container(
+                          width: 60,
+                          height: 20,
+                          decoration: BoxDecoration(
+                          color: Colors.blueGrey.shade300,
+                          borderRadius: BorderRadius.circular(2),
+                          ),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: colorbackbutt1,
+                                foregroundColor: colorforebutt1),
+                            onPressed: () {
+                              setState(() {
+                                buttConstName = 'Clicked';
+                              });
+                              print('Holiwis');
+                            },
+                            child: Text(buttName1),
+                          ),
                         ),
                       ),
                       Padding(

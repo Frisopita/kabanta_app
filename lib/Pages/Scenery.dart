@@ -100,44 +100,47 @@ class _SceneryState extends State<Scenery> {
           children: [
             //0
 
-            Container(
-              width: double.infinity,
-              height: 50,
-              color: Colors.blueGrey.shade100,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(
-                        5, //left
-                        9, //top
-                        5, //right
-                        9 //botton
-                        ),
-                    child: Container(
-                      width: 60,
-                      decoration: BoxDecoration(
-                          color: Colors.blueGrey.shade300,
-                          borderRadius: BorderRadius.circular(2)),
-                      child: Center(
-                          child: Text(
-                        'NS',
-                        style: signalabel,
-                      )),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: SizedBox(
-                        width: 250,
-                        height: 40,
-                        child: Image.asset(
-                          'Images/arryt.png',
-                          fit: BoxFit.contain,
+            Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                width: double.infinity,
+                height: 50,
+                color: Colors.blueGrey.shade100,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(
+                          5, //left
+                          9, //top
+                          5, //right
+                          9 //botton
+                          ),
+                      child: Container(
+                        width: 60,
+                        decoration: BoxDecoration(
+                            color: Colors.blueGrey.shade300,
+                            borderRadius: BorderRadius.circular(2)),
+                        child: Center(
+                            child: Text(
+                          'NS',
+                          style: signalabel,
                         )),
-                  ),
-                ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: SizedBox(
+                          width: 250,
+                          height: 40,
+                          child: Image.asset(
+                            'Images/arryt.png',
+                            fit: BoxFit.contain,
+                          )),
+                    ),
+                  ],
+                ),
               ),
             ),
             //1
