@@ -8,14 +8,12 @@ class History extends StatefulWidget {
 }
 
 class _HistoryState extends State<History> {
-  final TextStyle signalabel = 
-   const TextStyle(
+  final TextStyle signalabel = const TextStyle(
     fontSize: 18.0,
     color: Colors.black,
     //backgroundColor: Colors.blue.shade100
   );
-   final TextStyle timeLabel = 
-   const TextStyle(
+  final TextStyle timeLabel = const TextStyle(
     fontSize: 25.0,
     color: Colors.black,
     //backgroundColor: Colors.blue.shade100
@@ -29,7 +27,9 @@ class _HistoryState extends State<History> {
   String textName4 = 'Action 3';
   String textName5 = 'Action 4';
   String textName6 = 'Action 5';
-  String textName7 = 'C1';
+  String textName7 = 'Action 6';
+  String textName8 = 'Action 7';
+  String textName9 = 'Action 8';
 
   String time1 = '00:00';
   String time2 = '00:20';
@@ -38,6 +38,8 @@ class _HistoryState extends State<History> {
   String time5 = '01:02';
   String time6 = '03:00';
   String time7 = '03:55';
+  String time8 = '04:00';
+  String time9 = '05:55';
 
   Color colorbackbutt1 = Colors.blueGrey.shade300;
   Color colorforebutt1 = Colors.white;
@@ -58,7 +60,10 @@ class _HistoryState extends State<History> {
             child: Padding(
               padding: const EdgeInsets.all(15),
               child: SizedBox(
-                child: Text('00:00:00', style: timeLabel,),
+                child: Text(
+                  '00:00:00',
+                  style: timeLabel,
+                ),
               ),
             ),
           ),
@@ -75,83 +80,92 @@ class _HistoryState extends State<History> {
           ),
         ],
       ),
-      body: Container(
-        color: Colors.white,
-        width: double.infinity,
-        height: double.infinity,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-                 //0
-               
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          //1
+          Container(
+            height: 120,
+            child: Column(
+              children: [
+                //1.1
                 Container(
                   width: double.infinity,
                   height: 50,
                   color: Colors.blueGrey.shade100,
-                  child:  Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                         Padding(
-                          padding: const  EdgeInsets.fromLTRB(
-                           5,//left
-                           9, //top
-                           5, //right
-                           9 //botton
-                           ),
-                          child: Container(
-                            width: 60,
-                            decoration: BoxDecoration(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(
+                            5, //left
+                            9, //top
+                            5, //right
+                            9 //botton
+                            ),
+                        child: Container(
+                          width: 60,
+                          decoration: BoxDecoration(
                               color: Colors.blueGrey.shade300,
                               borderRadius: BorderRadius.circular(2)),
-                            child: Center(child: Text('NS', style: signalabel,)),
-                          ),
+                          child: Center(
+                              child: Text(
+                            'NS',
+                            style: signalabel,
+                          )),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: SizedBox(
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: SizedBox(
                             width: 250,
                             height: 40,
-                            child:Image.asset(
+                            child: Image.asset(
                               'Images/arryt.png',
                               fit: BoxFit.contain,
-                            )
-                          ),
-                        ),
-                      ],
+                            )),
+                      ),
+                    ],
                   ),
-                             ),
-              
-              //2
-              SizedBox(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt1,
-                            foregroundColor: colorforebutt1),
-                          onPressed: () {}, child: const Text('Programado')),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt1,
-                            foregroundColor: colorforebutt1),
-                          onPressed: () {}, child: const Text('Historial')),
-                    )
-                  ],
                 ),
-              ),
 
-              //3
-              Expanded(
+                //1.2
+                SizedBox(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: colorbackbutt1,
+                                foregroundColor: colorforebutt1),
+                            onPressed: () {},
+                            child: const Text('Programado')),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: colorbackbutt1,
+                                foregroundColor: colorforebutt1),
+                            onPressed: () {},
+                            child: const Text('Historial')),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          //2
+          Expanded(
+            child: SingleChildScrollView(
+              child: Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -210,8 +224,23 @@ class _HistoryState extends State<History> {
                             style: labelStyle,
                           ),
                         ),
+                        Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Text(
+                            '7',
+                            style: labelStyle,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Text(
+                            '8',
+                            style: labelStyle,
+                          ),
+                        ),
                       ],
                     ),
+                    //2
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -265,8 +294,23 @@ class _HistoryState extends State<History> {
                             style: labelStyle,
                           ),
                         ),
+                        Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Text(
+                            textName8,
+                            style: labelStyle,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Text(
+                            textName9,
+                            style: labelStyle,
+                          ),
+                        ),
                       ],
                     ),
+                    //3
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -320,14 +364,28 @@ class _HistoryState extends State<History> {
                             style: labelStyle,
                           ),
                         ),
+                        Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Text(
+                            time8,
+                            style: labelStyle,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Text(
+                            time9,
+                            style: labelStyle,
+                          ),
+                        ),
                       ],
                     ),
                   ],
                 ),
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
