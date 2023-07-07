@@ -61,6 +61,9 @@ String buttonName5 = 'Time';
 String buttonName6 = 'Time';
 String buttonName7 = 'Time';
 
+Color colorbackbutt2 = Colors.white;
+Color colorforebutt2 = Colors.indigo;
+
 class Vital extends StatefulWidget {
   const Vital({super.key});
 
@@ -69,11 +72,6 @@ class Vital extends StatefulWidget {
 }
 
 class _VitalState extends State<Vital> {
-  final TextStyle signalabel = const TextStyle(
-    fontSize: 18.0,
-    color: Colors.black,
-    //backgroundColor: Colors.blue.shade100
-  );
   final TextStyle timeLabel = const TextStyle(
     fontSize: 25.0,
     color: Colors.black,
@@ -128,7 +126,7 @@ class Contentvital extends StatefulWidget {
 }
 
 class _ContentvitalState extends State<Contentvital> {
-  final TextStyle signalabel = const TextStyle(
+  final TextStyle signaLabel = const TextStyle(
     fontSize: 18.0,
     color: Colors.black,
     //backgroundColor: Colors.blue.shade100
@@ -141,318 +139,394 @@ class _ContentvitalState extends State<Contentvital> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         //0
-
         Container(
           width: double.infinity,
           height: 50,
-          color: Colors.blueGrey.shade100,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(
-                    5, //left
-                    9, //top
-                    5, //right
-                    9 //botton
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(
+                        5, //left
+                        9, //top
+                        5, //right
+                        9 //botton
+                        ),
+                    child: Container(
+                      width: 60,
+                      height: 30,
+                      decoration: BoxDecoration(
+                          color: Colors.blueGrey.shade300,
+                          borderRadius: BorderRadius.circular(2)),
+                      child: Center(
+                        child: Text(
+                          'NS',
+                          style: signaLabel,
+                        ),
+                      ),
                     ),
-                child: Container(
-                  width: 60,
-                  decoration: BoxDecoration(
-                      color: Colors.blueGrey.shade300,
-                      borderRadius: BorderRadius.circular(2)),
-                  child: Center(
-                      child: Text(
-                    'NS',
-                    style: signalabel,
-                  )),
-                ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: SizedBox(
+                        width: 250,
+                        height: 30,
+                        child: Image.asset(
+                          'Images/arryt.png',
+                          fit: BoxFit.contain,
+                        )),
+                  ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(5),
-                child: SizedBox(
-                    width: 250,
-                    height: 40,
-                    child: Image.asset(
-                      'Images/arryt.png',
-                      fit: BoxFit.contain,
-                    )),
+              Container(
+                height: 1, // Altura de la l赤nea de separaci車n
+                color: Colors.grey.shade300, // Color de la l赤nea de separaci車n
+                margin: const EdgeInsets.symmetric(vertical: 0),
               ),
             ],
           ),
         ),
-        LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-          return Row(
-            children: <Widget>[
-              //SizedBox as a 1st Column App
-              SizedBox(
-                width: constraints.maxWidth / 1.5,
-                child: Column(
-                  children: <Widget>[
-                    //Heart Rate
-                    SizedBox(
-                      width: textwidht,
-                      height: textheight,
-                      child: Row(
-                        children: [
-                          Text(
-                            'Heart Rate: $_status1',
-                            style: const TextStyle(fontSize: 13),
+        //1
+        Expanded(
+          child: SingleChildScrollView(
+            child: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+              return Row(
+                children: <Widget>[
+                  //SizedBox as a 1st Column App
+                  SizedBox(
+                    width: constraints.maxWidth / 1.5,
+                    child: Column(
+                      children: <Widget>[
+                        //Heart Rate
+                        SizedBox(
+                          width: textwidht,
+                          height: textheight,
+                          child: Row(
+                            children: [
+                              Text(
+                                'Heart Rate: $_status1',
+                                style: const TextStyle(fontSize: 13),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                        width: slidewidht,
-                        height: slideheight,
-                        child: Row(
-                          children: [
-                            Slider(
-                              value: _currentSliderValue1,
-                              min: heartmin,
-                              max: heartmax,
-                              divisions: heartdiv,
-                              label: _currentSliderValue1.round().toString(),
-                              activeColor: Colors.blueGrey,
-                              inactiveColor: Colors.blueGrey.shade200,
-                              onChanged: (double value) {
-                                setState(() {
-                                  _currentSliderValue1 = value;
-                                  _status1 = '${_currentSliderValue1.round()}';
-                                });
-                              },
-                            ),
-                          ],
-                        )),
+                        ),
+                        SizedBox(
+                            width: slidewidht,
+                            height: slideheight,
+                            child: Row(
+                              children: [
+                                Slider(
+                                  value: _currentSliderValue1,
+                                  min: heartmin,
+                                  max: heartmax,
+                                  divisions: heartdiv,
+                                  label:
+                                      _currentSliderValue1.round().toString(),
+                                  activeColor: Colors.blueGrey,
+                                  inactiveColor: Colors.blueGrey.shade200,
+                                  onChanged: (double value) {
+                                    setState(() {
+                                      _currentSliderValue1 = value;
+                                      _status1 =
+                                          '${_currentSliderValue1.round()}';
+                                    });
+                                  },
+                                ),
+                              ],
+                            )),
 
-                    //Temperature
-                    SizedBox(
-                      width: textwidht,
-                      height: textheight,
-                      child: Row(
-                        children: [
-                          Text(
-                            'Temperature: $_status2',
-                            style: const TextStyle(fontSize: 13),
+                        //Temperature
+                        SizedBox(
+                          width: textwidht,
+                          height: textheight,
+                          child: Row(
+                            children: [
+                              Text(
+                                'Temperature: $_status2',
+                                style: const TextStyle(fontSize: 13),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: slidewidht,
-                      height: slideheight,
-                      child: Row(
-                        children: [
-                          Slider(
-                            value: _currentSliderValue2,
-                            min: tempmin,
-                            max: tempmax,
-                            divisions: tempdiv,
-                            label: _currentSliderValue2.round().toString(),
-                            activeColor: Colors.blueGrey,
-                            inactiveColor: Colors.blueGrey.shade200,
-                            onChanged: (double value) {
-                              setState(() {
-                                _currentSliderValue2 = value;
-                                _status2 = '${_currentSliderValue2.round()}';
-                              });
-                            },
+                        ),
+                        SizedBox(
+                          width: slidewidht,
+                          height: slideheight,
+                          child: Row(
+                            children: [
+                              Slider(
+                                value: _currentSliderValue2,
+                                min: tempmin,
+                                max: tempmax,
+                                divisions: tempdiv,
+                                label: _currentSliderValue2.round().toString(),
+                                activeColor: Colors.blueGrey,
+                                inactiveColor: Colors.blueGrey.shade200,
+                                onChanged: (double value) {
+                                  setState(() {
+                                    _currentSliderValue2 = value;
+                                    _status2 =
+                                        '${_currentSliderValue2.round()}';
+                                  });
+                                },
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
+                        ),
 
-                    //SpO2
-                    SizedBox(
-                      width: textwidht,
-                      height: textheight,
-                      child: Row(
-                        children: [
-                          Text(
-                            'SpO2: $_status3',
-                            style: const TextStyle(fontSize: 13),
+                        //SpO2
+                        SizedBox(
+                          width: textwidht,
+                          height: textheight,
+                          child: Row(
+                            children: [
+                              Text(
+                                'SpO2: $_status3',
+                                style: const TextStyle(fontSize: 13),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: slidewidht,
-                      height: slideheight,
-                      child: Row(
-                        children: [
-                          Slider(
-                            value: _currentSliderValue3,
-                            min: spo2min,
-                            max: spo2max,
-                            divisions: spo2div,
-                            label: _currentSliderValue3.round().toString(),
-                            activeColor: Colors.blueGrey,
-                            inactiveColor: Colors.blueGrey.shade200,
-                            onChanged: (double value) {
-                              setState(() {
-                                _currentSliderValue3 = value;
-                                _status3 = '${_currentSliderValue3.round()}';
-                              });
-                            },
+                        ),
+                        SizedBox(
+                          width: slidewidht,
+                          height: slideheight,
+                          child: Row(
+                            children: [
+                              Slider(
+                                value: _currentSliderValue3,
+                                min: spo2min,
+                                max: spo2max,
+                                divisions: spo2div,
+                                label: _currentSliderValue3.round().toString(),
+                                activeColor: Colors.blueGrey,
+                                inactiveColor: Colors.blueGrey.shade200,
+                                onChanged: (double value) {
+                                  setState(() {
+                                    _currentSliderValue3 = value;
+                                    _status3 =
+                                        '${_currentSliderValue3.round()}';
+                                  });
+                                },
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
+                        ),
 
-                    //Systolic Preassure
-                    SizedBox(
-                      width: textwidht,
-                      height: textheight,
-                      child: Row(
-                        children: [
-                          Text(
-                            'Systolic Preassure: $_status4',
-                            style: const TextStyle(fontSize: 13),
+                        //Systolic Preassure
+                        SizedBox(
+                          width: textwidht,
+                          height: textheight,
+                          child: Row(
+                            children: [
+                              Text(
+                                'Systolic Preassure: $_status4',
+                                style: const TextStyle(fontSize: 13),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: slidewidht,
-                      height: slideheight,
-                      child: Row(
-                        children: [
-                          Slider(
-                            value: _currentSliderValue4,
-                            min: sysmin,
-                            max: sysmax,
-                            divisions: sysdiv,
-                            label: _currentSliderValue4.round().toString(),
-                            activeColor: Colors.blueGrey,
-                            inactiveColor: Colors.blueGrey.shade200,
-                            onChanged: (double value) {
-                              setState(() {
-                                _currentSliderValue4 = value;
-                                _status4 = '${_currentSliderValue4.round()}';
-                              });
-                            },
+                        ),
+                        SizedBox(
+                          width: slidewidht,
+                          height: slideheight,
+                          child: Row(
+                            children: [
+                              Slider(
+                                value: _currentSliderValue4,
+                                min: sysmin,
+                                max: sysmax,
+                                divisions: sysdiv,
+                                label: _currentSliderValue4.round().toString(),
+                                activeColor: Colors.blueGrey,
+                                inactiveColor: Colors.blueGrey.shade200,
+                                onChanged: (double value) {
+                                  setState(() {
+                                    _currentSliderValue4 = value;
+                                    _status4 =
+                                        '${_currentSliderValue4.round()}';
+                                  });
+                                },
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                    //Diastolic Preassure
-                    SizedBox(
-                      width: textwidht,
-                      height: textheight,
-                      child: Row(
-                        children: [
-                          Text(
-                            'Diastolic Preassure: $_status5',
-                            style: const TextStyle(fontSize: 13),
+                        ),
+                        //Diastolic Preassure
+                        SizedBox(
+                          width: textwidht,
+                          height: textheight,
+                          child: Row(
+                            children: [
+                              Text(
+                                'Diastolic Preassure: $_status5',
+                                style: const TextStyle(fontSize: 13),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: slidewidht,
-                      height: slideheight,
-                      child: Row(
-                        children: [
-                          Slider(
-                            value: _currentSliderValue5,
-                            min: diamin,
-                            max: diamax,
-                            divisions: diadiv,
-                            label: _currentSliderValue5.round().toString(),
-                            activeColor: Colors.blueGrey,
-                            inactiveColor: Colors.blueGrey.shade200,
-                            onChanged: (double value) {
-                              setState(() {
-                                _currentSliderValue5 = value;
-                                _status5 = '${_currentSliderValue5.round()}';
-                              });
-                            },
+                        ),
+                        SizedBox(
+                          width: slidewidht,
+                          height: slideheight,
+                          child: Row(
+                            children: [
+                              Slider(
+                                value: _currentSliderValue5,
+                                min: diamin,
+                                max: diamax,
+                                divisions: diadiv,
+                                label: _currentSliderValue5.round().toString(),
+                                activeColor: Colors.blueGrey,
+                                inactiveColor: Colors.blueGrey.shade200,
+                                onChanged: (double value) {
+                                  setState(() {
+                                    _currentSliderValue5 = value;
+                                    _status5 =
+                                        '${_currentSliderValue5.round()}';
+                                  });
+                                },
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
+                        ),
 
-                    //FR
-                    SizedBox(
-                      width: textwidht,
-                      height: textheight,
-                      child: Row(
-                        children: [
-                          Text(
-                            'Frequency Rate: $_status6',
-                            style: const TextStyle(fontSize: 13),
+                        //FR
+                        SizedBox(
+                          width: textwidht,
+                          height: textheight,
+                          child: Row(
+                            children: [
+                              Text(
+                                'Frequency Rate: $_status6',
+                                style: const TextStyle(fontSize: 13),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: slidewidht,
-                      height: slideheight,
-                      child: Row(
-                        children: [
-                          Slider(
-                            value: _currentSliderValue6,
-                            min: frmin,
-                            max: frmax,
-                            divisions: frdiv,
-                            label: _currentSliderValue6.round().toString(),
-                            activeColor: Colors.blueGrey,
-                            inactiveColor: Colors.blueGrey.shade200,
-                            onChanged: (double value) {
-                              setState(() {
-                                _currentSliderValue6 = value;
-                                _status6 = '${_currentSliderValue6.round()}';
-                              });
-                            },
+                        ),
+                        SizedBox(
+                          width: slidewidht,
+                          height: slideheight,
+                          child: Row(
+                            children: [
+                              Slider(
+                                value: _currentSliderValue6,
+                                min: frmin,
+                                max: frmax,
+                                divisions: frdiv,
+                                label: _currentSliderValue6.round().toString(),
+                                activeColor: Colors.blueGrey,
+                                inactiveColor: Colors.blueGrey.shade200,
+                                onChanged: (double value) {
+                                  setState(() {
+                                    _currentSliderValue6 = value;
+                                    _status6 =
+                                        '${_currentSliderValue6.round()}';
+                                  });
+                                },
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
+                        ),
 
-                    //CO2 Level
-                    SizedBox(
-                      width: textwidht,
-                      height: textheight,
-                      child: Row(
-                        children: [
-                          Text(
-                            'CO2 Level: $_status7',
-                            style: const TextStyle(fontSize: 13),
+                        //CO2 Level
+                        SizedBox(
+                          width: textwidht,
+                          height: textheight,
+                          child: Row(
+                            children: [
+                              Text(
+                                'CO2 Level: $_status7',
+                                style: const TextStyle(fontSize: 13),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: slidewidht,
-                      height: slideheight,
-                      child: Row(
-                        children: [
-                          Slider(
-                            value: _currentSliderValue7,
-                            min: co2min,
-                            max: co2max,
-                            divisions: co2div,
-                            label: _currentSliderValue7.round().toString(),
-                            activeColor: Colors.blueGrey,
-                            inactiveColor: Colors.blueGrey.shade200,
-                            onChanged: (double value) {
-                              setState(() {
-                                _currentSliderValue7 = value;
-                                _status7 = '${_currentSliderValue7.round()}';
-                              });
-                            },
+                        ),
+                        SizedBox(
+                          width: slidewidht,
+                          height: slideheight,
+                          child: Row(
+                            children: [
+                              Slider(
+                                value: _currentSliderValue7,
+                                min: co2min,
+                                max: co2max,
+                                divisions: co2div,
+                                label: _currentSliderValue7.round().toString(),
+                                activeColor: Colors.blueGrey,
+                                inactiveColor: Colors.blueGrey.shade200,
+                                onChanged: (double value) {
+                                  setState(() {
+                                    _currentSliderValue7 = value;
+                                    _status7 =
+                                        '${_currentSliderValue7.round()}';
+                                  });
+                                },
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
+              );
+            }),
+          ),
+        ),
+        //2 Ultimo Container
+        Container(
+          height: 50,
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                height: 1, // Altura de la l赤nea de separaci車n
+                color: Colors.grey.shade300, // Color de la l赤nea de separaci車n
+                margin: const EdgeInsets.symmetric(vertical: 0),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.play_arrow),
+                    onPressed: () {},
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.pause),
+                    onPressed: () {},
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.stop),
+                    onPressed: () {},
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: colorbackbutt2,
+                          foregroundColor: colorforebutt2),
+                      onPressed: () {},
+                      child: const Text('Upload'),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: colorbackbutt2,
+                          foregroundColor: colorforebutt2),
+                      onPressed: () {},
+                      child: const Text('Progam'),
+                    ),
+                  ),
+                ],
               ),
             ],
-          );
-        }),
+          ),
+        ),
       ],
     );
   }
