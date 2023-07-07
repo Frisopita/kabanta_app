@@ -1,65 +1,7 @@
 //Vital Signs Page
 
 import 'package:flutter/material.dart';
-
-double _currentSliderValue1 = 30;
-double _currentSliderValue2 = 35;
-double _currentSliderValue3 = 70;
-double _currentSliderValue4 = 60;
-double _currentSliderValue5 = 35;
-double _currentSliderValue6 = 8;
-double _currentSliderValue7 = 6;
-
-String _status1 = '30';
-String _status2 = '35';
-String _status3 = '70';
-String _status4 = '60';
-String _status5 = '35';
-String _status6 = '8';
-String _status7 = '6';
-
-double slidewidht = 200;
-double slideheight = 36;
-double textwidht = 200;
-double textheight = 30;
-double buttonwidht = 120;
-double buttonheight = 66;
-
-double heartmax = 250;
-double heartmin = 30;
-int heartdiv = 10;
-
-double tempmax = 40;
-double tempmin = 35;
-int tempdiv = 10;
-
-double spo2max = 100;
-double spo2min = 70;
-int spo2div = 10;
-
-double sysmax = 200;
-double sysmin = 60;
-int sysdiv = 10;
-
-double diamax = 120;
-double diamin = 35;
-int diadiv = 10;
-
-double frmax = 32;
-double frmin = 8;
-int frdiv = 10;
-
-double co2max = 50;
-double co2min = 6;
-int co2div = 10;
-
-String buttonName1 = 'Time';
-String buttonName2 = 'Time';
-String buttonName3 = 'Time';
-String buttonName4 = 'Time';
-String buttonName5 = 'Time';
-String buttonName6 = 'Time';
-String buttonName7 = 'Time';
+import 'package:kabanta_app1/variables.dart';
 
 Color colorbackbutt2 = Colors.white;
 Color colorforebutt2 = Colors.indigo;
@@ -208,7 +150,7 @@ class _ContentvitalState extends State<Contentvital> {
                           child: Row(
                             children: [
                               Text(
-                                'Heart Rate: $_status1',
+                                'Heart Rate: $status1',
                                 style: const TextStyle(fontSize: 13),
                               ),
                             ],
@@ -220,19 +162,19 @@ class _ContentvitalState extends State<Contentvital> {
                             child: Row(
                               children: [
                                 Slider(
-                                  value: _currentSliderValue1,
+                                  value: currentSliderValue1,
                                   min: heartmin,
                                   max: heartmax,
                                   divisions: heartdiv,
                                   label:
-                                      _currentSliderValue1.round().toString(),
+                                      currentSliderValue1.round().toString(),
                                   activeColor: Colors.blueGrey,
                                   inactiveColor: Colors.blueGrey.shade200,
                                   onChanged: (double value) {
                                     setState(() {
-                                      _currentSliderValue1 = value;
-                                      _status1 =
-                                          '${_currentSliderValue1.round()}';
+                                      currentSliderValue1 = value;
+                                      status1 =
+                                          '${currentSliderValue1.round()}';
                                     });
                                   },
                                 ),
@@ -246,7 +188,7 @@ class _ContentvitalState extends State<Contentvital> {
                           child: Row(
                             children: [
                               Text(
-                                'Temperature: $_status2',
+                                'Temperature: $status2',
                                 style: const TextStyle(fontSize: 13),
                               ),
                             ],
@@ -258,18 +200,18 @@ class _ContentvitalState extends State<Contentvital> {
                           child: Row(
                             children: [
                               Slider(
-                                value: _currentSliderValue2,
+                                value: currentSliderValue2,
                                 min: tempmin,
                                 max: tempmax,
                                 divisions: tempdiv,
-                                label: _currentSliderValue2.round().toString(),
+                                label: currentSliderValue2.round().toString(),
                                 activeColor: Colors.blueGrey,
                                 inactiveColor: Colors.blueGrey.shade200,
                                 onChanged: (double value) {
                                   setState(() {
-                                    _currentSliderValue2 = value;
-                                    _status2 =
-                                        '${_currentSliderValue2.round()}';
+                                    currentSliderValue2 = value;
+                                    status2 =
+                                        '${currentSliderValue2.round()}';
                                   });
                                 },
                               ),
@@ -284,7 +226,7 @@ class _ContentvitalState extends State<Contentvital> {
                           child: Row(
                             children: [
                               Text(
-                                'SpO2: $_status3',
+                                'SpO2: $status3',
                                 style: const TextStyle(fontSize: 13),
                               ),
                             ],
@@ -296,18 +238,18 @@ class _ContentvitalState extends State<Contentvital> {
                           child: Row(
                             children: [
                               Slider(
-                                value: _currentSliderValue3,
+                                value: currentSliderValue3,
                                 min: spo2min,
                                 max: spo2max,
                                 divisions: spo2div,
-                                label: _currentSliderValue3.round().toString(),
+                                label: currentSliderValue3.round().toString(),
                                 activeColor: Colors.blueGrey,
                                 inactiveColor: Colors.blueGrey.shade200,
                                 onChanged: (double value) {
                                   setState(() {
-                                    _currentSliderValue3 = value;
-                                    _status3 =
-                                        '${_currentSliderValue3.round()}';
+                                    currentSliderValue3 = value;
+                                    status3 =
+                                        '${currentSliderValue3.round()}';
                                   });
                                 },
                               ),
@@ -322,7 +264,7 @@ class _ContentvitalState extends State<Contentvital> {
                           child: Row(
                             children: [
                               Text(
-                                'Systolic Preassure: $_status4',
+                                'Systolic Preassure: $status4',
                                 style: const TextStyle(fontSize: 13),
                               ),
                             ],
@@ -334,18 +276,18 @@ class _ContentvitalState extends State<Contentvital> {
                           child: Row(
                             children: [
                               Slider(
-                                value: _currentSliderValue4,
+                                value: currentSliderValue4,
                                 min: sysmin,
                                 max: sysmax,
                                 divisions: sysdiv,
-                                label: _currentSliderValue4.round().toString(),
+                                label: currentSliderValue4.round().toString(),
                                 activeColor: Colors.blueGrey,
                                 inactiveColor: Colors.blueGrey.shade200,
                                 onChanged: (double value) {
                                   setState(() {
-                                    _currentSliderValue4 = value;
-                                    _status4 =
-                                        '${_currentSliderValue4.round()}';
+                                    currentSliderValue4 = value;
+                                    status4 =
+                                        '${currentSliderValue4.round()}';
                                   });
                                 },
                               ),
@@ -359,7 +301,7 @@ class _ContentvitalState extends State<Contentvital> {
                           child: Row(
                             children: [
                               Text(
-                                'Diastolic Preassure: $_status5',
+                                'Diastolic Preassure: $status5',
                                 style: const TextStyle(fontSize: 13),
                               ),
                             ],
@@ -371,18 +313,18 @@ class _ContentvitalState extends State<Contentvital> {
                           child: Row(
                             children: [
                               Slider(
-                                value: _currentSliderValue5,
+                                value: currentSliderValue5,
                                 min: diamin,
                                 max: diamax,
                                 divisions: diadiv,
-                                label: _currentSliderValue5.round().toString(),
+                                label: currentSliderValue5.round().toString(),
                                 activeColor: Colors.blueGrey,
                                 inactiveColor: Colors.blueGrey.shade200,
                                 onChanged: (double value) {
                                   setState(() {
-                                    _currentSliderValue5 = value;
-                                    _status5 =
-                                        '${_currentSliderValue5.round()}';
+                                    currentSliderValue5 = value;
+                                    status5 =
+                                        '${currentSliderValue5.round()}';
                                   });
                                 },
                               ),
@@ -397,7 +339,7 @@ class _ContentvitalState extends State<Contentvital> {
                           child: Row(
                             children: [
                               Text(
-                                'Frequency Rate: $_status6',
+                                'Frequency Rate: $status6',
                                 style: const TextStyle(fontSize: 13),
                               ),
                             ],
@@ -409,18 +351,18 @@ class _ContentvitalState extends State<Contentvital> {
                           child: Row(
                             children: [
                               Slider(
-                                value: _currentSliderValue6,
+                                value: currentSliderValue6,
                                 min: frmin,
                                 max: frmax,
                                 divisions: frdiv,
-                                label: _currentSliderValue6.round().toString(),
+                                label: currentSliderValue6.round().toString(),
                                 activeColor: Colors.blueGrey,
                                 inactiveColor: Colors.blueGrey.shade200,
                                 onChanged: (double value) {
                                   setState(() {
-                                    _currentSliderValue6 = value;
-                                    _status6 =
-                                        '${_currentSliderValue6.round()}';
+                                    currentSliderValue6 = value;
+                                    status6 =
+                                        '${currentSliderValue6.round()}';
                                   });
                                 },
                               ),
@@ -435,7 +377,7 @@ class _ContentvitalState extends State<Contentvital> {
                           child: Row(
                             children: [
                               Text(
-                                'CO2 Level: $_status7',
+                                'CO2 Level: $status7',
                                 style: const TextStyle(fontSize: 13),
                               ),
                             ],
@@ -447,18 +389,18 @@ class _ContentvitalState extends State<Contentvital> {
                           child: Row(
                             children: [
                               Slider(
-                                value: _currentSliderValue7,
+                                value: currentSliderValue7,
                                 min: co2min,
                                 max: co2max,
                                 divisions: co2div,
-                                label: _currentSliderValue7.round().toString(),
+                                label: currentSliderValue7.round().toString(),
                                 activeColor: Colors.blueGrey,
                                 inactiveColor: Colors.blueGrey.shade200,
                                 onChanged: (double value) {
                                   setState(() {
-                                    _currentSliderValue7 = value;
-                                    _status7 =
-                                        '${_currentSliderValue7.round()}';
+                                    currentSliderValue7 = value;
+                                    status7 =
+                                        '${currentSliderValue7.round()}';
                                   });
                                 },
                               ),

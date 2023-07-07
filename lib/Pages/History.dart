@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-  Color colorbackbutt2 = Colors.white;
-  Color colorforebutt2 = Colors.indigo;
-  
+import 'package:kabanta_app1/variables.dart';
+
 class History extends StatefulWidget {
   const History({super.key});
 
@@ -10,41 +9,6 @@ class History extends StatefulWidget {
 }
 
 class _HistoryState extends State<History> {
-  final TextStyle signaLabel = const TextStyle(
-    fontSize: 18.0,
-    color: Colors.black,
-    //backgroundColor: Colors.blue.shade100
-  );
-  final TextStyle timeLabel = const TextStyle(
-    fontSize: 25.0,
-    color: Colors.black,
-    //backgroundColor: Colors.blue.shade100
-  );
-  final TextStyle labelStyle = const TextStyle(
-    fontSize: 16.0,
-  );
-  String textName1 = 'Now';
-  String textName2 = 'Action 1';
-  String textName3 = 'Action 2';
-  String textName4 = 'Action 3';
-  String textName5 = 'Action 4';
-  String textName6 = 'Action 5';
-  String textName7 = 'Action 6';
-  String textName8 = 'Action 7';
-  String textName9 = 'Action 8';
-
-  String time1 = '00:00';
-  String time2 = '00:20';
-  String time3 = '00:45';
-  String time4 = '00:58';
-  String time5 = '01:02';
-  String time6 = '03:00';
-  String time7 = '03:55';
-  String time8 = '04:00';
-  String time9 = '05:55';
-
-  Color colorbackbutt1 = Colors.blueGrey.shade300;
-  Color colorforebutt1 = Colors.white;
 
   @override
   Widget build(BuildContext context) {
@@ -87,56 +51,57 @@ class _HistoryState extends State<History> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           //0
-        Container(
-          width: double.infinity,
-          height: 50,
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(
-                        5, //left
-                        9, //top
-                        5, //right
-                        9 //botton
-                        ),
-                    child: Container(
-                      width: 60,
-                      height: 30,
-                      decoration: BoxDecoration(
-                          color: Colors.blueGrey.shade300,
-                          borderRadius: BorderRadius.circular(2)),
-                      child: Center(
-                        child: Text(
-                          'NS',
-                          style: signaLabel,
+          Container(
+            width: double.infinity,
+            height: 50,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(
+                          5, //left
+                          9, //top
+                          5, //right
+                          9 //botton
+                          ),
+                      child: Container(
+                        width: 60,
+                        height: 30,
+                        decoration: BoxDecoration(
+                            color: Colors.blueGrey.shade300,
+                            borderRadius: BorderRadius.circular(2)),
+                        child: Center(
+                          child: Text(
+                            'NS',
+                            style: signaLabel,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: SizedBox(
-                        width: 250,
-                        height: 30,
-                        child: Image.asset(
-                          'Images/arryt.png',
-                          fit: BoxFit.contain,
-                        )),
-                  ),
-                ],
-              ),
-              Container(
-                height: 1, // Altura de la l赤nea de separaci車n
-                color: Colors.grey.shade300, // Color de la l赤nea de separaci車n
-                margin: const EdgeInsets.symmetric(vertical: 0),
-              ),
-            ],
+                    Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: SizedBox(
+                          width: 250,
+                          height: 30,
+                          child: Image.asset(
+                            'Images/arryt.png',
+                            fit: BoxFit.contain,
+                          )),
+                    ),
+                  ],
+                ),
+                Container(
+                  height: 1, // Altura de la l赤nea de separaci車n
+                  color:
+                      Colors.grey.shade300, // Color de la l赤nea de separaci車n
+                  margin: const EdgeInsets.symmetric(vertical: 0),
+                ),
+              ],
+            ),
           ),
-        ),
 
           //2
           Expanded(
@@ -361,60 +326,60 @@ class _HistoryState extends State<History> {
               ),
             ),
           ),
-        Container(
-          height: 50,
-          width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                height: 1, // Altura de la l赤nea de separaci車n
-                color: Colors.grey.shade300, // Color de la l赤nea de separaci車n
-                margin: const EdgeInsets.symmetric(vertical: 0),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.play_arrow),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.pause),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.stop),
-                    onPressed: () {},
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: colorbackbutt2,
-                          foregroundColor: colorforebutt2),
+          Container(
+            height: 50,
+            width: double.infinity,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  height: 1, // Altura de la l赤nea de separaci車n
+                  color:
+                      Colors.grey.shade300, // Color de la l赤nea de separaci車n
+                  margin: const EdgeInsets.symmetric(vertical: 0),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.play_arrow),
                       onPressed: () {},
-                      child: const Text('Upload'),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: colorbackbutt2,
-                          foregroundColor: colorforebutt2),
+                    IconButton(
+                      icon: const Icon(Icons.pause),
                       onPressed: () {},
-                      child: const Text('Progam'),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    IconButton(
+                      icon: const Icon(Icons.stop),
+                      onPressed: () {},
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: colorbackbutt2,
+                            foregroundColor: colorforebutt2),
+                        onPressed: () {},
+                        child: const Text('Upload'),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: colorbackbutt2,
+                            foregroundColor: colorforebutt2),
+                        onPressed: () {},
+                        child: const Text('Progam'),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
-      
         ],
       ),
     );
