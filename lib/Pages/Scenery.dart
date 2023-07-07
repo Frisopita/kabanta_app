@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kabanta_app1/containers.dart';
 import 'package:kabanta_app1/variables.dart';
 
 class Scenery extends StatefulWidget {
@@ -21,10 +22,10 @@ class _SceneryState extends State<Scenery> {
                 130), //const Text('Kabsim App', style: TextStyle(color: Colors.black),),
         backgroundColor: Colors.white,
         actions: <Widget>[
-          Align(
+          const Align(
             alignment: Alignment.center,
             child: Padding(
-              padding: const EdgeInsets.all(15),
+              padding:  EdgeInsets.all(15),
               child: SizedBox(
                 child: Text(
                   '00:00:00',
@@ -51,57 +52,7 @@ class _SceneryState extends State<Scenery> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           //0
-          Container(
-            width: double.infinity,
-            height: 50,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(
-                          5, //left
-                          9, //top
-                          5, //right
-                          9 //botton
-                          ),
-                      child: Container(
-                        width: 60,
-                        height: 30,
-                        decoration: BoxDecoration(
-                            color: Colors.blueGrey.shade300,
-                            borderRadius: BorderRadius.circular(2)),
-                        child: Center(
-                          child: Text(
-                            'NS',
-                            style: signaLabel,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: SizedBox(
-                          width: 250,
-                          height: 30,
-                          child: Image.asset(
-                            'Images/arryt.png',
-                            fit: BoxFit.contain,
-                          )),
-                    ),
-                  ],
-                ),
-                Container(
-                  height: 1, // Altura de la l赤nea de separaci車n
-                  color:
-                      Colors.grey.shade300, // Color de la l赤nea de separaci車n
-                  margin: const EdgeInsets.symmetric(vertical: 0),
-                ),
-              ],
-            ),
-          ),
+          ContainerSignal(),
           //1 First Title
           Expanded(
             child: Column(
@@ -398,62 +349,10 @@ class _SceneryState extends State<Scenery> {
                 ),
               ],
             ),
-          ), // Ultimo Container
-          Container(
-            height: 50,
-            width: double.infinity,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Container(
-                  height: 1, // Altura de la l赤nea de separaci車n
-                  color:
-                      Colors.grey.shade300, // Color de la l赤nea de separaci車n
-                  margin: const EdgeInsets.symmetric(vertical: 0),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.play_arrow),
-                      onPressed: () {},
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.pause),
-                      onPressed: () {},
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.stop),
-                      onPressed: () {},
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt2,
-                            foregroundColor: colorforebutt2),
-                        onPressed: () {},
-                        child: const Text('Upload'),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt2,
-                            foregroundColor: colorforebutt2),
-                        onPressed: () {},
-                        child: const Text('Progam'),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
+          ), 
+          // Ultimo Container
+          ContainerClock(),
+          ],
       ),
     );
   }
