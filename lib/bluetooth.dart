@@ -3,9 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';// Quitar 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:kabanta_app1/Pages/ecg.dart';
-import 'package:kabanta_app1/temp_provider.dart';
 import 'widgets.dart';
-import 'package:provider/provider.dart';
 
 
 
@@ -37,7 +35,6 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
         title: const Text('Find Devices'),
         actions: [
           ElevatedButton(
-            child: const Text('TURN OFF'),
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
 	      backgroundColor: Colors.black,
@@ -45,6 +42,7 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
             onPressed: Platform.isAndroid
                 ? () => FlutterBluePlus.instance.turnOff()
                 : null,
+            child: const Text('TURN OFF'),
           ),
         ],
       ),

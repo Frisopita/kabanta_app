@@ -17,14 +17,13 @@ class _HistoryState extends State<History> {
         title: Image.asset('Images/original.png',
             fit: BoxFit.cover,
             height: 100,
-            width:
-                130), //const Text('Kabsim App', style: TextStyle(color: Colors.black),),
+            width: 130),
         backgroundColor: Colors.white,
         actions: <Widget>[
-          Align(
+          const Align(
             alignment: Alignment.center,
             child: Padding(
-              padding: const EdgeInsets.all(15),
+              padding: EdgeInsets.all(15),
               child: SizedBox(
                 child: Text(
                   '00:00:00',
@@ -61,68 +60,68 @@ class _HistoryState extends State<History> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     //1
-                    Column(
+                    const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(20),
                           child: Text(
                             '0',
                             style: labelStyle,
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(20),
                           child: Text(
                             '1',
                             style: labelStyle,
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(20),
                           child: Text(
                             '2',
                             style: labelStyle,
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(20),
                           child: Text(
                             '3',
                             style: labelStyle,
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(20),
                           child: Text(
                             '4',
                             style: labelStyle,
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(20),
                           child: Text(
                             '5',
                             style: labelStyle,
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(20),
                           child: Text(
                             '6',
                             style: labelStyle,
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(20),
                           child: Text(
                             '7',
                             style: labelStyle,
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(20),
                           child: Text(
                             '8',
                             style: labelStyle,

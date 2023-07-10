@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:kabanta_app1/containers.dart';
 import 'package:kabanta_app1/variables.dart';
-import 'package:kabanta_app1/containers.dart';
 
 Color colorbackbutt2 = Colors.white;
 Color colorforebutt2 = Colors.indigo;
@@ -49,8 +48,9 @@ class _VitalState extends State<Vital> {
             ),
             tooltip: 'Settings',
             onPressed: () {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(const SnackBar(content: Text('Settings')));
+             Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) => const ContainerClock(),
+              ));
             },
           ),
         ],
