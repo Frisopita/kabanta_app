@@ -1,7 +1,6 @@
 //Vital Signs Page
 
 import 'package:flutter/material.dart';
-import 'package:kabanta_app1/containers.dart';
 import 'package:kabanta_app1/variables.dart';
 
 Color colorbackbutt2 = Colors.white;

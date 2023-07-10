@@ -1,7 +1,5 @@
 //Test de kabanta UX
-import 'dart:async';
 import 'dart:io';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:kabanta_app1/Pages/ecg.dart';
 import 'package:kabanta_app1/Pages/history.dart';
@@ -11,7 +9,6 @@ import 'package:kabanta_app1/bluetooth.dart';
 import 'package:kabanta_app1/containers.dart';
 import 'package:provider/provider.dart';
 import 'temp_provider.dart';
-import 'widgets.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'variables.dart';
@@ -113,9 +110,7 @@ class _DataPageState extends State<DataPage> {
     return Scaffold(
       appBar: AppBar(
         title: Image.asset('Images/original.png',
-            fit: BoxFit.cover,
-            height: 100,
-            width:  130),
+            fit: BoxFit.cover, height: 100, width: 130),
         backgroundColor: Colors.white,
         actions: <Widget>[
           const Align(
@@ -144,29 +139,28 @@ class _DataPageState extends State<DataPage> {
           ),
         ],
       ),
-      body:
-      Stack(
+      body: Stack(
         children: [
           Positioned.fill(
-            child: _widgetOptions[currentIndex],),
-             Positioned(
-        top: _fixedWidgetClockTop,
-        left: _fixedWidgetClockLeft,
-        right: _fixedWidgetClockRight,
-        bottom: _fixedWidgetClockBottom,
-        child: _fixedWidgetClock,
-      ),
-       Positioned(
-        top: _fixedWidgetTop,
-        left: _fixedWidgetSignalLeft,
-        right: _fixedWidgetSignalRight,
-        bottom: _fixedWidgetSignalBottom,
-        child: _fixedWidgetSignal,
-      ),
+            child: _widgetOptions[currentIndex],
+          ),
+          Positioned(
+            top: _fixedWidgetClockTop,
+            left: _fixedWidgetClockLeft,
+            right: _fixedWidgetClockRight,
+            bottom: _fixedWidgetClockBottom,
+            child: _fixedWidgetClock,
+          ),
+          Positioned(
+            top: _fixedWidgetTop,
+            left: _fixedWidgetSignalLeft,
+            right: _fixedWidgetSignalRight,
+            bottom: _fixedWidgetSignalBottom,
+            child: _fixedWidgetSignal,
+          ),
         ],
       ),
-     
-      
+
       //Botones de Navegaci¨®n
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {

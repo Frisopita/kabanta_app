@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kabanta_app1/bluetooth.dart';
-import 'package:kabanta_app1/containers.dart';
 import 'package:kabanta_app1/variables.dart';
 
 class ECG extends StatefulWidget {
