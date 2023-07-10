@@ -101,6 +101,7 @@ class _ContainerClockState extends State<ContainerClock> {
   void _reset() {
     _stop();
     _stopwatch.reset();
+    _result = '00:00:00';
 
     // Update the UI
     setState(() {});
@@ -119,13 +120,15 @@ class _ContainerClockState extends State<ContainerClock> {
           Container(
             height: 1, // Altura de la l¨ªnea de separaci¨®n
             color: Colors.grey.shade300, // Color de la l¨ªnea de separaci¨®n
-            margin: const EdgeInsets.symmetric(vertical: 0),
           ),
           Center(
-            child: Text(
-              _result,
-              style: const TextStyle(
-                fontSize: 20,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
+              child: Text(
+                _result,
+                style: const TextStyle(
+                  fontSize: 24,
+                ),
               ),
             ),
           ),

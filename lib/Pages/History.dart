@@ -13,45 +13,16 @@ class _HistoryState extends State<History> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Image.asset('Images/original.png',
-            fit: BoxFit.cover,
-            height: 100,
-            width: 130),
-        backgroundColor: Colors.white,
-        actions: <Widget>[
-          const Align(
-            alignment: Alignment.center,
-            child: Padding(
-              padding: EdgeInsets.all(15),
-              child: SizedBox(
-                child: Text(
-                  '00:00:00',
-                  style: timeLabel,
-                ),
-              ),
-            ),
-          ),
-          IconButton(
-            icon: const Icon(
-              Icons.settings,
-              color: Colors.black,
-            ),
-            tooltip: 'Settings',
-            onPressed: () {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(const SnackBar(content: Text('Settings')));
-            },
-          ),
-        ],
-      ),
+      
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           //0
-          ContainerSignal(),
-          //2
+          Container(
+              height: 50,
+            ),
+          //1
           Expanded(
             child: SingleChildScrollView(
               child: Container(
@@ -274,8 +245,10 @@ class _HistoryState extends State<History> {
               ),
             ),
           ),
-          //3
-          ContainerClock(),
+          //2
+          Container(
+              height: 80,
+            ),
         ],
       ),
     );

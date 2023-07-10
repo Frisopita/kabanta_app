@@ -14,41 +14,7 @@ class _ECGState extends State<ECG> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Image.asset('Images/original.png',
-            fit: BoxFit.cover,
-            height: 100,
-            width:  130),
-        backgroundColor: Colors.white,
-        actions: <Widget>[
-          const Align(
-            alignment: Alignment.center,
-            child: Padding(
-              padding: EdgeInsets.all(15),
-              child: SizedBox(
-                child: Text(
-                  '00:00:00',
-                  style: timeLabel,
-                ),
-              ),
-            ),
-          ),
-          IconButton(
-            icon: const Icon(
-              Icons.settings,
-              color: Colors.black,
-            ),
-            tooltip: 'Settings',
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => const FindDevicesScreen(),
-              ));
-            },
-          ),
-        ],
-      ),
-      body: Container(
+    return Container(
         color: Colors.white,
         width: double.infinity,
         height: double.infinity,
@@ -56,8 +22,10 @@ class _ECGState extends State<ECG> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //0
-            ContainerSignal(),
+            //
+            Container(
+              height: 50,
+            ),
             //1
             Expanded(
               child: SingleChildScrollView(
@@ -594,11 +562,12 @@ class _ECGState extends State<ECG> {
                 ),
               ),
             ),
-            //2
-            ContainerClock(),
+            //2 
+            Container(
+              height: 80,
+            ),
           ],
         ),
-      ),
     );
   }
 }

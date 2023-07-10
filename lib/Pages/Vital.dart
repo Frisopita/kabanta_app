@@ -23,39 +23,8 @@ class _VitalState extends State<Vital> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Image.asset('Images/original.png',
-            fit: BoxFit.cover, height: 100, width: 130),
-        backgroundColor: Colors.white,
-        actions: <Widget>[
-          Align(
-            alignment: Alignment.center,
-            child: Padding(
-              padding: const EdgeInsets.all(15),
-              child: SizedBox(
-                child: Text(
-                  '00:00:00',
-                  style: timeLabel,
-                ),
-              ),
-            ),
-          ),
-          IconButton(
-            icon: const Icon(
-              Icons.settings,
-              color: Colors.black,
-            ),
-            tooltip: 'Settings',
-            onPressed: () {
-             Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => const ContainerClock(),
-              ));
-            },
-          ),
-        ],
-      ),
-      body: const Center(
+    return const Scaffold(
+      body: Center(
         child: Contentvital(),
       ),
     );
@@ -83,7 +52,9 @@ class _ContentvitalState extends State<Contentvital> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         //0
-        ContainerSignal(),
+        Container(
+              height: 50,
+            ),
         //1
         Expanded(
           child: SingleChildScrollView(
@@ -368,8 +339,10 @@ class _ContentvitalState extends State<Contentvital> {
             }),
           ),
         ),
-        //2 Ultimo Container
-        ContainerClock(),
+        //2
+        Container(
+              height: 80,
+            ),
         ],
     );
   }

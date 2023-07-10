@@ -14,45 +14,14 @@ class _SceneryState extends State<Scenery> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Image.asset('Images/original.png',
-            fit: BoxFit.cover,
-            height: 100,
-            width:
-                130), //const Text('Kabsim App', style: TextStyle(color: Colors.black),),
-        backgroundColor: Colors.white,
-        actions: <Widget>[
-          const Align(
-            alignment: Alignment.center,
-            child: Padding(
-              padding:  EdgeInsets.all(15),
-              child: SizedBox(
-                child: Text(
-                  '00:00:00',
-                  style: timeLabel,
-                ),
-              ),
-            ),
-          ),
-          IconButton(
-            icon: const Icon(
-              Icons.settings,
-              color: Colors.black,
-            ),
-            tooltip: 'Settings',
-            onPressed: () {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(const SnackBar(content: Text('Settings')));
-            },
-          ),
-        ],
-      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           //0
-          ContainerSignal(),
+          Container(
+              height: 50,
+            ),
           //1 First Title
           Expanded(
             child: Column(
@@ -350,8 +319,10 @@ class _SceneryState extends State<Scenery> {
               ],
             ),
           ), 
-          // Ultimo Container
-          ContainerClock(),
+          //2
+          Container(
+              height: 80,
+            ),
           ],
       ),
     );
