@@ -110,6 +110,7 @@ class _DataPageState extends State<DataPage> {
         title: Image.asset('Images/original.png',
             fit: BoxFit.cover, height: 100, width: 130),
         backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
         actions: <Widget>[
           IconButton(
             icon: const Icon(

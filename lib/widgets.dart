@@ -105,34 +105,29 @@ class ScanResultTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ExpansionTile(
-      title: _buildTitle(context),
-      leading: Text(result.rssi.toString()),
-      trailing: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.black,
+    if (result.advertisementData.connectable) {
+      return ExpansionTile(
+        title: _buildTitle(context),
+        trailing: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.black,
+          ),
+          onPressed: (result.advertisementData.connectable) ? onTap : null,
+          child: const Text('CONNECT'),
+          //El trailing es un ElevatedButton que muestra un bot��n "CONNECT".
+          //Su estado habilitado (onPressed) depende de si el dispositivo es conectable (result.advertisementData.connectable).
+          //Si es conectable, se asigna la funci��n onTap al bot��n; de lo contrario, se asigna null
         ),
-        onPressed: (result.advertisementData.connectable) ? onTap : null,
-        child: const Text('CONNECT'),
-      ),
-      children: <Widget>[
-        _buildAdvRow(
-            context, 'Complete Local Name', result.advertisementData.localName),
-        _buildAdvRow(context, 'Tx Power Level',
-            '${result.advertisementData.txPowerLevel ?? 'N/A'}'),
-        _buildAdvRow(context, 'Manufacturer Data',
-            getNiceManufacturerData(result.advertisementData.manufacturerData)),
-        _buildAdvRow(
-            context,
-            'Service UUIDs',
-            (result.advertisementData.serviceUuids.isNotEmpty)
-                ? result.advertisementData.serviceUuids.join(', ').toUpperCase()
-                : 'N/A'),
-        _buildAdvRow(context, 'Service Data',
-            getNiceServiceData(result.advertisementData.serviceData)),
-      ],
-    );
+        children: <Widget>[
+          _buildAdvRow(context, 'Nombre completo del dispositivo',
+              result.advertisementData.localName),
+        ],
+      );
+    } else {
+      return Container(); // Puedes devolver un widget vac��o o cualquier otro widget que desees mostrar en lugar del ExpansionTile
+    }
+    
   }
 }
 

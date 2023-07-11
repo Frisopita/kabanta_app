@@ -566,3 +566,4 @@ class _ECGState extends State<ECG> {
     );
   }
 }
+

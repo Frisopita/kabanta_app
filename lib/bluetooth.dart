@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:flutter/material.dart';// Quitar 
+import 'package:flutter/material.dart'; // Quitar
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:kabanta_app1/Pages/ecg.dart';
+import 'package:kabanta_app1/variables.dart';
 import 'widgets.dart';
-
-
-
 
 class FindDevicesScreen extends StatefulWidget {
   const FindDevicesScreen({Key? key}) : super(key: key);
@@ -16,38 +14,31 @@ class FindDevicesScreen extends StatefulWidget {
 }
 
 class _FindDevicesScreenState extends State<FindDevicesScreen> {
-
-   @override
-  //Este initstate permite la busqueda de dispositivos Bluetooth una vez construido el widget 
+  @override
+  //Este initstate permite la busqueda de dispositivos Bluetooth una vez construido el widget
   void initState() {
     super.initState();
     startScan();
   }
+
   //actualiza cada 4 s la busqueda
   Future<void> startScan() async {
-    await FlutterBluePlus.instance.startScan(timeout: const Duration(seconds: 3));
+    await FlutterBluePlus.instance
+        .startScan(timeout: const Duration(seconds: 3));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Find Devices'),
-        actions: [
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white,
-	      backgroundColor: Colors.black,
-            ),
-            onPressed: Platform.isAndroid
-                ? () => FlutterBluePlus.instance.turnOff()
-                : null,
-            child: const Text('TURN OFF'),
-          ),
-        ],
+        title: Image.asset('Images/original.png',
+            fit: BoxFit.cover, height: 100, width: 130),
+        backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
+        automaticallyImplyLeading: false,
       ),
       body: RefreshIndicator(
-        onRefresh: () => FlutterBluePlus.instance.startScan(timeout: const Duration(seconds: 3)),
+        onRefresh: () => FlutterBluePlus.instance
+            .startScan(timeout: const Duration(seconds: 3)),
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
@@ -117,7 +108,6 @@ class DeviceScreen extends StatefulWidget {
 }
 
 class _DeviceScreenState extends State<DeviceScreen> {
-
   List<Widget> _buildServiceTiles(List<BluetoothService> services) {
     return services
         .map(
@@ -148,38 +138,16 @@ class _DeviceScreenState extends State<DeviceScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.device.name),
+         title: Image.asset('Images/original.png',
+            fit: BoxFit.cover, height: 100, width: 130),
+        backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
         actions: <Widget>[
-          StreamBuilder<BluetoothDeviceState>(
-            stream: widget.device.state,
-            initialData: BluetoothDeviceState.connecting,
-            builder: (c, snapshot) {
-              VoidCallback? onPressed;
-              String text;
-              switch (snapshot.data) {
-                case BluetoothDeviceState.connected:
-                  onPressed = () => widget.device.disconnect();
-                  text = 'DISCONNECT';
-                  break;
-                case BluetoothDeviceState.disconnected:
-                  onPressed = () => widget.device.connect();
-                  text = 'CONNECT';
-                  break;
-                default:
-                  onPressed = null;
-                  text = snapshot.data.toString().substring(21).toUpperCase();
-                  break;
-              }
-              return TextButton(
-                  onPressed: onPressed,
-                  child: Text(
-                    text,
-                    style: Theme.of(context)
-                        .primaryTextTheme
-                        .labelLarge
-                        ?.copyWith(color: Colors.white),
-                  ));
-            },
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 60, 0),
+            child: Center(
+              child: Text(widget.device.name, style: signaLabel,),
+            ),
           )
         ],
       ),
