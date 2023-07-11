@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kabanta_app1/variables.dart';
+import 'package:kabanta_app1/containers.dart';
 
 class History extends StatefulWidget {
   const History({super.key});
@@ -12,15 +13,12 @@ class _HistoryState extends State<History> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           //0
-          Container(
-              height: 50,
-            ),
+          const ContainerSignal(),
           //1
           Expanded(
             child: SingleChildScrollView(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kabanta_app1/containers.dart';
 import 'package:kabanta_app1/variables.dart';
 
 class ECG extends StatefulWidget {
@@ -12,18 +13,13 @@ class _ECGState extends State<ECG> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        color: Colors.white,
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
+    return Scaffold(
+        body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //
-            Container(
-              height: 50,
-            ),
+           const ContainerSignal(),
             //1
             Expanded(
               child: SingleChildScrollView(
@@ -563,6 +559,7 @@ class _ECGState extends State<ECG> {
             //2 
             Container(
               height: 80,
+              color: null,
             ),
           ],
         ),

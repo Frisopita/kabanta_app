@@ -11,7 +11,6 @@ import 'package:provider/provider.dart';
 import 'temp_provider.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'variables.dart';
 
 void main() {
   if (Platform.isAndroid) {
@@ -77,8 +76,8 @@ class _DataPageState extends State<DataPage> {
     const History(),
   ];
 
-  final Widget _fixedWidgetSignal = ContainerSignal();
-  final Widget _fixedWidgetClock = ContainerClock();
+  final Widget _fixedWidgetSignal = const  ContainerSignal();
+  final Widget _fixedWidgetClock = const ContainerClock();
 
   // Variables para las posiciones del widget fijo
   double _fixedWidgetTop = 0;
@@ -95,15 +94,14 @@ class _DataPageState extends State<DataPage> {
   }
 
   // Variables para las posiciones del widget fijo
-  double _fixedWidgetSignalTop = 0;
-  double _fixedWidgetSignalLeft = 0;
-  double _fixedWidgetSignalRight = 0;
-  double _fixedWidgetSignalBottom = 0;
+  final double _fixedWidgetSignalLeft = 0;
+  final double _fixedWidgetSignalRight = 0;
+  final double _fixedWidgetSignalBottom = 0;
 
-  double _fixedWidgetClockTop = 0;
-  double _fixedWidgetClockLeft = 0;
-  double _fixedWidgetClockRight = 0;
-  double _fixedWidgetClockBottom = 0;
+  final double _fixedWidgetClockTop = 0;
+  final double _fixedWidgetClockLeft = 0;
+  final double _fixedWidgetClockRight = 0;
+  final double _fixedWidgetClockBottom = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -113,24 +111,12 @@ class _DataPageState extends State<DataPage> {
             fit: BoxFit.cover, height: 100, width: 130),
         backgroundColor: Colors.white,
         actions: <Widget>[
-          const Align(
-            alignment: Alignment.center,
-            child: Padding(
-              padding: EdgeInsets.all(15),
-              child: SizedBox(
-                child: Text(
-                  '00:00:00',
-                  style: timeLabel,
-                ),
-              ),
-            ),
-          ),
           IconButton(
             icon: const Icon(
-              Icons.settings,
+              Icons.bluetooth,
               color: Colors.black,
             ),
-            tooltip: 'Settings',
+            tooltip: 'Bluetooth',
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (BuildContext context) => const FindDevicesScreen(),
@@ -141,6 +127,13 @@ class _DataPageState extends State<DataPage> {
       ),
       body: Stack(
         children: [
+          Positioned(
+            top: _fixedWidgetTop,
+            left: _fixedWidgetSignalLeft,
+            right: _fixedWidgetSignalRight,
+            bottom: _fixedWidgetSignalBottom,
+            child: _fixedWidgetSignal,
+          ),
           Positioned.fill(
             child: _widgetOptions[currentIndex],
           ),
@@ -151,13 +144,7 @@ class _DataPageState extends State<DataPage> {
             bottom: _fixedWidgetClockBottom,
             child: _fixedWidgetClock,
           ),
-          Positioned(
-            top: _fixedWidgetTop,
-            left: _fixedWidgetSignalLeft,
-            right: _fixedWidgetSignalRight,
-            bottom: _fixedWidgetSignalBottom,
-            child: _fixedWidgetSignal,
-          ),
+          
         ],
       ),
 
