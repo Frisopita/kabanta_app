@@ -5,11 +5,11 @@ import 'package:kabanta_app1/Pages/ecg.dart';
 import 'package:kabanta_app1/Pages/history.dart';
 import 'package:kabanta_app1/Pages/scenery.dart';
 import 'package:kabanta_app1/Pages/vital.dart';
+import 'package:kabanta_app1/Providers/ble_provider.dart';
 import 'package:kabanta_app1/bluetooth.dart';
 import 'package:kabanta_app1/containers.dart';
 import 'package:provider/provider.dart';
-import 'temp_provider.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart' as flutter_blue;
 import 'package:permission_handler/permission_handler.dart';
 
 void main() {
@@ -34,27 +34,63 @@ class MyKabantaApp extends StatelessWidget {
   const MyKabantaApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (BuildContext context) => TempProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<BleProvider>(
+          /// lazy se usa para incializar un provider antes de tiempo:
+          /// true: se incializa desde que se inserta en el Widget Tree
+          /// false: se inicializa hasta que se utiliza por 1ra vez
+          /// null: mismo que false
+          lazy: null,
+          //Se encarga de la notificaci��n de los cambios de provider
+          create: (BuildContext context) => BleProvider(),
+        ),
+
+        /// Puedes iniciar el stream dentro de un provider y usarlo en toda la app.
+        /// Lo ideal sería usar un wrapper y meter el stream dentro de un objeto o servicio que nosotros
+        /// escribieramos
+        StreamProvider<flutter_blue.BluetoothState>.value(
+          value: flutter_blue.FlutterBluePlus.instance.state,
+          initialData: flutter_blue.BluetoothState.unknown,
+        ),
+      ],
       child: MaterialApp(
+        // Quita el banner de debug en la parte superior derecha de la pantalla
         debugShowCheckedModeBanner: false,
-        color: Colors.lightBlue,
-        home: StreamBuilder<BluetoothState>(
-            stream: FlutterBluePlus.instance.state,
-            initialData: BluetoothState.unknown,
-            builder: (c, snapshot) {
-              final state = snapshot.data;
-              if (state == BluetoothState.on) {
-                return const DataPage();
-              }
-              return const DataPage();
-              /*const Center(
-                child:
-                    Text('Su bluetooth esta apagado, es necesario prenderlo'),
-              );*/
-            }),
+        theme: ThemeData(
+          fontFamily: 'Crimson_Text',
+        ),
+
+        home: Builder(
+          builder: (context) {
+            final blState = context.watch<flutter_blue.BluetoothState>();
+            if (blState == flutter_blue.BluetoothState.on) {
+              // Pasa los datos aqu��
+              return DataPage();
+            }
+            return const FindDevicesScreen();
+            // Si el estado de Bluetooth no est�� encendido, muestra la pantalla BluetoothOffScreen con el estado actual
+          },
+        ),
       ),
-    );
+      builder: (context, child) {
+        /// select es un caso especial que solo observa un estado dentro del objeto (Sensor)
+        /// y solo actualiza el widget cuando ese valor cambia, sin importar si notifylistener() cambio otros datos de nuestro objeto
+        /// ver [Selector]
+        final stream = context.select<BleProvider, Stream<List<BLE>>>(
+          (s) => s.stream,
+        );
+        return StreamProvider<List<BLE>>.value(
+          value: stream,
+          catchError: (context, error) {
+
+            return [];
+          },
+          initialData: const [],
+          child: child,
+        );
+      },
+      );
   }
 }
 

@@ -5,17 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:provider/provider.dart';
-import 'temp_provider.dart';
-
-final Map<String, String> characteristicNames = {
-  'beb5483e-36e1-4688-b7f5-ea07361b26a8': 'Heart Rate',
-  '8bdf0a1a-a48e-4dc3-8bab-ad0c1f7ed218': 'Temperature',
-  '411fcc1c-e7a5-4a61-82fe-0004993dd1f4': 'SP02',
-  'c608f523-aa19-40d1-8359-ad43409c34d7': 'Systolic Preasure',
-  '52294b4d-d66e-4d68-9782-1e5bb8f7ba14': 'Diastolic Preasure',
-  '7533653f-6f0e-41fa-8fa6-9892a1904db1': 'Frecuency',
-  '607a2edc-007d-4d51-a3a6-58fad0db3c37': 'CO2',
-  };
+import 'Providers/ble_provider.dart';
 
 final List<String> excludedServiceUUIDs = [
   '00001800-0000-1000-8000-00805f9b34fb',
@@ -29,245 +19,71 @@ class ScanResultTile extends StatelessWidget {
   final ScanResult result;
   final VoidCallback? onTap;
 
-  Widget _buildTitle(BuildContext context) {
-    if (result.device.name.isNotEmpty) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            result.device.name,
-            overflow: TextOverflow.ellipsis,
-          ),
-          Text(
-            result.device.id.toString(),
-            style: Theme.of(context).textTheme.bodySmall,
-          )
-        ],
-      );
-    } else {
-      return Text(result.device.id.toString());
-    }
-  }
-
-  Widget _buildAdvRow(BuildContext context, String title, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(title, style: Theme.of(context).textTheme.bodySmall),
-          const SizedBox(
-            width: 12.0,
-          ),
-          Expanded(
-            child: Text(
-              value,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall
-                  ?.apply(color: Colors.black),
-              softWrap: true,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  String getNiceHexArray(List<int> bytes) {
-    return '[${bytes.map((i) => i.toRadixString(16).padLeft(2, '0')).join(', ')}]'
-        .toUpperCase();
-  }
-
-  String getNiceManufacturerData(Map<int, List<int>> data) {
-    if (data.isEmpty) {
-      return 'N/A';
-    }
-    List<String> res = [];
-    data.forEach((id, bytes) {
-      res.add(
-          '${id.toRadixString(16).toUpperCase()}: ${getNiceHexArray(bytes)}');
-    });
-    return res.join(', ');
-  }
-
-  String getNiceServiceData(Map<String, List<int>> data) {
-    if (data.isEmpty) {
-      return 'N/A';
-    }
-    List<String> res = [];
-    data.forEach((id, bytes) {
-      res.add('${id.toUpperCase()}: ${getNiceHexArray(bytes)}');
-    });
-    return res.join(', ');
-  }
-
   @override
   Widget build(BuildContext context) {
     if (result.advertisementData.connectable) {
-      return ExpansionTile(
-        title: _buildTitle(context),
-        trailing: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white,
-            backgroundColor: Colors.black,
+      if (result.device.name.isNotEmpty) {
+        return ListTile(
+          title: Text(
+            result.device.name,
+            overflow: TextOverflow.ellipsis,
           ),
-          onPressed: (result.advertisementData.connectable) ? onTap : null,
-          child: const Text('CONNECT'),
-          //El trailing es un ElevatedButton que muestra un bot��n "CONNECT".
-          //Su estado habilitado (onPressed) depende de si el dispositivo es conectable (result.advertisementData.connectable).
-          //Si es conectable, se asigna la funci��n onTap al bot��n; de lo contrario, se asigna null
-        ),
-        children: <Widget>[
-          _buildAdvRow(context, 'Nombre completo del dispositivo',
-              result.advertisementData.localName),
-        ],
-      );
+          trailing: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white,
+              backgroundColor: Colors.black,
+            ),
+            onPressed: (result.advertisementData.connectable) ? onTap : null,
+            child: const Text('CONNECT'),
+            //El trailing es un ElevatedButton que muestra un bot��n "CONNECT".
+            //Su estado habilitado (onPressed) depende de si el dispositivo es conectable (result.advertisementData.connectable).
+            //Si es conectable, se asigna la funci��n onTap al bot��n; de lo contrario, se asigna null
+          ),
+        );
+      } else {
+        return Container();
+      }
     } else {
       return Container(); // Puedes devolver un widget vac��o o cualquier otro widget que desees mostrar en lugar del ExpansionTile
     }
-    
   }
 }
 
 class ServiceTile extends StatelessWidget {
+  
   final BluetoothService service;
-  final List<CharacteristicTile> characteristicTiles;
 
-  const ServiceTile(
-      {Key? key, required this.service, required this.characteristicTiles})
-      : super(key: key);
+  const ServiceTile({Key? key, required this.service}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (characteristicTiles.isNotEmpty) {
+    List<BluetoothCharacteristic> characteristics =
+        service.characteristics.toList();
+    if (characteristics.isNotEmpty) {
       if (excludedServiceUUIDs.contains(service.uuid.toString())) {
         return Container(); // Oculta el servicio
       } else {
         return Column(
           children: <Widget>[
-            const Column(
+            Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Variables'),
-                //Text(
-                //    '0x${service.uuid.toString().toUpperCase().substring(4, 8)}',
-                //    style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                //        color: Theme.of(context).textTheme.caption?.color))
+                const Text('Variables'),
+                ElevatedButton(
+                  onPressed: () {
+                    context.read<BleProvider>().initService(service);
+                    Navigator.popUntil(context, (route) => route.isFirst);
+                  },
+                  child: const Text('Conectar'),
+                ),
               ],
             ),
-            ...characteristicTiles,
           ],
         );
       }
     } else {
       return Text('0x${service.uuid.toString().toUpperCase().substring(4, 8)}');
     }
-  }
-}
-
-class CharacteristicTile extends StatefulWidget {
-  final BluetoothCharacteristic characteristic;
-  final VoidCallback? onReadPressed;
-  final ValueChanged<List<int>>? onWritePressed;
-  final VoidCallback? onNotificationPressed;
-
-  const CharacteristicTile(
-      {Key? key,
-      required this.characteristic,
-      this.onReadPressed,
-      this.onWritePressed,
-      this.onNotificationPressed})
-      : super(key: key);
-
-  @override
-  State<CharacteristicTile> createState() => _CharacteristicTileState();
-}
-
-class _CharacteristicTileState extends State<CharacteristicTile> {
-  double currentSliderValue = 0;
-  String currentSetValue = '';
-  @override
-  Widget build(BuildContext context) {
-    final providerTemp = Provider.of<TempProvider>(context);
-    return StreamBuilder<List<int>>(
-      stream: widget.characteristic.value,
-      initialData: widget.characteristic.lastValue,
-      builder: (c, snapshot) {
-        final value = snapshot.data;
-        String asciiString = value != null ? String.fromCharCodes(value) : '';
-        return ListTile(
-          title: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                characteristicNames[
-                        widget.characteristic.uuid.toString().toLowerCase()] ??
-                    widget.characteristic.uuid.toString().toUpperCase(),
-              ),
-              Slider(
-                value: currentSliderValue,
-                max: 100,
-                divisions: 10,
-                label: currentSliderValue.round().toString(),
-                activeColor: Colors.blueGrey,
-                inactiveColor: Colors.blueGrey.shade200,
-                onChanged: (double value) {
-                  setState(() {
-                    currentSliderValue = value;
-                    currentSetValue = '${currentSliderValue.round()}';
-                  });
-                },
-              ),
-              Text(asciiString),
-              //const Text('Characteristic'),
-              //Text(
-              //    '0x${widget.characteristic.uuid.toString().toUpperCase().substring(4, 8)}',
-              //    style: Theme.of(context).textTheme.bodyText1?.copyWith(
-              //        color: Theme.of(context).textTheme.caption?.color))
-            ],
-          ),
-          contentPadding: const EdgeInsets.all(0.0),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              IconButton(
-                  icon: Icon(
-                    Icons.remove_red_eye,
-                    color: Theme.of(context).iconTheme.color?.withOpacity(0.5),
-                  ),
-                  onPressed: () async {
-                    widget.characteristic.read();
-                    List<int> readValues =
-                        await widget.characteristic.value.first;
-                    providerTemp.temp = String.fromCharCodes(readValues);
-                  }),
-              IconButton(
-                icon: Icon(Icons.edit,
-                    color: Theme.of(context).iconTheme.color?.withOpacity(0.5)),
-                //onPressed: widget.onWritePressed!([currentSliderValue.toInt()]),
-                onPressed: () {
-                  final List<int> result = [currentSliderValue.toInt()];
-                  widget.onWritePressed?.call(result);
-                },
-              ),
-              IconButton(
-                  icon: Icon(
-                      widget.characteristic.isNotifying
-                          ? Icons.sync_disabled
-                          : Icons.sync,
-                      color:
-                          Theme.of(context).iconTheme.color?.withOpacity(0.5)),
-                  onPressed: () {
-                    widget.onNotificationPressed;
-                  })
-            ],
-          ),
-        );
-      },
-    );
   }
 }
