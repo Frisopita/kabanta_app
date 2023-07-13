@@ -157,16 +157,7 @@ class _DeviceScreenState extends State<DeviceScreen> {
                   ),
                   title: Text(
                       'Device is ${snapshot.data.toString().split('.')[1]}.'),
-                  trailing: SizedBox(
-                    width: 30,
-                    child: StreamBuilder<bool>(
-                      stream: widget.device.isDiscoveringServices,
-                      initialData: false,
-                      builder: (c, snapshot) => IndexedStack(
-                        index: snapshot.data! ? 1 : 0,
-                      ),
-                    ),
-                  ));
+              );
             },
           ),
           StreamBuilder<List<BluetoothService>>(

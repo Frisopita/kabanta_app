@@ -69,7 +69,6 @@ class ServiceTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Text('Variables'),
                 ElevatedButton(
                   onPressed: () {
                     context.read<BleProvider>().initService(service);
