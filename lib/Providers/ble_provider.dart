@@ -39,7 +39,8 @@ class BleProvider extends ChangeNotifier {
     _service = service;
     List<BluetoothCharacteristic> listBle = service.characteristics
         .where((c) => _allowedUUIDs.containsKey(c.uuid.toString())).toList();
-    //await Future.forEach(listBle, (element) => element.setNotifyValue(true).timeout(Duration(seconds: 5)));
+    await Future.forEach(listBle, (element) => element.setNotifyValue(true));
+    /*
     await service.characteristics[0].setNotifyValue(true);
     await service.characteristics[1].setNotifyValue(true);
     await service.characteristics[2].setNotifyValue(true);
@@ -48,11 +49,18 @@ class BleProvider extends ChangeNotifier {
     await service.characteristics[5].setNotifyValue(true);
     await service.characteristics[6].setNotifyValue(true);
     await service.characteristics[7].setNotifyValue(true);
-    await service.characteristics[8].setNotifyValue(true);
-    await service.characteristics[9].setNotifyValue(true);
-    await service.characteristics[10].setNotifyValue(true);
-    await service.characteristics[11].setNotifyValue(true);
-    await service.characteristics[12].setNotifyValue(true);
+    */
+    Future.forEach(listBle, (element) => element.onValueChangedStream.listen((value)async{}));
+    /*
+    await service.characteristics[0].onValueChangedStream.listen((value) async{});
+    await service.characteristics[1].onValueChangedStream.listen((value) async{});
+    await service.characteristics[3].onValueChangedStream.listen((value) async{});
+    await service.characteristics[4].onValueChangedStream.listen((value) async{});
+    await service.characteristics[5].onValueChangedStream.listen((value) async{});
+    await service.characteristics[6].onValueChangedStream.listen((value) async{});
+    await service.characteristics[7].onValueChangedStream.listen((value) async{});
+    */
+  
 
     listBle.removeLast();
     Iterable<Stream<BLE>> streams = listBle

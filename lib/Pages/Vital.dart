@@ -1,8 +1,9 @@
 //Vital Signs Page
-
 import 'package:flutter/material.dart';
 import 'package:kabanta_app1/variables.dart';
 import 'package:kabanta_app1/containers.dart';
+import 'package:kabanta_app1/Providers/ble_provider.dart';
+import 'package:provider/provider.dart';
 
 Color colorbackbutt2 = Colors.white;
 Color colorforebutt2 = Colors.indigo;
@@ -301,6 +302,89 @@ class _VitalState extends State<Vital> {
                             ),
                           ),
                         ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Consumer<List<BLE>>(
+                        builder: (context, sensors, _) {
+                          print('print $sensors');
+                          loopCallback(BLE sensor) {
+                            String value = sensor.data;
+                            switch (sensor.id) {
+                              case 'Heart Rate':
+                                {
+                                  heart = value;
+                                }
+                                break;
+
+                              case 'Temperature':
+                                {
+                                  temp = value;
+                                }
+                                break;
+
+                              case 'SP02':
+                                {
+                                  spo2 = value;
+                                }
+                                break;
+                              case 'Systolic Preasure':
+                                {
+                                  sysp = value;
+                                }
+                                break;
+                              case 'Diastolic Preasure':
+                                {
+                                  diasp = value;
+                                }
+                                break;
+                              case 'Frecuency':
+                                {
+                                  freq = value;
+                                }
+                                break;
+                              case 'CO2':
+                                {
+                                  co2 = value;
+                                }
+                                break;
+                            }
+                          }
+
+                          sensors.forEach(loopCallback);
+                          return Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Text('Heart Rate: $heart'),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Text('Temperature: $temp'),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Text('SPO2: $spo2'),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Text('Systolic Preasuare: $sysp'),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Text('Diastolic Preasure: $diasp'),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Text('Frecuency: $freq'),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Text('CO2: $co2'),
+                              ),
+                            ],
+                          );
+                        },
                       ),
                     ),
                   ],
