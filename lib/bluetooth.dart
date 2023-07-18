@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'dart:io';
-import 'package:flutter/material.dart'; // Quitar
+import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:kabanta_app1/Pages/ecg.dart';
 import 'package:kabanta_app1/variables.dart';
 import 'widgets.dart';
+import 'package:kabanta_app1/Providers/device_provider.dart';
+import 'package:provider/provider.dart';
 
 class FindDevicesScreen extends StatefulWidget {
   const FindDevicesScreen({Key? key}) : super(key: key);
@@ -24,7 +24,7 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
   //actualiza cada 4 s la busqueda
   Future<void> startScan() async {
     await FlutterBluePlus.instance
-        .startScan(timeout: const Duration(seconds: 3));
+        .startScan(timeout: const Duration(seconds: 20));
   }
 
   @override
@@ -38,14 +38,14 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
       ),
       body: RefreshIndicator(
         onRefresh: () => FlutterBluePlus.instance
-            .startScan(timeout: const Duration(seconds: 3)),
+            .startScan(timeout: const Duration(seconds: 20)),
         child: SingleChildScrollView(
           child: SizedBox(
             child: Column(
               children: <Widget>[
                 StreamBuilder<List<BluetoothDevice>>(
-                  stream: Stream.periodic(const Duration(seconds: 2))
-                      .asyncMap((_) => FlutterBluePlus.instance.connectedDevices),
+                  stream: Stream.periodic(const Duration(seconds: 2)).asyncMap(
+                      (_) => FlutterBluePlus.instance.connectedDevices),
                   initialData: const [],
                   builder: (c, snapshot) => Column(
                     children: snapshot.data!
@@ -58,12 +58,13 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
                                   if (snapshot.data ==
                                       BluetoothDeviceState.connected) {
                                     return ElevatedButton(
-                                      child: const Text('OPEN'),
-                                      onPressed: () => Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  DeviceScreen(device: d))),
-                                    );
+                                        child: const Text('OPEN'),
+                                        onPressed: () {
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      DeviceScreen(device: d)));
+                                        });
                                   }
                                   return Text(snapshot.data.toString());
                                 },
@@ -79,13 +80,17 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
                     children: snapshot.data!
                         .map(
                           (r) => ScanResultTile(
-                            result: r,
-                            onTap: () => Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context) {
-                              r.device.connect();
-                              return DeviceScreen(device: r.device);
-                            })),
-                          ),
+                              result: r,
+                              onTap: () {
+                                Provider.of<DeviceProvider>(context,
+                                        listen: false)
+                                    .setDevice(r.device);
+                                Navigator.of(context)
+                                    .push(MaterialPageRoute(builder: (context) {
+                                  r.device.connect();
+                                  return DeviceScreen(device: r.device);
+                                }));
+                              }),
                         )
                         .toList(),
                   ),
@@ -123,7 +128,7 @@ class _DeviceScreenState extends State<DeviceScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-         title: Image.asset('Images/original.png',
+        title: Image.asset('Images/original.png',
             fit: BoxFit.cover, height: 100, width: 130),
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
@@ -131,22 +136,26 @@ class _DeviceScreenState extends State<DeviceScreen> {
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 60, 0),
             child: Center(
-              child: Text(widget.device.name, style: signaLabel,),
+              child: Text(
+                widget.device.name,
+                style: signaLabel,
+              ),
             ),
           )
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
-        children: <Widget>[
-          StreamBuilder<BluetoothDeviceState>(
-            stream: widget.device.state, //recibe el estado state del dispositovo Bluetooth
-            initialData: BluetoothDeviceState.connecting,
-            builder: (c, snapshot) {
-              if (snapshot.data == BluetoothDeviceState.connected) {
-                widget.device.discoverServices();
-              }
-              return ListTile(
+          children: <Widget>[
+            StreamBuilder<BluetoothDeviceState>(
+              stream: widget.device
+                  .state, //recibe el estado state del dispositovo Bluetooth
+              initialData: BluetoothDeviceState.connecting,
+              builder: (c, snapshot) {
+                if (snapshot.data == BluetoothDeviceState.connected) {
+                  widget.device.discoverServices();
+                }
+                return ListTile(
                   leading: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -157,22 +166,23 @@ class _DeviceScreenState extends State<DeviceScreen> {
                   ),
                   title: Text(
                       'Device is ${snapshot.data.toString().split('.')[1]}.'),
-              );
-            },
-          ),
-          StreamBuilder<List<BluetoothService>>(
-            //recibe la lista de servicios (services) del dispositivo
-            stream: widget.device.services,
-            initialData: const [],
-            builder: (c, snapshot) {
-              return Column(
-                children: _buildServiceTiles(snapshot.data!), //muestra los ServiceTile generados por el m��todo _buildServiceTiles.
-              );
-            },
-            //Los ServiceTile y CharacteristicTile se generan din��micamente en funci��n de los datos recibidos.
-          ),
-        ],
-      ),
+                );
+              },
+            ),
+            StreamBuilder<List<BluetoothService>>(
+              //recibe la lista de servicios (services) del dispositivo
+              stream: widget.device.services,
+              initialData: const [],
+              builder: (c, snapshot) {
+                return Column(
+                  children: _buildServiceTiles(snapshot
+                      .data!), //muestra los ServiceTile generados por el m��todo _buildServiceTiles.
+                );
+              },
+              //Los ServiceTile y CharacteristicTile se generan din��micamente en funci��n de los datos recibidos.
+            ),
+          ],
+        ),
       ),
     );
   }

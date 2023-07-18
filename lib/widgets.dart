@@ -4,8 +4,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:kabanta_app1/main.dart';
 import 'package:provider/provider.dart';
 import 'Providers/ble_provider.dart';
+import 'variables.dart';
 
 final List<String> excludedServiceUUIDs = [
   '00001800-0000-1000-8000-00805f9b34fb',
@@ -50,7 +52,6 @@ class ScanResultTile extends StatelessWidget {
 }
 
 class ServiceTile extends StatelessWidget {
-  
   final BluetoothService service;
 
   const ServiceTile({Key? key, required this.service}) : super(key: key);
@@ -71,10 +72,14 @@ class ServiceTile extends StatelessWidget {
               children: <Widget>[
                 ElevatedButton(
                   onPressed: () {
-                    context.read<BleProvider>().initService(service);
-                    Navigator.popUntil(context, (route) => route.isFirst);
+                    // context.read<BleProvider>().initService(service);
+                    // Navigator.popUntil(context, (route) => route.isFirst);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const DataPage()),
+                    );
                   },
-                  child: const Text('Conectar'),
+                  child: const Text('Inicio'),
                 ),
               ],
             ),
@@ -86,3 +91,45 @@ class ServiceTile extends StatelessWidget {
     }
   }
 }
+
+
+class ServiceTile2 extends StatelessWidget {
+  final BluetoothService service;
+
+  const ServiceTile2({Key? key, required this.service}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    List<BluetoothCharacteristic> characteristics =
+        service.characteristics.toList();
+    if (characteristics.isNotEmpty) {
+      if (excludedServiceUUIDs.contains(service.uuid.toString())) {
+        return Container(); // Oculta el servicio
+      } else {
+        return Column(
+          children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: colorbackbutt2,
+                      foregroundColor: colorforebutt2),
+                  onPressed: () {
+                    context.read<BleProvider>().initService(service);
+                    // Navigator.popUntil(context, (route) => route.isFirst);
+                  },
+                  child: const Text('Upgrade'),
+                ),
+              ],
+            ),
+          ],
+        );
+      }
+    } else {
+      return Text('0x${service.uuid.toString().toUpperCase().substring(4, 8)}');
+    }
+  }
+}
+

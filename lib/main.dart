@@ -11,6 +11,7 @@ import 'package:kabanta_app1/containers.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart' as flutter_blue;
 import 'package:permission_handler/permission_handler.dart';
+import 'package:kabanta_app1/Providers/device_provider.dart';
 
 void main() {
   if (Platform.isAndroid) {
@@ -53,6 +54,10 @@ class MyKabantaApp extends StatelessWidget {
           value: flutter_blue.FlutterBluePlus.instance.state,
           initialData: flutter_blue.BluetoothState.unknown,
         ),
+
+        ChangeNotifierProvider<DeviceProvider>(
+         create: (BuildContext context) => DeviceProvider(),
+        )
       ],
       child: MaterialApp(
         // Quita el banner de debug en la parte superior derecha de la pantalla
@@ -65,10 +70,12 @@ class MyKabantaApp extends StatelessWidget {
           builder: (context) {
             final blState = context.watch<flutter_blue.BluetoothState>();
             if (blState == flutter_blue.BluetoothState.on) {
-              // Pasa los datos aquï¿½ï¿½
-              return DataPage();
+              // Pasa los datos aqu¨ª
+              return const FindDevicesScreen();
+            }else {
+              return const FindDevicesScreen();
             }
-            return const FindDevicesScreen();
+            
             // Si el estado de Bluetooth no estï¿½ï¿½ encendido, muestra la pantalla BluetoothOffScreen con el estado actual
           },
         ),
@@ -112,8 +119,7 @@ class _DataPageState extends State<DataPage> {
     const History(),
   ];
 
-  final Widget _fixedWidgetSignal = const  ContainerSignal();
-  final Widget _fixedWidgetClock = const ContainerClock();
+  
 
   // Variables para las posiciones del widget fijo
   double _fixedWidgetTop = 0;
@@ -141,6 +147,12 @@ class _DataPageState extends State<DataPage> {
 
   @override
   Widget build(BuildContext context) {
+    final deviceProvider = Provider.of<DeviceProvider>(context);
+    final device = deviceProvider.device;
+    const Widget _fixedWidgetSignal =  ContainerSignal();
+  
+    final Widget _fixedWidgetClock = ContainerClock(device: device);
+
     return Scaffold(
       appBar: AppBar(
         title: Image.asset('Images/original.png',

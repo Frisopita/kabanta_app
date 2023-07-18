@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'variables.dart';
 import 'dart:async';
+import 'bluetooth.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:kabanta_app1/Providers/device_provider.dart';
 
 class ContainerSignal extends StatelessWidget {
   const ContainerSignal({super.key});
@@ -60,13 +65,26 @@ class ContainerSignal extends StatelessWidget {
 }
 
 class ContainerClock extends StatefulWidget {
-  const ContainerClock({super.key});
+  const ContainerClock({Key? key, required this.device}) : super(key: key);
+
+  final BluetoothDevice device;
 
   @override
   State<ContainerClock> createState() => _ContainerClockState();
 }
 
 class _ContainerClockState extends State<ContainerClock> {
+  
+  List<Widget> _buildServiceTiles(List<BluetoothService> services) {
+    return services
+        .map(
+          (s) => ServiceTile2(
+            service: s,
+          ),
+        )
+        .toList();
+  }
+
   // Initialize an instance of Stopwatch
   final Stopwatch _stopwatch = Stopwatch();
 
@@ -109,6 +127,7 @@ class _ContainerClockState extends State<ContainerClock> {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       height: 80,
       width: double.infinity,
@@ -153,6 +172,7 @@ class _ContainerClockState extends State<ContainerClock> {
                   _reset();
                 },
               ),
+              /*
               Padding(
                 padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                 child: ElevatedButton(
@@ -162,6 +182,20 @@ class _ContainerClockState extends State<ContainerClock> {
                   onPressed: () {},
                   child: const Text('Upload'),
                 ),
+              ),
+              */
+
+              StreamBuilder<List<BluetoothService>>(
+                //recibe la lista de servicios (services) del dispositivo
+                stream: widget.device.services,
+                initialData: const [],
+                builder: (c, snapshot) {
+                  return Column(
+                    children: _buildServiceTiles(snapshot
+                        .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                  );
+                },
+                //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
