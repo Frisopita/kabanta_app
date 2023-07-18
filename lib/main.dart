@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart' as flutter_blue;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:kabanta_app1/Providers/device_provider.dart';
+import 'package:kabanta_app1/Providers/blewrite_sliderprovider.dart';
 
 void main() {
   if (Platform.isAndroid) {
@@ -55,8 +56,8 @@ class MyKabantaApp extends StatelessWidget {
           initialData: flutter_blue.BluetoothState.unknown,
         ),
 
-        ChangeNotifierProvider<DeviceProvider>(
-         create: (BuildContext context) => DeviceProvider(),
+        ChangeNotifierProvider<BleWriteSliderProvider>(
+         create: (BuildContext context) => BleWriteSliderProvider(),
         )
       ],
       child: MaterialApp(
@@ -76,7 +77,7 @@ class MyKabantaApp extends StatelessWidget {
               return const FindDevicesScreen();
             }
             
-            // Si el estado de Bluetooth no est�� encendido, muestra la pantalla BluetoothOffScreen con el estado actual
+            // Si el estado de Bluetooth no esta encendido, muestra la pantalla BluetoothOffScreen con el estado actual
           },
         ),
       ),
