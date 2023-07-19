@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:kabanta_app1/variables.dart';
-import 'widgets.dart';
+import 'widgetsble.dart';
 import 'package:kabanta_app1/Providers/device_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -58,6 +58,9 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
                                   if (snapshot.data ==
                                       BluetoothDeviceState.connected) {
                                     return ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: colorbackbutt1,
+                                        foregroundColor: colorforebutt1),
                                         child: const Text('OPEN'),
                                         onPressed: () {
                                           Navigator.of(context).push(
@@ -176,10 +179,10 @@ class _DeviceScreenState extends State<DeviceScreen> {
               builder: (c, snapshot) {
                 return Column(
                   children: _buildServiceTiles(snapshot
-                      .data!), //muestra los ServiceTile generados por el m��todo _buildServiceTiles.
+                      .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
                 );
               },
-              //Los ServiceTile y CharacteristicTile se generan din��micamente en funci��n de los datos recibidos.
+              //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
             ),
           ],
         ),

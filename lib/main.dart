@@ -6,7 +6,8 @@ import 'package:kabanta_app1/Pages/history.dart';
 import 'package:kabanta_app1/Pages/scenery.dart';
 import 'package:kabanta_app1/Pages/vital.dart';
 import 'package:kabanta_app1/Providers/ble_provider.dart';
-import 'package:kabanta_app1/bluetooth.dart';
+import 'package:kabanta_app1/bluetooth/bluetooth.dart';
+import 'package:kabanta_app1/bluetooth/qrble.dart';
 import 'package:kabanta_app1/containers.dart';
 import 'package:kabanta_app1/variables.dart';
 import 'package:provider/provider.dart';
@@ -181,6 +182,18 @@ class _DataPageState extends State<DataPage> {
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (BuildContext context) => const FindDevicesScreen(),
+              ));
+            },
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.qr_code_scanner,
+              color: Colors.black,
+            ),
+            tooltip: 'Qr',
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) => const QrboardPage(),
               ));
             },
           ),

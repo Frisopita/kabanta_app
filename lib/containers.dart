@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'variables.dart';
 import 'dart:async';
-import 'bluetooth.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'widgets.dart';
-import 'package:provider/provider.dart';
-import 'package:kabanta_app1/Providers/device_provider.dart';
+import 'bluetooth/widgetsble.dart';
+
 
 class ContainerSignal extends StatelessWidget {
   const ContainerSignal({super.key});
@@ -182,19 +180,6 @@ class _ContainerClockState extends State<ContainerClock> {
                   _reset();
                 },
               ),
-              /*
-              Padding(
-                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: colorbackbutt2,
-                      foregroundColor: colorforebutt2),
-                  onPressed: () {},
-                  child: const Text('Upload'),
-                ),
-              ),
-              */
-
               StreamBuilder<List<BluetoothService>>(
                 //recibe la lista de servicios (services) del dispositivo
                 stream: widget.device.services,

@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:kabanta_app1/main.dart';
 import 'package:provider/provider.dart';
-import 'Providers/ble_provider.dart';
-import 'variables.dart';
+import '../Providers/ble_provider.dart';
+import '../variables.dart';
 import 'package:kabanta_app1/Providers/blewrite_sliderprovider.dart';
 
 final List<String> excludedServiceUUIDs = [
@@ -33,9 +33,8 @@ class ScanResultTile extends StatelessWidget {
           ),
           trailing: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white,
-              backgroundColor: Colors.black,
-            ),
+                    backgroundColor: colorbackbutt3,
+                    foregroundColor: colorforebutt3),
             onPressed: (result.advertisementData.connectable) ? onTap : null,
             child: const Text('CONNECT'),
             //El trailing es un ElevatedButton que muestra un bot��n "CONNECT".
@@ -73,8 +72,6 @@ class ServiceTile extends StatelessWidget {
               children: <Widget>[
                 ElevatedButton(
                   onPressed: () {
-                    // context.read<BleProvider>().initService(service);
-                    // Navigator.popUntil(context, (route) => route.isFirst);
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const DataPage()),
