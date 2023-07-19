@@ -8,6 +8,7 @@ import 'package:kabanta_app1/main.dart';
 import 'package:provider/provider.dart';
 import 'Providers/ble_provider.dart';
 import 'variables.dart';
+import 'package:kabanta_app1/Providers/blewrite_sliderprovider.dart';
 
 final List<String> excludedServiceUUIDs = [
   '00001800-0000-1000-8000-00805f9b34fb',
@@ -93,10 +94,10 @@ class ServiceTile extends StatelessWidget {
 }
 
 
-class ServiceTile2 extends StatelessWidget {
+class UppgradeButt extends StatelessWidget {
   final BluetoothService service;
 
-  const ServiceTile2({Key? key, required this.service}) : super(key: key);
+  const UppgradeButt({Key? key, required this.service}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -117,11 +118,49 @@ class ServiceTile2 extends StatelessWidget {
                       backgroundColor: colorbackbutt2,
                       foregroundColor: colorforebutt2),
                   onPressed: () {
-                    context.read<BleProvider>().initService(service);
+                    context.read<BleWriteSliderProvider>().initService(service);
+                    //context.read<BleProvider>().initService(service);
                     // Navigator.popUntil(context, (route) => route.isFirst);
                   },
                   child: const Text('Upgrade'),
                 ),
+              ],
+            ),
+          ],
+        );
+      }
+    } else {
+      return Text('0x${service.uuid.toString().toUpperCase().substring(4, 8)}');
+    }
+  }
+}
+
+
+class PlayButt extends StatelessWidget {
+  final BluetoothService service;
+
+  const PlayButt({Key? key, required this.service}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    List<BluetoothCharacteristic> characteristics =
+        service.characteristics.toList();
+    if (characteristics.isNotEmpty) {
+      if (excludedServiceUUIDs.contains(service.uuid.toString())) {
+        return Container(); // Oculta el servicio
+      } else {
+        return Column(
+          children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[  
+                IconButton(
+                icon: const Icon(Icons.pause),
+                onPressed: () {
+                  context.read<BleWriteSliderProvider>().initService(service);
+                },
+              ),      
               ],
             ),
           ],

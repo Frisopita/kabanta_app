@@ -75,10 +75,20 @@ class ContainerClock extends StatefulWidget {
 
 class _ContainerClockState extends State<ContainerClock> {
   
-  List<Widget> _buildServiceTiles(List<BluetoothService> services) {
+  List<Widget> _buildUpgradeButt(List<BluetoothService> services) {
     return services
         .map(
-          (s) => ServiceTile2(
+          (s) => UppgradeButt(
+            service: s,
+          ),
+        )
+        .toList();
+  }
+
+  List<Widget> _buildPlayButt(List<BluetoothService> services) {
+    return services
+        .map(
+          (s) => UppgradeButt(
             service: s,
           ),
         )
@@ -191,7 +201,7 @@ class _ContainerClockState extends State<ContainerClock> {
                 initialData: const [],
                 builder: (c, snapshot) {
                   return Column(
-                    children: _buildServiceTiles(snapshot
+                    children: _buildUpgradeButt(snapshot
                         .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
                   );
                 },

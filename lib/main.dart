@@ -8,6 +8,7 @@ import 'package:kabanta_app1/Pages/vital.dart';
 import 'package:kabanta_app1/Providers/ble_provider.dart';
 import 'package:kabanta_app1/bluetooth.dart';
 import 'package:kabanta_app1/containers.dart';
+import 'package:kabanta_app1/variables.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart' as flutter_blue;
 import 'package:permission_handler/permission_handler.dart';
@@ -44,21 +45,31 @@ class MyKabantaApp extends StatelessWidget {
           /// false: se inicializa hasta que se utiliza por 1ra vez
           /// null: mismo que false
           lazy: null,
-          //Se encarga de la notificaci��n de los cambios de provider
+          //Se encarga de la notificacion de los cambios de provider
           create: (BuildContext context) => BleProvider(),
         ),
 
         /// Puedes iniciar el stream dentro de un provider y usarlo en toda la app.
-        /// Lo ideal sería usar un wrapper y meter el stream dentro de un objeto o servicio que nosotros
+        /// Lo ideal seria usar un wrapper y meter el stream dentro de un objeto o servicio que nosotros
         /// escribieramos
         StreamProvider<flutter_blue.BluetoothState>.value(
           value: flutter_blue.FlutterBluePlus.instance.state,
           initialData: flutter_blue.BluetoothState.unknown,
         ),
-
+        ChangeNotifierProvider<DeviceProvider>(
+         create: (BuildContext context) => DeviceProvider(),
+        ),
         ChangeNotifierProvider<BleWriteSliderProvider>(
-         create: (BuildContext context) => BleWriteSliderProvider(),
-        )
+         create: (BuildContext context) => BleWriteSliderProvider(
+          currentSliderValue1,
+          currentSliderValue2,
+          currentSliderValue3,
+          currentSliderValue4,
+          currentSliderValue5,
+          currentSliderValue6,
+          currentSliderValue7,
+          ),
+        ),
       ],
       child: MaterialApp(
         // Quita el banner de debug en la parte superior derecha de la pantalla

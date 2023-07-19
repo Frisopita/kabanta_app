@@ -4,6 +4,7 @@ import 'package:kabanta_app1/variables.dart';
 import 'package:kabanta_app1/containers.dart';
 import 'package:kabanta_app1/Providers/ble_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:kabanta_app1/Providers/blewrite_sliderprovider.dart';
 
 Color colorbackbutt2 = Colors.white;
 Color colorforebutt2 = Colors.indigo;
@@ -56,19 +57,26 @@ class _VitalState extends State<Vital> {
                               child: Row(
                                 children: [
                                   Slider(
-                                    value: currentSliderValue1,
+                                    value: Provider.of<BleWriteSliderProvider>(
+                                            context)
+                                        .currentSliderValue1,
                                     min: heartmin,
                                     max: heartmax,
                                     divisions: heartdiv,
-                                    label:
-                                        currentSliderValue1.round().toString(),
+                                    label: Provider.of<BleWriteSliderProvider>(
+                                            context)
+                                        .currentSliderValue1
+                                        .round()
+                                        .toString(),
                                     activeColor: Colors.blueGrey,
                                     inactiveColor: Colors.blueGrey.shade200,
                                     onChanged: (double value) {
                                       setState(() {
-                                        currentSliderValue1 = value;
-                                        status1 =
-                                            '${currentSliderValue1.round()}';
+                                        Provider.of<BleWriteSliderProvider>(
+                                                context,
+                                                listen: false)
+                                            .updateSliderValue1(value);
+                                        status1 = '${value.round()}';
                                       });
                                     },
                                   ),
@@ -94,25 +102,32 @@ class _VitalState extends State<Vital> {
                             child: Row(
                               children: [
                                 Slider(
-                                  value: currentSliderValue2,
+                                  value: Provider.of<BleWriteSliderProvider>(
+                                          context)
+                                      .currentSliderValue2,
                                   min: tempmin,
                                   max: tempmax,
                                   divisions: tempdiv,
-                                  label: currentSliderValue2.round().toString(),
+                                  label: Provider.of<BleWriteSliderProvider>(
+                                          context)
+                                      .currentSliderValue2
+                                      .round()
+                                      .toString(),
                                   activeColor: Colors.blueGrey,
                                   inactiveColor: Colors.blueGrey.shade200,
                                   onChanged: (double value) {
                                     setState(() {
-                                      currentSliderValue2 = value;
-                                      status2 =
-                                          '${currentSliderValue2.round()}';
+                                      Provider.of<BleWriteSliderProvider>(
+                                              context,
+                                              listen: false)
+                                          .updateSliderValue2(value);
+                                      status2 = '${value.round()}';
                                     });
                                   },
                                 ),
                               ],
                             ),
                           ),
-
                           //SpO2
                           SizedBox(
                             width: textwidht,
@@ -132,21 +147,29 @@ class _VitalState extends State<Vital> {
                             child: Row(
                               children: [
                                 Slider(
-                                  value: currentSliderValue3,
-                                  min: spo2min,
-                                  max: spo2max,
-                                  divisions: spo2div,
-                                  label: currentSliderValue3.round().toString(),
-                                  activeColor: Colors.blueGrey,
-                                  inactiveColor: Colors.blueGrey.shade200,
-                                  onChanged: (double value) {
-                                    setState(() {
-                                      currentSliderValue3 = value;
-                                      status3 =
-                                          '${currentSliderValue3.round()}';
-                                    });
-                                  },
-                                ),
+                                    value: Provider.of<BleWriteSliderProvider>(
+                                            context)
+                                        .currentSliderValue3,
+                                    min: spo2min,
+                                    max: spo2max,
+                                    divisions: spo2div,
+                                    label: Provider.of<BleWriteSliderProvider>(
+                                            context)
+                                        .currentSliderValue3
+                                        .round()
+                                        .toString(),
+                                    activeColor: Colors.blueGrey,
+                                    inactiveColor: Colors.blueGrey.shade200,
+                                    onChanged: (double value) {
+                                      setState(() {
+                                        Provider.of<BleWriteSliderProvider>(
+                                                context,
+                                                listen: false)
+                                            .updateSliderValue3(value);
+                                        status3 = '${value.round()}';
+                                      });
+                                    },
+                                  ),
                               ],
                             ),
                           ),
@@ -170,21 +193,29 @@ class _VitalState extends State<Vital> {
                             child: Row(
                               children: [
                                 Slider(
-                                  value: currentSliderValue4,
-                                  min: sysmin,
-                                  max: sysmax,
-                                  divisions: sysdiv,
-                                  label: currentSliderValue4.round().toString(),
-                                  activeColor: Colors.blueGrey,
-                                  inactiveColor: Colors.blueGrey.shade200,
-                                  onChanged: (double value) {
-                                    setState(() {
-                                      currentSliderValue4 = value;
-                                      status4 =
-                                          '${currentSliderValue4.round()}';
-                                    });
-                                  },
-                                ),
+                                    value: Provider.of<BleWriteSliderProvider>(
+                                            context)
+                                        .currentSliderValue4,
+                                    min: sysmin,
+                                    max: sysmax,
+                                    divisions: sysdiv,
+                                    label: Provider.of<BleWriteSliderProvider>(
+                                            context)
+                                        .currentSliderValue4
+                                        .round()
+                                        .toString(),
+                                    activeColor: Colors.blueGrey,
+                                    inactiveColor: Colors.blueGrey.shade200,
+                                    onChanged: (double value) {
+                                      setState(() {
+                                        Provider.of<BleWriteSliderProvider>(
+                                                context,
+                                                listen: false)
+                                            .updateSliderValue4(value);
+                                        status4 = '${value.round()}';
+                                      });
+                                    },
+                                  ),
                               ],
                             ),
                           ),
@@ -207,21 +238,29 @@ class _VitalState extends State<Vital> {
                             child: Row(
                               children: [
                                 Slider(
-                                  value: currentSliderValue5,
-                                  min: diamin,
-                                  max: diamax,
-                                  divisions: diadiv,
-                                  label: currentSliderValue5.round().toString(),
-                                  activeColor: Colors.blueGrey,
-                                  inactiveColor: Colors.blueGrey.shade200,
-                                  onChanged: (double value) {
-                                    setState(() {
-                                      currentSliderValue5 = value;
-                                      status5 =
-                                          '${currentSliderValue5.round()}';
-                                    });
-                                  },
-                                ),
+                                    value: Provider.of<BleWriteSliderProvider>(
+                                            context)
+                                        .currentSliderValue5,
+                                    min: diamin,
+                                    max: diamax,
+                                    divisions: diadiv,
+                                    label: Provider.of<BleWriteSliderProvider>(
+                                            context)
+                                        .currentSliderValue5
+                                        .round()
+                                        .toString(),
+                                    activeColor: Colors.blueGrey,
+                                    inactiveColor: Colors.blueGrey.shade200,
+                                    onChanged: (double value) {
+                                      setState(() {
+                                        Provider.of<BleWriteSliderProvider>(
+                                                context,
+                                                listen: false)
+                                            .updateSliderValue5(value);
+                                        status5 = '${value.round()}';
+                                      });
+                                    },
+                                  ),
                               ],
                             ),
                           ),
@@ -245,21 +284,29 @@ class _VitalState extends State<Vital> {
                             child: Row(
                               children: [
                                 Slider(
-                                  value: currentSliderValue6,
-                                  min: frmin,
-                                  max: frmax,
-                                  divisions: frdiv,
-                                  label: currentSliderValue6.round().toString(),
-                                  activeColor: Colors.blueGrey,
-                                  inactiveColor: Colors.blueGrey.shade200,
-                                  onChanged: (double value) {
-                                    setState(() {
-                                      currentSliderValue6 = value;
-                                      status6 =
-                                          '${currentSliderValue6.round()}';
-                                    });
-                                  },
-                                ),
+                                    value: Provider.of<BleWriteSliderProvider>(
+                                            context)
+                                        .currentSliderValue6,
+                                    min: frmin,
+                                    max: frmax,
+                                    divisions: frdiv,
+                                    label: Provider.of<BleWriteSliderProvider>(
+                                            context)
+                                        .currentSliderValue6
+                                        .round()
+                                        .toString(),
+                                    activeColor: Colors.blueGrey,
+                                    inactiveColor: Colors.blueGrey.shade200,
+                                    onChanged: (double value) {
+                                      setState(() {
+                                        Provider.of<BleWriteSliderProvider>(
+                                                context,
+                                                listen: false)
+                                            .updateSliderValue6(value);
+                                        status6 = '${value.round()}';
+                                      });
+                                    },
+                                  ),
                               ],
                             ),
                           ),
@@ -283,21 +330,29 @@ class _VitalState extends State<Vital> {
                             child: Row(
                               children: [
                                 Slider(
-                                  value: currentSliderValue7,
-                                  min: co2min,
-                                  max: co2max,
-                                  divisions: co2div,
-                                  label: currentSliderValue7.round().toString(),
-                                  activeColor: Colors.blueGrey,
-                                  inactiveColor: Colors.blueGrey.shade200,
-                                  onChanged: (double value) {
-                                    setState(() {
-                                      currentSliderValue7 = value;
-                                      status7 =
-                                          '${currentSliderValue7.round()}';
-                                    });
-                                  },
-                                ),
+                                    value: Provider.of<BleWriteSliderProvider>(
+                                            context)
+                                        .currentSliderValue7,
+                                    min: co2min,
+                                    max: co2max,
+                                    divisions: co2div,
+                                    label: Provider.of<BleWriteSliderProvider>(
+                                            context)
+                                        .currentSliderValue7
+                                        .round()
+                                        .toString(),
+                                    activeColor: Colors.blueGrey,
+                                    inactiveColor: Colors.blueGrey.shade200,
+                                    onChanged: (double value) {
+                                      setState(() {
+                                        Provider.of<BleWriteSliderProvider>(
+                                                context,
+                                                listen: false)
+                                            .updateSliderValue7(value);
+                                        status7 = '${value.round()}';
+                                      });
+                                    },
+                                  ),
                               ],
                             ),
                           ),
