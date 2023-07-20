@@ -86,7 +86,7 @@ class _ContainerClockState extends State<ContainerClock> {
   List<Widget> _buildPlayButt(List<BluetoothService> services) {
     return services
         .map(
-          (s) => UppgradeButt(
+          (s) => PlayButt(
             service: s,
           ),
         )

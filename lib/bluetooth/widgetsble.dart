@@ -4,9 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:kabanta_app1/main.dart';
 import 'package:provider/provider.dart';
-import '../Providers/ble_provider.dart';
 import '../variables.dart';
 import 'package:kabanta_app1/Providers/blewrite_sliderprovider.dart';
 
@@ -64,25 +62,7 @@ class ServiceTile extends StatelessWidget {
       if (excludedServiceUUIDs.contains(service.uuid.toString())) {
         return Container(); // Oculta el servicio
       } else {
-        return Column(
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const DataPage()),
-                    );
-                  },
-                  child: const Text('Inicio'),
-                ),
-              ],
-            ),
-          ],
-        );
+        return Container();
       }
     } else {
       return Text('0x${service.uuid.toString().toUpperCase().substring(4, 8)}');
