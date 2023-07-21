@@ -37,18 +37,6 @@ class _QrboardPageState extends State<QrboardPage> {
             fit: BoxFit.cover, height: 100, width: 130),
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
-        actions: const <Widget>[
-          /*
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 60, 0),
-            child: Center(
-              child: Text(
-                widget.device.name,
-                style: signaLabel,
-              ),
-            ),
-          ),*/
-        ],
       ),
       body: SingleChildScrollView(
         child: Column(

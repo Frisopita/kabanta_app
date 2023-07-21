@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:kabanta_app1/main.dart';
 import 'package:provider/provider.dart';
-import '../Providers/ble_provider.dart';
 import '../variables.dart';
 import 'package:kabanta_app1/Providers/blewrite_sliderprovider.dart';
 import 'package:kabanta_app1/Providers/device_provider.dart';
@@ -32,6 +31,8 @@ class _ScanResultTileState extends State<ScanResultTile> {
   Future<void> _connectToDevice() async {
     if (widget.result.device.name == 'ESP32 Sopita' && !isConnected) {
       await widget.result.device.connect();
+      List<BluetoothService> services = await widget.result.device.discoverServices();
+
       setState(() {
         isConnected = true;
       });
@@ -46,6 +47,7 @@ class _ScanResultTileState extends State<ScanResultTile> {
       );
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<void>(
@@ -60,7 +62,7 @@ class _ScanResultTileState extends State<ScanResultTile> {
                 child: CircularProgressIndicator(
                   color: Colors.indigo,
                   backgroundColor: Colors.blueGrey.shade100,
-                  value: 1,
+                  value: .5,
                 ),
               ),
               const Padding(
@@ -88,45 +90,6 @@ class _ScanResultTileState extends State<ScanResultTile> {
         }
       },
     );
-  }
-}
-
-class ServiceTile extends StatelessWidget {
-  final BluetoothService service;
-
-  const ServiceTile({Key? key, required this.service}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    List<BluetoothCharacteristic> characteristics =
-        service.characteristics.toList();
-    if (characteristics.isNotEmpty) {
-      if (excludedServiceUUIDs.contains(service.uuid.toString())) {
-        return Container(); // Oculta el servicio
-      } else {
-        return Column(
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const DataPage()),
-                    );
-                  },
-                  child: const Text('Inicio'),
-                ),
-              ],
-            ),
-          ],
-        );
-      }
-    } else {
-      return Text('0x${service.uuid.toString().toUpperCase().substring(4, 8)}');
-    }
   }
 }
 
