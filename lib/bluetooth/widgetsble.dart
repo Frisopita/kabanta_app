@@ -9,45 +9,85 @@ import 'package:provider/provider.dart';
 import '../Providers/ble_provider.dart';
 import '../variables.dart';
 import 'package:kabanta_app1/Providers/blewrite_sliderprovider.dart';
+import 'package:kabanta_app1/Providers/device_provider.dart';
 
 final List<String> excludedServiceUUIDs = [
   '00001800-0000-1000-8000-00805f9b34fb',
   '00001801-0000-1000-8000-00805f9b34fb'
 ];
 
-class ScanResultTile extends StatelessWidget {
-  const ScanResultTile({Key? key, required this.result, this.onTap})
+class ScanResultTile extends StatefulWidget {
+  const ScanResultTile({Key? key, required this.result})
       : super(key: key);
 
   final ScanResult result;
-  final VoidCallback? onTap;
 
   @override
-  Widget build(BuildContext context) {
-    if (result.advertisementData.connectable) {
-      if (result.device.name.isNotEmpty) {
-        return ListTile(
-          title: Text(
-            result.device.name,
-            overflow: TextOverflow.ellipsis,
-          ),
-          trailing: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                    backgroundColor: colorbackbutt3,
-                    foregroundColor: colorforebutt3),
-            onPressed: (result.advertisementData.connectable) ? onTap : null,
-            child: const Text('CONNECT'),
-            //El trailing es un ElevatedButton que muestra un botï¿½ï¿½n "CONNECT".
-            //Su estado habilitado (onPressed) depende de si el dispositivo es conectable (result.advertisementData.connectable).
-            //Si es conectable, se asigna la funciï¿½ï¿½n onTap al botï¿½ï¿½n; de lo contrario, se asigna null
-          ),
-        );
-      } else {
-        return Container();
-      }
-    } else {
-      return Container(); // Puedes devolver un widget vacï¿½ï¿½o o cualquier otro widget que desees mostrar en lugar del ExpansionTile
+  State<ScanResultTile> createState() => _ScanResultTileState();
+}
+
+class _ScanResultTileState extends State<ScanResultTile> {
+  bool isConnected = false;
+
+  Future<void> _connectToDevice() async {
+    if (widget.result.device.name == 'ESP32 Sopita' && !isConnected) {
+      await widget.result.device.connect();
+      setState(() {
+        isConnected = true;
+      });
+      Provider.of<DeviceProvider>(context, listen: false)
+          .setDevice(widget.result.device);
+          
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DataPage(),
+        ),
+      );
     }
+  }
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<void>(
+      future: _connectToDevice(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          // Mientras se est¨¢ conectando, puedes mostrar un indicador de carga
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: CircularProgressIndicator(
+                  color: Colors.indigo,
+                  backgroundColor: Colors.blueGrey.shade100,
+                  value: 1,
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.all(10),
+                child: Text('Conectando con ESP32 Sopita'),
+              ),
+            ],
+          );
+        } else {
+          if (widget.result.advertisementData.connectable) {
+            if (widget.result.device.name.isNotEmpty) {
+              // Si el nombre del dispositivo coincide con el deseado y est¨¢ conectado, muestra el ListTile
+              if (widget.result.device.name == 'ESP32 Sopita' && isConnected) {
+                return Container();
+              } else {
+                // Si el nombre del dispositivo no coincide con el deseado o a¨²n no est¨¢ conectado, devuelve un contenedor vac¨ªo
+                return Container();
+              }
+            } else {
+              return Container();
+            }
+          } else {
+            return Container();
+          }
+        }
+      },
+    );
   }
 }
 

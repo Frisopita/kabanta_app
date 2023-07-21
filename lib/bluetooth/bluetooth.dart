@@ -5,6 +5,7 @@ import 'package:kabanta_app1/variables.dart';
 import 'widgetsble.dart';
 import 'package:kabanta_app1/Providers/device_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:kabanta_app1/main.dart';
 
 class FindDevicesScreen extends StatefulWidget {
   const FindDevicesScreen({Key? key}) : super(key: key);
@@ -14,6 +15,9 @@ class FindDevicesScreen extends StatefulWidget {
 }
 
 class _FindDevicesScreenState extends State<FindDevicesScreen> {
+  bool isLoading = false;
+  BluetoothDevice? selectedDevice;
+  bool isConnected = false;
   @override
   //Este initstate permite la busqueda de dispositivos Bluetooth una vez construido el widget
   void initState() {
@@ -27,81 +31,47 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
         .startScan(timeout: const Duration(seconds: 20));
   }
 
+  void connectToDevice(ScanResult result) {
+    final device = result.device;
+
+    // Con¡§?ctate solo si el nombre del dispositivo coincide con el texto del QR
+    setState(() {
+      isLoading = true;
+    });
+    device.connect().then((_) {
+      setState(() {
+        isLoading = false;
+        selectedDevice = device;
+      });
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const DataPage()),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Image.asset('Images/original.png',
-            fit: BoxFit.cover, height: 100, width: 130),
-        backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
-        automaticallyImplyLeading: false,
-      ),
-      body: RefreshIndicator(
-        onRefresh: () => FlutterBluePlus.instance
-            .startScan(timeout: const Duration(seconds: 20)),
-        child: SingleChildScrollView(
-          child: SizedBox(
-            child: Column(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          StreamBuilder<List<ScanResult>>(
+            stream: FlutterBluePlus.instance.scanResults,
+            initialData: const [],
+            builder: (c, snapshot) => Column(
               children: <Widget>[
-                StreamBuilder<List<BluetoothDevice>>(
-                  stream: Stream.periodic(const Duration(seconds: 2)).asyncMap(
-                      (_) => FlutterBluePlus.instance.connectedDevices),
-                  initialData: const [],
-                  builder: (c, snapshot) => Column(
-                    children: snapshot.data!
-                        .map((d) => ListTile(
-                              title: Text(d.name),
-                              trailing: StreamBuilder<BluetoothDeviceState>(
-                                stream: d.state,
-                                initialData: BluetoothDeviceState.disconnected,
-                                builder: (c, snapshot) {
-                                  if (snapshot.data ==
-                                      BluetoothDeviceState.connected) {
-                                    return ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: colorbackbutt1,
-                                        foregroundColor: colorforebutt1),
-                                        child: const Text('OPEN'),
-                                        onPressed: () {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      DeviceScreen(device: d)));
-                                        });
-                                  }
-                                  return Text(snapshot.data.toString());
-                                },
-                              ),
-                            ))
-                        .toList(),
-                  ),
-                ),
-                StreamBuilder<List<ScanResult>>(
-                  stream: FlutterBluePlus.instance.scanResults,
-                  initialData: const [],
-                  builder: (c, snapshot) => Column(
-                    children: snapshot.data!
-                        .map(
-                          (r) => ScanResultTile(
-                              result: r,
-                              onTap: () {
-                                Provider.of<DeviceProvider>(context,
-                                        listen: false)
-                                    .setDevice(r.device);
-                                Navigator.of(context)
-                                    .push(MaterialPageRoute(builder: (context) {
-                                  r.device.connect();
-                                  return DeviceScreen(device: r.device);
-                                }));
-                              }),
-                        )
-                        .toList(),
+                ...snapshot.data!.map(
+                  (r) => ScanResultTile(
+                    result: r,
                   ),
                 ),
               ],
             ),
           ),
-        ),
+          
+        ],
       ),
     );
   }
