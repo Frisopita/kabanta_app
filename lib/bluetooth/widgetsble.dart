@@ -16,20 +16,23 @@ final List<String> excludedServiceUUIDs = [
 ];
 
 class ScanResultTile extends StatefulWidget {
-  const ScanResultTile({Key? key, required this.result})
+  const ScanResultTile({Key? key, required this.result,required this.qrText})
       : super(key: key);
 
   final ScanResult result;
+  final String qrText;
 
   @override
-  State<ScanResultTile> createState() => _ScanResultTileState();
+  State<ScanResultTile> createState() => _ScanResultTileState(qrText:qrText);
 }
 
 class _ScanResultTileState extends State<ScanResultTile> {
+  String qrText;
+  _ScanResultTileState({required this.qrText});
   bool isConnected = false;
 
   Future<void> _connectToDevice() async {
-    if (widget.result.device.name == 'ESP32 Sopita' && !isConnected) {
+    if (widget.result.device.name == qrText && !isConnected) {
       await widget.result.device.connect();
       List<BluetoothService> services = await widget.result.device.discoverServices();
 
@@ -65,9 +68,9 @@ class _ScanResultTileState extends State<ScanResultTile> {
                   value: .5,
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.all(10),
-                child: Text('Conectando con ESP32 Sopita'),
+              Padding(
+                padding:const EdgeInsets.all(10),
+                child: Text('Conectando con ${qrText}'),
               ),
             ],
           );

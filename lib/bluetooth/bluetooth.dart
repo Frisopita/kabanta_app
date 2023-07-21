@@ -5,13 +5,20 @@ import 'widgetsble.dart';
 import 'package:kabanta_app1/main.dart';
 
 class FindDevicesScreen extends StatefulWidget {
-  const FindDevicesScreen({Key? key}) : super(key: key);
+  const FindDevicesScreen({Key? key, required this.qrText}) : super(key: key);
+
+  final String qrText;
 
   @override
-  State<FindDevicesScreen> createState() => _FindDevicesScreenState();
+  State<FindDevicesScreen> createState() => _FindDevicesScreenState(qrText: qrText);
 }
 
+
 class _FindDevicesScreenState extends State<FindDevicesScreen> {
+  String qrText;
+
+  _FindDevicesScreenState({required this.qrText});
+
   bool isLoading = false;
   BluetoothDevice? selectedDevice;
   bool isConnected = false;
@@ -62,6 +69,7 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
                 ...snapshot.data!.map(
                   (r) => ScanResultTile(
                     result: r,
+                    qrText: qrText,
                   ),
                 ),
               ],

@@ -84,9 +84,9 @@ class MyKabantaApp extends StatelessWidget {
             final blState = context.watch<flutter_blue.BluetoothState>();
             if (blState == flutter_blue.BluetoothState.on) {
               // Pasa los datos aqu¨ª
-              return const FindDevicesScreen();
+              return const QrboardPage();
             }else {
-              return const FindDevicesScreen();
+              return const QrboardPage();
             }
             
             // Si el estado de Bluetooth no esta encendido, muestra la pantalla BluetoothOffScreen con el estado actual
@@ -181,7 +181,7 @@ class _DataPageState extends State<DataPage> {
             tooltip: 'Bluetooth',
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => const FindDevicesScreen(),
+                builder: (BuildContext context) => const QrboardPage(),
               ));
             },
           ),

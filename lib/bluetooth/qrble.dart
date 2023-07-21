@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:kabanta_app1/bluetooth/bluetooth.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:kabanta_app1/main.dart';
 import 'package:kabanta_app1/variables.dart';
@@ -17,6 +18,7 @@ class _QrboardPageState extends State<QrboardPage> {
   Barcode? result;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  String qrText = "";
 
   // In order to get hot reload to work we need to pause the camera if the platform
   // is android, or resume the camera if the platform is iOS.
@@ -65,6 +67,11 @@ class _QrboardPageState extends State<QrboardPage> {
               padding: const EdgeInsets.all(10),
               child: result != null
                   ? TextField(
+                      onChanged: (text) {
+                        setState(() {
+                          qrText = text;
+                        });
+                      },
                       decoration: InputDecoration(
                           border: const OutlineInputBorder(),
                           hintText: '${result!.code}'),
@@ -81,7 +88,7 @@ class _QrboardPageState extends State<QrboardPage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const DataPage()),
+                  MaterialPageRoute(builder: (context) => FindDevicesScreen(qrText: qrText)),
                 );
               },
               child: const Text("Connect"),
