@@ -6,6 +6,8 @@ import 'package:kabanta_app1/bluetooth/bluetooth.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:kabanta_app1/main.dart';
 import 'package:kabanta_app1/variables.dart';
+import 'package:kabanta_app1/Providers/qrtext_provider.dart';
+import 'package:provider/provider.dart';
 
 class QrboardPage extends StatefulWidget {
   const QrboardPage({Key? key}) : super(key: key);
@@ -70,6 +72,9 @@ class _QrboardPageState extends State<QrboardPage> {
                       onChanged: (text) {
                         setState(() {
                           qrText = text;
+                          // Actualiza el valor en el QrTextProvider
+                        Provider.of<QrTextProvider>(context, listen: false)
+                            .updateText(text);
                         });
                       },
                       decoration: InputDecoration(

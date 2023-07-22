@@ -69,7 +69,6 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
                 ...snapshot.data!.map(
                   (r) => ScanResultTile(
                     result: r,
-                    qrText: qrText,
                   ),
                 ),
               ],

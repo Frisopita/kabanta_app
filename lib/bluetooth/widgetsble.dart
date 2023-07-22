@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../variables.dart';
 import 'package:kabanta_app1/Providers/blewrite_sliderprovider.dart';
 import 'package:kabanta_app1/Providers/device_provider.dart';
+import 'package:kabanta_app1/Providers/qrtext_provider.dart';
 
 final List<String> excludedServiceUUIDs = [
   '00001800-0000-1000-8000-00805f9b34fb',
@@ -16,22 +17,19 @@ final List<String> excludedServiceUUIDs = [
 ];
 
 class ScanResultTile extends StatefulWidget {
-  const ScanResultTile({Key? key, required this.result,required this.qrText})
+  const ScanResultTile({Key? key, required this.result})
       : super(key: key);
 
   final ScanResult result;
-  final String qrText;
 
   @override
-  State<ScanResultTile> createState() => _ScanResultTileState(qrText:qrText);
+  State<ScanResultTile> createState() => _ScanResultTileState();
 }
 
 class _ScanResultTileState extends State<ScanResultTile> {
-  String qrText;
-  _ScanResultTileState({required this.qrText});
   bool isConnected = false;
 
-  Future<void> _connectToDevice() async {
+   Future<void> _connectToDevice(String qrText) async {
     if (widget.result.device.name == qrText && !isConnected) {
       await widget.result.device.connect();
       List<BluetoothService> services = await widget.result.device.discoverServices();
@@ -54,7 +52,7 @@ class _ScanResultTileState extends State<ScanResultTile> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<void>(
-      future: _connectToDevice(),
+      future: _connectToDevice(Provider.of<QrTextProvider>(context).currentText ?? ""), // Obtener el valor actual de 'qrText'
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           // Mientras se est¨¢ conectando, puedes mostrar un indicador de carga
@@ -70,7 +68,7 @@ class _ScanResultTileState extends State<ScanResultTile> {
               ),
               Padding(
                 padding:const EdgeInsets.all(10),
-                child: Text('Conectando con ${qrText}'),
+                child: Text('Conectando con ${Provider.of<QrTextProvider>(context).currentText ?? ""}'),
               ),
             ],
           );
