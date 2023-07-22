@@ -33,8 +33,44 @@ class _QrboardPageState extends State<QrboardPage> {
     controller!.resumeCamera();
   }
 
+  void _onQRViewCreated(QRViewController controller) {
+    setState(() {
+      this.controller = controller;
+    });
+    controller.scannedDataStream.listen((scanData) {
+      setState(() {
+        result = scanData;
+      });
+    });
+  }
+
+  void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
+    log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
+    if (!p) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('no Permission')),
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    TextEditingController _textEditingController1 = TextEditingController();
+
+    @override
+    void initState() {
+      super.initState();
+      // Establecer el TextEditingController en el QrTextProvider
+      Provider.of<QrTextProvider>(context, listen: false)
+          .textEditingController = _textEditingController1;
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Image.asset('Images/original.png',
@@ -73,10 +109,12 @@ class _QrboardPageState extends State<QrboardPage> {
                         setState(() {
                           qrText = text;
                           // Actualiza el valor en el QrTextProvider
-                        Provider.of<QrTextProvider>(context, listen: false)
-                            .updateText(text);
+                          Provider.of<QrTextProvider>(context, listen: false)
+                              .updateText(text);
                         });
                       },
+                      controller: Provider.of<QrTextProvider>(context)
+                          .textEditingController, // Usar el TextEditingController del QrTextProvider,
                       decoration: InputDecoration(
                           border: const OutlineInputBorder(),
                           hintText: '${result!.code}'),
@@ -91,12 +129,45 @@ class _QrboardPageState extends State<QrboardPage> {
                   backgroundColor: colorbackbutt1,
                   foregroundColor: colorforebutt1),
               onPressed: () {
+                String? scannedText = result?.code;
+                // Actualizar el valor en el QrTextProvider
+                Provider.of<QrTextProvider>(context, listen: false).updateText(scannedText);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => FindDevicesScreen(qrText: qrText)),
+                  MaterialPageRoute(
+                      builder: (context) => FindDevicesScreen(qrText: qrText)),
                 );
               },
               child: const Text("Connect"),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: colorbackbutt1,
+                foregroundColor: colorforebutt1,
+              ),
+              onPressed: () {
+                // Obtener el valor actual del TextEditingController desde el QrTextProvider
+                String? providerText =
+                    Provider.of<QrTextProvider>(context, listen: false).text;
+                // Mostrar el valor en el Text
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Text("Valor del TextField"),
+                    content: Text(providerText ??
+                        "Sin valor"), // Mostrar "Sin valor" si providerText es nulo
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text("Cerrar"),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              child: const Text("Provider"),
             ),
           ],
         ),
@@ -127,31 +198,5 @@ class _QrboardPageState extends State<QrboardPage> {
         onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
       ),
     );
-  }
-
-  void _onQRViewCreated(QRViewController controller) {
-    setState(() {
-      this.controller = controller;
-    });
-    controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-      });
-    });
-  }
-
-  void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
-    log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
-    if (!p) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('no Permission')),
-      );
-    }
-  }
-
-  @override
-  void dispose() {
-    controller?.dispose();
-    super.dispose();
   }
 }

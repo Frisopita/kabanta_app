@@ -59,20 +59,20 @@ class MyKabantaApp extends StatelessWidget {
           initialData: flutter_blue.BluetoothState.unknown,
         ),
         ChangeNotifierProvider<DeviceProvider>(
-         create: (BuildContext context) => DeviceProvider(),
+          create: (BuildContext context) => DeviceProvider(),
         ),
         ChangeNotifierProvider<QrTextProvider>(
-         create: (BuildContext context) => QrTextProvider(),
+          create: (BuildContext context) => QrTextProvider(),
         ),
         ChangeNotifierProvider<BleWriteSliderProvider>(
-         create: (BuildContext context) => BleWriteSliderProvider(
-          currentSliderValue1,
-          currentSliderValue2,
-          currentSliderValue3,
-          currentSliderValue4,
-          currentSliderValue5,
-          currentSliderValue6,
-          currentSliderValue7,
+          create: (BuildContext context) => BleWriteSliderProvider(
+            currentSliderValue1,
+            currentSliderValue2,
+            currentSliderValue3,
+            currentSliderValue4,
+            currentSliderValue5,
+            currentSliderValue6,
+            currentSliderValue7,
           ),
         ),
       ],
@@ -89,10 +89,10 @@ class MyKabantaApp extends StatelessWidget {
             if (blState == flutter_blue.BluetoothState.on) {
               // Pasa los datos aqu¨ª
               return const QrboardPage();
-            }else {
+            } else {
               return const QrboardPage();
             }
-            
+
             // Si el estado de Bluetooth no esta encendido, muestra la pantalla BluetoothOffScreen con el estado actual
           },
         ),
@@ -107,14 +107,13 @@ class MyKabantaApp extends StatelessWidget {
         return StreamProvider<List<BLE>>.value(
           value: stream,
           catchError: (context, error) {
-
             return [];
           },
           initialData: const [],
           child: child,
         );
       },
-      );
+    );
   }
 }
 
@@ -135,8 +134,6 @@ class _DataPageState extends State<DataPage> {
     const Scenery(),
     const History(),
   ];
-
-  
 
   // Variables para las posiciones del widget fijo
   double _fixedWidgetTop = 0;
@@ -166,8 +163,8 @@ class _DataPageState extends State<DataPage> {
   Widget build(BuildContext context) {
     final deviceProvider = Provider.of<DeviceProvider>(context);
     final device = deviceProvider.device;
-    const Widget _fixedWidgetSignal =  ContainerSignal();
-  
+    const Widget _fixedWidgetSignal = ContainerSignal();
+
     final Widget _fixedWidgetClock = ContainerClock(device: device);
 
     return Scaffold(
@@ -222,7 +219,6 @@ class _DataPageState extends State<DataPage> {
             bottom: _fixedWidgetClockBottom,
             child: _fixedWidgetClock,
           ),
-          
         ],
       ),
 

@@ -29,7 +29,7 @@ class ScanResultTile extends StatefulWidget {
 class _ScanResultTileState extends State<ScanResultTile> {
   bool isConnected = false;
 
-   Future<void> _connectToDevice(String qrText) async {
+   Future<void> _connectToDevice(String? qrText) async {
     if (widget.result.device.name == qrText && !isConnected) {
       await widget.result.device.connect();
       List<BluetoothService> services = await widget.result.device.discoverServices();
@@ -46,13 +46,16 @@ class _ScanResultTileState extends State<ScanResultTile> {
           builder: (context) => DataPage(),
         ),
       );
-    }
+   } else {
+   }
   }
 
   @override
   Widget build(BuildContext context) {
+    String? qrText =
+                    Provider.of<QrTextProvider>(context, listen: false).text;
     return FutureBuilder<void>(
-      future: _connectToDevice(Provider.of<QrTextProvider>(context).currentText ?? ""), // Obtener el valor actual de 'qrText'
+      future: _connectToDevice(qrText), // Obtener el valor actual de 'qrText'
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           // Mientras se est¨¢ conectando, puedes mostrar un indicador de carga
@@ -61,14 +64,16 @@ class _ScanResultTileState extends State<ScanResultTile> {
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: CircularProgressIndicator(
-                  color: Colors.indigo,
+                  //color: Colors.indigo,
                   backgroundColor: Colors.blueGrey.shade100,
-                  value: .5,
+                  value: .8,
+                  strokeWidth: 10, // Cambia este valor para modificar el grosor de la l¨ªnea
+                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.indigo), // Cambia el color del progreso
                 ),
               ),
               Padding(
                 padding:const EdgeInsets.all(10),
-                child: Text('Conectando con ${Provider.of<QrTextProvider>(context).currentText ?? ""}'),
+                child: Text('Conectando con ${qrText}'),
               ),
             ],
           );
@@ -76,7 +81,7 @@ class _ScanResultTileState extends State<ScanResultTile> {
           if (widget.result.advertisementData.connectable) {
             if (widget.result.device.name.isNotEmpty) {
               // Si el nombre del dispositivo coincide con el deseado y est¨¢ conectado, muestra el ListTile
-              if (widget.result.device.name == 'ESP32 Sopita' && isConnected) {
+              if (widget.result.device.name == qrText && isConnected) {
                 return Container();
               } else {
                 // Si el nombre del dispositivo no coincide con el deseado o a¨²n no est¨¢ conectado, devuelve un contenedor vac¨ªo
