@@ -21,18 +21,29 @@ const TextStyle labelStyle = TextStyle(
 );
 
 const TextStyle nameTime = TextStyle(
-  fontSize: 40.0,
+  fontSize: 35.0,
   color: Colors.black,
 );
 
 const TextStyle numTime = TextStyle(
-  fontSize: 40.0,
+  fontSize: 50.0,
   color: Colors.black54,
 );
 
 const TextStyle blueText = TextStyle(
   fontSize: 25.0,
   color: Colors.black,
+);
+
+const TextStyle vitaltextLabel = TextStyle(
+  fontSize: 16,
+  color: Colors.black,
+);
+
+const TextStyle vitanumLabel = TextStyle(
+  fontSize: 20,
+  color: Colors.black,
+  fontWeight: FontWeight.bold,
 );
 //End estilos de texto
 
@@ -109,7 +120,7 @@ String status5 = '35';
 String status6 = '8';
 String status7 = '6';
 
-double slidewidht = 200;
+double slidewidht = 270;
 double slideheight = 36;
 double textwidht = 200;
 double textheight = 30;
@@ -118,31 +129,24 @@ double buttonheight = 66;
 
 double heartmax = 250;
 double heartmin = 30;
-int heartdiv = 10;
 
 double tempmax = 40;
 double tempmin = 35;
-int tempdiv = 10;
 
 double spo2max = 100;
 double spo2min = 70;
-int spo2div = 10;
 
 double sysmax = 200;
 double sysmin = 60;
-int sysdiv = 10;
 
 double diamax = 120;
 double diamin = 35;
-int diadiv = 10;
 
 double frmax = 32;
 double frmin = 8;
-int frdiv = 10;
 
 double co2max = 50;
 double co2min = 6;
-int co2div = 10;
 
 String buttVital1 = 'Time';
 String buttVital2 = 'Time';
