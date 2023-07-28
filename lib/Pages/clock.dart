@@ -12,13 +12,6 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Image.asset('Images/original.png',
-            fit: BoxFit.cover, height: 100, width: 130),
-        backgroundColor: Colors.white,
-        leading: const BackButton( color: Colors.black,),
-        // automaticallyImplyLeading: false,
-      ),
       body: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
