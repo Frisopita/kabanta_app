@@ -6,8 +6,8 @@ import 'package:kabanta_app1/Pages/history.dart';
 import 'package:kabanta_app1/Pages/scenery.dart';
 import 'package:kabanta_app1/Pages/vital.dart';
 import 'package:kabanta_app1/Providers/ble_provider.dart';
-import 'package:kabanta_app1/bluetooth/bluetooth.dart';
 import 'package:kabanta_app1/bluetooth/qrble.dart';
+import 'package:kabanta_app1/bluetooth/bluetooth.dart';
 import 'package:kabanta_app1/containers.dart';
 import 'package:kabanta_app1/variables.dart';
 import 'package:provider/provider.dart';
@@ -90,7 +90,7 @@ class MyKabantaApp extends StatelessWidget {
               // Pasa los datos aqu¨ª
               return const QrboardPage();
             } else {
-              return const QrboardPage();
+              return const BluetoothScreenOffOn();
             }
 
             // Si el estado de Bluetooth no esta encendido, muestra la pantalla BluetoothOffScreen con el estado actual

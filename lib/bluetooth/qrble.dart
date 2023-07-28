@@ -140,6 +140,7 @@ class _QrboardPageState extends State<QrboardPage> {
               },
               child: const Text("Connect"),
             ),
+            /*
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: colorbackbutt1,
@@ -168,7 +169,7 @@ class _QrboardPageState extends State<QrboardPage> {
                 );
               },
               child: const Text("Provider"),
-            ),
+            ),*/
           ],
         ),
       ),

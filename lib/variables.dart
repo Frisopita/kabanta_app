@@ -24,11 +24,16 @@ const TextStyle nameTime = TextStyle(
   fontSize: 40.0,
   color: Colors.black,
 );
+
 const TextStyle numTime = TextStyle(
   fontSize: 40.0,
   color: Colors.black54,
 );
 
+const TextStyle blueText = TextStyle(
+  fontSize: 25.0,
+  color: Colors.black,
+);
 //End estilos de texto
 
 //start Estilos de botones

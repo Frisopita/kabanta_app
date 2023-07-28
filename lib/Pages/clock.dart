@@ -12,6 +12,14 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Image.asset('Images/original.png',
+            fit: BoxFit.cover, height: 100, width: 130),
+        backgroundColor: Colors.white,
+        leading: const BackButton(
+          color: Colors.black,
+        ),
+      ),
       body: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -26,14 +34,14 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                   child: Row(
                     children: [
                       Padding(
-                        padding: EdgeInsets.all(5),
+                        padding: EdgeInsets.all(8),
                         child: Text(
                           'Min',
                           style: nameTime,
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(5),
+                        padding: EdgeInsets.all(8),
                         child: Text(
                           '00:00',
                           style: numTime,
@@ -47,14 +55,14 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                   child: Row(
                     children: [
                       Padding(
-                        padding: EdgeInsets.all(5),
+                        padding: EdgeInsets.all(8),
                         child: Text(
                           'Seg',
                           style: nameTime,
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(5),
+                        padding: EdgeInsets.all(8),
                         child: Text(
                           '00:00',
                           style: numTime,
@@ -66,22 +74,25 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                 Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(3),
+                      padding: const EdgeInsets.all(6),
                       child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: confirmBbutt1,
-                              foregroundColor: confirmFbutt1),
-                          onPressed: () {},
-                          child: const Text('Confirm')),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: confirmBbutt1,
+                            foregroundColor: confirmFbutt1),
+                        onPressed: () {},
+                        child: const Text('Confirm',
+                            style: TextStyle(fontSize: 16)),
+                      ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(3),
+                      padding: const EdgeInsets.all(6),
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: cancelBbutt2,
                               foregroundColor: cancelFbutt2),
                           onPressed: () {},
-                          child: const Text('Cancel')),
+                          child: const Text('Cancel',
+                              style: TextStyle(fontSize: 16))),
                     ),
                   ],
                 ),
