@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kabanta_app1/Pages/clock.dart';
 import 'variables.dart';
 import 'dart:async';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -198,7 +199,11 @@ class _ContainerClockState extends State<ContainerClock> {
                   style: ElevatedButton.styleFrom(
                       backgroundColor: colorbackbutt2,
                       foregroundColor: colorforebutt2),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => const ClockConfigScreen (),
+              ));
+                  },
                   child: const Text('Progam'),
                 ),
               ),

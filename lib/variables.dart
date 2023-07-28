@@ -19,6 +19,16 @@ const TextStyle titleLabel = TextStyle(
 const TextStyle labelStyle = TextStyle(
   fontSize: 16.0,
 );
+
+const TextStyle nameTime = TextStyle(
+  fontSize: 35.0,
+  color: Colors.black,
+);
+const TextStyle numTime = TextStyle(
+  fontSize: 35.0,
+  color: Colors.black54,
+);
+
 //End estilos de texto
 
 //start Estilos de botones
@@ -29,6 +39,12 @@ Color colorbackbutt2 = Colors.white;
 Color colorforebutt2 = Colors.indigo;
 Color colorbackbutt3 = Colors.blueGrey.shade300;
 Color colorforebutt3 = Colors.white;
+Color confirmBbutt1= Colors.green.shade400;
+Color confirmFbutt1= Colors.white;
+Color cancelBbutt2 = Colors.red.shade300;
+Color cancelFbutt2 = Colors.white;
+Color colorbackbutt4 = Colors.white;
+Color colorforebutt4 = Colors.black;
 
 //end estilos de botones
 
