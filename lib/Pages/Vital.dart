@@ -25,6 +25,7 @@ class _VitalState extends State<Vital> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           //0
+          
           const ContainerSignal(),
           //1
           Expanded(

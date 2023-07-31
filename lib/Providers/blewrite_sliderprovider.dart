@@ -80,7 +80,7 @@ class BleWriteSliderProvider extends ChangeNotifier {
     '52294b4d-d66e-4d68-9782-1e5bb8f7ba14': 'Diastolic Preasure',
     '7533653f-6f0e-41fa-8fa6-9892a1904db1': 'Frecuency',
     '607a2edc-007d-4d51-a3a6-58fad0db3c37': 'CO2',
-    'aea7aac8-5a97-488e-bd01-4166d22ec81e': 'Timer'
+    //'aea7aac8-5a97-488e-bd01-4166d22ec81e': 'Timer'
   };
 
   /// No importan, pero da error en el widget que dejamos de usar y no lo borre

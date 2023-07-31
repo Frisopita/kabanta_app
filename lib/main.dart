@@ -127,6 +127,7 @@ class DataPage extends StatefulWidget {
 
 class _DataPageState extends State<DataPage> {
   int currentIndex = 0;
+  late PageController _pageController;
 
   final List<Widget> _widgetOptions = <Widget>[
     const ECG(),
@@ -141,6 +142,7 @@ class _DataPageState extends State<DataPage> {
   @override
   void initState() {
     super.initState();
+    _pageController = PageController(initialPage: currentIndex);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final RenderBox appBarBox = context.findRenderObject() as RenderBox;
       setState(() {
@@ -149,21 +151,11 @@ class _DataPageState extends State<DataPage> {
     });
   }
 
-  // Variables para las posiciones del widget fijo
-  final double _fixedWidgetSignalLeft = 0;
-  final double _fixedWidgetSignalRight = 0;
-  final double _fixedWidgetSignalBottom = 0;
-
-  final double _fixedWidgetClockTop = 0;
-  final double _fixedWidgetClockLeft = 0;
-  final double _fixedWidgetClockRight = 0;
-  final double _fixedWidgetClockBottom = 0;
-
   @override
   Widget build(BuildContext context) {
     final deviceProvider = Provider.of<DeviceProvider>(context);
     final device = deviceProvider.device;
-    const Widget _fixedWidgetSignal = ContainerSignal();
+    final Widget _fixedWidgetSignal = ContainerSignal();
 
     final Widget _fixedWidgetClock = ContainerClock(device: device);
 
@@ -204,19 +196,25 @@ class _DataPageState extends State<DataPage> {
         children: [
           Positioned(
             top: _fixedWidgetTop,
-            left: _fixedWidgetSignalLeft,
-            right: _fixedWidgetSignalRight,
-            bottom: _fixedWidgetSignalBottom,
+            left: 0,
+            right: 0,
+            bottom: null,
             child: _fixedWidgetSignal,
           ),
-          Positioned.fill(
-            child: _widgetOptions[currentIndex],
+          PageView(
+            controller: _pageController,
+            onPageChanged: (index) {
+              setState(() {
+                currentIndex = index;
+              });
+            },
+            children: _widgetOptions,
           ),
           Positioned(
-            top: _fixedWidgetClockTop,
-            left: _fixedWidgetClockLeft,
-            right: _fixedWidgetClockRight,
-            bottom: _fixedWidgetClockBottom,
+            top: null,
+            left: 0,
+            right: 0,
+            bottom: 0,
             child: _fixedWidgetClock,
           ),
         ],
@@ -228,6 +226,11 @@ class _DataPageState extends State<DataPage> {
           setState(() {
             currentIndex = index;
           });
+          _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 5),
+      curve: Curves.easeInOut,
+    );
         },
         currentIndex: currentIndex,
         items: <BottomNavigationBarItem>[

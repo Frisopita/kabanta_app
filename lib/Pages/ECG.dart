@@ -19,6 +19,7 @@ class _ECGState extends State<ECG> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //
+            
            const ContainerSignal(),
             //1
             Expanded(
