@@ -18,8 +18,10 @@ class _HistoryState extends State<History> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           //0
-          
-          const ContainerSignal(),
+           Container(
+              height: 50,
+              color: null,
+            ),
           //1
           Expanded(
             child: SingleChildScrollView(

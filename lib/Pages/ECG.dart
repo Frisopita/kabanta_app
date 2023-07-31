@@ -18,9 +18,11 @@ class _ECGState extends State<ECG> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //
-            
-           const ContainerSignal(),
+            //0
+            Container(
+              height: 50,
+              color: null,
+            ),
             //1
             Expanded(
               child: SingleChildScrollView(

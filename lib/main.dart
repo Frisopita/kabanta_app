@@ -194,13 +194,6 @@ class _DataPageState extends State<DataPage> {
       ),
       body: Stack(
         children: [
-          Positioned(
-            top: _fixedWidgetTop,
-            left: 0,
-            right: 0,
-            bottom: null,
-            child: _fixedWidgetSignal,
-          ),
           PageView(
             controller: _pageController,
             onPageChanged: (index) {
@@ -209,6 +202,13 @@ class _DataPageState extends State<DataPage> {
               });
             },
             children: _widgetOptions,
+          ),
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: null,
+            child: _fixedWidgetSignal,
           ),
           Positioned(
             top: null,
