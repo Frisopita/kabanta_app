@@ -15,6 +15,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart' as flutter_blue;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:kabanta_app1/Providers/device_provider.dart';
 import 'package:kabanta_app1/Providers/blewrite_sliderprovider.dart';
+import 'package:kabanta_app1/Providers/ble_timerprovider.dart';
 import 'Providers/qrtext_provider.dart';
 
 void main() {
@@ -63,6 +64,9 @@ class MyKabantaApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<QrTextProvider>(
           create: (BuildContext context) => QrTextProvider(),
+        ),
+        ChangeNotifierProvider<BleWriteTimerProvider>(
+          create: (BuildContext context) => BleWriteTimerProvider(),
         ),
         ChangeNotifierProvider<BleWriteSliderProvider>(
           create: (BuildContext context) => BleWriteSliderProvider(

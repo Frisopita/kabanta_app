@@ -85,9 +85,10 @@ class _ContainerClockState extends State<ContainerClock> {
   }
 
   List<Widget> _buildPlayButt(List<BluetoothService> services) {
+   // _start();
     return services
         .map(
-          (s) => UppgradeButt(
+          (s) => PlayButt(
             service: s,
           ),
         )
@@ -163,6 +164,20 @@ class _ContainerClockState extends State<ContainerClock> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              /*
+              StreamBuilder<List<BluetoothService>>(
+                //recibe la lista de servicios (services) del dispositivo
+                stream: widget.device.services,
+                initialData: const [],
+                builder: (c, snapshot) {
+                  return Column(
+                    children: _buildPlayButt(snapshot
+                        .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                  );
+                },
+                //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
+              ),
+              */
               IconButton(
                 icon: const Icon(Icons.play_arrow),
                 onPressed: () {
@@ -181,6 +196,7 @@ class _ContainerClockState extends State<ContainerClock> {
                   _reset();
                 },
               ),
+              
               StreamBuilder<List<BluetoothService>>(
                 //recibe la lista de servicios (services) del dispositivo
                 stream: widget.device.services,

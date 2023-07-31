@@ -8,6 +8,7 @@ import 'package:kabanta_app1/main.dart';
 import 'package:provider/provider.dart';
 import '../variables.dart';
 import 'package:kabanta_app1/Providers/blewrite_sliderprovider.dart';
+import 'package:kabanta_app1/Providers/ble_timerprovider.dart';
 import 'package:kabanta_app1/Providers/device_provider.dart';
 import 'package:kabanta_app1/Providers/qrtext_provider.dart';
 
@@ -162,9 +163,9 @@ class PlayButt extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[  
                 IconButton(
-                icon: const Icon(Icons.pause),
+                icon: const Icon(Icons.play_arrow),
                 onPressed: () {
-                  context.read<BleWriteSliderProvider>().initService(service);
+                  context.read<BleWriteTimerProvider>().initService(service);
                 },
               ),      
               ],
