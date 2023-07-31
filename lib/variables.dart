@@ -36,8 +36,9 @@ const TextStyle blueText = TextStyle(
 );
 
 const TextStyle vitaltextLabel = TextStyle(
-  fontSize: 16,
+  fontSize: 17,
   color: Colors.black,
+  //fontWeight: FontWeight.bold,
 );
 
 const TextStyle vitanumLabel = TextStyle(
