@@ -1,7 +1,7 @@
 //Vital Signs Page
 import 'package:flutter/material.dart';
 import 'package:kabanta_app1/variables.dart';
-import 'package:kabanta_app1/containers.dart';
+import 'package:kabanta_app1/widgets/containers.dart';
 import 'package:provider/provider.dart';
 import 'package:kabanta_app1/Providers/blewrite_sliderprovider.dart';
 //import 'package:kabanta_app1/Providers/ble_provider.dart';

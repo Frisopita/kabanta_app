@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kabanta_app1/Pages/clock.dart';
-import 'variables.dart';
+import 'package:kabanta_app1/variables.dart';
 import 'dart:async';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'bluetooth/widgetsble.dart';
+import 'package:kabanta_app1/bluetooth/widgetsble.dart';
 
 
 class ContainerSignal extends StatelessWidget {

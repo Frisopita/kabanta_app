@@ -8,7 +8,7 @@ import 'package:kabanta_app1/Pages/vital.dart';
 import 'package:kabanta_app1/Providers/ble_provider.dart';
 import 'package:kabanta_app1/bluetooth/qrble.dart';
 import 'package:kabanta_app1/bluetooth/bluetooth.dart';
-import 'package:kabanta_app1/containers.dart';
+import 'package:kabanta_app1/widgets/containers.dart';
 import 'package:kabanta_app1/variables.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart' as flutter_blue;
