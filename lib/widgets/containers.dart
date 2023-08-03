@@ -201,7 +201,7 @@ class _ContainerClockState extends State<ContainerClock> {
                       foregroundColor: colorforebutt2),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) => const ClockConfigScreen (),
+                    builder: (BuildContext context) =>  ClockConfigScreen (),
               ));
                   },
                   child: const Text('Progam'),
