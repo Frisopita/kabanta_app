@@ -112,24 +112,18 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          StreamBuilder<List<ScanResult>>(
-            stream: FlutterBluePlus.instance.scanResults,
-            initialData: const [],
-            builder: (c, snapshot) => Column(
-              children: <Widget>[
-                ...snapshot.data!.map(
-                  (r) => ScanResultTile(
-                    result: r,
-                  ),
-                ),
-              ],
+      body: StreamBuilder<List<ScanResult>>(
+        stream: FlutterBluePlus.instance.scanResults,
+        initialData: const [],
+        builder: (c, snapshot) => Column(
+          children: <Widget>[
+            ...snapshot.data!.map(
+              (r) => ScanResultTile(
+                result: r,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
