@@ -323,6 +323,8 @@ class _ECGState extends State<ECG> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             //Boton 10
                             Padding(
@@ -399,6 +401,8 @@ class _ECGState extends State<ECG> {
                           ],
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             //Boton 13
                             Padding(
@@ -475,6 +479,8 @@ class _ECGState extends State<ECG> {
                           ],
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             //Boton 16
                             Padding(
@@ -552,6 +558,8 @@ class _ECGState extends State<ECG> {
                         ),
                        //Row de prueba
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Padding(
                               padding: EdgeInsets.fromLTRB(

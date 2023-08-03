@@ -22,14 +22,14 @@ class _DualActionButtonState extends State<DualActionButton> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('AlertDialog OnTap Title'),
-              content: Text('This is the content of the AlertDialog.'),
+              title: const Text('Click'),
+              content: const Text('Al hacer un click se envian los datos predeterminados de esta funcion y no se muestra esta box'),
               actions: [
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop(); // Cierra el AlertDialog
                   },
-                  child: Text('OK'),
+                  child: const Text('OK'),
                 ),
               ],
             );
@@ -43,14 +43,138 @@ class _DualActionButtonState extends State<DualActionButton> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('AlertDialog OnLongPress Title'),
-              content: Text('This is the content of the Long Press AlertDialog.'),
+             title: const Text('Long Click'),
+              content: SizedBox(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Text('Al hacer un click largo se despliga la informacion de los datos enviados, ejemplo: '),
+                    ),
+                   
+                    Row(
+                      children: [
+                        Image.asset('Icons/corazon.png',
+                                width: 20,
+                                height: 20,),
+                        const Padding(
+                          padding: EdgeInsets.all(5),
+                          child: Row(
+                            children: [
+                              Text('Heart Rate: '),
+                              Text('250', style: TextStyle(fontWeight: FontWeight.bold),)
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Image.asset('Icons/temperatura.png',
+                                width: 20,
+                                height: 20,),
+                        const Padding(
+                          padding: EdgeInsets.all(5),
+                          child: Row(
+                            children: [
+                              Text('Temperature: '),
+                              Text('36', style: TextStyle(fontWeight: FontWeight.bold),)
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Image.asset('Icons/o2.png',
+                                width: 20,
+                                height: 20,),
+                        const Padding(
+                          padding: EdgeInsets.all(5),
+                          child: Row(
+                            children: [
+                              Text('SpO2: '),
+                              Text('70', style: TextStyle(fontWeight: FontWeight.bold),)
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Image.asset('Icons/pressure.png',
+                                width: 20,
+                                height: 20,),
+                        const Padding(
+                          padding: EdgeInsets.all(5),
+                          child: Row(
+                            children: [
+                              Text('Sys Pressure: '),
+                              Text('60', style: TextStyle(fontWeight: FontWeight.bold),)
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Image.asset('Icons/pressure.png',
+                                width: 20,
+                                height: 20,),
+                        const Padding(
+                          padding:  EdgeInsets.all(5),
+                          child: Row(
+                            children: [
+                              Text('Dias Pressure: '),
+                              Text('35', style: TextStyle(fontWeight: FontWeight.bold),)
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Image.asset('Icons/pulso.png',
+                                width: 20,
+                                height: 20,),
+                        const Padding(
+                          padding: EdgeInsets.all(5),
+                          child: Row(
+                            children: [
+                              Text('Frequency Rate: '),
+                              Text('8', style: TextStyle(fontWeight: FontWeight.bold),)
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Image.asset('Icons/co2.png',
+                                width: 20,
+                                height: 20,),
+                        const Padding(
+                          padding: EdgeInsets.all(5),
+                          child: Row(
+                            children: [
+                              Text('CO2: '),
+                              Text('6', style: TextStyle(fontWeight: FontWeight.bold),)
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
               actions: [
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop(); // Cierra el AlertDialog
                   },
-                  child: Text('OK'),
+                  child: const Text('OK'),
                 ),
               ],
             );
@@ -88,8 +212,8 @@ class _DualActionButtonState extends State<DualActionButton> {
         ),
         child: Center(
           child: Text(
-            _isButtonLongPressed ? "2" : "1",
-            style: TextStyle(color: Colors.indigo),
+            _isButtonLongPressed ? "Test Butt" : "Test Butt",
+            style: const TextStyle(color: Colors.indigo),
           ),
         ),
       ),

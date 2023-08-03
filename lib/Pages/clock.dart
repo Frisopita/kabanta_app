@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:kabanta_app1/main.dart';
 import 'package:kabanta_app1/variables.dart';
@@ -12,12 +11,11 @@ class ClockConfigScreen extends StatefulWidget {
 }
 
 class _ClockConfigScreenState extends State<ClockConfigScreen> {
-
-   TextEditingController _minutesController = TextEditingController();
+  TextEditingController _minutesController = TextEditingController();
   TextEditingController _secondsController = TextEditingController();
   int _totalSecondsRemaining = 0;
   Timer? _countdownTimer;
-  
+
   @override
   void dispose() {
     _minutesController.dispose();
@@ -106,39 +104,57 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 80,
-                      child: TextField(
-                        controller: _minutesController,
-                        keyboardType: TextInputType.number,
-                        maxLength: 2,
-                        decoration: const InputDecoration(
-                          labelText: 'Min',
+                
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 90,
+                        width: 100,
+                        child: TextField(
+                          controller: _minutesController,
+                          keyboardType: TextInputType.number,
+                          maxLength: 2,
+                          style: numTime,
+                          textAlign: TextAlign.center,
+                          decoration: const InputDecoration(
+                            //labelText: 'Min',
+                            hintText: '00',
+                            hintStyle: numTime,
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                          ),
+                          enabled: false, // Deshabilitar el campo de texto
                         ),
-                        enabled: false, // Deshabilitar el campo de texto
                       ),
-                    ),
-                    const Text(':', style: TextStyle(fontSize: 24)),
-                    SizedBox(
-                      width: 80,
-                      child: TextField(
-                        controller: _secondsController,
-                        keyboardType: TextInputType.number,
-                        maxLength: 2,
-                        decoration: const InputDecoration(
-                          labelText: 'Sec',
+                      const SizedBox(
+                        height: 90,
+                        child: Text(':', style: numTime)),
+                      SizedBox(
+                        height: 90,
+                        width: 100,
+                        child: TextField(
+                          controller: _secondsController,
+                          keyboardType: TextInputType.number,
+                          maxLength: 2,
+                          style: numTime,
+                          textAlign: TextAlign.center,
+                          decoration: const InputDecoration(
+                            //labelText: 'Seg',
+                            hintText: '00',
+                            hintStyle: numTime,
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                          ),
+                          enabled: false,
                         ),
-                        enabled: false, // Deshabilitar el campo de texto
                       ),
-                    ),
-                  ],
-                ),
-                ),
+                    ],
+                  ),
+                
                 const Row(
                   children: [
                     Padding(
@@ -151,12 +167,13 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                     Padding(
                       padding: EdgeInsets.all(8),
                       child: Text(
-                        'Seg',
+                        'Sec',
                         style: nameTime,
                       ),
                     ),
                   ],
                 ),
+                
                 Row(
                   children: [
                     Padding(
@@ -175,18 +192,19 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                       ),
                     ),
                     Padding(
-                  padding: const EdgeInsets.all(6),
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: cancelBbutt2,
-                          foregroundColor: cancelFbutt2),
-                      onPressed: _deleteLastDigit,
-                      child:
-                          const Text('Cancel', style: TextStyle(fontSize: 16))),
-                ),
+                      padding: const EdgeInsets.all(6),
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: cancelBbutt2,
+                              foregroundColor: cancelFbutt2),
+                          onPressed: _deleteLastDigit,
+                          child: const Text('Cancel',
+                              style: TextStyle(fontSize: 16))),
+                    ),
                   ],
                 ),
-                 Row(
+                
+                Row(
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(2),
@@ -220,6 +238,7 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                     ),
                   ],
                 ),
+                
                 Row(
                   children: [
                     Padding(
@@ -254,6 +273,7 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                     ),
                   ],
                 ),
+                
                 Row(
                   children: [
                     Padding(
@@ -288,8 +308,39 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                     ),
                   ],
                 ),
-               
+
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: colorbackbutt4,
+                            foregroundColor: colorforebutt4),
+                        onPressed: () => _updateTextFieldValue(0.toString()),
+                        child: Text(0.toString()),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(6),
+                      child: IconButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: cancelBbutt2,
+                              foregroundColor: cancelFbutt2),
+                          onPressed: _deleteLastDigit,
+                          icon: const Icon(Icons.backspace),
+                    ),
+                    ),
+                  ],
+                ),
                 
+                /*ElevatedButton(
+                  onPressed: startCountdown,
+                  child: const Text('Iniciar cuenta regresiva'),
+                ),
+                Text(
+                  'Tiempo restante: ${formatTime(_totalSecondsRemaining ~/ 60)}:${formatTime(_totalSecondsRemaining % 60)}',
+                ),*/
               ],
             ),
           ],
@@ -298,261 +349,3 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
     );
   }
 }
-
-/*
-
-import 'package:flutter/material.dart';
-import 'package:kabanta_app1/variables.dart';
-import 'dart:async';
-
-class ClockConfigScreen extends StatefulWidget {
-  @override
-  _ClockConfigScreenState createState() => _ClockConfigScreenState();
-}
-
-class _ClockConfigScreenState extends State<ClockConfigScreen> {
-  TextEditingController _minutesController = TextEditingController();
-  TextEditingController _secondsController = TextEditingController();
-  int _totalSecondsRemaining = 0;
-  Timer? _countdownTimer;
-
-  void startCountdown() {
-    int minutes = int.tryParse(_minutesController.text) ?? 0;
-    int seconds = int.tryParse(_secondsController.text) ?? 0;
-    int totalSeconds = minutes * 60 + seconds;
-
-    setState(() {
-      _totalSecondsRemaining = totalSeconds;
-    });
-
-    if (_countdownTimer != null) {
-      _countdownTimer!.cancel();
-    }
-
-    _countdownTimer = Timer.periodic(Duration(seconds: 1), (timer) {
-      setState(() {
-        if (_totalSecondsRemaining > 0) {
-          _totalSecondsRemaining--;
-        } else {
-          _countdownTimer!.cancel();
-        }
-      });
-    });
-  }
-
-  void _updateTextFieldValue(String value) {
-    final currentMinutes = _minutesController.text;
-    final currentSeconds = _secondsController.text;
-
-    if (currentMinutes.length < 2) {
-      setState(() {
-        _minutesController.text = currentMinutes + value;
-      });
-    } else if (currentSeconds.length < 2) {
-      setState(() {
-        _secondsController.text = currentSeconds + value;
-      });
-    }
-  }
-
-  void _deleteLastDigit() {
-    final currentMinutes = _minutesController.text;
-    final currentSeconds = _secondsController.text;
-
-    if (currentSeconds.isNotEmpty) {
-      setState(() {
-        _secondsController.text =
-            currentSeconds.substring(0, currentSeconds.length - 1);
-      });
-    } else if (currentMinutes.isNotEmpty) {
-      setState(() {
-        _minutesController.text =
-            currentMinutes.substring(0, currentMinutes.length - 1);
-      });
-    }
-  }
-
-  String formatTime(int time) {
-    return time.toString().padLeft(2, '0');
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-
-      body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 80,
-                      child: TextField(
-                        controller: _minutesController,
-                        keyboardType: TextInputType.number,
-                        maxLength: 2,
-                        decoration: const InputDecoration(
-                          labelText: 'Min',
-                        ),
-                        enabled: false, // Deshabilitar el campo de texto
-                      ),
-                    ),
-                    const Text(':', style: TextStyle(fontSize: 24)),
-                    SizedBox(
-                      width: 80,
-                      child: TextField(
-                        controller: _secondsController,
-                        keyboardType: TextInputType.number,
-                        maxLength: 2,
-                        decoration: const InputDecoration(
-                          labelText: 'Sec',
-                        ),
-                        enabled: false, // Deshabilitar el campo de texto
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(1.toString()),
-                        child: Text(1.toString()),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(2.toString()),
-                        child: Text(2.toString()),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(3.toString()),
-                        child: Text(3.toString()),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(4.toString()),
-                        child: Text(4.toString()),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(5.toString()),
-                        child: Text(5.toString()),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(6.toString()),
-                        child: Text(6.toString()),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(7.toString()),
-                        child: Text(7.toString()),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(8.toString()),
-                        child: Text(8.toString()),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(9.toString()),
-                        child: Text(9.toString()),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.all(6),
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: cancelBbutt2,
-                          foregroundColor: cancelFbutt2),
-                      onPressed: _deleteLastDigit,
-                      child:
-                          const Text('Cancel', style: TextStyle(fontSize: 16))),
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: startCountdown,
-                  child: const Text('Iniciar cuenta regresiva'),
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  'Tiempo restante: ${formatTime(_totalSecondsRemaining ~/ 60)}:${formatTime(_totalSecondsRemaining % 60)}',
-                  style: const TextStyle(fontSize: 24),
-                ),
-              ],
-            ),
-          ),
-        ),
-    );
-  }
-
-  @override
-  void dispose() {
-    _minutesController.dispose();
-    _secondsController.dispose();
-    _countdownTimer?.cancel();
-    super.dispose();
-  }
-}
-*/
