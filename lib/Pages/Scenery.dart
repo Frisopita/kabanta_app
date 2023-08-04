@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:kabanta_app1/variables.dart';
 
@@ -54,11 +55,11 @@ class _SceneryState extends State<Scenery> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
                   child: Container(
-                    height: 1, // Altura de la l¨ªnea de separaci¨®n
-                    color: Colors.grey, // Color de la l¨ªnea de separaci¨®n
+                    height: 1, // Altura de la lï¿½ï¿½nea de separaciï¿½ï¿½n
+                    color: Colors.grey, // Color de la lï¿½ï¿½nea de separaciï¿½ï¿½n
                     margin: const EdgeInsets.symmetric(
                         vertical:
-                            3), // Margen vertical para ajustar la separaci¨®n
+                            3), // Margen vertical para ajustar la separaciï¿½ï¿½n
                   ),
                 ),
                 //3 First Button Widget
@@ -194,11 +195,11 @@ class _SceneryState extends State<Scenery> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
                   child: Container(
-                    height: 1, // Altura de la l¨ªnea de separaci¨®n
-                    color: Colors.grey, // Color de la l¨ªnea de separaci¨®n
+                    height: 1, // Altura de la lï¿½ï¿½nea de separaciï¿½ï¿½n
+                    color: Colors.grey, // Color de la lï¿½ï¿½nea de separaciï¿½ï¿½n
                     margin: const EdgeInsets.symmetric(
                         vertical:
-                            3), // Margen vertical para ajustar la separaci¨®n
+                            3), // Margen vertical para ajustar la separaciï¿½ï¿½n
                   ),
                 ),
                 //6 Second Button Widget

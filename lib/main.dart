@@ -1,10 +1,10 @@
 //Test de kabanta UX
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:kabanta_app1/Pages/ecg.dart';
-import 'package:kabanta_app1/Pages/history.dart';
-import 'package:kabanta_app1/Pages/scenery.dart';
-import 'package:kabanta_app1/Pages/vital.dart';
+import 'package:kabanta_app1/pages/ECG.dart';
+import 'package:kabanta_app1/pages/Scenery.dart';
+import 'package:kabanta_app1/pages/history.dart';
+import 'package:kabanta_app1/pages/vital.dart';
 import 'package:kabanta_app1/Providers/ble_provider.dart';
 import 'package:kabanta_app1/bluetooth/qrble.dart';
 import 'package:kabanta_app1/bluetooth/bluetooth.dart';
@@ -34,7 +34,6 @@ void main() {
   }
 }
 
-// Inicializaci¨®n de la APP
 class MyKabantaApp extends StatelessWidget {
   const MyKabantaApp({super.key});
   @override
@@ -87,7 +86,6 @@ class MyKabantaApp extends StatelessWidget {
           builder: (context) {
             final blState = context.watch<flutter_blue.BluetoothState>();
             if (blState == flutter_blue.BluetoothState.on) {
-              // Pasa los datos aqu¨ª
               return const QrboardPage();
             } else {
               return const BluetoothScreenOffOn();
@@ -129,11 +127,11 @@ class _DataPageState extends State<DataPage> {
   int currentIndex = 0;
   late PageController _pageController;
 
-  final List<Widget> _widgetOptions = <Widget>[
-    const ECG(),
-    const Vital(),
-    const Scenery(),
-    const History(),
+  final List<Widget> _widgetOptions = const <Widget>[
+    ECG(),
+    Vital(),
+    Scenery(),
+    History(),
   ];
 
   // Variables para las posiciones del widget fijo
@@ -220,7 +218,6 @@ class _DataPageState extends State<DataPage> {
         ],
       ),
 
-      //Botones de Navegaci¨®n
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
           setState(() {

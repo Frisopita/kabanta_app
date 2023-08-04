@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:kabanta_app1/variables.dart';
 import 'package:kabanta_app1/widgets/buttongesture.dart';
@@ -125,8 +127,8 @@ class _ECGState extends State<ECG> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
                     child: Container(
-                      height: 1, // Altura de la l¨ªnea de separaci¨®n
-                      color: Colors.grey, // Color de la l¨ªnea de separaci¨®n
+                      height: 1, // Altura de la lï¿½ï¿½nea de separaciï¿½ï¿½n
+                      color: Colors.grey, // Color de la lï¿½ï¿½nea de separaciï¿½ï¿½n
                     ),
                   ),
                   //4 First Button Widget
@@ -311,8 +313,8 @@ class _ECGState extends State<ECG> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
                     child: Container(
-                      height: 1, // Altura de la l¨ªnea de separaci¨®n
-                      color: Colors.grey, // Color de la l¨ªnea de separaci¨®n
+                      height: 1, // Altura de la lï¿½ï¿½nea de separaciï¿½ï¿½n
+                      color: Colors.grey, // Color de la lï¿½ï¿½nea de separaciï¿½ï¿½n
                     ),
                   ),
                   //7 Second Buttons Widget
@@ -566,11 +568,11 @@ class _ECGState extends State<ECG> {
                                   spaceleft, spacetop, spaceright, spacebott),
                               child: DualActionButton(
                                                       onTap: () {
-                              // Acci¨®n al hacer clic
+                              // Acciï¿½ï¿½n al hacer clic
                               print('Button tapped!');
                                                       },
                                                       onLongPress: () {
-                              // Acci¨®n al dejar presionado
+                              // Acciï¿½ï¿½n al dejar presionado
                               print('Button long pressed!');
                                                       },
                                                     ),
@@ -580,11 +582,11 @@ class _ECGState extends State<ECG> {
                                   spaceleft, spacetop, spaceright, spacebott),
                               child: DualActionButton(
                                                       onTap: () {
-                              // Acci¨®n al hacer clic
+                              // Acciï¿½ï¿½n al hacer clic
                               print('Button tapped!');
                                                       },
                                                       onLongPress: () {
-                              // Acci¨®n al dejar presionado
+                              // Acciï¿½ï¿½n al dejar presionado
                               print('Button long pressed!');
                                                       },
                                                     ),
@@ -594,11 +596,11 @@ class _ECGState extends State<ECG> {
                                   spaceleft, spacetop, spaceright, spacebott),
                               child: DualActionButton(
                                                       onTap: () {
-                              // Acci¨®n al hacer clic
+                              // Acciï¿½ï¿½n al hacer clic
                               print('Button tapped!');
                                                       },
                                                       onLongPress: () {
-                              // Acci¨®n al dejar presionado
+                              // Acciï¿½ï¿½n al dejar presionado
                               print('Button long pressed!');
                                                       },
                                                     ),

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:provider/provider.dart';
 import '../Providers/device_provider.dart';
-import 'widgetsble.dart';
 import 'package:kabanta_app1/main.dart';
 import 'package:kabanta_app1/variables.dart';
 import 'package:collection/collection.dart';
@@ -46,13 +45,15 @@ class BluetoothScreenOffOn extends StatelessWidget {
                   ),
                 ),
                 ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: colorbackbutt1,
-                        foregroundColor: colorforebutt1),
-                    child: const Text('Activar Bluetooth'),
-                    onPressed: () {
-                      FlutterBluePlus.instance.turnOn();
-                    }),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: colorbackbutt1,
+                    foregroundColor: colorforebutt1,
+                  ),
+                  child: const Text('Activar Bluetooth'),
+                  onPressed: () {
+                    FlutterBluePlus.instance.turnOn();
+                  },
+                ),
               ],
             ),
           ],

@@ -17,8 +17,7 @@ final List<String> excludedServiceUUIDs = [
 ];
 
 class ScanResultTile extends StatefulWidget {
-  const ScanResultTile({Key? key, required this.result})
-      : super(key: key);
+  const ScanResultTile({Key? key, required this.result}) : super(key: key);
 
   final ScanResult result;
 
@@ -29,36 +28,35 @@ class ScanResultTile extends StatefulWidget {
 class _ScanResultTileState extends State<ScanResultTile> {
   bool isConnected = false;
 
-   Future<void> _connectToDevice(String? qrText) async {
+  Future<void> _connectToDevice(String? qrText) async {
     if (widget.result.device.name == qrText && !isConnected) {
       await widget.result.device.connect();
-      List<BluetoothService> services = await widget.result.device.discoverServices();
+      await widget.result.device.discoverServices();
 
       setState(() {
         isConnected = true;
       });
+      if (!mounted) return;
       Provider.of<DeviceProvider>(context, listen: false)
           .setDevice(widget.result.device);
-          
+
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => DataPage(),
+          builder: (context) => const DataPage(),
         ),
       );
-   } else {
-   }
+    } else {}
   }
 
   @override
   Widget build(BuildContext context) {
-    String? qrText =
-                    Provider.of<QrTextProvider>(context, listen: false).text;
+    String? qrText = Provider.of<QrTextProvider>(context, listen: false).text;
     return FutureBuilder<void>(
       future: _connectToDevice(qrText), // Obtener el valor actual de 'qrText'
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          // Mientras se est¨¢ conectando, puedes mostrar un indicador de carga
+          // Mientras se estï¿½ï¿½ conectando, puedes mostrar un indicador de carga
           return Column(
             children: [
               Padding(
@@ -67,12 +65,14 @@ class _ScanResultTileState extends State<ScanResultTile> {
                   //color: Colors.indigo,
                   backgroundColor: Colors.blueGrey.shade100,
                   value: .8,
-                  strokeWidth: 10, // Cambia este valor para modificar el grosor de la l¨ªnea
-                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.indigo), // Cambia el color del progreso
+                  strokeWidth:
+                      10, // Cambia este valor para modificar el grosor de la lï¿½ï¿½nea
+                  valueColor: const AlwaysStoppedAnimation<Color>(
+                      Colors.indigo), // Cambia el color del progreso
                 ),
               ),
               Padding(
-                padding:const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: Text('Conectando con ${qrText}'),
               ),
             ],
@@ -80,11 +80,11 @@ class _ScanResultTileState extends State<ScanResultTile> {
         } else {
           if (widget.result.advertisementData.connectable) {
             if (widget.result.device.name.isNotEmpty) {
-              // Si el nombre del dispositivo coincide con el deseado y est¨¢ conectado, muestra el ListTile
+              // Si el nombre del dispositivo coincide con el deseado y estï¿½ï¿½ conectado, muestra el ListTile
               if (widget.result.device.name == qrText && isConnected) {
                 return Container();
               } else {
-                // Si el nombre del dispositivo no coincide con el deseado o a¨²n no est¨¢ conectado, devuelve un contenedor vac¨ªo
+                // Si el nombre del dispositivo no coincide con el deseado o aï¿½ï¿½n no estï¿½ï¿½ conectado, devuelve un contenedor vacï¿½ï¿½o
                 return Container();
               }
             } else {
@@ -98,7 +98,6 @@ class _ScanResultTileState extends State<ScanResultTile> {
     );
   }
 }
-
 
 class UppgradeButt extends StatelessWidget {
   final BluetoothService service;
@@ -141,7 +140,6 @@ class UppgradeButt extends StatelessWidget {
   }
 }
 
-
 class PlayButt extends StatelessWidget {
   final BluetoothService service;
 
@@ -160,13 +158,13 @@ class PlayButt extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[  
+              children: <Widget>[
                 IconButton(
-                icon: const Icon(Icons.pause),
-                onPressed: () {
-                  context.read<BleWriteSliderProvider>().initService(service);
-                },
-              ),      
+                  icon: const Icon(Icons.pause),
+                  onPressed: () {
+                    context.read<BleWriteSliderProvider>().initService(service);
+                  },
+                ),
               ],
             ),
           ],
@@ -177,4 +175,3 @@ class PlayButt extends StatelessWidget {
     }
   }
 }
-
