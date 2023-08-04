@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:provider/provider.dart';
+import '../Providers/device_provider.dart';
 import 'widgetsble.dart';
 import 'package:kabanta_app1/main.dart';
 import 'package:kabanta_app1/variables.dart';
+import 'package:collection/collection.dart';
 
 class BluetoothScreenOffOn extends StatelessWidget {
   const BluetoothScreenOffOn({super.key});
@@ -66,17 +69,12 @@ class FindDevicesScreen extends StatefulWidget {
 
   @override
   State<FindDevicesScreen> createState() =>
-      _FindDevicesScreenState(qrText: qrText);
+      _FindDevicesScreenState();
 }
 
 class _FindDevicesScreenState extends State<FindDevicesScreen> {
-  String qrText;
-
-  _FindDevicesScreenState({required this.qrText});
-
+  late StreamSubscription<List<ScanResult>> subscription;
   bool isLoading = false;
-  BluetoothDevice? selectedDevice;
-  bool isConnected = false;
   @override
   //Este initstate permite la busqueda de dispositivos Bluetooth una vez construido el widget
   void initState() {
@@ -86,45 +84,45 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
 
   //actualiza cada 4 s la busqueda
   Future<void> startScan() async {
+    subscription = FlutterBluePlus.instance.scanResults.listen(_connectToDevice);  
     await FlutterBluePlus.instance
         .startScan(timeout: const Duration(seconds: 20));
   }
+  Future<void> _connectToDevice(List<ScanResult> resultslist) async {
+    final scanresult = resultslist.firstWhereOrNull((element) => element.device.name == widget.qrText);
 
-  void connectToDevice(ScanResult result) {
-    final device = result.device;
-
-    // Con¡§?ctate solo si el nombre del dispositivo coincide con el texto del QR
-    setState(() {
-      isLoading = true;
-    });
-    device.connect().then((_) {
-      setState(() {
-        isLoading = false;
-        selectedDevice = device;
-      });
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const DataPage()),
+    if (scanresult != null && !isLoading) {
+      
+     
+      
+      final deviceprovider = Provider.of<DeviceProvider>(context, listen: false);
+      final navigator = Navigator.of(context);
+print('hola');
+      await scanresult.device.connect();
+       isLoading = true;
+    //  List<BluetoothService> services = await scanresult.device.discoverServices();      
+print('adio');
+    deviceprovider.setDevice( scanresult.device);
+          
+      navigator.pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const DataPage(),
+        ),
       );
-    });
+   }
   }
 
   @override
+  void dispose() {
+    FlutterBluePlus.instance.stopScan();
+  subscription.cancel();
+
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: StreamBuilder<List<ScanResult>>(
-        stream: FlutterBluePlus.instance.scanResults,
-        initialData: const [],
-        builder: (c, snapshot) => Column(
-          children: <Widget>[
-            ...snapshot.data!.map(
-              (r) => ScanResultTile(
-                result: r,
-              ),
-            ),
-          ],
-        ),
-      ),
+    return const Scaffold(
+      body: Center(child: CircularProgressIndicator(),),
     );
   }
 }
