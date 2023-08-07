@@ -27,22 +27,23 @@ void main() {
       Permission.bluetoothConnect,
       Permission.bluetoothScan
     ].request().then((status) {
-      runApp(const MyKabantaApp());
+      runApp( MyKabantaApp());
     });
   } else {
-    runApp(const MyKabantaApp());
+    runApp( MyKabantaApp());
   }
 }
 
 class MyKabantaApp extends StatelessWidget {
-  const MyKabantaApp({super.key});
+
+   MyKabantaApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<BleProvider>(
           /// lazy se usa para incializar un provider antes de tiempo:
-          /// true: se incializa desde que se inserta en el Widget Tree
+          /// true: se incializa desde que se inserta en el Widget Tre e
           /// false: se inicializa hasta que se utiliza por 1ra vez
           /// null: mismo que false
           lazy: null,
@@ -84,7 +85,9 @@ class MyKabantaApp extends StatelessWidget {
 
         home: Builder(
           builder: (context) {
+            //final blDvState = context.watch<flutter_blue.BluetoothDeviceState>();
             final blState = context.watch<flutter_blue.BluetoothState>();
+            
             if (blState == flutter_blue.BluetoothState.on) {
               return const QrboardPage();
             } else {
@@ -163,31 +166,26 @@ class _DataPageState extends State<DataPage> {
             fit: BoxFit.cover, height: 100, width: 130),
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(
-              Icons.bluetooth,
-              color: Colors.black,
-            ),
-            tooltip: 'Bluetooth',
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => const QrboardPage(),
-              ));
-            },
+        actions: [
+          /*
+          if (blDvState == flutter_blue.BluetoothDeviceState.connected)
+          Container(
+            color: Colors.green.shade200,
+            child: const Text('Dispositivo Conectado'),
           ),
+          if (blDvState == flutter_blue.BluetoothDeviceState.disconnected)
           IconButton(
             icon: const Icon(
               Icons.qr_code_scanner,
               color: Colors.black,
             ),
-            tooltip: 'Qr',
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (BuildContext context) => const QrboardPage(),
               ));
             },
-          ),
+          ),*/
+          
         ],
       ),
       body: Stack(

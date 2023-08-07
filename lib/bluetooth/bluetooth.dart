@@ -70,10 +70,13 @@ class FindDevicesScreen extends StatefulWidget {
 
   @override
   State<FindDevicesScreen> createState() =>
-      _FindDevicesScreenState();
+      _FindDevicesScreenState(qrText: qrText);
 }
 
 class _FindDevicesScreenState extends State<FindDevicesScreen> {
+  String qrText;
+
+  _FindDevicesScreenState({required this.qrText});
   late StreamSubscription<List<ScanResult>> subscription;
   bool isLoading = false;
   @override
@@ -90,21 +93,14 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
         .startScan(timeout: const Duration(seconds: 20));
   }
   Future<void> _connectToDevice(List<ScanResult> resultslist) async {
-    final scanresult = resultslist.firstWhereOrNull((element) => element.device.name == widget.qrText);
-
-    if (scanresult != null && !isLoading) {
-      
-     
-      
+    final scanresult = resultslist.firstWhereOrNull((element) => element.device.name == qrText);
+    if (scanresult != null && !isLoading) {     
       final deviceprovider = Provider.of<DeviceProvider>(context, listen: false);
       final navigator = Navigator.of(context);
-print('hola');
       await scanresult.device.connect();
        isLoading = true;
-    //  List<BluetoothService> services = await scanresult.device.discoverServices();      
-print('adio');
-    deviceprovider.setDevice( scanresult.device);
-          
+      List<BluetoothService> services = await scanresult.device.discoverServices();      
+      deviceprovider.setDevice( scanresult.device);
       navigator.pushReplacement(
         MaterialPageRoute(
           builder: (context) => const DataPage(),
@@ -122,8 +118,15 @@ print('adio');
   }
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: CircularProgressIndicator(),),
+    return Scaffold(
+      body: Center(child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const CircularProgressIndicator(),
+         Text('Conectando a ${qrText}')
+        ],
+      ),),
     );
   }
 }
