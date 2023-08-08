@@ -326,7 +326,7 @@ class _ECGState extends State<ECG> {
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             //Boton 10
                             Padding(
@@ -404,7 +404,7 @@ class _ECGState extends State<ECG> {
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             //Boton 13
                             Padding(
@@ -482,7 +482,7 @@ class _ECGState extends State<ECG> {
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             //Boton 16
                             Padding(
@@ -558,59 +558,106 @@ class _ECGState extends State<ECG> {
                             ),
                           ],
                         ),
-                       //Row de prueba
+                        //Row de prueba
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Padding(
                               padding: EdgeInsets.fromLTRB(
                                   spaceleft, spacetop, spaceright, spacebott),
                               child: DualActionButton(
-                                                      onTap: () {
-                              // Acci��n al hacer clic
-                              print('Button tapped!');
-                                                      },
-                                                      onLongPress: () {
-                              // Acci��n al dejar presionado
-                              print('Button long pressed!');
-                                                      },
-                                                    ),
+                                onTap: () {
+                                  // Acci��n al hacer clic
+                                  print('Button tapped!');
+                                },
+                                onLongPress: () {
+                                  // Acci��n al dejar presionado
+                                  print('Button long pressed!');
+                                },
+                              ),
                             ),
                             Padding(
                               padding: EdgeInsets.fromLTRB(
                                   spaceleft, spacetop, spaceright, spacebott),
                               child: DualActionButton(
-                                                      onTap: () {
-                              // Acci��n al hacer clic
-                              print('Button tapped!');
-                                                      },
-                                                      onLongPress: () {
-                              // Acci��n al dejar presionado
-                              print('Button long pressed!');
-                                                      },
-                                                    ),
+                                onTap: () {
+                                  // Acci��n al hacer clic
+                                  print('Button tapped!');
+                                },
+                                onLongPress: () {
+                                  // Acci��n al dejar presionado
+                                  print('Button long pressed!');
+                                },
+                              ),
                             ),
                             Padding(
                               padding: EdgeInsets.fromLTRB(
                                   spaceleft, spacetop, spaceright, spacebott),
                               child: DualActionButton(
-                                                      onTap: () {
-                              // Acci��n al hacer clic
-                              print('Button tapped!');
-                                                      },
-                                                      onLongPress: () {
-                              // Acci��n al dejar presionado
-                              print('Button long pressed!');
-                                                      },
-                                                    ),
+                                onTap: () {
+                                  // Acci��n al hacer clic
+                                  print('Button tapped!');
+                                },
+                                onLongPress: () {
+                                  // Acci��n al dejar presionado
+                                  print('Button long pressed!');
+                                },
+                              ),
                             ),
-
                           ],
-                        )
+                        ),
                       ],
                     ),
                   ),
+                  //8 Third Title
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(
+                        18, spacetop, spaceright, spacebott),
+                    child: const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'HEART ATTACK',
+                        style: titleLabel,
+                      ),
+                    ),
+                  ),
+                  //3 Third Line
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
+                    child: Container(
+                      height: 1, // Altura de la l��nea de separaci��n
+                      color: Colors.grey, // Color de la l��nea de separaci��n
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        //Row de prueba
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(
+                                  spaceleft, spacetop, spaceright, spacebott),
+                              child: DualActionButton(
+                                onTap: () {
+                                  // Accion al hacer clic
+                                  print('Button tapped!');
+                                },
+                                onLongPress: () {
+                                  // Accion al dejar presionado
+                                  print('Button long pressed!');
+                                },
+                              ),
+                            ),
+                         ],
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
