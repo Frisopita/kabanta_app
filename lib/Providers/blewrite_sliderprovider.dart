@@ -11,8 +11,6 @@ class BLEWrite {
 }
 
 class BleWriteSliderProvider extends ChangeNotifier {
-  BluetoothService? _service;
-
   Stream<List<BLEWrite>> _stream = const Stream.empty();
 
   Stream<List<BLEWrite>> get stream => _stream;
@@ -88,8 +86,6 @@ class BleWriteSliderProvider extends ChangeNotifier {
   void setValue(Uint8List readValues) {}
 
   Future<void> initService(BluetoothService service) async {
-
-    _service = service;
     List<BluetoothCharacteristic> listBle = service.characteristics
         .where((c) => _allowedUUIDs.containsKey(c.uuid.toString()))
         .toList();

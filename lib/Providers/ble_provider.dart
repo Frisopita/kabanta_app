@@ -1,6 +1,6 @@
+import 'package:async/async.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:async/async.dart';
 
 class BLE {
   final String id;
@@ -10,8 +10,6 @@ class BLE {
 }
 
 class BleProvider extends ChangeNotifier {
-  BluetoothService? _service;
-
   Stream<List<BLE>> _stream = const Stream.empty();
 
   Stream<List<BLE>> get stream => _stream;
@@ -36,7 +34,6 @@ class BleProvider extends ChangeNotifier {
   Future <void> initService(BluetoothService service) async {
     //if (service.uuid == _service?.uuid) return;
     
-    _service = service;
     List<BluetoothCharacteristic> listBle = service.characteristics
         .where((c) => _allowedUUIDs.containsKey(c.uuid.toString())).toList();
 

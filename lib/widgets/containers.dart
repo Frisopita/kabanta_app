@@ -53,8 +53,8 @@ class ContainerSignal extends StatelessWidget {
             ],
           ),
           Container(
-            height: 1, // Altura de la l¨ªnea de separaci¨®n
-            color: Colors.grey.shade300, // Color de la l¨ªnea de separaci¨®n
+            height: 1, // Altura de la lï¿½ï¿½nea de separaciï¿½ï¿½n
+            color: Colors.grey.shade300, // Color de la lï¿½ï¿½nea de separaciï¿½ï¿½n
             margin: const EdgeInsets.symmetric(vertical: 0),
           ),
         ],
@@ -145,8 +145,8 @@ class _ContainerClockState extends State<ContainerClock> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Container(
-            height: 1, // Altura de la l¨ªnea de separaci¨®n
-            color: Colors.grey.shade300, // Color de la l¨ªnea de separaci¨®n
+            height: 1, // Altura de la lï¿½ï¿½nea de separaciï¿½ï¿½n
+            color: Colors.grey.shade300, // Color de la lï¿½ï¿½nea de separaciï¿½ï¿½n
           ),
           Center(
             child: Padding(
