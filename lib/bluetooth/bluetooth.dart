@@ -123,8 +123,22 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const CircularProgressIndicator(),
-         Text('Conectando a ${qrText}')
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: SizedBox(
+              height: 50,
+              width: 50,
+              child: CircularProgressIndicator(
+                    backgroundColor: Colors.blueGrey.shade100,
+                    strokeWidth: 7,
+                    valueColor: const AlwaysStoppedAnimation<Color>(Colors.indigo),
+              ),
+            ),
+          ),
+         Padding(
+           padding: const EdgeInsets.all(15),
+           child: Text('Conectando a ${qrText}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+         )
         ],
       ),),
     );

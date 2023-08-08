@@ -46,7 +46,7 @@ class ContainerSignal extends StatelessWidget {
                     width: 250,
                     height: 30,
                     child: Image.asset(
-                      'Images/arryt.png',
+                      'Images/arryt3.png',
                       fit: BoxFit.contain,
                     )),
               ),

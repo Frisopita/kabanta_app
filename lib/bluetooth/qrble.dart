@@ -38,7 +38,6 @@ class _QrboardPageState extends State<QrboardPage> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
-        qrText = scanData.code ?? "";
       });
     });
   }
@@ -107,6 +106,7 @@ class _QrboardPageState extends State<QrboardPage> {
                       onChanged: (text) {
                         setState(() {
                           qrText = text;
+                          // Actualiza el valor en el QrTextProvider
                           Provider.of<QrTextProvider>(context, listen: false)
                               .updateText(text);
                         });
@@ -128,6 +128,7 @@ class _QrboardPageState extends State<QrboardPage> {
                   foregroundColor: colorforebutt1),
               onPressed: () {
                 String? scannedText = result?.code;
+                // Actualizar el valor en el QrTextProvider
                 Provider.of<QrTextProvider>(context, listen: false).updateText(scannedText);
                 Navigator.push(
                   context,
@@ -137,6 +138,36 @@ class _QrboardPageState extends State<QrboardPage> {
               },
               child: const Text("Connect"),
             ),
+            /*
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: colorbackbutt1,
+                foregroundColor: colorforebutt1,
+              ),
+              onPressed: () {
+                // Obtener el valor actual del TextEditingController desde el QrTextProvider
+                String? providerText =
+                    Provider.of<QrTextProvider>(context, listen: false).text;
+                // Mostrar el valor en el Text
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Text("Valor del TextField"),
+                    content: Text(providerText ??
+                        "Sin valor"), // Mostrar "Sin valor" si providerText es nulo
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text("Cerrar"),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              child: const Text("Provider"),
+            ),*/
           ],
         ),
       ),
