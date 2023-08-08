@@ -1,0 +1,170 @@
+import 'dart:developer';
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:kabanta_app1/bluetooth/bluetooth.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:kabanta_app1/variables.dart';
+import 'package:kabanta_app1/Providers/qrtext_provider.dart';
+import 'package:provider/provider.dart';
+
+class QrboardPage extends StatefulWidget {
+  const QrboardPage({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _QrboardPageState();
+}
+
+class _QrboardPageState extends State<QrboardPage> {
+  Barcode? result;
+  QRViewController? controller;
+  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  String qrText = "";
+
+  // In order to get hot reload to work we need to pause the camera if the platform
+  // is android, or resume the camera if the platform is iOS.
+  @override
+  void reassemble() {
+    super.reassemble();
+    if (Platform.isAndroid) {
+      controller!.pauseCamera();
+    }
+    controller!.resumeCamera();
+  }
+
+  void _onQRViewCreated(QRViewController controller) {
+    setState(() {
+      this.controller = controller;
+    });
+    controller.scannedDataStream.listen((scanData) {
+      setState(() {
+        result = scanData;
+        qrText = scanData.code ?? "";
+      });
+    });
+  }
+
+  void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
+    log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
+    if (!p) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('no Permission')),
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    TextEditingController _textEditingController1 = TextEditingController();
+
+    @override
+    void initState() {
+      super.initState();
+      // Establecer el TextEditingController en el QrTextProvider
+      Provider.of<QrTextProvider>(context, listen: false)
+          .textEditingController = _textEditingController1;
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Image.asset('Images/original.png',
+            fit: BoxFit.cover, height: 100, width: 130),
+        backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(10),
+              child: Text(
+                'Scan QR Code',
+                textAlign: TextAlign.center,
+                style: titleLabel,
+              ),
+            ),
+            SizedBox(
+              child: _buildQrView(context),
+            ), // QR view gets more space
+            const Padding(
+              padding: EdgeInsets.all(10),
+              child: Text(
+                'or Enter Id number',
+                textAlign: TextAlign.center,
+                style: titleLabel,
+              ),
+            ),
+            Padding(
+              // Add some padding to bound the TextField
+              padding: const EdgeInsets.all(10),
+              child: result != null
+                  ? TextField(
+                      onChanged: (text) {
+                        setState(() {
+                          qrText = text;
+                          Provider.of<QrTextProvider>(context, listen: false)
+                              .updateText(text);
+                        });
+                      },
+                      controller: Provider.of<QrTextProvider>(context)
+                          .textEditingController, // Usar el TextEditingController del QrTextProvider,
+                      decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
+                          hintText: '${result!.code}'),
+                    )
+                  : const TextField(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(), hintText: 'Enter id'),
+                    ),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: colorbackbutt1,
+                  foregroundColor: colorforebutt1),
+              onPressed: () {
+                String? scannedText = result?.code;
+                Provider.of<QrTextProvider>(context, listen: false).updateText(scannedText);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => FindDevicesScreen(qrText: qrText)),
+                );
+              },
+              child: const Text("Connect"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildQrView(BuildContext context) {
+    // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
+    var scanArea = (MediaQuery.of(context).size.width < 400 ||
+            MediaQuery.of(context).size.height < 400)
+        ? 150.0
+        : 300.0;
+    // To ensure the Scanner view is properly sizes after rotation
+    // we need to listen for Flutter SizeChanged notification and update controller
+    return Container(
+      width: 310, // Establece el ancho deseado
+      height: 310, // Establece la altura deseada
+      child: QRView(
+        key: qrKey,
+        onQRViewCreated: _onQRViewCreated,
+        overlay: QrScannerOverlayShape(
+            borderColor: Colors.red,
+            borderRadius: 10,
+            borderLength: 30,
+            borderWidth: 10,
+            cutOutSize: scanArea),
+        onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
+      ),
+    );
+  }
+}

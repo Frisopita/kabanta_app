@@ -1,16 +1,21 @@
 //Test de kabanta UX
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:kabanta_app1/Pages/ecg.dart';
-import 'package:kabanta_app1/Pages/history.dart';
-import 'package:kabanta_app1/Pages/scenery.dart';
-import 'package:kabanta_app1/Pages/vital.dart';
+import 'package:kabanta_app1/pages/ECG.dart';
+import 'package:kabanta_app1/pages/Scenery.dart';
+import 'package:kabanta_app1/pages/history.dart';
+import 'package:kabanta_app1/pages/vital.dart';
 import 'package:kabanta_app1/Providers/ble_provider.dart';
-import 'package:kabanta_app1/bluetooth.dart';
-import 'package:kabanta_app1/containers.dart';
+import 'package:kabanta_app1/bluetooth/qrble.dart';
+import 'package:kabanta_app1/bluetooth/bluetooth.dart';
+import 'package:kabanta_app1/widgets/containers.dart';
+import 'package:kabanta_app1/variables.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart' as flutter_blue;
 import 'package:permission_handler/permission_handler.dart';
+import 'package:kabanta_app1/Providers/device_provider.dart';
+import 'package:kabanta_app1/Providers/blewrite_sliderprovider.dart';
+import 'Providers/qrtext_provider.dart';
 
 void main() {
   if (Platform.isAndroid) {
@@ -22,36 +27,53 @@ void main() {
       Permission.bluetoothConnect,
       Permission.bluetoothScan
     ].request().then((status) {
-      runApp(const MyKabantaApp());
+      runApp( MyKabantaApp());
     });
   } else {
-    runApp(const MyKabantaApp());
+    runApp( MyKabantaApp());
   }
 }
 
-// Inicializaci¨®n de la APP
 class MyKabantaApp extends StatelessWidget {
-  const MyKabantaApp({super.key});
+
+   MyKabantaApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<BleProvider>(
           /// lazy se usa para incializar un provider antes de tiempo:
-          /// true: se incializa desde que se inserta en el Widget Tree
+          /// true: se incializa desde que se inserta en el Widget Tre e
           /// false: se inicializa hasta que se utiliza por 1ra vez
           /// null: mismo que false
           lazy: null,
-          //Se encarga de la notificaciï¿½ï¿½n de los cambios de provider
+          //Se encarga de la notificacion de los cambios de provider
           create: (BuildContext context) => BleProvider(),
         ),
 
         /// Puedes iniciar el stream dentro de un provider y usarlo en toda la app.
-        /// Lo ideal serÃ­a usar un wrapper y meter el stream dentro de un objeto o servicio que nosotros
+        /// Lo ideal seria usar un wrapper y meter el stream dentro de un objeto o servicio que nosotros
         /// escribieramos
         StreamProvider<flutter_blue.BluetoothState>.value(
           value: flutter_blue.FlutterBluePlus.instance.state,
           initialData: flutter_blue.BluetoothState.unknown,
+        ),
+        ChangeNotifierProvider<DeviceProvider>(
+          create: (BuildContext context) => DeviceProvider(),
+        ),
+        ChangeNotifierProvider<QrTextProvider>(
+          create: (BuildContext context) => QrTextProvider(),
+        ),
+        ChangeNotifierProvider<BleWriteSliderProvider>(
+          create: (BuildContext context) => BleWriteSliderProvider(
+            currentSliderValue1,
+            currentSliderValue2,
+            currentSliderValue3,
+            currentSliderValue4,
+            currentSliderValue5,
+            currentSliderValue6,
+            currentSliderValue7,
+          ),
         ),
       ],
       child: MaterialApp(
@@ -63,13 +85,16 @@ class MyKabantaApp extends StatelessWidget {
 
         home: Builder(
           builder: (context) {
+            //final blDvState = context.watch<flutter_blue.BluetoothDeviceState>();
             final blState = context.watch<flutter_blue.BluetoothState>();
+            
             if (blState == flutter_blue.BluetoothState.on) {
-              // Pasa los datos aquï¿½ï¿½
-              return DataPage();
+              return const QrboardPage();
+            } else {
+              return const BluetoothScreenOffOn();
             }
-            return const FindDevicesScreen();
-            // Si el estado de Bluetooth no estï¿½ï¿½ encendido, muestra la pantalla BluetoothOffScreen con el estado actual
+
+            // Si el estado de Bluetooth no esta encendido, muestra la pantalla BluetoothOffScreen con el estado actual
           },
         ),
       ),
@@ -83,14 +108,13 @@ class MyKabantaApp extends StatelessWidget {
         return StreamProvider<List<BLE>>.value(
           value: stream,
           catchError: (context, error) {
-
             return [];
           },
           initialData: const [],
           child: child,
         );
       },
-      );
+    );
   }
 }
 
@@ -104,16 +128,14 @@ class DataPage extends StatefulWidget {
 
 class _DataPageState extends State<DataPage> {
   int currentIndex = 0;
+  late PageController _pageController;
 
-  final List<Widget> _widgetOptions = <Widget>[
-    const ECG(),
-    const Vital(),
-    const Scenery(),
-    const History(),
+  final List<Widget> _widgetOptions = const <Widget>[
+    ECG(),
+    Vital(),
+    Scenery(),
+    History(),
   ];
-
-  final Widget _fixedWidgetSignal = const  ContainerSignal();
-  final Widget _fixedWidgetClock = const ContainerClock();
 
   // Variables para las posiciones del widget fijo
   double _fixedWidgetTop = 0;
@@ -121,6 +143,7 @@ class _DataPageState extends State<DataPage> {
   @override
   void initState() {
     super.initState();
+    _pageController = PageController(initialPage: currentIndex);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final RenderBox appBarBox = context.findRenderObject() as RenderBox;
       setState(() {
@@ -129,68 +152,80 @@ class _DataPageState extends State<DataPage> {
     });
   }
 
-  // Variables para las posiciones del widget fijo
-  final double _fixedWidgetSignalLeft = 0;
-  final double _fixedWidgetSignalRight = 0;
-  final double _fixedWidgetSignalBottom = 0;
-
-  final double _fixedWidgetClockTop = 0;
-  final double _fixedWidgetClockLeft = 0;
-  final double _fixedWidgetClockRight = 0;
-  final double _fixedWidgetClockBottom = 0;
-
   @override
   Widget build(BuildContext context) {
+    final deviceProvider = Provider.of<DeviceProvider>(context);
+    final device = deviceProvider.device;
+    final Widget _fixedWidgetSignal = ContainerSignal();
+
+    final Widget _fixedWidgetClock = ContainerClock(device: device);
+
     return Scaffold(
       appBar: AppBar(
         title: Image.asset('Images/original.png',
             fit: BoxFit.cover, height: 100, width: 130),
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
-        actions: <Widget>[
+        actions: [
+          /*
+          if (blDvState == flutter_blue.BluetoothDeviceState.connected)
+          Container(
+            color: Colors.green.shade200,
+            child: const Text('Dispositivo Conectado'),
+          ),
+          if (blDvState == flutter_blue.BluetoothDeviceState.disconnected)
           IconButton(
             icon: const Icon(
-              Icons.bluetooth,
+              Icons.qr_code_scanner,
               color: Colors.black,
             ),
-            tooltip: 'Bluetooth',
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => const FindDevicesScreen(),
+                builder: (BuildContext context) => const QrboardPage(),
               ));
             },
-          ),
+          ),*/
+          
         ],
       ),
       body: Stack(
         children: [
+          PageView(
+            controller: _pageController,
+            onPageChanged: (index) {
+              setState(() {
+                currentIndex = index;
+              });
+            },
+            children: _widgetOptions,
+          ),
           Positioned(
-            top: _fixedWidgetTop,
-            left: _fixedWidgetSignalLeft,
-            right: _fixedWidgetSignalRight,
-            bottom: _fixedWidgetSignalBottom,
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: null,
             child: _fixedWidgetSignal,
           ),
-          Positioned.fill(
-            child: _widgetOptions[currentIndex],
-          ),
           Positioned(
-            top: _fixedWidgetClockTop,
-            left: _fixedWidgetClockLeft,
-            right: _fixedWidgetClockRight,
-            bottom: _fixedWidgetClockBottom,
+            top: null,
+            left: 0,
+            right: 0,
+            bottom: 0,
             child: _fixedWidgetClock,
           ),
-          
         ],
       ),
 
-      //Botones de Navegaci¨®n
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
           setState(() {
             currentIndex = index;
           });
+          _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 5),
+      curve: Curves.easeInOut,
+    );
         },
         currentIndex: currentIndex,
         items: <BottomNavigationBarItem>[
