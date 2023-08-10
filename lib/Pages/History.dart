@@ -18,11 +18,32 @@ class _HistoryState extends State<History> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             //0
-             Container(
-                height: 50,
-                color: null,
-              ),
+            Container(
+              height: 50,
+              color: null,
+            ),
             //1
+            Container(
+              height: 60,
+              width: MediaQuery.of(context).size.width,
+              //color: Colors.pink.shade100,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                        child: ElevatedButton(
+                            onPressed: () {}, child: Text('History'))),
+                    SizedBox(
+                        child: ElevatedButton(
+                            onPressed: () {}, child: Text('Program'))),
+                  ],
+                ),
+              ),
+            ),
+            //2
             Expanded(
               child: SingleChildScrollView(
                 child: Container(
@@ -245,10 +266,10 @@ class _HistoryState extends State<History> {
                 ),
               ),
             ),
-            //2
+            //3
             Container(
-                height: 80,
-              ),
+              height: 80,
+            ),
           ],
         ),
       ),
