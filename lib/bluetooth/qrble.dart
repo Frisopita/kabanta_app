@@ -1,8 +1,10 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:kabanta_app1/bluetooth/bluetooth.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:kabanta_app1/main.dart';
 import 'package:kabanta_app1/variables.dart';
 import 'package:kabanta_app1/Providers/qrtext_provider.dart';
 import 'package:provider/provider.dart';
@@ -117,9 +119,17 @@ class _QrboardPageState extends State<QrboardPage> {
                           border: const OutlineInputBorder(),
                           hintText: '${result!.code}'),
                     )
-                  : const TextField(
-                      decoration: InputDecoration(
+                  : TextField(
+                      decoration: const InputDecoration(
                           border: OutlineInputBorder(), hintText: 'Enter id'),
+                      onChanged: (text) {
+                        setState(() {
+                          qrText = text;
+                          // Actualiza el valor en el QrTextProvider
+                          Provider.of<QrTextProvider>(context, listen: false)
+                              .updateText(text);
+                        });
+                      },
                     ),
             ),
             ElevatedButton(
@@ -127,48 +137,18 @@ class _QrboardPageState extends State<QrboardPage> {
                   backgroundColor: colorbackbutt1,
                   foregroundColor: colorforebutt1),
               onPressed: () {
-                String? scannedText = result?.code;
-                // Actualizar el valor en el QrTextProvider
-                Provider.of<QrTextProvider>(context, listen: false).updateText(scannedText);
-                //var disconnected;
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => FindDevicesScreen(qrText: qrText)),
-                );
+                if (result?.code != null) {
+                  String qrText = result!.code!;
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FindDevicesScreen(qrText: qrText),
+                    ),
+                  );
+                }
               },
               child: const Text("Connect"),
             ),
-            /*
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: colorbackbutt1,
-                foregroundColor: colorforebutt1,
-              ),
-              onPressed: () {
-                // Obtener el valor actual del TextEditingController desde el QrTextProvider
-                String? providerText =
-                    Provider.of<QrTextProvider>(context, listen: false).text;
-                // Mostrar el valor en el Text
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: Text("Valor del TextField"),
-                    content: Text(providerText ??
-                        "Sin valor"), // Mostrar "Sin valor" si providerText es nulo
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text("Cerrar"),
-                      ),
-                    ],
-                  ),
-                );
-              },
-              child: const Text("Provider"),
-            ),*/
           ],
         ),
       ),

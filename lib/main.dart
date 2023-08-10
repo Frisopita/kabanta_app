@@ -41,6 +41,7 @@ class MyKabantaApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        
         ChangeNotifierProvider<BleProvider>(
           /// lazy se usa para incializar un provider antes de tiempo:
           /// true: se incializa desde que se inserta en el Widget Tre e
@@ -54,6 +55,7 @@ class MyKabantaApp extends StatelessWidget {
         /// Puedes iniciar el stream dentro de un provider y usarlo en toda la app.
         /// Lo ideal seria usar un wrapper y meter el stream dentro de un objeto o servicio que nosotros
         /// escribieramos
+        
         StreamProvider<flutter_blue.BluetoothState>.value(
           value: flutter_blue.FlutterBluePlus.instance.state,
           initialData: flutter_blue.BluetoothState.unknown,
@@ -86,14 +88,14 @@ class MyKabantaApp extends StatelessWidget {
         home: Builder(
           builder: (context) {
             final blState = context.watch<flutter_blue.BluetoothState>();
-
-            if (blState == flutter_blue.BluetoothState.on) {
-              return const QrboardPage();
-            } else {
-              return const BluetoothScreenOffOn();
-            }
-
-            // Si el estado de Bluetooth no esta encendido, muestra la pantalla BluetoothOffScreen con el estado actual
+            //final blDvState =Provider.of<flutter_blue.BluetoothDeviceState>(context);
+              if (blState == flutter_blue.BluetoothState.on) {
+                // Navigate to the screen for connected device
+                return const QrboardPage();
+              } else {
+                // Navigate to the BluetoothScreenOffOn when Bluetooth is off
+                return const BluetoothScreenOffOn();
+              }
           },
         ),
       ),
@@ -172,38 +174,30 @@ class _DataPageState extends State<DataPage> {
                   flutter_blue.BluetoothDeviceState.connected) {
                 return Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(20),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.green.shade200,
-                        borderRadius: BorderRadius.circular(3)
+                        shape: BoxShape.circle,
+                        color: Colors.green.shade400,
                       ),
-                      height: 35,
-                      width: 70,
-                      child: const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text('Device',
-                          style: TextStyle(fontWeight: FontWeight.bold),),
-                          Text('connected',
-                          style: TextStyle(fontWeight: FontWeight.bold),),
-                        ],
-                      )
+                      height: 20,
+                      width: 20,
                     ),
                   ),
                 );
               } else {
-                return IconButton(
-                  icon: const Icon(
-                    Icons.qr_code_scanner,
-                    color: Colors.black,
+                return Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.red.shade400,
+                      ),
+                      height: 20,
+                      width: 20,
+                    ),
                   ),
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => const QrboardPage(),
-                    ));
-                  },
                 );
               }
             },
