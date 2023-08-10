@@ -130,6 +130,7 @@ class _QrboardPageState extends State<QrboardPage> {
                 String? scannedText = result?.code;
                 // Actualizar el valor en el QrTextProvider
                 Provider.of<QrTextProvider>(context, listen: false).updateText(scannedText);
+                //var disconnected;
                 Navigator.push(
                   context,
                   MaterialPageRoute(

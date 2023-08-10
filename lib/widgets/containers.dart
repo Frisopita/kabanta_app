@@ -65,7 +65,6 @@ class ContainerSignal extends StatelessWidget {
 
 class ContainerClock extends StatefulWidget {
   const ContainerClock({Key? key, required this.device}) : super(key: key);
-
   final BluetoothDevice device;
 
   @override
@@ -73,6 +72,7 @@ class ContainerClock extends StatefulWidget {
 }
 
 class _ContainerClockState extends State<ContainerClock> {
+  
   
   List<Widget> _buildUpgradeButt(List<BluetoothService> services) {
     return services

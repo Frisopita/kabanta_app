@@ -1,6 +1,7 @@
 //Test de kabanta UX
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/gen/flutterblueplus.pb.dart';
 import 'package:kabanta_app1/pages/ECG.dart';
 import 'package:kabanta_app1/pages/Scenery.dart';
 import 'package:kabanta_app1/pages/history.dart';
@@ -27,16 +28,15 @@ void main() {
       Permission.bluetoothConnect,
       Permission.bluetoothScan
     ].request().then((status) {
-      runApp( MyKabantaApp());
+      runApp(MyKabantaApp());
     });
   } else {
-    runApp( MyKabantaApp());
+    runApp(MyKabantaApp());
   }
 }
 
 class MyKabantaApp extends StatelessWidget {
-
-   MyKabantaApp({super.key});
+  MyKabantaApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -85,9 +85,8 @@ class MyKabantaApp extends StatelessWidget {
 
         home: Builder(
           builder: (context) {
-            //final blDvState = context.watch<flutter_blue.BluetoothDeviceState>();
             final blState = context.watch<flutter_blue.BluetoothState>();
-            
+
             if (blState == flutter_blue.BluetoothState.on) {
               return const QrboardPage();
             } else {
@@ -130,13 +129,6 @@ class _DataPageState extends State<DataPage> {
   int currentIndex = 0;
   late PageController _pageController;
 
-  final List<Widget> _widgetOptions = const <Widget>[
-    ECG(),
-    Vital(),
-    Scenery(),
-    History(),
-  ];
-
   // Variables para las posiciones del widget fijo
   double _fixedWidgetTop = 0;
 
@@ -156,6 +148,12 @@ class _DataPageState extends State<DataPage> {
   Widget build(BuildContext context) {
     final deviceProvider = Provider.of<DeviceProvider>(context);
     final device = deviceProvider.device;
+    final List<Widget> _widgetOptions = <Widget>[
+      ECG(device: device),
+      const Vital(),
+      const Scenery(),
+      const History(),
+    ];
     final Widget _fixedWidgetSignal = ContainerSignal();
 
     final Widget _fixedWidgetClock = ContainerClock(device: device);
@@ -167,25 +165,49 @@ class _DataPageState extends State<DataPage> {
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
         actions: [
-          /*
-          if (blDvState == flutter_blue.BluetoothDeviceState.connected)
-          Container(
-            color: Colors.green.shade200,
-            child: const Text('Dispositivo Conectado'),
-          ),
-          if (blDvState == flutter_blue.BluetoothDeviceState.disconnected)
-          IconButton(
-            icon: const Icon(
-              Icons.qr_code_scanner,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => const QrboardPage(),
-              ));
+          StreamBuilder<flutter_blue.BluetoothDeviceState>(
+            stream: device.state,
+            builder: (context, snapshot) {
+              if (snapshot.data ==
+                  flutter_blue.BluetoothDeviceState.connected) {
+                return Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.green.shade200,
+                        borderRadius: BorderRadius.circular(3)
+                      ),
+                      height: 35,
+                      width: 70,
+                      child: const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text('Device',
+                          style: TextStyle(fontWeight: FontWeight.bold),),
+                          Text('connected',
+                          style: TextStyle(fontWeight: FontWeight.bold),),
+                        ],
+                      )
+                    ),
+                  ),
+                );
+              } else {
+                return IconButton(
+                  icon: const Icon(
+                    Icons.qr_code_scanner,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) => const QrboardPage(),
+                    ));
+                  },
+                );
+              }
             },
-          ),*/
-          
+          ),
         ],
       ),
       body: Stack(
@@ -215,17 +237,16 @@ class _DataPageState extends State<DataPage> {
           ),
         ],
       ),
-
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
           setState(() {
             currentIndex = index;
           });
           _pageController.animateToPage(
-      index,
-      duration: const Duration(milliseconds: 5),
-      curve: Curves.easeInOut,
-    );
+            index,
+            duration: const Duration(milliseconds: 5),
+            curve: Curves.easeInOut,
+          );
         },
         currentIndex: currentIndex,
         items: <BottomNavigationBarItem>[

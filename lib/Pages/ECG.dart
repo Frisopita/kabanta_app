@@ -1,17 +1,32 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:kabanta_app1/variables.dart';
 import 'package:kabanta_app1/widgets/buttongesture.dart';
+import '../bluetooth/widgetsble.dart';
 
 class ECG extends StatefulWidget {
-  const ECG({super.key});
+  const ECG({Key? key, required this.device}) : super(key: key);
+  final BluetoothDevice device;
 
   @override
   State<ECG> createState() => _ECGState();
 }
 
 class _ECGState extends State<ECG> {
+  List<Widget> _buildHeartAttackButt(List<BluetoothService> services) {
+    return services
+        .map(
+          (s) => HeartAttackButt(
+            service: s,
+            onTap: () {},
+            onLongPress: () {},
+          ),
+        )
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -642,18 +657,20 @@ class _ECGState extends State<ECG> {
                             Padding(
                               padding: EdgeInsets.fromLTRB(
                                   spaceleft, spacetop, spaceright, spacebott),
-                              child: DualActionButton(
-                                onTap: () {
-                                  // Accion al hacer clic
-                                  print('Button tapped!');
+                              child: StreamBuilder<List<BluetoothService>>(
+                                //recibe la lista de servicios (services) del dispositivo
+                                stream: widget.device.services,
+                                initialData: const [],
+                                builder: (c, snapshot) {
+                                  return Column(
+                                    children: _buildHeartAttackButt(snapshot
+                                        .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                                  );
                                 },
-                                onLongPress: () {
-                                  // Accion al dejar presionado
-                                  print('Button long pressed!');
-                                },
+                                //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
                               ),
                             ),
-                         ],
+                          ],
                         ),
                       ],
                     ),
