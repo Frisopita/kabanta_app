@@ -88,59 +88,71 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
 
   //actualiza cada 4 s la busqueda
   Future<void> startScan() async {
-    subscription = FlutterBluePlus.instance.scanResults.listen(_connectToDevice);  
+    subscription =
+        FlutterBluePlus.instance.scanResults.listen(_connectToDevice);
     await FlutterBluePlus.instance
         .startScan(timeout: const Duration(seconds: 20));
   }
+
   Future<void> _connectToDevice(List<ScanResult> resultslist) async {
-    final scanresult = resultslist.firstWhereOrNull((element) => element.device.name == qrText);
-    if (scanresult != null && !isLoading) {     
-      final deviceprovider = Provider.of<DeviceProvider>(context, listen: false);
+    final scanresult = resultslist
+        .firstWhereOrNull((element) => element.device.name == qrText);
+    if (scanresult != null && !isLoading) {
+      final deviceprovider =
+          Provider.of<DeviceProvider>(context, listen: false);
       final navigator = Navigator.of(context);
       await scanresult.device.connect();
-       isLoading = true;
-      List<BluetoothService> services = await scanresult.device.discoverServices();      
-      deviceprovider.setDevice( scanresult.device);
-      navigator.pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => const DataPage(),
-        ),
-      );
-   }
+      isLoading = true;
+      List<BluetoothService> services =
+          await scanresult.device.discoverServices();
+      deviceprovider.setDevice(scanresult.device);
+      navigator.pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (context) => DataPage()),
+          (Route route) => false);
+    }
   }
 
   @override
   void dispose() {
     FlutterBluePlus.instance.stopScan();
-  subscription.cancel();
+    subscription.cancel();
 
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: SizedBox(
-              height: 50,
-              width: 50,
-              child: CircularProgressIndicator(
-                    backgroundColor: Colors.blueGrey.shade100,
-                    strokeWidth: 7,
-                    valueColor: const AlwaysStoppedAnimation<Color>(Colors.indigo),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: SizedBox(
+                height: 50,
+                width: 50,
+                child: CircularProgressIndicator(
+                  backgroundColor: Colors.blueGrey.shade100,
+                  strokeWidth: 7,
+                  valueColor:
+                      const AlwaysStoppedAnimation<Color>(Colors.indigo),
+                ),
               ),
             ),
-          ),
-         Padding(
-           padding: const EdgeInsets.all(15),
-           child: Text('Conectando a ${qrText}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-         )
-        ],
-      ),),
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Text(
+                'Conectando a ${qrText}',
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

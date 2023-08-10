@@ -1,6 +1,7 @@
 //Test de kabanta UX
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/gen/flutterblueplus.pb.dart';
 import 'package:kabanta_app1/pages/ECG.dart';
 import 'package:kabanta_app1/pages/Scenery.dart';
 import 'package:kabanta_app1/pages/history.dart';
@@ -27,20 +28,20 @@ void main() {
       Permission.bluetoothConnect,
       Permission.bluetoothScan
     ].request().then((status) {
-      runApp( MyKabantaApp());
+      runApp(MyKabantaApp());
     });
   } else {
-    runApp( MyKabantaApp());
+    runApp(MyKabantaApp());
   }
 }
 
 class MyKabantaApp extends StatelessWidget {
-
-   MyKabantaApp({super.key});
+  MyKabantaApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        
         ChangeNotifierProvider<BleProvider>(
           /// lazy se usa para incializar un provider antes de tiempo:
           /// true: se incializa desde que se inserta en el Widget Tre e
@@ -54,6 +55,7 @@ class MyKabantaApp extends StatelessWidget {
         /// Puedes iniciar el stream dentro de un provider y usarlo en toda la app.
         /// Lo ideal seria usar un wrapper y meter el stream dentro de un objeto o servicio que nosotros
         /// escribieramos
+        
         StreamProvider<flutter_blue.BluetoothState>.value(
           value: flutter_blue.FlutterBluePlus.instance.state,
           initialData: flutter_blue.BluetoothState.unknown,
@@ -85,16 +87,15 @@ class MyKabantaApp extends StatelessWidget {
 
         home: Builder(
           builder: (context) {
-            //final blDvState = context.watch<flutter_blue.BluetoothDeviceState>();
             final blState = context.watch<flutter_blue.BluetoothState>();
-            
-            if (blState == flutter_blue.BluetoothState.on) {
-              return const QrboardPage();
-            } else {
-              return const BluetoothScreenOffOn();
-            }
-
-            // Si el estado de Bluetooth no esta encendido, muestra la pantalla BluetoothOffScreen con el estado actual
+            //final blDvState =Provider.of<flutter_blue.BluetoothDeviceState>(context);
+              if (blState == flutter_blue.BluetoothState.on) {
+                // Navigate to the screen for connected device
+                return const QrboardPage();
+              } else {
+                // Navigate to the BluetoothScreenOffOn when Bluetooth is off
+                return const BluetoothScreenOffOn();
+              }
           },
         ),
       ),
@@ -130,13 +131,6 @@ class _DataPageState extends State<DataPage> {
   int currentIndex = 0;
   late PageController _pageController;
 
-  final List<Widget> _widgetOptions = const <Widget>[
-    ECG(),
-    Vital(),
-    Scenery(),
-    History(),
-  ];
-
   // Variables para las posiciones del widget fijo
   double _fixedWidgetTop = 0;
 
@@ -156,6 +150,12 @@ class _DataPageState extends State<DataPage> {
   Widget build(BuildContext context) {
     final deviceProvider = Provider.of<DeviceProvider>(context);
     final device = deviceProvider.device;
+    final List<Widget> _widgetOptions = <Widget>[
+      ECG(device: device),
+      const Vital(),
+      const Scenery(),
+      const History(),
+    ];
     final Widget _fixedWidgetSignal = ContainerSignal();
 
     final Widget _fixedWidgetClock = ContainerClock(device: device);
@@ -167,25 +167,41 @@ class _DataPageState extends State<DataPage> {
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
         actions: [
-          /*
-          if (blDvState == flutter_blue.BluetoothDeviceState.connected)
-          Container(
-            color: Colors.green.shade200,
-            child: const Text('Dispositivo Conectado'),
-          ),
-          if (blDvState == flutter_blue.BluetoothDeviceState.disconnected)
-          IconButton(
-            icon: const Icon(
-              Icons.qr_code_scanner,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => const QrboardPage(),
-              ));
+          StreamBuilder<flutter_blue.BluetoothDeviceState>(
+            stream: device.state,
+            builder: (context, snapshot) {
+              if (snapshot.data ==
+                  flutter_blue.BluetoothDeviceState.connected) {
+                return Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.green.shade400,
+                      ),
+                      height: 20,
+                      width: 20,
+                    ),
+                  ),
+                );
+              } else {
+                return Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.red.shade400,
+                      ),
+                      height: 20,
+                      width: 20,
+                    ),
+                  ),
+                );
+              }
             },
-          ),*/
-          
+          ),
         ],
       ),
       body: Stack(
@@ -215,17 +231,16 @@ class _DataPageState extends State<DataPage> {
           ),
         ],
       ),
-
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
           setState(() {
             currentIndex = index;
           });
           _pageController.animateToPage(
-      index,
-      duration: const Duration(milliseconds: 5),
-      curve: Curves.easeInOut,
-    );
+            index,
+            duration: const Duration(milliseconds: 5),
+            curve: Curves.easeInOut,
+          );
         },
         currentIndex: currentIndex,
         items: <BottomNavigationBarItem>[
