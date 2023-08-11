@@ -5,7 +5,9 @@ class QrTextProvider extends ChangeNotifier {
   TextEditingController textEditingController = TextEditingController();
 
   void updateText(String? newValue) {
+    if (newValue == text) return;
     text = newValue;
+    textEditingController.text = newValue ?? '';
     notifyListeners();
   }
 }

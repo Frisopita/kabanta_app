@@ -18,8 +18,12 @@ class HeartAttackButt extends StatefulWidget {
    final VoidCallback onTap;
   final VoidCallback onLongPress;
   
-
-  HeartAttackButt({Key? key, required this.service, required this.onTap, required this.onLongPress}) : super(key: key);
+  const HeartAttackButt({
+    Key? key,
+    required this.service,
+    required this.onTap,
+    required this.onLongPress,
+  }) : super(key: key);
 
   @override
   State<HeartAttackButt> createState() => _HeartAttackButtState();
@@ -228,7 +232,7 @@ bool _isButtonLongPressed = false;
               color: Colors.grey.withOpacity(0.5),
               spreadRadius: .5,
               blurRadius: .5,
-              offset: Offset(-1, 1),
+              offset: const Offset(-1, 1),
             ),
           ],
         ),
