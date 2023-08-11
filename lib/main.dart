@@ -2,6 +2,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/gen/flutterblueplus.pb.dart';
+import 'package:kabanta_app1/Providers/blewrite_states.dart';
 import 'package:kabanta_app1/pages/ECG.dart';
 import 'package:kabanta_app1/pages/Scenery.dart';
 import 'package:kabanta_app1/pages/history.dart';
@@ -62,6 +63,9 @@ class MyKabantaApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<DeviceProvider>(
           create: (BuildContext context) => DeviceProvider(),
+        ),
+        ChangeNotifierProvider<BleStateProvider>(
+          create: (BuildContext context) => BleStateProvider(),
         ),
         ChangeNotifierProvider<QrTextProvider>(
           create: (BuildContext context) => QrTextProvider(),

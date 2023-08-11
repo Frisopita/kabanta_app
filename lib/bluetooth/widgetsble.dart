@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:kabanta_app1/Providers/blewrite_states.dart';
 import 'package:provider/provider.dart';
 import '../variables.dart';
 import 'package:kabanta_app1/Providers/blewrite_sliderprovider.dart';
@@ -39,24 +40,7 @@ bool _isButtonLongPressed = false;
         return GestureDetector(
       onTap: () {
         // Muestra el AlertDialog al hacer clic
-        context.read<BleWriteSliderProvider>().initService(widget.service);
-        /*showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text('Click'),
-              content: const Text('Al hacer un click se envian los datos predeterminados de esta funcion y no se muestra esta box'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(); // Cierra el AlertDialog
-                  },
-                  child: const Text('OK'),
-                ),
-              ],
-            );
-          },
-        );*/
+        context.read<BleStateProvider>;
         widget.onTap();
       },
       onLongPress: () {
@@ -234,7 +218,7 @@ bool _isButtonLongPressed = false;
         ),
         child: Center(
           child: Text(
-            _isButtonLongPressed ? "Heart Atack" : "Info",
+            _isButtonLongPressed ? "Heart Atack" : "Heart Attack",
             style: const TextStyle(color: Colors.indigo),
           ),
         ),
