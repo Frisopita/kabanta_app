@@ -29,6 +29,7 @@ class HeartAttackButt extends StatefulWidget {
 class _HeartAttackButtState extends State<HeartAttackButt> {
 bool _isButtonLongPressed = false;
 
+
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -40,7 +41,9 @@ bool _isButtonLongPressed = false;
         return GestureDetector(
       onTap: () {
         // Muestra el AlertDialog al hacer clic
-        context.read<BleStateProvider>;
+        state1 = 100;
+        context.read<BleStateProvider>().initService(widget.service);
+        Provider.of<BleStateProvider>(context, listen: false).state1;
         widget.onTap();
       },
       onLongPress: () {

@@ -61,12 +61,13 @@ class MyKabantaApp extends StatelessWidget {
           value: flutter_blue.FlutterBluePlus.instance.state,
           initialData: flutter_blue.BluetoothState.unknown,
         ),
+        ChangeNotifierProvider<BleStateProvider>(
+          create: (BuildContext context) => BleStateProvider(state1),
+        ),
         ChangeNotifierProvider<DeviceProvider>(
           create: (BuildContext context) => DeviceProvider(),
         ),
-        ChangeNotifierProvider<BleStateProvider>(
-          create: (BuildContext context) => BleStateProvider(),
-        ),
+        
         ChangeNotifierProvider<QrTextProvider>(
           create: (BuildContext context) => QrTextProvider(),
         ),
@@ -81,6 +82,7 @@ class MyKabantaApp extends StatelessWidget {
             currentSliderValue7,
           ),
         ),
+        
       ],
       child: MaterialApp(
         // Quita el banner de debug en la parte superior derecha de la pantalla

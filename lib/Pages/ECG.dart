@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:kabanta_app1/variables.dart';
 import 'package:kabanta_app1/widgets/buttongesture.dart';
+import 'package:provider/provider.dart';
+import '../Providers/blewrite_states.dart';
 import '../bluetooth/widgetsble.dart';
 
 class ECG extends StatefulWidget {
@@ -170,6 +172,9 @@ class _ECGState extends State<ECG> {
                                       backgroundColor: colorbackbutt2,
                                       foregroundColor: colorforebutt2),
                                   onPressed: () {
+                                    state1 = 0;
+                                    Provider.of<BleStateProvider>(context, listen: false).state1;
+                                    
                                     setState(() {
                                       buttConstName = 'Clicked';
                                     });
