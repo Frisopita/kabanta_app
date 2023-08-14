@@ -14,7 +14,6 @@ final List<String> excludedServiceUUIDs = [
   '00001801-0000-1000-8000-00805f9b34fb'
 ];
 
-
 class NSButt extends StatefulWidget {
   final BluetoothService service;
   final VoidCallback onTap;
@@ -4923,7 +4922,7 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
         return GestureDetector(
           onTap: () {
             setState(() {
-              state1 = 18;
+              state1 = 1;
             });
             // Muestra el AlertDialog al hacer clic
             context.read<BleStateProvider>().initService(widget.service);
