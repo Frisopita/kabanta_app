@@ -16,22 +16,11 @@ class BleStateProvider extends ChangeNotifier {
   Stream<List<BLEWriteStates>> get stream => _stream;
 
   late double state1; 
-  late double state2;
 
   BleStateProvider(
     this.state1,
-    this.state2,
+
   );
-
-    void updateState1(double newState) {
-    state1 = newState;
-    notifyListeners();
-  }
-
-     void updateState2(double newState) {
-    state2 = newState;
-    notifyListeners();
-  }
 
   
   /// No importan, pero da error en el widget que dejamos de usar y no lo borre
@@ -47,7 +36,6 @@ class BleStateProvider extends ChangeNotifier {
 
     Future<void> writeCharacteristic() async {
       await service.characteristics[8].write([state1.toInt()], withoutResponse: true);
-      await service.characteristics[8].write([state2.toInt()], withoutResponse: true);
     }
     writeCharacteristic();
 

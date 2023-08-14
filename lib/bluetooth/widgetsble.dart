@@ -47,9 +47,6 @@ bool _isButtonLongPressed = false;
         widget.onTap();
       },
       onLongPress: () {
-        state2 = 1;
-        context.read<BleStateProvider>().initService(widget.service);
-        Provider.of<BleStateProvider>(context, listen: false).state2;
         // Muestra el AlertDialog al dejar presionado
         showDialog(
           context: context,
