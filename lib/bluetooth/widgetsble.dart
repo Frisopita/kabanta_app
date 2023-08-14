@@ -4,9 +4,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:kabanta_app1/Providers/states.dart';
 import 'package:provider/provider.dart';
 import '../variables.dart';
-import 'package:kabanta_app1/Providers/blewrite_sliderprovider.dart';
+import 'package:kabanta_app1/Providers/sliders.dart';
 
 final List<String> excludedServiceUUIDs = [
   '00001800-0000-1000-8000-00805f9b34fb',
@@ -32,6 +33,7 @@ class HeartAttackButt extends StatefulWidget {
 class _HeartAttackButtState extends State<HeartAttackButt> {
 bool _isButtonLongPressed = false;
 
+
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -43,24 +45,9 @@ bool _isButtonLongPressed = false;
         return GestureDetector(
       onTap: () {
         // Muestra el AlertDialog al hacer clic
-        context.read<BleWriteSliderProvider>().initService(widget.service);
-        /*showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text('Click'),
-              content: const Text('Al hacer un click se envian los datos predeterminados de esta funcion y no se muestra esta box'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(); // Cierra el AlertDialog
-                  },
-                  child: const Text('OK'),
-                ),
-              ],
-            );
-          },
-        );*/
+        state1 = 0;
+        context.read<BleStateProvider>().initService(widget.service);
+        Provider.of<BleStateProvider>(context, listen: false).state1;
         widget.onTap();
       },
       onLongPress: () {
@@ -238,7 +225,7 @@ bool _isButtonLongPressed = false;
         ),
         child: Center(
           child: Text(
-            _isButtonLongPressed ? "Heart Atack" : "Info",
+            _isButtonLongPressed ? "Heart Atack" : "Heart Attack",
             style: const TextStyle(color: Colors.indigo),
           ),
         ),

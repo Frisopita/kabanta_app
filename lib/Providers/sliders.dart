@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:async/async.dart';
+import 'package:kabanta_app1/variables.dart';
 
 class BLEWrite {
   final String id;
@@ -68,18 +69,6 @@ class BleWriteSliderProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Internal Services UUID allowed (whitelist)
-
-  static const Map<String, String> _allowedUUIDs = {
-    'beb5483e-36e1-4688-b7f5-ea07361b26a8': 'Heart Rate',
-    '8bdf0a1a-a48e-4dc3-8bab-ad0c1f7ed218': 'Temperature',
-    '411fcc1c-e7a5-4a61-82fe-0004993dd1f4': 'SP02',
-    'c608f523-aa19-40d1-8359-ad43409c34d7': 'Systolic Preasure',
-    '52294b4d-d66e-4d68-9782-1e5bb8f7ba14': 'Diastolic Preasure',
-    '7533653f-6f0e-41fa-8fa6-9892a1904db1': 'Frecuency',
-    '607a2edc-007d-4d51-a3a6-58fad0db3c37': 'CO2',
-    //'aea7aac8-5a97-488e-bd01-4166d22ec81e': 'Timer'
-  };
 
   /// No importan, pero da error en el widget que dejamos de usar y no lo borre
   set id(String id) {}
@@ -87,7 +76,7 @@ class BleWriteSliderProvider extends ChangeNotifier {
 
   Future<void> initService(BluetoothService service) async {
     List<BluetoothCharacteristic> listBle = service.characteristics
-        .where((c) => _allowedUUIDs.containsKey(c.uuid.toString()))
+        .where((c) => allowedUUIDs.containsKey(c.uuid.toString()))
         .toList();
 
     await Future.forEach(listBle, (element) => element.setNotifyValue(true));
@@ -108,7 +97,7 @@ class BleWriteSliderProvider extends ChangeNotifier {
           (c) => c.value.map((event) {
             String value = String.fromCharCodes(event);
             String uuid = c.uuid.toString();
-            return BLEWrite(_allowedUUIDs[uuid]!, value);
+            return BLEWrite(allowedUUIDs[uuid]!, value);
           }),
         );
     _stream = StreamZip(streams);
