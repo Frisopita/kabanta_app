@@ -38,7 +38,7 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
       _countdownTimer!.cancel();
     }
 
-    _countdownTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         if (_totalSecondsRemaining > 0) {
           _totalSecondsRemaining--;

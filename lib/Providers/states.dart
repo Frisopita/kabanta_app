@@ -3,18 +3,32 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:kabanta_app1/variables.dart';
 
-class BLE {
+class BLEWriteStates {
   final String id;
   final String data;
 
-  const BLE(this.id, this.data);
+  const BLEWriteStates(this.id, this.data);
 }
 
-class BleProvider extends ChangeNotifier {
-  Stream<List<BLE>> _stream = const Stream.empty();
+class BleStateProvider extends ChangeNotifier {
+  Stream<List<BLEWriteStates>> _stream = const Stream.empty();
 
-  Stream<List<BLE>> get stream => _stream;
+  Stream<List<BLEWriteStates>> get stream => _stream;
 
+  late double state1; 
+
+  BleStateProvider(
+    this.state1,
+  );
+
+  void updateState1(double newValue) {
+    state1 = newValue;
+    notifyListeners();
+  }
+
+
+  
+  /// No importan, pero da error en el widget que dejamos de usar y no lo borre
   set id(String id) {}
   void setValue(Uint8List readValues) {}
 
@@ -25,15 +39,18 @@ class BleProvider extends ChangeNotifier {
 
     await Future.forEach(listBle, (element) => element.setNotifyValue(true));
 
-    Future.forEach(listBle, (element) => element.onValueChangedStream.listen((value)async{}));  
+    Future<void> writeCharacteristic() async {
+      await service.characteristics[8].write([state1.toInt()], withoutResponse: true);
+    }
+    writeCharacteristic();
 
     listBle.removeLast();
-    Iterable<Stream<BLE>> streams = listBle
+    Iterable<Stream<BLEWriteStates>> streams = listBle
         .map(
           (c) => c.value.map((event) {
             String value = String.fromCharCodes(event);
             String uuid = c.uuid.toString();
-            return BLE(allowedUUIDs[uuid]!, value);
+            return BLEWriteStates(allowedUUIDs[uuid]!, value);
           }),
         );
     _stream = StreamZip(streams);

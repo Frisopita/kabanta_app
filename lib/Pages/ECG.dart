@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:kabanta_app1/variables.dart';
 import 'package:kabanta_app1/widgets/buttongesture.dart';
+import 'package:provider/provider.dart';
+import '../Providers/states.dart';
 import '../bluetooth/widgetsble.dart';
 
 class ECG extends StatefulWidget {
@@ -19,6 +21,222 @@ class _ECGState extends State<ECG> {
     return services
         .map(
           (s) => HeartAttackButt(
+            service: s,
+            onTap: () {},
+            onLongPress: () {},
+          ),
+        )
+        .toList();
+  }
+
+  List<Widget> _buildNSButt(List<BluetoothService> services) {
+    return services
+        .map(
+          (s) => NSButt(
+            service: s,
+            onTap: () {},
+            onLongPress: () {},
+          ),
+        )
+        .toList();
+  }
+
+  List<Widget> _buildBSButt(List<BluetoothService> services) {
+    return services
+        .map(
+          (s) => BSButt(
+            service: s,
+            onTap: () {},
+            onLongPress: () {},
+          ),
+        )
+        .toList();
+  }
+
+  List<Widget> _buildTSButt(List<BluetoothService> services) {
+    return services
+        .map(
+          (s) => TSButt(
+            service: s,
+            onTap: () {},
+            onLongPress: () {},
+          ),
+        )
+        .toList();
+  }
+
+  List<Widget> _buildFAButt(List<BluetoothService> services) {
+    return services
+        .map(
+          (s) => FAButt(
+            service: s,
+            onTap: () {},
+            onLongPress: () {},
+          ),
+        )
+        .toList();
+  }
+
+  List<Widget> _buildTS2Butt(List<BluetoothService> services) {
+    return services
+        .map(
+          (s) => TS2Butt(
+            service: s,
+            onTap: () {},
+            onLongPress: () {},
+          ),
+        )
+        .toList();
+  }
+
+  List<Widget> _buildTVDButt(List<BluetoothService> services) {
+    return services
+        .map(
+          (s) => TVDButt(
+            service: s,
+            onTap: () {},
+            onLongPress: () {},
+          ),
+        )
+        .toList();
+  }
+
+  List<Widget> _buildFLUButt(List<BluetoothService> services) {
+    return services
+        .map(
+          (s) => FLUButt(
+            service: s,
+            onTap: () {},
+            onLongPress: () {},
+          ),
+        )
+        .toList();
+  }
+
+  List<Widget> _buildTSVButt(List<BluetoothService> services) {
+    return services
+        .map(
+          (s) => TSVButt(
+            service: s,
+            onTap: () {},
+            onLongPress: () {},
+          ),
+        )
+        .toList();
+  }
+
+  List<Widget> _buildTVMButt(List<BluetoothService> services) {
+    return services
+        .map(
+          (s) => TVMButt(
+            service: s,
+            onTap: () {},
+            onLongPress: () {},
+          ),
+        )
+        .toList();
+  }
+
+  List<Widget> _buildBS0Butt(List<BluetoothService> services) {
+    return services
+        .map(
+          (s) => BS0Butt(
+            service: s,
+            onTap: () {},
+            onLongPress: () {},
+          ),
+        )
+        .toList();
+  }
+
+  List<Widget> _buildBAVIButt(List<BluetoothService> services) {
+    return services
+        .map(
+          (s) => BAVIButt(
+            service: s,
+            onTap: () {},
+            onLongPress: () {},
+          ),
+        )
+        .toList();
+  }
+
+  List<Widget> _buildBAVIIButt(List<BluetoothService> services) {
+    return services
+        .map(
+          (s) => BAVIIButt(
+            service: s,
+            onTap: () {},
+            onLongPress: () {},
+          ),
+        )
+        .toList();
+  }
+
+   List<Widget> _buildBAVIIIButt(List<BluetoothService> services) {
+    return services
+        .map(
+          (s) => BAVIIIButt(
+            service: s,
+            onTap: () {},
+            onLongPress: () {},
+          ),
+        )
+        .toList();
+  }
+
+  List<Widget> _buildB1Butt(List<BluetoothService> services) {
+    return services
+        .map(
+          (s) => B1Butt(
+            service: s,
+            onTap: () {},
+            onLongPress: () {},
+          ),
+        )
+        .toList();
+  }
+
+  List<Widget> _buildB2Butt(List<BluetoothService> services) {
+    return services
+        .map(
+          (s) => B2Butt(
+            service: s,
+            onTap: () {},
+            onLongPress: () {},
+          ),
+        )
+        .toList();
+  }
+
+  List<Widget> _buildB3Butt(List<BluetoothService> services) {
+    return services
+        .map(
+          (s) => B3Butt(
+            service: s,
+            onTap: () {},
+            onLongPress: () {},
+          ),
+        )
+        .toList();
+  }
+
+  List<Widget> _buildB4Butt(List<BluetoothService> services) {
+    return services
+        .map(
+          (s) => B4Butt(
+            service: s,
+            onTap: () {},
+            onLongPress: () {},
+          ),
+        )
+        .toList();
+  }
+
+   List<Widget> _buildB5Butt(List<BluetoothService> services) {
+    return services
+        .map(
+          (s) => B5Butt(
             service: s,
             onTap: () {},
             onLongPress: () {},
@@ -53,74 +271,53 @@ class _ECGState extends State<ECG> {
                       children: [
                         //Boton 1
                         Padding(
-                          padding:
-                              EdgeInsets.fromLTRB(2, spacetop, 35, spacebott),
-                          child: Container(
-                            width: 80,
-                            height: 35,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(2),
-                            ),
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: colorbackbutt1,
-                                  foregroundColor: colorforebutt1),
-                              onPressed: () {
-                                setState(() {
-                                  buttConstName = 'Clicked';
-                                });
-                                print('Holiwis');
-                              },
-                              child: Text(buttECG1),
-                            ),
+                          padding: EdgeInsets.fromLTRB(
+                              spaceleft, spacetop, spaceright, spacebott),
+                          child: StreamBuilder<List<BluetoothService>>(
+                            //recibe la lista de servicios (services) del dispositivo
+                            stream: widget.device.services,
+                            initialData: const [],
+                            builder: (c, snapshot) {
+                              return Column(
+                                children: _buildNSButt(snapshot
+                                    .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                              );
+                            },
+                            //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
                           ),
                         ),
                         //Boton 2
                         Padding(
                           padding: EdgeInsets.fromLTRB(
                               spaceleft, spacetop, spaceright, spacebott),
-                          child: Container(
-                            width: 95,
-                            height: 35,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(2),
-                            ),
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: colorbackbutt1,
-                                  foregroundColor: colorforebutt1),
-                              onPressed: () {
-                                setState(() {
-                                  buttConstName = 'Clicked';
-                                });
-                                print('Holiwis');
-                              },
-                              child: Text(buttECG2),
-                            ),
+                          child: StreamBuilder<List<BluetoothService>>(
+                            //recibe la lista de servicios (services) del dispositivo
+                            stream: widget.device.services,
+                            initialData: const [],
+                            builder: (c, snapshot) {
+                              return Column(
+                                children: _buildBSButt(snapshot
+                                    .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                              );
+                            },
+                            //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
                           ),
                         ),
                         //Boton 3
                         Padding(
                           padding: EdgeInsets.fromLTRB(
                               spaceleft, spacetop, spaceright, spacebott),
-                          child: Container(
-                            width: 95,
-                            height: 35,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(2),
-                            ),
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: colorbackbutt1,
-                                  foregroundColor: colorforebutt1),
-                              onPressed: () {
-                                setState(() {
-                                  buttConstName = 'Clicked';
-                                });
-                                print('Holiwis');
-                              },
-                              child: Text(buttECG3),
-                            ),
+                          child: StreamBuilder<List<BluetoothService>>(
+                            //recibe la lista de servicios (services) del dispositivo
+                            stream: widget.device.services,
+                            initialData: const [],
+                            builder: (c, snapshot) {
+                              return Column(
+                                children: _buildTSButt(snapshot
+                                    .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                              );
+                            },
+                            //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
                           ),
                         ),
                       ],
@@ -149,166 +346,124 @@ class _ECGState extends State<ECG> {
                   //4 First Button Widget
                   Padding(
                     padding: const EdgeInsets.all(5),
-                    child: Row(
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Column(
+                        Row(
+                           mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             //Boton 4
                             Padding(
                               padding: EdgeInsets.fromLTRB(
                                   spaceleft, spacetop, spaceright, spacebott),
-                              child: Container(
-                                width: 95,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(2),
-                                ),
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: colorbackbutt2,
-                                      foregroundColor: colorforebutt2),
-                                  onPressed: () {
-                                    setState(() {
-                                      buttConstName = 'Clicked';
-                                    });
-                                    print('Holiwis');
-                                  },
-                                  child: Text(buttECG4),
-                                ),
+                              child: StreamBuilder<List<BluetoothService>>(
+                                //recibe la lista de servicios (services) del dispositivo
+                                stream: widget.device.services,
+                                initialData: const [],
+                                builder: (c, snapshot) {
+                                  return Column(
+                                    children: _buildFAButt(snapshot
+                                        .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                                  );
+                                },
+                                //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
                               ),
                             ),
                             //Boton 5
-                            Padding(
+                           Padding(
                               padding: EdgeInsets.fromLTRB(
                                   spaceleft, spacetop, spaceright, spacebott),
-                              child: Container(
-                                width: 95,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(2),
-                                ),
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: colorbackbutt2,
-                                      foregroundColor: colorforebutt2),
-                                  onPressed: () {
-                                    setState(() {
-                                      buttConstName = 'Clicked';
-                                    });
-                                    print('Holiwis');
-                                  },
-                                  child: Text(buttECG5),
-                                ),
+                              child: StreamBuilder<List<BluetoothService>>(
+                                //recibe la lista de servicios (services) del dispositivo
+                                stream: widget.device.services,
+                                initialData: const [],
+                                builder: (c, snapshot) {
+                                  return Column(
+                                    children: _buildTS2Butt(snapshot
+                                        .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                                  );
+                                },
+                                //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
                               ),
                             ),
-                          ],
-                        ),
-                        Column(
-                          children: [
                             //Boton 6
                             Padding(
                               padding: EdgeInsets.fromLTRB(
                                   spaceleft, spacetop, spaceright, spacebott),
-                              child: Container(
-                                width: 95,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(2),
-                                ),
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: colorbackbutt2,
-                                      foregroundColor: colorforebutt2),
-                                  onPressed: () {
-                                    setState(() {
-                                      buttConstName = 'Clicked';
-                                    });
-                                    print('Holiwis');
-                                  },
-                                  child: Text(buttECG6),
-                                ),
-                              ),
-                            ),
-                            //Boton 7
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(
-                                  spaceleft, spacetop, spaceright, spacebott),
-                              child: Container(
-                                width: 95,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(2),
-                                ),
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: colorbackbutt2,
-                                      foregroundColor: colorforebutt2),
-                                  onPressed: () {
-                                    setState(() {
-                                      buttConstName = 'Clicked';
-                                    });
-                                    print('Holiwis');
-                                  },
-                                  child: Text(buttECG7),
-                                ),
+                              child: StreamBuilder<List<BluetoothService>>(
+                                //recibe la lista de servicios (services) del dispositivo
+                                stream: widget.device.services,
+                                initialData: const [],
+                                builder: (c, snapshot) {
+                                  return Column(
+                                    children: _buildTVDButt(snapshot
+                                        .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                                  );
+                                },
+                                //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
                               ),
                             ),
                           ],
                         ),
-                        Column(
+                        Row(
+                           mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            //Boton 7
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(
+                                  spaceleft, spacetop, spaceright, spacebott),
+                              child: StreamBuilder<List<BluetoothService>>(
+                                //recibe la lista de servicios (services) del dispositivo
+                                stream: widget.device.services,
+                                initialData: const [],
+                                builder: (c, snapshot) {
+                                  return Column(
+                                    children: _buildFLUButt(snapshot
+                                        .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                                  );
+                                },
+                                //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
+                              ),
+                            ),
                             //Boton 8
                             Padding(
                               padding: EdgeInsets.fromLTRB(
                                   spaceleft, spacetop, spaceright, spacebott),
-                              child: Container(
-                                width: 95,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(2),
-                                ),
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: colorbackbutt2,
-                                      foregroundColor: colorforebutt2),
-                                  onPressed: () {
-                                    setState(() {
-                                      buttConstName = 'Clicked';
-                                    });
-                                    print('Holiwis');
-                                  },
-                                  child: Text(buttECG8),
-                                ),
+                              child: StreamBuilder<List<BluetoothService>>(
+                                //recibe la lista de servicios (services) del dispositivo
+                                stream: widget.device.services,
+                                initialData: const [],
+                                builder: (c, snapshot) {
+                                  return Column(
+                                    children: _buildTSVButt(snapshot
+                                        .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                                  );
+                                },
+                                //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
                               ),
                             ),
                             //Boton 9
                             Padding(
                               padding: EdgeInsets.fromLTRB(
                                   spaceleft, spacetop, spaceright, spacebott),
-                              child: Container(
-                                width: 95,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(2),
-                                ),
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: colorbackbutt2,
-                                      foregroundColor: colorforebutt2),
-                                  onPressed: () {
-                                    setState(() {
-                                      buttConstName = 'Clicked';
-                                    });
-                                    print('Holiwis');
-                                  },
-                                  child: Text(buttECG9),
-                                ),
+                              child: StreamBuilder<List<BluetoothService>>(
+                                //recibe la lista de servicios (services) del dispositivo
+                                stream: widget.device.services,
+                                initialData: const [],
+                                builder: (c, snapshot) {
+                                  return Column(
+                                    children: _buildTVMButt(snapshot
+                                        .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                                  );
+                                },
+                                //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
                               ),
                             ),
                           ],
-                        ),
+                        ),   
                       ],
                     ),
                   ),
@@ -347,72 +502,51 @@ class _ECGState extends State<ECG> {
                             Padding(
                               padding: EdgeInsets.fromLTRB(
                                   spaceleft, spacetop, spaceright, spacebott),
-                              child: Container(
-                                width: 95,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(2),
-                                ),
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: colorbackbutt2,
-                                      foregroundColor: colorforebutt2),
-                                  onPressed: () {
-                                    setState(() {
-                                      buttConstName = 'Clicked';
-                                    });
-                                    print('Holiwis');
-                                  },
-                                  child: Text(buttECG10),
-                                ),
+                              child: StreamBuilder<List<BluetoothService>>(
+                                //recibe la lista de servicios (services) del dispositivo
+                                stream: widget.device.services,
+                                initialData: const [],
+                                builder: (c, snapshot) {
+                                  return Column(
+                                    children: _buildBS0Butt(snapshot
+                                        .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                                  );
+                                },
+                                //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
                               ),
                             ),
                             //Boton 11
                             Padding(
                               padding: EdgeInsets.fromLTRB(
                                   spaceleft, spacetop, spaceright, spacebott),
-                              child: Container(
-                                width: 95,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(2),
-                                ),
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: colorbackbutt2,
-                                      foregroundColor: colorforebutt2),
-                                  onPressed: () {
-                                    setState(() {
-                                      buttConstName = 'Clicked';
-                                    });
-                                    print('Holiwis');
-                                  },
-                                  child: Text(buttECG11),
-                                ),
+                              child: StreamBuilder<List<BluetoothService>>(
+                                //recibe la lista de servicios (services) del dispositivo
+                                stream: widget.device.services,
+                                initialData: const [],
+                                builder: (c, snapshot) {
+                                  return Column(
+                                    children: _buildBAVIButt(snapshot
+                                        .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                                  );
+                                },
+                                //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
                               ),
                             ),
                             //Boton 12
                             Padding(
                               padding: EdgeInsets.fromLTRB(
                                   spaceleft, spacetop, spaceright, spacebott),
-                              child: Container(
-                                width: 95,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(2),
-                                ),
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: colorbackbutt2,
-                                      foregroundColor: colorforebutt2),
-                                  onPressed: () {
-                                    setState(() {
-                                      buttConstName = 'Clicked';
-                                    });
-                                    print('Holiwis');
-                                  },
-                                  child: Text(buttECG12),
-                                ),
+                              child: StreamBuilder<List<BluetoothService>>(
+                                //recibe la lista de servicios (services) del dispositivo
+                                stream: widget.device.services,
+                                initialData: const [],
+                                builder: (c, snapshot) {
+                                  return Column(
+                                    children: _buildBAVIIButt(snapshot
+                                        .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                                  );
+                                },
+                                //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
                               ),
                             ),
                           ],
@@ -425,72 +559,51 @@ class _ECGState extends State<ECG> {
                             Padding(
                               padding: EdgeInsets.fromLTRB(
                                   spaceleft, spacetop, spaceright, spacebott),
-                              child: Container(
-                                width: 95,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(2),
-                                ),
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: colorbackbutt2,
-                                      foregroundColor: colorforebutt2),
-                                  onPressed: () {
-                                    setState(() {
-                                      buttConstName = 'Clicked';
-                                    });
-                                    print('Holiwis');
-                                  },
-                                  child: Text(buttECG13),
-                                ),
+                              child: StreamBuilder<List<BluetoothService>>(
+                                //recibe la lista de servicios (services) del dispositivo
+                                stream: widget.device.services,
+                                initialData: const [],
+                                builder: (c, snapshot) {
+                                  return Column(
+                                    children: _buildBAVIIIButt(snapshot
+                                        .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                                  );
+                                },
+                                //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
                               ),
                             ),
                             //Boton 14
                             Padding(
                               padding: EdgeInsets.fromLTRB(
                                   spaceleft, spacetop, spaceright, spacebott),
-                              child: Container(
-                                width: 95,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(2),
-                                ),
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: colorbackbutt2,
-                                      foregroundColor: colorforebutt2),
-                                  onPressed: () {
-                                    setState(() {
-                                      buttConstName = 'Clicked';
-                                    });
-                                    print('Holiwis');
-                                  },
-                                  child: Text(buttECG14),
-                                ),
+                              child: StreamBuilder<List<BluetoothService>>(
+                                //recibe la lista de servicios (services) del dispositivo
+                                stream: widget.device.services,
+                                initialData: const [],
+                                builder: (c, snapshot) {
+                                  return Column(
+                                    children: _buildB1Butt(snapshot
+                                        .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                                  );
+                                },
+                                //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
                               ),
                             ),
                             //Boton 15
                             Padding(
                               padding: EdgeInsets.fromLTRB(
                                   spaceleft, spacetop, spaceright, spacebott),
-                              child: Container(
-                                width: 95,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(2),
-                                ),
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: colorbackbutt2,
-                                      foregroundColor: colorforebutt2),
-                                  onPressed: () {
-                                    setState(() {
-                                      buttConstName = 'Clicked';
-                                    });
-                                    print('Holiwis');
-                                  },
-                                  child: Text(buttECG15),
-                                ),
+                              child: StreamBuilder<List<BluetoothService>>(
+                                //recibe la lista de servicios (services) del dispositivo
+                                stream: widget.device.services,
+                                initialData: const [],
+                                builder: (c, snapshot) {
+                                  return Column(
+                                    children: _buildB2Butt(snapshot
+                                        .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                                  );
+                                },
+                                //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
                               ),
                             ),
                           ],
@@ -500,124 +613,54 @@ class _ECGState extends State<ECG> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             //Boton 16
-                            Padding(
+                           Padding(
                               padding: EdgeInsets.fromLTRB(
                                   spaceleft, spacetop, spaceright, spacebott),
-                              child: Container(
-                                width: 95,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(2),
-                                ),
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: colorbackbutt2,
-                                      foregroundColor: colorforebutt2),
-                                  onPressed: () {
-                                    setState(() {
-                                      buttConstName = 'Clicked';
-                                    });
-                                    print('Holiwis');
-                                  },
-                                  child: Text(buttECG16),
-                                ),
+                              child: StreamBuilder<List<BluetoothService>>(
+                                //recibe la lista de servicios (services) del dispositivo
+                                stream: widget.device.services,
+                                initialData: const [],
+                                builder: (c, snapshot) {
+                                  return Column(
+                                    children: _buildB3Butt(snapshot
+                                        .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                                  );
+                                },
+                                //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
                               ),
                             ),
                             //Boton 17
                             Padding(
                               padding: EdgeInsets.fromLTRB(
                                   spaceleft, spacetop, spaceright, spacebott),
-                              child: Container(
-                                width: 95,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(2),
-                                ),
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: colorbackbutt2,
-                                      foregroundColor: colorforebutt2),
-                                  onPressed: () {
-                                    setState(() {
-                                      buttConstName = 'Clicked';
-                                    });
-                                    print('Holiwis');
-                                  },
-                                  child: Text(buttECG17),
-                                ),
+                              child: StreamBuilder<List<BluetoothService>>(
+                                //recibe la lista de servicios (services) del dispositivo
+                                stream: widget.device.services,
+                                initialData: const [],
+                                builder: (c, snapshot) {
+                                  return Column(
+                                    children: _buildB4Butt(snapshot
+                                        .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                                  );
+                                },
+                                //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
                               ),
                             ),
                             //Boton 18
                             Padding(
                               padding: EdgeInsets.fromLTRB(
                                   spaceleft, spacetop, spaceright, spacebott),
-                              child: Container(
-                                width: 95,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(2),
-                                ),
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: colorbackbutt2,
-                                      foregroundColor: colorforebutt2),
-                                  onPressed: () {
-                                    setState(() {
-                                      buttConstName = 'Clicked';
-                                    });
-                                    print('Holiwis');
-                                  },
-                                  child: Text(buttECG18),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        //Row de prueba
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(
-                                  spaceleft, spacetop, spaceright, spacebott),
-                              child: DualActionButton(
-                                onTap: () {
-                                  // Acci��n al hacer clic
-                                  print('Button tapped!');
+                              child: StreamBuilder<List<BluetoothService>>(
+                                //recibe la lista de servicios (services) del dispositivo
+                                stream: widget.device.services,
+                                initialData: const [],
+                                builder: (c, snapshot) {
+                                  return Column(
+                                    children: _buildB5Butt(snapshot
+                                        .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                                  );
                                 },
-                                onLongPress: () {
-                                  // Acci��n al dejar presionado
-                                  print('Button long pressed!');
-                                },
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(
-                                  spaceleft, spacetop, spaceright, spacebott),
-                              child: DualActionButton(
-                                onTap: () {
-                                  // Acci��n al hacer clic
-                                  print('Button tapped!');
-                                },
-                                onLongPress: () {
-                                  // Acci��n al dejar presionado
-                                  print('Button long pressed!');
-                                },
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(
-                                  spaceleft, spacetop, spaceright, spacebott),
-                              child: DualActionButton(
-                                onTap: () {
-                                  // Acci��n al hacer clic
-                                  print('Button tapped!');
-                                },
-                                onLongPress: () {
-                                  // Acci��n al dejar presionado
-                                  print('Button long pressed!');
-                                },
+                                //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
                               ),
                             ),
                           ],
@@ -646,7 +689,7 @@ class _ECGState extends State<ECG> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     child: Column(
                       children: [
                         //Row de prueba
