@@ -64,7 +64,7 @@ class _VitalState extends State<Vital> {
                             Padding(
                               padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
                               child: SizedBox(
-                                width: slidewidht,
+                                width: MediaQuery.of(context).size.width * 0.8,
                                 child: SliderTheme(
                                   data: const SliderThemeData(
                                     trackHeight: 5,
@@ -97,17 +97,17 @@ class _VitalState extends State<Vital> {
                               ),
                             ),
                             SizedBox(
-                              width: slidewidht,
+                              width: MediaQuery.of(context).size.width * 0.8,
                               child: Row(
                                 children: [
                                   Padding(
                                     padding:
-                                        const EdgeInsets.fromLTRB(20, 0, 95, 0),
+                                        const EdgeInsets.fromLTRB(20, 0, 118, 0),
                                     child: Text('${heartmin.toInt()}'),
                                   ),
                                   Padding(
                                     padding:
-                                        const EdgeInsets.fromLTRB(95, 0, 5, 0),
+                                        const EdgeInsets.fromLTRB(118, 0, 5, 0),
                                     child: Text('${heartmax.toInt()}'),
                                   ),
                                 ],
@@ -161,7 +161,7 @@ class _VitalState extends State<Vital> {
                               padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
                               child: SizedBox(
                                 height: slideheight,
-                                width: slidewidht,
+                                width: MediaQuery.of(context).size.width * 0.8,
                                 child: Slider(
                                   value:
                                       Provider.of<BleWriteSliderProvider>(context)
@@ -188,17 +188,17 @@ class _VitalState extends State<Vital> {
                               ),
                             ),
                             SizedBox(
-                              width: slidewidht,
+                              width: MediaQuery.of(context).size.width * 0.8,
                               child: Row(
                                 children: [
                                   Padding(
                                     padding:
-                                        const EdgeInsets.fromLTRB(20, 0, 95, 0),
+                                        const EdgeInsets.fromLTRB(20, 0, 118, 0),
                                     child: Text('${tempmin.toInt()}'),
                                   ),
                                   Padding(
                                     padding:
-                                        const EdgeInsets.fromLTRB(95, 0, 5, 0),
+                                        const EdgeInsets.fromLTRB(120, 0, 5, 0),
                                     child: Text('${tempmax.toInt()}'),
                                   ),
                                 ],
@@ -252,7 +252,7 @@ class _VitalState extends State<Vital> {
                               padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
                               child: SizedBox(
                                 height: slideheight,
-                                width: slidewidht,
+                                width: MediaQuery.of(context).size.width * 0.8,
                                 child: Slider(
                                   value:
                                       Provider.of<BleWriteSliderProvider>(context)
@@ -279,17 +279,17 @@ class _VitalState extends State<Vital> {
                               ),
                             ),
                             SizedBox(
-                              width: slidewidht,
+                              width: MediaQuery.of(context).size.width * 0.8,
                               child: Row(
                                 children: [
                                   Padding(
                                     padding:
-                                        const EdgeInsets.fromLTRB(20, 0, 95, 0),
+                                        const EdgeInsets.fromLTRB(20, 0, 118, 0),
                                     child: Text('${spo2min.toInt()}'),
                                   ),
                                   Padding(
                                     padding:
-                                        const EdgeInsets.fromLTRB(95, 0, 5, 0),
+                                        const EdgeInsets.fromLTRB(118, 0, 5, 0),
                                     child: Text('${spo2max.toInt()}'),
                                   ),
                                 ],
@@ -343,7 +343,7 @@ class _VitalState extends State<Vital> {
                               padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
                               child: SizedBox(
                                 height: slideheight,
-                                width: slidewidht,
+                                width: MediaQuery.of(context).size.width * 0.8,
                                 child: Slider(
                                   value:
                                       Provider.of<BleWriteSliderProvider>(context)
@@ -370,17 +370,17 @@ class _VitalState extends State<Vital> {
                               ),
                             ),
                             SizedBox(
-                              width: slidewidht,
+                              width: MediaQuery.of(context).size.width * 0.8,
                               child: Row(
                                 children: [
                                   Padding(
                                     padding:
-                                        const EdgeInsets.fromLTRB(20, 0, 95, 0),
+                                        const EdgeInsets.fromLTRB(20, 0, 118, 0),
                                     child: Text('${sysmin.toInt()}'),
                                   ),
                                   Padding(
                                     padding:
-                                        const EdgeInsets.fromLTRB(95, 0, 5, 0),
+                                        const EdgeInsets.fromLTRB(118, 0, 5, 0),
                                     child: Text('${sysmax.toInt()}'),
                                   ),
                                 ],
@@ -434,7 +434,7 @@ class _VitalState extends State<Vital> {
                               padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
                               child: SizedBox(
                                 height: slideheight,
-                                width: slidewidht,
+                                width: MediaQuery.of(context).size.width * 0.8,
                                 child: Slider(
                                   value:
                                       Provider.of<BleWriteSliderProvider>(context)
@@ -461,17 +461,17 @@ class _VitalState extends State<Vital> {
                               ),
                             ),
                             SizedBox(
-                              width: slidewidht,
+                              width: MediaQuery.of(context).size.width * 0.8,
                               child: Row(
                                 children: [
                                   Padding(
                                     padding:
-                                        const EdgeInsets.fromLTRB(20, 0, 95, 0),
+                                        const EdgeInsets.fromLTRB(20, 0, 118, 0),
                                     child: Text('${diamin.toInt()}'),
                                   ),
                                   Padding(
                                     padding:
-                                        const EdgeInsets.fromLTRB(95, 0, 5, 0),
+                                        const EdgeInsets.fromLTRB(118, 0, 5, 0),
                                     child: Text('${diamax.toInt()}'),
                                   ),
                                 ],
@@ -525,7 +525,7 @@ class _VitalState extends State<Vital> {
                               padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
                               child: SizedBox(
                                 height: slideheight,
-                                width: slidewidht,
+                                width: MediaQuery.of(context).size.width * 0.8,
                                 child: Slider(
                                   value:
                                       Provider.of<BleWriteSliderProvider>(context)
@@ -552,17 +552,17 @@ class _VitalState extends State<Vital> {
                               ),
                             ),
                             SizedBox(
-                              width: slidewidht,
+                              width: MediaQuery.of(context).size.width * 0.8,
                               child: Row(
                                 children: [
                                   Padding(
                                     padding:
-                                        const EdgeInsets.fromLTRB(20, 0, 105, 0),
+                                        const EdgeInsets.fromLTRB(20, 0, 125, 0),
                                     child: Text('${frmin.toInt()}'),
                                   ),
                                   Padding(
                                     padding:
-                                        const EdgeInsets.fromLTRB(105, 0, 5, 0),
+                                        const EdgeInsets.fromLTRB(125, 0, 5, 0),
                                     child: Text('${frmax.toInt()}'),
                                   ),
                                 ],
@@ -616,7 +616,7 @@ class _VitalState extends State<Vital> {
                               padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
                               child: SizedBox(
                                 height: slideheight,
-                                width: slidewidht,
+                                width: MediaQuery.of(context).size.width * 0.8,
                                 child: Slider(
                                   value:
                                       Provider.of<BleWriteSliderProvider>(context)
@@ -644,17 +644,17 @@ class _VitalState extends State<Vital> {
                             ),
                             
                             SizedBox(
-                              width: slidewidht,
+                              width: MediaQuery.of(context).size.width * 0.8,
                               child: Row(
                                 children: [
                                   Padding(
                                     padding:
-                                        const EdgeInsets.fromLTRB(20, 0, 105, 0),
+                                        const EdgeInsets.fromLTRB(20, 0, 125, 0),
                                     child: Text('${co2min.toInt()}'),
                                   ),
                                   Padding(
                                     padding:
-                                        const EdgeInsets.fromLTRB(105, 0, 5, 0),
+                                        const EdgeInsets.fromLTRB(125, 0, 5, 0),
                                     child: Text('${co2max.toInt()}'),
                                   ),
                                 ],

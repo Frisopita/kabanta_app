@@ -5,7 +5,6 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:kabanta_app1/variables.dart';
 import 'package:kabanta_app1/widgets/buttongesture.dart';
 import 'package:provider/provider.dart';
-import '../Providers/blewrite_states.dart';
 import '../bluetooth/widgetsble.dart';
 
 class ECG extends StatefulWidget {
@@ -648,7 +647,7 @@ class _ECGState extends State<ECG> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     child: Column(
                       children: [
                         //Row de prueba

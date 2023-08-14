@@ -28,6 +28,11 @@ class BleStateProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+     void updateState2(double newState) {
+    state2 = newState;
+    notifyListeners();
+  }
+
   
   /// No importan, pero da error en el widget que dejamos de usar y no lo borre
   set id(String id) {}
@@ -42,6 +47,7 @@ class BleStateProvider extends ChangeNotifier {
 
     Future<void> writeCharacteristic() async {
       await service.characteristics[8].write([state1.toInt()], withoutResponse: true);
+      await service.characteristics[8].write([state2.toInt()], withoutResponse: true);
     }
     writeCharacteristic();
 

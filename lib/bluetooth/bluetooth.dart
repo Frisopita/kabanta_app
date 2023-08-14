@@ -108,7 +108,7 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
       deviceprovider.setDevice(scanresult.device);
       navigator.pushAndRemoveUntil(
           MaterialPageRoute(
-              builder: (context) => DataPage()),
+              builder: (context) => const DataPage()),
           (Route route) => false);
     }
   }
