@@ -41,7 +41,7 @@ class _NSButtState extends State<NSButt> {
       if (excludedServiceUUIDs.contains(widget.service.uuid.toString())) {
         return Container(); // Oculta el servicio
       } else {
-        return GestureDetector(
+        return InkWell(
           onTap: () {
             setState(() {
               state1 = 0;
@@ -241,11 +241,7 @@ class _NSButtState extends State<NSButt> {
             });
             widget.onLongPress();
           },
-          onLongPressUp: () {
-            setState(() {
-              _isButtonLongPressed = false;
-            });
-          },
+          
           onTapUp: (_) {
             setState(() {
               _isButtonLongPressed = false;
