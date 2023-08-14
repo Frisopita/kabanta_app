@@ -2,8 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:kabanta_app1/variables.dart';
 import 'package:provider/provider.dart';
-import 'package:kabanta_app1/Providers/blewrite_sliderprovider.dart';
-//import 'package:kabanta_app1/Providers/ble_provider.dart';
+import 'package:kabanta_app1/Providers/sliders.dart';
 
 Color colorbackbutt2 = Colors.white;
 Color colorforebutt2 = Colors.indigo;

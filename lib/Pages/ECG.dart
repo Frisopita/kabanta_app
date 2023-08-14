@@ -172,9 +172,6 @@ class _ECGState extends State<ECG> {
                                       backgroundColor: colorbackbutt2,
                                       foregroundColor: colorforebutt2),
                                   onPressed: () {
-                                    state1 = 0;
-                                    Provider.of<BleStateProvider>(context, listen: false).state1;
-                                    
                                     setState(() {
                                       buttConstName = 'Clicked';
                                     });

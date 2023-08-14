@@ -4,10 +4,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:kabanta_app1/Providers/blewrite_states.dart';
+import 'package:kabanta_app1/Providers/states.dart';
 import 'package:provider/provider.dart';
 import '../variables.dart';
-import 'package:kabanta_app1/Providers/blewrite_sliderprovider.dart';
+import 'package:kabanta_app1/Providers/sliders.dart';
 
 final List<String> excludedServiceUUIDs = [
   '00001800-0000-1000-8000-00805f9b34fb',
@@ -41,12 +41,15 @@ bool _isButtonLongPressed = false;
         return GestureDetector(
       onTap: () {
         // Muestra el AlertDialog al hacer clic
-        state1 = 100;
+        state1 = 0;
         context.read<BleStateProvider>().initService(widget.service);
         Provider.of<BleStateProvider>(context, listen: false).state1;
         widget.onTap();
       },
       onLongPress: () {
+        state2 = 1;
+        context.read<BleStateProvider>().initService(widget.service);
+        Provider.of<BleStateProvider>(context, listen: false).state2;
         // Muestra el AlertDialog al dejar presionado
         showDialog(
           context: context,

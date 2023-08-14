@@ -1,4 +1,17 @@
 import 'package:flutter/material.dart';
+// UUIDS
+
+const Map<String, String> allowedUUIDs = {
+  'beb5483e-36e1-4688-b7f5-ea07361b26a8': 'Heart Rate',
+  '8bdf0a1a-a48e-4dc3-8bab-ad0c1f7ed218': 'Temperature',
+  '411fcc1c-e7a5-4a61-82fe-0004993dd1f4': 'SP02',
+  'c608f523-aa19-40d1-8359-ad43409c34d7': 'Systolic Preasure',
+  '52294b4d-d66e-4d68-9782-1e5bb8f7ba14': 'Diastolic Preasure',
+  '7533653f-6f0e-41fa-8fa6-9892a1904db1': 'Frecuency',
+  '607a2edc-007d-4d51-a3a6-58fad0db3c37': 'CO2',
+  'aea7aac8-5a97-488e-bd01-4166d22ec81e': 'Timer',
+  '2a1c9f0b-78c4-4e0f-adc1-5dea4a248344': 'State',
+};
 
 //Start Estilos de texto
 const TextStyle timeLabel = TextStyle(
@@ -56,8 +69,8 @@ Color colorbackbutt2 = Colors.white;
 Color colorforebutt2 = Colors.indigo;
 Color colorbackbutt3 = Colors.blueGrey.shade300;
 Color colorforebutt3 = Colors.white;
-Color confirmBbutt1= Colors.green.shade400;
-Color confirmFbutt1= Colors.white;
+Color confirmBbutt1 = Colors.green.shade400;
+Color confirmFbutt1 = Colors.white;
 Color cancelBbutt2 = Colors.red.shade300;
 Color cancelFbutt2 = Colors.white;
 Color colorbackbutt4 = Colors.white;
@@ -113,8 +126,8 @@ double currentSliderValue5 = 35;
 double currentSliderValue6 = 8;
 double currentSliderValue7 = 6;
 
-double state1 = 100;
-
+double state1 = 1;
+double state2 = 1;
 
 String status1 = '30';
 String status2 = '35';
