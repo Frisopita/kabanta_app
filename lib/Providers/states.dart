@@ -19,8 +19,13 @@ class BleStateProvider extends ChangeNotifier {
 
   BleStateProvider(
     this.state1,
-
   );
+
+  void updateState1(double newValue) {
+    state1 = newValue;
+    notifyListeners();
+  }
+
 
   
   /// No importan, pero da error en el widget que dejamos de usar y no lo borre

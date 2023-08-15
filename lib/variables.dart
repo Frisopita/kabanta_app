@@ -126,8 +126,7 @@ double currentSliderValue5 = 35;
 double currentSliderValue6 = 8;
 double currentSliderValue7 = 6;
 
-double state1 = 1;
-double state2 = 1;
+double state1 = 0;
 
 String status1 = '30';
 String status2 = '35';
