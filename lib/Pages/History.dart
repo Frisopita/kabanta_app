@@ -53,8 +53,16 @@ class _HistoryContentState extends State<HistoryContent> {
       expansionTiles.add(
         ExpansionTile(
           title: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-            child: Text('Action $newIndex'),
+            padding: const EdgeInsets.fromLTRB(15, 0, 20, 0),
+            child: Row(
+              children: [
+                Text('$newIndex'),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(40, 0, 10, 0),
+                  child: Text('Action $newIndex'),
+                ),
+              ],
+            ),
           ),
           children: [
             Padding(
@@ -214,8 +222,223 @@ class HistoryContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.pink.shade200,
-      child: const Text('Datos'),
+      //color: Colors.pink.shade200,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          //1
+          const Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  '0',
+                  style: labelStyle,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  '1',
+                  style: labelStyle,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  '2',
+                  style: labelStyle,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  '3',
+                  style: labelStyle,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  '4',
+                  style: labelStyle,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  '5',
+                  style: labelStyle,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  '6',
+                  style: labelStyle,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  '7',
+                  style: labelStyle,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  '8',
+                  style: labelStyle,
+                ),
+              ),
+            ],
+          ),
+          //2
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  textName1,
+                  style: labelStyle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  textName2,
+                  style: labelStyle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  textName3,
+                  style: labelStyle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  textName4,
+                  style: labelStyle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  textName5,
+                  style: labelStyle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  textName6,
+                  style: labelStyle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  textName7,
+                  style: labelStyle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  textName8,
+                  style: labelStyle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  textName9,
+                  style: labelStyle,
+                ),
+              ),
+            ],
+          ),
+          //3
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  time1,
+                  style: labelStyle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  time2,
+                  style: labelStyle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  time3,
+                  style: labelStyle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  time4,
+                  style: labelStyle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  time5,
+                  style: labelStyle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  time6,
+                  style: labelStyle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  time7,
+                  style: labelStyle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  time8,
+                  style: labelStyle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  time9,
+                  style: labelStyle,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
