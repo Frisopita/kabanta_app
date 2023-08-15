@@ -52,11 +52,14 @@ class _HistoryContentState extends State<HistoryContent> {
     setState(() {
       expansionTiles.add(
         ExpansionTile(
-          title: Text('Expansion Tile $newIndex'),
+          title: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            child: Text('Action $newIndex'),
+          ),
           children: [
             Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text('Content for Expansion Tile $newIndex'),
+              padding: EdgeInsets.all(16.0),
+              child: Text('Content of Action $newIndex'),
             ),
           ],
           trailing: IconButton(
@@ -82,13 +85,13 @@ class _HistoryContentState extends State<HistoryContent> {
           color: null,
         ),
         //1
-        SizedBox(
+        /*SizedBox(
           child: ElevatedButton(
               onPressed: () {
                 createExpansionTile();
               },
               child: Text('add')),
-        ),
+        ),*/
         //2
         SizedBox(
           height: 60,
@@ -112,6 +115,7 @@ class _HistoryContentState extends State<HistoryContent> {
                       child: ElevatedButton(
                         onPressed: () {
                           toggleButtonColor();
+                          createExpansionTile();
                           setState(() {
                             isProgramActive = true;
                             isHistoryActive = false;
@@ -184,6 +188,7 @@ class ProgramContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width * 0.9,
       child: Column(
         children: [
           if (expansionTiles.isNotEmpty)
@@ -209,7 +214,6 @@ class HistoryContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-
       color: Colors.pink.shade200,
       child: const Text('Datos'),
     );
