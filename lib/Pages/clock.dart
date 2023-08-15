@@ -197,7 +197,11 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                           style: ElevatedButton.styleFrom(
                               backgroundColor: cancelBbutt2,
                               foregroundColor: cancelFbutt2),
-                          onPressed: _deleteLastDigit,
+                          onPressed: (){
+                            Navigator.of(context).pop(MaterialPageRoute(
+                            builder: (BuildContext context) => const DataPage(),
+                          ));
+                          },
                           child: const Text('Cancel',
                               style: TextStyle(fontSize: 16))),
                     ),

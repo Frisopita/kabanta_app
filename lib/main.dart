@@ -28,15 +28,15 @@ void main() {
       Permission.bluetoothConnect,
       Permission.bluetoothScan
     ].request().then((status) {
-      runApp(MyKabantaApp());
+      runApp(const MyKabantaApp());
     });
   } else {
-    runApp(MyKabantaApp());
+    runApp(const MyKabantaApp());
   }
 }
 
 class MyKabantaApp extends StatelessWidget {
-  MyKabantaApp({super.key});
+  const MyKabantaApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -137,7 +137,7 @@ class _DataPageState extends State<DataPage> {
   late PageController _pageController;
 
   // Variables para las posiciones del widget fijo
-  double _fixedWidgetTop = 0;
+  double fixedWidgetTop = 0;
 
   @override
   void initState() {
@@ -146,7 +146,7 @@ class _DataPageState extends State<DataPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final RenderBox appBarBox = context.findRenderObject() as RenderBox;
       setState(() {
-        _fixedWidgetTop = appBarBox.size.height;
+        fixedWidgetTop = appBarBox.size.height;
       });
     });
   }
