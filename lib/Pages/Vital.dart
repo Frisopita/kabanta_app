@@ -123,7 +123,7 @@ class _VitalState extends State<Vital> {
                               color: Colors.blue.shade50, shape: BoxShape.circle),
                           child: Center(
                             child: Text(
-                              '${status1}',
+                              status1,
                               style: vitanumLabel,
                             ),
                           ),
@@ -214,7 +214,7 @@ class _VitalState extends State<Vital> {
                               color: Colors.blue.shade50, shape: BoxShape.circle),
                           child: Center(
                             child: Text(
-                              '${status2}',
+                              status2,
                               style: vitanumLabel,
                             ),
                           ),
@@ -305,7 +305,7 @@ class _VitalState extends State<Vital> {
                               color: Colors.blue.shade50, shape: BoxShape.circle),
                           child: Center(
                             child: Text(
-                              '${status3}',
+                              status3,
                               style: vitanumLabel,
                             ),
                           ),
@@ -396,7 +396,7 @@ class _VitalState extends State<Vital> {
                               color: Colors.blue.shade50, shape: BoxShape.circle),
                           child: Center(
                             child: Text(
-                              '${status4}',
+                              status4,
                               style: vitanumLabel,
                             ),
                           ),
@@ -487,7 +487,7 @@ class _VitalState extends State<Vital> {
                               color: Colors.blue.shade50, shape: BoxShape.circle),
                           child: Center(
                             child: Text(
-                              '${status5}',
+                              status5,
                               style: vitanumLabel,
                             ),
                           ),
@@ -578,7 +578,7 @@ class _VitalState extends State<Vital> {
                               color: Colors.blue.shade50, shape: BoxShape.circle),
                           child: Center(
                             child: Text(
-                              '${status6}',
+                              status6,
                               style: vitanumLabel,
                             ),
                           ),
@@ -669,7 +669,7 @@ class _VitalState extends State<Vital> {
                               color: Colors.blue.shade50, shape: BoxShape.circle),
                           child: Center(
                             child: Text(
-                              '${status7}',
+                              status7,
                               style: vitanumLabel,
                             ),
                           ),

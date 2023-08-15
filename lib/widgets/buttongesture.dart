@@ -4,7 +4,7 @@ class DualActionButton extends StatefulWidget {
   final VoidCallback onTap;
   final VoidCallback onLongPress;
 
-  DualActionButton({required this.onTap, required this.onLongPress});
+  const DualActionButton({super.key, required this.onTap, required this.onLongPress});
 
   @override
   _DualActionButtonState createState() => _DualActionButtonState();
@@ -206,7 +206,7 @@ class _DualActionButtonState extends State<DualActionButton> {
               color: Colors.grey.withOpacity(0.5),
               spreadRadius: .5,
               blurRadius: .5,
-              offset: Offset(-1, 1),
+              offset: const Offset(-1, 1),
             ),
           ],
         ),

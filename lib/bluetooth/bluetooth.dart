@@ -145,7 +145,7 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
             Padding(
               padding: const EdgeInsets.all(15),
               child: Text(
-                'Conectando a ${qrText}',
+                'Conectando a $qrText',
                 style:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),

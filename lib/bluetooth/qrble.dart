@@ -1,10 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:kabanta_app1/bluetooth/bluetooth.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:kabanta_app1/main.dart';
 import 'package:kabanta_app1/variables.dart';
 import 'package:kabanta_app1/Providers/qrtext_provider.dart';
 import 'package:provider/provider.dart';
@@ -61,14 +59,14 @@ class _QrboardPageState extends State<QrboardPage> {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _textEditingController1 = TextEditingController();
+    TextEditingController textEditingController1 = TextEditingController();
 
     @override
     void initState() {
       super.initState();
       // Establecer el TextEditingController en el QrTextProvider
       Provider.of<QrTextProvider>(context, listen: false)
-          .textEditingController = _textEditingController1;
+          .textEditingController = textEditingController1;
     }
 
     return Scaffold(
@@ -163,7 +161,7 @@ class _QrboardPageState extends State<QrboardPage> {
         : 300.0;
     // To ensure the Scanner view is properly sizes after rotation
     // we need to listen for Flutter SizeChanged notification and update controller
-    return Container(
+    return SizedBox(
       width: 310, // Establece el ancho deseado
       height: 310, // Establece la altura deseada
       child: QRView(

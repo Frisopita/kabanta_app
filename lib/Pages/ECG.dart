@@ -3,9 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:kabanta_app1/variables.dart';
-import 'package:kabanta_app1/widgets/buttongesture.dart';
-import 'package:provider/provider.dart';
-import '../Providers/states.dart';
 import '../bluetooth/widgetsble.dart';
 
 class ECG extends StatefulWidget {
