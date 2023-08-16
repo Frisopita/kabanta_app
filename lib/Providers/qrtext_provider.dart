@@ -7,7 +7,20 @@ class QrTextProvider extends ChangeNotifier {
   void updateText(String? newValue) {
     if (newValue == text) return;
     text = newValue;
-    textEditingController.text = newValue ?? '';
+    if (newValue == null) {
+      textEditingController.text = '';
+    } else {
+      textEditingController.value = TextEditingValue(
+        text: newValue,
+        selection: TextSelection.fromPosition(
+          TextPosition(
+            offset: newValue.length,
+            affinity: TextAffinity.downstream,
+          ),
+        ),
+        composing: TextRange.empty,
+      );
+    }
     notifyListeners();
   }
 }
