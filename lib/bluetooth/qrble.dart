@@ -15,19 +15,11 @@ class QrboardPage extends StatefulWidget {
 }
 
 class _QrboardPageState extends State<QrboardPage> {
-  final TextEditingController _textEditingController1 = TextEditingController();
   Barcode? result;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   String qrText = "";
-
-  @override
-  void initState() {
-    super.initState();
-    // Establecer el TextEditingController en el QrTextProvider
-    Provider.of<QrTextProvider>(context, listen: false).textEditingController =
-        _textEditingController1;
-  }
+  TextEditingController textEditingController1 = TextEditingController();
 
   // In order to get hot reload to work we need to pause the camera if the platform
   // is android, or resume the camera if the platform is iOS.
@@ -47,11 +39,6 @@ class _QrboardPageState extends State<QrboardPage> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
-        final code = scanData.code;
-        if (code == null) return;
-        qrText = code;
-        // Actualiza el valor en el QrTextProvider
-        context.read<QrTextProvider>().updateText(code);
       });
     });
   }
@@ -67,9 +54,16 @@ class _QrboardPageState extends State<QrboardPage> {
 
   @override
   void dispose() {
-    _textEditingController1.dispose();
     controller?.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Establecer el TextEditingController en el QrTextProvider
+    Provider.of<QrTextProvider>(context, listen: false).textEditingController =
+        textEditingController1;
   }
 
   @override
@@ -106,37 +100,56 @@ class _QrboardPageState extends State<QrboardPage> {
             Padding(
               // Add some padding to bound the TextField
               padding: const EdgeInsets.all(10),
-              child: TextField(
-                onChanged: (text) {
-                  setState(() {
-                    qrText = text;
-                    // Actualiza el valor en el QrTextProvider
-                    context.read<QrTextProvider>().updateText(text);
-                  });
-                },
-                controller: Provider.of<QrTextProvider>(context)
-                    .textEditingController, // Usar el TextEditingController del QrTextProvider,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  hintText: result != null ? '${result!.code}' : 'Enter id',
-                ),
-              ),
+              child: result != null
+                  ? TextField(
+                      onChanged: (text) {
+                        setState(() {
+                          qrText = text;
+                          // Actualiza el valor en el QrTextProvider
+                          Provider.of<QrTextProvider>(context, listen: false)
+                              .updateText(text);
+                        });
+                      },
+                      controller: Provider.of<QrTextProvider>(context)
+                          .textEditingController, // Usar el TextEditingController del QrTextProvider,
+                      decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
+                          hintText: '${result!.code}'),
+                    )
+                  : TextField(
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(), hintText: 'Enter id'),
+                      onChanged: (text) {
+                        setState(() {
+                          qrText = text;
+                          // Actualiza el valor en el QrTextProvider
+                          Provider.of<QrTextProvider>(context, listen: false)
+                              .updateText(text);
+                        });
+                      },
+                    ),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: colorbackbutt1,
-                foregroundColor: colorforebutt1,
-              ),
+                  backgroundColor: colorbackbutt1,
+                  foregroundColor: colorforebutt1),
               onPressed: () {
-                final textProvider = context.read<QrTextProvider>();
-                if (textProvider.text == null || textProvider.text!.isEmpty) {
-                  return;
+                if (result?.code != null) {
+                  String qrText = result!.code!;
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FindDevicesScreen(qrText: qrText),
+                    ),
+                  );
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FindDevicesScreen(qrText: qrText),
+                    ),
+                  );
                 }
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => FindDevicesScreen(qrText: qrText)),
-                );
               },
               child: const Text("Connect"),
             ),
@@ -154,7 +167,7 @@ class _QrboardPageState extends State<QrboardPage> {
         : 300.0;
     // To ensure the Scanner view is properly sizes after rotation
     // we need to listen for Flutter SizeChanged notification and update controller
-    return Container(
+    return SizedBox(
       width: 310, // Establece el ancho deseado
       height: 310, // Establece la altura deseada
       child: QRView(

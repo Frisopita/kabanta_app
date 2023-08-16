@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:kabanta_app1/Providers/states.dart';
 import 'package:kabanta_app1/pages/ECG.dart';
 import 'package:kabanta_app1/pages/Scenery.dart';
-import 'package:kabanta_app1/pages/history.dart';
 import 'package:kabanta_app1/pages/vital.dart';
 import 'package:kabanta_app1/Providers/ble_provider.dart';
 import 'package:kabanta_app1/bluetooth/qrble.dart';
@@ -16,6 +15,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart' as flutter_blue;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:kabanta_app1/Providers/device_provider.dart';
 import 'package:kabanta_app1/Providers/sliders.dart';
+import 'Pages/History.dart';
 import 'Providers/qrtext_provider.dart';
 
 void main() {
