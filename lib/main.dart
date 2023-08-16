@@ -155,15 +155,16 @@ class _DataPageState extends State<DataPage> {
   Widget build(BuildContext context) {
     final deviceProvider = Provider.of<DeviceProvider>(context);
     final device = deviceProvider.device;
-    final List<Widget> _widgetOptions = <Widget>[
+    final List<Widget> widgetOptions = <Widget>[
       ECG(device: device),
       const Vital(),
       const Scenery(),
       const History(),
     ];
-    final Widget _fixedWidgetSignal = ContainerSignal();
 
-    final Widget _fixedWidgetClock = ContainerClock(device: device);
+    const  Widget fixedWidgetSignal =  ContainerSignal();
+
+    final Widget fixedWidgetClock = ContainerClock(device: device);
 
     return Scaffold(
       appBar: AppBar(
@@ -218,21 +219,21 @@ class _DataPageState extends State<DataPage> {
                 currentIndex = index;
               });
             },
-            children: _widgetOptions,
+            children: widgetOptions,
           ),
-          Positioned(
+          const Positioned(
             top: 0,
             left: 0,
             right: 0,
             bottom: null,
-            child: _fixedWidgetSignal,
+            child: fixedWidgetSignal,
           ),
           Positioned(
             top: null,
             left: 0,
             right: 0,
             bottom: 0,
-            child: _fixedWidgetClock,
+            child: fixedWidgetClock,
           ),
         ],
       ),
