@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:kabanta_app1/main.dart';
 import 'package:kabanta_app1/variables.dart';
 import 'dart:async';
@@ -12,8 +11,8 @@ class ClockConfigScreen extends StatefulWidget {
 }
 
 class _ClockConfigScreenState extends State<ClockConfigScreen> {
-  TextEditingController _minutesController = TextEditingController();
-  TextEditingController _secondsController = TextEditingController();
+  final TextEditingController _minutesController = TextEditingController();
+  final TextEditingController _secondsController = TextEditingController();
   int _totalSecondsRemaining = 0;
   Timer? _countdownTimer;
 

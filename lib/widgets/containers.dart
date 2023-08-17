@@ -10,7 +10,7 @@ class ContainerSignal extends StatelessWidget {
   const ContainerSignal({super.key});
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 50,
       child: Column(
@@ -137,7 +137,7 @@ class _ContainerClockState extends State<ContainerClock> {
   @override
   Widget build(BuildContext context) {
 
-    return Container(
+    return SizedBox(
       height: 80,
       width: double.infinity,
       child: Column(
@@ -201,7 +201,7 @@ class _ContainerClockState extends State<ContainerClock> {
                       foregroundColor: colorforebutt2),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) =>  ClockConfigScreen (),
+                    builder: (BuildContext context) =>  const ClockConfigScreen (),
               ));
                   },
                   child: const Text('Progam'),

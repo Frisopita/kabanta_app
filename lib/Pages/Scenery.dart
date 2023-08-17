@@ -32,7 +32,7 @@ class _SceneryState extends State<Scenery> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(
                           18, spacetopV, spacerightV, spacebottV),
-                      child: SizedBox(
+                      child: const SizedBox(
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -181,7 +181,7 @@ class _SceneryState extends State<Scenery> {
                 Padding(
                   padding:
                       EdgeInsets.fromLTRB(18, spacetopV, spacerightV, spacebottV),
-                  child: SizedBox(
+                  child: const SizedBox(
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
