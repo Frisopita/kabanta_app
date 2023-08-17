@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:provider/provider.dart';
-import '../Providers/device_provider.dart';
+import 'package:collection/collection.dart';
+import 'package:kabanta_app1/Providers/device_provider.dart';
+import 'package:kabanta_app1/bluetooth/qrble.dart';
 import 'package:kabanta_app1/main.dart';
 import 'package:kabanta_app1/variables.dart';
-import 'package:collection/collection.dart';
+import 'package:provider/provider.dart';
+
+enum _ErrorType { connection, notFound }
 
 class BluetoothScreenOffOn extends StatelessWidget {
   const BluetoothScreenOffOn({super.key});
@@ -69,90 +72,164 @@ class FindDevicesScreen extends StatefulWidget {
   final String qrText;
 
   @override
-  State<FindDevicesScreen> createState() =>
-      _FindDevicesScreenState(qrText: qrText);
+  State<FindDevicesScreen> createState() => _FindDevicesScreenState();
 }
 
 class _FindDevicesScreenState extends State<FindDevicesScreen> {
-  String qrText;
-
-  _FindDevicesScreenState({required this.qrText});
-  late StreamSubscription<List<ScanResult>> subscription;
+  late final StreamSubscription<BluetoothDevice?> stream;
+  BluetoothDevice? lastScan;
   bool isLoading = false;
+  _ErrorType? errorType;
+
   @override
   //Este initstate permite la busqueda de dispositivos Bluetooth una vez construido el widget
   void initState() {
     super.initState();
-    startScan();
+    stream = FlutterBluePlus.instance.scanResults
+        .map(
+          (event) => widget.qrText.isEmpty
+              ? null
+              : event
+                  .firstWhereOrNull((scan) => scan.device.name == widget.qrText)
+                  ?.device,
+        )
+        .distinct((prev, curr) => prev?.name == curr?.name)
+        .listen((device) {
+      lastScan = device;
+      if (device != null) {
+        _connectToDevice(device).catchError((_) => _showErrorIfAny());
+      } else {
+        _clear();
+      }
+    });
+    Future.microtask(startScan);
   }
 
-  //actualiza cada 4 s la busqueda
+  void _showErrorIfAny() {
+    setState(() {
+      isLoading = false;
+      errorType = lastScan != null ? _ErrorType.connection : null;
+    });
+  }
+
+  void _clear() {
+    setState(() {
+      isLoading = false;
+      if (errorType != _ErrorType.notFound) {
+        errorType = null;
+      }
+    });
+  }
+
+  //actualiza cada 10s la busqueda
   Future<void> startScan() async {
-    subscription =
-        FlutterBluePlus.instance.scanResults.listen(_connectToDevice);
     await FlutterBluePlus.instance
-        .startScan(timeout: const Duration(seconds: 20));
+        .startScan(timeout: const Duration(seconds: 10));
+    if (mounted && !isLoading && errorType == null) {
+      setState(() => errorType = _ErrorType.notFound);
+    }
   }
 
-  Future<void> _connectToDevice(List<ScanResult> resultslist) async {
-    final scanresult = resultslist
-        .firstWhereOrNull((element) => element.device.name == qrText);
-    if (scanresult != null && !isLoading) {
-      final deviceprovider =
-          Provider.of<DeviceProvider>(context, listen: false);
-      final navigator = Navigator.of(context);
-      await scanresult.device.connect();
-      isLoading = true;
-      List<BluetoothService> services =
-          await scanresult.device.discoverServices();
-      deviceprovider.setDevice(scanresult.device);
-      navigator.pushAndRemoveUntil(
-          MaterialPageRoute(
-              builder: (context) => const DataPage()),
-          (Route route) => false);
+  void _retry() {
+    final device = lastScan;
+    if (device != null) {
+      _connectToDevice(device).catchError((_) => _showErrorIfAny());
+    } else if (errorType == _ErrorType.notFound) {
+      _showErrorIfAny();
+      startScan().ignore();
+    } else {
+      _clear();
     }
+  }
+
+  Future<void> _connectToDevice(BluetoothDevice device) async {
+    if (isLoading || errorType != null) return;
+    isLoading = true;
+    await device.connect();
+    await device.discoverServices();
+
+    if (!mounted) return;
+    context.read<DeviceProvider>().setDevice(device);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const DataPage(),
+      ),
+    );
   }
 
   @override
   void dispose() {
-    FlutterBluePlus.instance.stopScan();
-    subscription.cancel();
-
+    FlutterBluePlus.instance.stopScan().ignore();
+    stream.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: SizedBox(
-                height: 50,
-                width: 50,
-                child: CircularProgressIndicator(
-                  backgroundColor: Colors.blueGrey.shade100,
-                  strokeWidth: 7,
-                  valueColor:
-                      const AlwaysStoppedAnimation<Color>(Colors.indigo),
+    final Widget body;
+    if (errorType != null) {
+      switch (errorType) {
+        case _ErrorType.notFound:
+          body = Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              OutlinedButton.icon(
+                onPressed: _retry,
+                icon: const Icon(Icons.refresh_rounded),
+                label: const Text('Reintentar conectarse'),
+              ),
+              const SizedBox(height: 8.0),
+              ElevatedButton.icon(
+                onPressed: () => Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const QrboardPage(),
+                  ),
                 ),
+                icon: const Icon(Icons.arrow_back_rounded),
+                label: const Text('Cambiar ID'),
+              ),
+            ],
+          );
+          break;
+        default:
+          body = ElevatedButton.icon(
+            onPressed: _retry,
+            icon: const Icon(Icons.refresh_rounded),
+            label: const Text('Reintentar conectarse'),
+          );
+          break;
+      }
+    } else {
+      body = Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: SizedBox(
+              height: 50,
+              width: 50,
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.blueGrey.shade100,
+                strokeWidth: 7,
+                valueColor: const AlwaysStoppedAnimation<Color>(Colors.indigo),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: Text(
-                'Conectando a $qrText',
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
+          ),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Text(
+              'Conectando a ${widget.qrText}',
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
+          )
+        ],
+      );
+    }
+    return Scaffold(body: Center(child: body));
   }
 }
