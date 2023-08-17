@@ -120,10 +120,13 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
     });
   }
 
-  //actualiza cada 4 s la busqueda
+  //actualiza cada 10s la busqueda
   Future<void> startScan() async {
     await FlutterBluePlus.instance
-        .startScan(timeout: const Duration(seconds: 20));
+        .startScan(timeout: const Duration(seconds: 10));
+    if (mounted && !isLoading && errorType == null) {
+      setState(() => errorType = _ErrorType.notFound);
+    }
   }
 
   void _retry() {
@@ -166,11 +169,34 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
   Widget build(BuildContext context) {
     final Widget body;
     if (errorType != null) {
-      body = ElevatedButton.icon(
-        onPressed: _retry,
-        icon: const Icon(Icons.refresh_rounded),
-        label: const Text('Reintentar conectarse'),
-      );
+      switch (errorType) {
+        case _ErrorType.notFound:
+          body = Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              OutlinedButton.icon(
+                onPressed: _retry,
+                icon: const Icon(Icons.refresh_rounded),
+                label: const Text('Reintentar conectarse'),
+              ),
+              const SizedBox(height: 8.0),
+              ElevatedButton.icon(
+                onPressed: () => Navigator.maybePop(context),
+                icon: const Icon(Icons.arrow_back_rounded),
+                label: const Text('Cambiar ID'),
+              ),
+            ],
+          );
+          break;
+        default:
+          body = ElevatedButton.icon(
+            onPressed: _retry,
+            icon: const Icon(Icons.refresh_rounded),
+            label: const Text('Reintentar conectarse'),
+          );
+          break;
+      }
     } else {
       body = Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -184,8 +210,7 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
               child: CircularProgressIndicator(
                 backgroundColor: Colors.blueGrey.shade100,
                 strokeWidth: 7,
-                valueColor:
-                    const AlwaysStoppedAnimation<Color>(Colors.indigo),
+                valueColor: const AlwaysStoppedAnimation<Color>(Colors.indigo),
               ),
             ),
           ),
@@ -193,8 +218,7 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
             padding: const EdgeInsets.all(15),
             child: Text(
               'Conectando a ${widget.qrText}',
-              style:
-                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
           )
         ],
