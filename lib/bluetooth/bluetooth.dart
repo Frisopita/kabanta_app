@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:collection/collection.dart';
 import 'package:kabanta_app1/Providers/device_provider.dart';
+import 'package:kabanta_app1/bluetooth/qrble.dart';
 import 'package:kabanta_app1/main.dart';
 import 'package:kabanta_app1/variables.dart';
 import 'package:provider/provider.dart';
@@ -182,7 +183,12 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
               ),
               const SizedBox(height: 8.0),
               ElevatedButton.icon(
-                onPressed: () => Navigator.maybePop(context),
+                onPressed: () => Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const QrboardPage(),
+                  ),
+                ),
                 icon: const Icon(Icons.arrow_back_rounded),
                 label: const Text('Cambiar ID'),
               ),
