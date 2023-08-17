@@ -151,7 +151,7 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
     if (!mounted) return;
     context.read<DeviceProvider>().setDevice(device);
 
-    Navigator.push(
+    Navigator.pushReplacement(
       context,
       MaterialPageRoute(
         builder: (context) => const DataPage(),
@@ -178,11 +178,15 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
             children: [
               OutlinedButton.icon(
                 onPressed: _retry,
-                icon: const Icon(Icons.refresh_rounded),
-                label: const Text('Reintentar conectarse'),
+                icon:  Icon(Icons.refresh_rounded, color: colorbackbutt1,),
+                label: Text('Reintentar conectarse', style: TextStyle(color: colorbackbutt1),),
               ),
               const SizedBox(height: 8.0),
               ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                backgroundColor: colorbackbutt1,
+                foregroundColor: colorforebutt1,
+              ),
                 onPressed: () => Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
@@ -198,8 +202,8 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
         default:
           body = ElevatedButton.icon(
             onPressed: _retry,
-            icon: const Icon(Icons.refresh_rounded),
-            label: const Text('Reintentar conectarse'),
+            icon: const Icon(Icons.refresh_rounded, color: Colors.indigo,),
+            label: const Text('Reintentar conectarse', style: TextStyle(color: Colors.indigo),),
           );
           break;
       }
