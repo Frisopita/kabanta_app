@@ -24,9 +24,9 @@ class HistoryContent extends StatefulWidget {
 }
 
 class _HistoryContentState extends State<HistoryContent> {
-  bool isButtonActive = false;
-  bool isProgramActive = true;
-  bool isHistoryActive = false;
+  bool isButtonActive = true;
+  bool isProgramActive = true; // Agregado
+  bool isHistoryActive = false; // Agregado
   List<ExpansionTile> expansionTiles = [];
 
   @override
