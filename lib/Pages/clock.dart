@@ -28,59 +28,62 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
     super.dispose();
   }
 
-void startCountdown() {
-  int seconds = int.tryParse(_secondsController.text) ?? 0;
-  int seconds2 = int.tryParse(_secondsController2.text) ?? 0;
-  int minutes = int.tryParse(_minutesController.text) ?? 0;
-  int minutes2 = int.tryParse(_minutesController2.text) ?? 0;
-  int totalminutes = (minutes2*10 + minutes);
-  int totalsecs = (seconds2*10 + seconds);
-  int totalSeconds = totalminutes * 60 + totalsecs;
+  void startCountdown() {
+    int seconds = int.tryParse(_secondsController.text) ?? 0;
+    int seconds2 = int.tryParse(_secondsController2.text) ?? 0;
+    int minutes = int.tryParse(_minutesController.text) ?? 0;
+    int minutes2 = int.tryParse(_minutesController2.text) ?? 0;
+    int totalminutes = (minutes2 * 10 + minutes);
+    int totalsecs = (seconds2 * 10 + seconds);
+    int totalSeconds = totalminutes * 60 + totalsecs;
 
-  setState(() {
-    _totalSecondsRemaining = totalSeconds;
-  });
+    setState(() {
+      _totalSecondsRemaining = totalSeconds;
+    });
 
-  if (_countdownTimer != null) {
-    _countdownTimer!.cancel();
+    if (_countdownTimer != null) {
+      _countdownTimer!.cancel();
+    }
+
+    _countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_totalSecondsRemaining > 0) {
+          _totalSecondsRemaining--;
+        } else {
+          _countdownTimer!.cancel();
+        }
+      });
+    });
   }
 
-  _countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-    setState(() {
-      if (_totalSecondsRemaining > 0) {
-        _totalSecondsRemaining--;
-      } else {
-        _countdownTimer!.cancel();
-      }
-    });
-  });
-}
 
-void _updateTextFieldValue(String value) {
-  final currentMinutes = _minutesController.text;
-  final currentMinutes2 = _minutesController2.text;
-  final currentSeconds = _secondsController.text;
-  final currentSeconds2 = _secondsController2.text;
+  void _updateTextFieldValue(String value) {
+    final currentSeconds = _secondsController.text;
+    final currentSeconds2 = _secondsController2.text;
+    final currentMinutes = _minutesController.text;
+    final currentMinutes2 = _minutesController2.text;
 
-  if (currentSeconds.length < 1) {
-    setState(() {
+    if (currentSeconds.isEmpty) {
+      setState(() {
         _secondsController.text = value;
-    });
-  } else if (currentSeconds2.length < 1){
-    setState(() {
-        _secondsController2.text = value;
-    });
-  } else if (currentMinutes.length < 1){
-    setState(() {
+      });
+    } else if (currentSeconds2.isEmpty) {
+      setState(() {
+        _secondsController2.text = currentSeconds;
+        _secondsController.text = value;
+      });
+    }
+    else if (currentMinutes.isEmpty) {
+      setState(() {
         _minutesController.text = value;
-    });
+      });
+    } else if (currentMinutes2.isEmpty) {
+      setState(() {
+        _minutesController2.text = currentMinutes;
+        _minutesController.text = value;
+      });
+    }
   }
-  else if (currentMinutes2.length < 1) {
-    setState(() {
-        _minutesController2.text = value;
-    });
-  }
-}
 
 
   void _deleteLastDigit() {
@@ -142,7 +145,7 @@ void _updateTextFieldValue(String value) {
                   children: [
                     SizedBox(
                       height: 90,
-                      width: 50,
+                      width: 40,
                       child: TextField(
                         controller: _minutesController2,
                         keyboardType: TextInputType.number,
@@ -162,7 +165,7 @@ void _updateTextFieldValue(String value) {
                     ),
                     SizedBox(
                       height: 90,
-                      width: 50,
+                      width: 40,
                       child: TextField(
                         controller: _minutesController,
                         keyboardType: TextInputType.number,
@@ -185,7 +188,7 @@ void _updateTextFieldValue(String value) {
                         height: 90, child: Text(':', style: numTime)),
                     SizedBox(
                       height: 90,
-                      width: 100,
+                      width: 40,
                       child: TextField(
                         controller: _secondsController2,
                         keyboardType: TextInputType.number,
@@ -205,7 +208,7 @@ void _updateTextFieldValue(String value) {
                     ),
                     SizedBox(
                       height: 90,
-                      width: 50,
+                      width: 40,
                       child: TextField(
                         controller: _secondsController,
                         keyboardType: TextInputType.number,
@@ -282,12 +285,16 @@ void _updateTextFieldValue(String value) {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(1.toString()),
-                        child: Text(1.toString()),
+                      child: SizedBox(
+                        height: 50,
+                        width: 100,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt4,
+                              foregroundColor: colorforebutt4),
+                          onPressed: () => _updateTextFieldValue(1.toString()),
+                          child: Text(1.toString()),
+                        ),
                       ),
                     ),
                     Padding(
@@ -420,3 +427,4 @@ void _updateTextFieldValue(String value) {
     );
   }
 }
+
