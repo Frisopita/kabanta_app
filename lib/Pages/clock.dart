@@ -28,60 +28,60 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
     super.dispose();
   }
 
-void startCountdown() {
-  int seconds = int.tryParse(_secondsController.text) ?? 0;
-  int seconds2 = int.tryParse(_secondsController2.text) ?? 0;
-  int minutes = int.tryParse(_minutesController.text) ?? 0;
-  int minutes2 = int.tryParse(_minutesController2.text) ?? 0;
-  int totalminutes = (minutes2*10 + minutes);
-  int totalsecs = (seconds2*10 + seconds);
-  int totalSeconds = totalminutes * 60 + totalsecs;
+  void startCountdown() {
+    int seconds = int.tryParse(_secondsController.text) ?? 0;
+    int seconds2 = int.tryParse(_secondsController2.text) ?? 0;
+    int minutes = int.tryParse(_minutesController.text) ?? 0;
+    int minutes2 = int.tryParse(_minutesController2.text) ?? 0;
+    int totalminutes = (minutes2 * 10 + minutes);
+    int totalsecs = (seconds2 * 10 + seconds);
+    int totalSeconds = totalminutes * 60 + totalsecs;
 
-  setState(() {
-    _totalSecondsRemaining = totalSeconds;
-  });
+    setState(() {
+      _totalSecondsRemaining = totalSeconds;
+    });
 
-  if (_countdownTimer != null) {
-    _countdownTimer!.cancel();
+    if (_countdownTimer != null) {
+      _countdownTimer!.cancel();
+    }
+
+    _countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_totalSecondsRemaining > 0) {
+          _totalSecondsRemaining--;
+        } else {
+          _countdownTimer!.cancel();
+        }
+      });
+    });
   }
 
-  _countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-    setState(() {
-      if (_totalSecondsRemaining > 0) {
-        _totalSecondsRemaining--;
-      } else {
-        _countdownTimer!.cancel();
-      }
-    });
-  });
-}
+  void _updateTextFieldValue(String value) {
+    final currentSeconds = _secondsController.text;
+    final currentSeconds2 = _secondsController2.text;
+    final currentMinutes = _minutesController.text;
+    final currentMinutes2 = _minutesController2.text;
 
-void _updateTextFieldValue(String value) {
-  final currentMinutes = _minutesController.text;
-  final currentMinutes2 = _minutesController2.text;
-  final currentSeconds = _secondsController.text;
-  final currentSeconds2 = _secondsController2.text;
-
-  if (currentSeconds.length < 1) {
-    setState(() {
+    if (currentSeconds.isEmpty) {
+      setState(() {
         _secondsController.text = value;
-    });
-  } else if (currentSeconds2.length < 1){
-    setState(() {
-        _secondsController2.text = value;
-    });
-  } else if (currentMinutes.length < 1){
-    setState(() {
+      });
+    } else if (currentSeconds2.isEmpty) {
+      setState(() {
+        _secondsController2.text = currentSeconds;
+        _secondsController.text = value;
+      });
+    } else if (currentMinutes.isEmpty) {
+      setState(() {
         _minutesController.text = value;
-    });
+      });
+    } else if (currentMinutes2.isEmpty) {
+      setState(() {
+        _minutesController2.text = currentMinutes;
+        _minutesController.text = value;
+      });
+    }
   }
-  else if (currentMinutes2.length < 1) {
-    setState(() {
-        _minutesController2.text = value;
-    });
-  }
-}
-
 
   void _deleteLastDigit() {
     final currentMinutes = _minutesController.text;
@@ -141,36 +141,36 @@ void _updateTextFieldValue(String value) {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 90,
-                      width: 50,
-                      child: TextField(
-                        controller: _minutesController2,
-                        keyboardType: TextInputType.number,
-                        maxLength: 2,
-                        style: numTime,
-                        textAlign: TextAlign.center,
-                        decoration: const InputDecoration(
-                          //labelText: 'Min',
-                          hintText: '0',
-                          hintStyle: numTime,
-                          border: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          enabledBorder: InputBorder.none,
+                      height: 65,
+                      width: 40,
+                      child: Center(
+                        child: TextField(
+                          controller: _minutesController2,
+                          keyboardType: TextInputType.number,
+                          maxLength: 1,
+                          style: numTime,
+                          textAlign: TextAlign.center,
+                          decoration: const InputDecoration(
+                            hintText: '0',
+                            hintStyle: numTime,
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                          ),
+                          enabled: false, // Deshabilitar el campo de texto
                         ),
-                        enabled: false, // Deshabilitar el campo de texto
                       ),
                     ),
                     SizedBox(
-                      height: 90,
-                      width: 50,
+                      height: 65,
+                      width: 40,
                       child: TextField(
                         controller: _minutesController,
                         keyboardType: TextInputType.number,
-                        maxLength: 2,
+                        maxLength: 1,
                         style: numTime,
                         textAlign: TextAlign.center,
                         decoration: const InputDecoration(
-                          //labelText: 'Min',
                           hintText: '0',
                           hintStyle: numTime,
                           border: InputBorder.none,
@@ -180,12 +180,28 @@ void _updateTextFieldValue(String value) {
                         enabled: false, // Deshabilitar el campo de texto
                       ),
                     ),
-                    
+
                     const SizedBox(
-                        height: 90, child: Text(':', style: numTime)),
+                      height: 65,
+                      width: 40,
+                      child: TextField(
+                        keyboardType: TextInputType.number,
+                        maxLength: 1,
+                        style: numTime,
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                          hintText: ':',
+                          hintStyle: numTime,
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                        ),
+                        enabled: false, // Deshabilitar el campo de texto
+                      ),
+                    ),
                     SizedBox(
-                      height: 90,
-                      width: 100,
+                      height: 65,
+                      width: 40,
                       child: TextField(
                         controller: _secondsController2,
                         keyboardType: TextInputType.number,
@@ -193,7 +209,6 @@ void _updateTextFieldValue(String value) {
                         style: numTime,
                         textAlign: TextAlign.center,
                         decoration: const InputDecoration(
-                          //labelText: 'Seg',
                           hintText: '0',
                           hintStyle: numTime,
                           border: InputBorder.none,
@@ -204,8 +219,8 @@ void _updateTextFieldValue(String value) {
                       ),
                     ),
                     SizedBox(
-                      height: 90,
-                      width: 50,
+                      height: 65,
+                      width: 40,
                       child: TextField(
                         controller: _secondsController,
                         keyboardType: TextInputType.number,
@@ -213,7 +228,6 @@ void _updateTextFieldValue(String value) {
                         style: numTime,
                         textAlign: TextAlign.center,
                         decoration: const InputDecoration(
-                          //labelText: 'Seg',
                           hintText: '0',
                           hintStyle: numTime,
                           border: InputBorder.none,
@@ -223,20 +237,19 @@ void _updateTextFieldValue(String value) {
                         enabled: false,
                       ),
                     ),
-                    
                   ],
                 ),
                 const Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(8),
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
                       child: Text(
                         'Min',
                         style: nameTime,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(8),
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
                       child: Text(
                         'Sec',
                         style: nameTime,
@@ -248,66 +261,41 @@ void _updateTextFieldValue(String value) {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(10),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: confirmBbutt1,
-                            foregroundColor: confirmFbutt1),
-                        onPressed: () {
-                          Navigator.of(context).pop(MaterialPageRoute(
-                            builder: (BuildContext context) => const DataPage(),
-                          ));
-                        },
-                        child: const Text('Confirm',
-                            style: TextStyle(fontSize: 16)),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(6),
-                      child: ElevatedButton(
+                      child: SizedBox(
+                        height: 40,
+                        width: 110,
+                        child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: cancelBbutt2,
-                              foregroundColor: cancelFbutt2),
+                              backgroundColor: confirmBbutt1,
+                              foregroundColor: confirmFbutt1),
                           onPressed: () {
                             Navigator.of(context).pop(MaterialPageRoute(
                               builder: (BuildContext context) =>
                                   const DataPage(),
                             ));
                           },
-                          child: const Text('Cancel',
-                              style: TextStyle(fontSize: 16))),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(1.toString()),
-                        child: Text(1.toString()),
+                          child: const Text('Confirm',
+                              style: TextStyle(fontSize: 20)),
+                        ),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(2.toString()),
-                        child: Text(2.toString()),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(3.toString()),
-                        child: Text(3.toString()),
+                      padding: const EdgeInsets.all(6),
+                      child: SizedBox(
+                        height: 40,
+                        width: 110,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: cancelBbutt2,
+                                foregroundColor: cancelFbutt2),
+                            onPressed: () {
+                              Navigator.of(context).pop(MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    const DataPage(),
+                              ));
+                            },
+                            child: const Text('Cancel',
+                                style: TextStyle(fontSize: 20))),
                       ),
                     ),
                   ],
@@ -316,66 +304,53 @@ void _updateTextFieldValue(String value) {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(4.toString()),
-                        child: Text(4.toString()),
+                      child: SizedBox(
+                        height: 50,
+                        width: 90,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt4,
+                              foregroundColor: colorforebutt4),
+                          onPressed: () => _updateTextFieldValue(1.toString()),
+                          child: Text(
+                            1.toString(),
+                            style: TextStyle(fontSize: 23),
+                          ),
+                        ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(5.toString()),
-                        child: Text(5.toString()),
+                      child: SizedBox(
+                        height: 50,
+                        width: 90,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt4,
+                              foregroundColor: colorforebutt4),
+                          onPressed: () => _updateTextFieldValue(2.toString()),
+                          child: Text(
+                            2.toString(),
+                            style: TextStyle(fontSize: 23),
+                          ),
+                        ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(6.toString()),
-                        child: Text(6.toString()),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(7.toString()),
-                        child: Text(7.toString()),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(8.toString()),
-                        child: Text(8.toString()),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(9.toString()),
-                        child: Text(9.toString()),
+                      child: SizedBox(
+                        height: 50,
+                        width: 90,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt4,
+                              foregroundColor: colorforebutt4),
+                          onPressed: () => _updateTextFieldValue(3.toString()),
+                          child: Text(
+                            3.toString(),
+                            style: TextStyle(fontSize: 23),
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -384,12 +359,136 @@ void _updateTextFieldValue(String value) {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(0.toString()),
-                        child: Text(0.toString()),
+                      child: SizedBox(
+                        height: 50,
+                        width: 90,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt4,
+                              foregroundColor: colorforebutt4),
+                          onPressed: () => _updateTextFieldValue(4.toString()),
+                          child: Text(
+                            4.toString(),
+                            style: TextStyle(fontSize: 23),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: SizedBox(
+                        height: 50,
+                        width: 90,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt4,
+                              foregroundColor: colorforebutt4),
+                          onPressed: () => _updateTextFieldValue(5.toString()),
+                          child: Text(
+                            5.toString(),
+                            style: TextStyle(fontSize: 23),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: SizedBox(
+                        height: 50,
+                        width: 90,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt4,
+                              foregroundColor: colorforebutt4),
+                          onPressed: () => _updateTextFieldValue(6.toString()),
+                          child: Text(
+                            6.toString(),
+                            style: TextStyle(fontSize: 23),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: SizedBox(
+                        height: 50,
+                        width: 90,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt4,
+                              foregroundColor: colorforebutt4),
+                          onPressed: () => _updateTextFieldValue(7.toString()),
+                          child: Text(
+                            7.toString(),
+                            style: TextStyle(fontSize: 23),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: SizedBox(
+                        height: 50,
+                        width: 90,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt4,
+                              foregroundColor: colorforebutt4),
+                          onPressed: () => _updateTextFieldValue(8.toString()),
+                          child: Text(
+                            8.toString(),
+                            style: TextStyle(fontSize: 23),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: SizedBox(
+                        height: 50,
+                        width: 90,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt4,
+                              foregroundColor: colorforebutt4),
+                          onPressed: () => _updateTextFieldValue(9.toString()),
+                          child: Text(
+                            9.toString(),
+                            style: TextStyle(fontSize: 23),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: SizedBox(
+                        height: 50,
+                        width: 55,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: SizedBox(
+                        height: 50,
+                        width: 90,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt4,
+                              foregroundColor: colorforebutt4),
+                          onPressed: () => _updateTextFieldValue(0.toString()),
+                          child: Text(
+                            0.toString(),
+                            style: TextStyle(fontSize: 23),
+                          ),
+                        ),
                       ),
                     ),
                     Padding(
@@ -404,7 +503,6 @@ void _updateTextFieldValue(String value) {
                     ),
                   ],
                 ),
-
                 ElevatedButton(
                   onPressed: startCountdown,
                   child: const Text('Iniciar cuenta regresiva'),

@@ -34,12 +34,12 @@ const TextStyle labelStyle = TextStyle(
 );
 
 const TextStyle nameTime = TextStyle(
-  fontSize: 35.0,
+  fontSize: 40.0,
   color: Colors.black,
 );
 
 const TextStyle numTime = TextStyle(
-  fontSize: 50.0,
+  fontSize: 65.0,
   color: Colors.black54,
 );
 
