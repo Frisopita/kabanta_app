@@ -12,22 +12,30 @@ class ClockConfigScreen extends StatefulWidget {
 
 class _ClockConfigScreenState extends State<ClockConfigScreen> {
   final TextEditingController _secondsController = TextEditingController();
+  final TextEditingController _secondsController2 = TextEditingController();
   final TextEditingController _minutesController = TextEditingController();
+  final TextEditingController _minutesController2 = TextEditingController();
   int _totalSecondsRemaining = 0;
   Timer? _countdownTimer;
 
   @override
   void dispose() {
     _minutesController.dispose();
+    _minutesController2.dispose();
     _secondsController.dispose();
+    _secondsController2.dispose();
     _countdownTimer?.cancel();
     super.dispose();
   }
 
 void startCountdown() {
   int seconds = int.tryParse(_secondsController.text) ?? 0;
+  int seconds2 = int.tryParse(_secondsController2.text) ?? 0;
   int minutes = int.tryParse(_minutesController.text) ?? 0;
-  int totalSeconds = minutes * 60 + seconds;
+  int minutes2 = int.tryParse(_minutesController2.text) ?? 0;
+  int totalminutes = (minutes2*10 + minutes);
+  int totalsecs = (seconds2*10 + seconds);
+  int totalSeconds = totalminutes * 60 + totalsecs;
 
   setState(() {
     _totalSecondsRemaining = totalSeconds;
@@ -50,49 +58,56 @@ void startCountdown() {
 
 void _updateTextFieldValue(String value) {
   final currentMinutes = _minutesController.text;
+  final currentMinutes2 = _minutesController2.text;
   final currentSeconds = _secondsController.text;
+  final currentSeconds2 = _secondsController2.text;
 
-  if (currentSeconds.length < 2) {
+  if (currentSeconds.length < 1) {
     setState(() {
-      _secondsController.text = _removeLeadingZero(currentSeconds + value);
+        _secondsController.text = value;
     });
-  } else if (currentMinutes.length < 2) {
+  } else if (currentSeconds2.length < 1){
     setState(() {
-      _minutesController.text = _removeLeadingZero(currentMinutes + value);
+        _secondsController2.text = value;
+    });
+  } else if (currentMinutes.length < 1){
+    setState(() {
+        _minutesController.text = value;
+    });
+  }
+  else if (currentMinutes2.length < 1) {
+    setState(() {
+        _minutesController2.text = value;
     });
   }
 }
 
-String _removeLeadingZero(String value) {
-  if (value.length == 2 && value.startsWith('0')) {
-    return value.substring(1);
-  }
-  return value;
-}
-
-
-void _formatControllerValue(TextEditingController controller) {
-  if (controller.text.length > 0) {
-    int value = int.parse(controller.text);
-    if (value >= 0 && value <= 9) {
-      controller.text = '0' + value.toString();
-    }
-  }
-}
 
   void _deleteLastDigit() {
     final currentMinutes = _minutesController.text;
+    final currentMinutes2 = _minutesController2.text;
     final currentSeconds = _secondsController.text;
+    final currentSeconds2 = _secondsController2.text;
 
     if (currentSeconds.isNotEmpty) {
       setState(() {
         _secondsController.text =
             currentSeconds.substring(0, currentSeconds.length - 1);
       });
+    } else if (currentSeconds2.isNotEmpty) {
+      setState(() {
+        _secondsController2.text =
+            currentSeconds2.substring(0, currentSeconds2.length - 1);
+      });
     } else if (currentMinutes.isNotEmpty) {
       setState(() {
         _minutesController.text =
             currentMinutes.substring(0, currentMinutes.length - 1);
+      });
+    } else if (currentMinutes2.isNotEmpty) {
+      setState(() {
+        _minutesController2.text =
+            currentMinutes2.substring(0, currentMinutes2.length - 1);
       });
     }
   }
@@ -127,16 +142,16 @@ void _formatControllerValue(TextEditingController controller) {
                   children: [
                     SizedBox(
                       height: 90,
-                      width: 100,
+                      width: 50,
                       child: TextField(
-                        controller: _minutesController,
+                        controller: _minutesController2,
                         keyboardType: TextInputType.number,
                         maxLength: 2,
                         style: numTime,
                         textAlign: TextAlign.center,
                         decoration: const InputDecoration(
                           //labelText: 'Min',
-                          hintText: '00',
+                          hintText: '0',
                           hintStyle: numTime,
                           border: InputBorder.none,
                           focusedBorder: InputBorder.none,
@@ -145,20 +160,41 @@ void _formatControllerValue(TextEditingController controller) {
                         enabled: false, // Deshabilitar el campo de texto
                       ),
                     ),
+                    SizedBox(
+                      height: 90,
+                      width: 50,
+                      child: TextField(
+                        controller: _minutesController,
+                        keyboardType: TextInputType.number,
+                        maxLength: 2,
+                        style: numTime,
+                        textAlign: TextAlign.center,
+                        decoration: const InputDecoration(
+                          //labelText: 'Min',
+                          hintText: '0',
+                          hintStyle: numTime,
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                        ),
+                        enabled: false, // Deshabilitar el campo de texto
+                      ),
+                    ),
+                    
                     const SizedBox(
                         height: 90, child: Text(':', style: numTime)),
                     SizedBox(
                       height: 90,
                       width: 100,
                       child: TextField(
-                        controller: _secondsController,
+                        controller: _secondsController2,
                         keyboardType: TextInputType.number,
                         maxLength: 2,
                         style: numTime,
                         textAlign: TextAlign.center,
                         decoration: const InputDecoration(
                           //labelText: 'Seg',
-                          hintText: '00',
+                          hintText: '0',
                           hintStyle: numTime,
                           border: InputBorder.none,
                           focusedBorder: InputBorder.none,
@@ -167,6 +203,27 @@ void _formatControllerValue(TextEditingController controller) {
                         enabled: false,
                       ),
                     ),
+                    SizedBox(
+                      height: 90,
+                      width: 50,
+                      child: TextField(
+                        controller: _secondsController,
+                        keyboardType: TextInputType.number,
+                        maxLength: 2,
+                        style: numTime,
+                        textAlign: TextAlign.center,
+                        decoration: const InputDecoration(
+                          //labelText: 'Seg',
+                          hintText: '0',
+                          hintStyle: numTime,
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                        ),
+                        enabled: false,
+                      ),
+                    ),
+                    
                   ],
                 ),
                 const Row(
