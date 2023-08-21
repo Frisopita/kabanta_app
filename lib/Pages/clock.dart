@@ -11,8 +11,8 @@ class ClockConfigScreen extends StatefulWidget {
 }
 
 class _ClockConfigScreenState extends State<ClockConfigScreen> {
-  final TextEditingController _minutesController = TextEditingController();
   final TextEditingController _secondsController = TextEditingController();
+  final TextEditingController _minutesController = TextEditingController();
   int _totalSecondsRemaining = 0;
   Timer? _countdownTimer;
 
@@ -24,44 +24,61 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
     super.dispose();
   }
 
-  void startCountdown() {
-    int minutes = int.tryParse(_minutesController.text) ?? 0;
-    int seconds = int.tryParse(_secondsController.text) ?? 0;
-    int totalSeconds = minutes * 60 + seconds;
+void startCountdown() {
+  int seconds = int.tryParse(_secondsController.text) ?? 0;
+  int minutes = int.tryParse(_minutesController.text) ?? 0;
+  int totalSeconds = minutes * 60 + seconds;
 
+  setState(() {
+    _totalSecondsRemaining = totalSeconds;
+  });
+
+  if (_countdownTimer != null) {
+    _countdownTimer!.cancel();
+  }
+
+  _countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
     setState(() {
-      _totalSecondsRemaining = totalSeconds;
+      if (_totalSecondsRemaining > 0) {
+        _totalSecondsRemaining--;
+      } else {
+        _countdownTimer!.cancel();
+      }
     });
+  });
+}
 
-    if (_countdownTimer != null) {
-      _countdownTimer!.cancel();
-    }
+void _updateTextFieldValue(String value) {
+  final currentMinutes = _minutesController.text;
+  final currentSeconds = _secondsController.text;
 
-    _countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        if (_totalSecondsRemaining > 0) {
-          _totalSecondsRemaining--;
-        } else {
-          _countdownTimer!.cancel();
-        }
-      });
+  if (currentSeconds.length < 2) {
+    setState(() {
+      _secondsController.text = _removeLeadingZero(currentSeconds + value);
+    });
+  } else if (currentMinutes.length < 2) {
+    setState(() {
+      _minutesController.text = _removeLeadingZero(currentMinutes + value);
     });
   }
+}
 
-  void _updateTextFieldValue(String value) {
-    final currentMinutes = _minutesController.text;
-    final currentSeconds = _secondsController.text;
+String _removeLeadingZero(String value) {
+  if (value.length == 2 && value.startsWith('0')) {
+    return value.substring(1);
+  }
+  return value;
+}
 
-    if (currentMinutes.length < 2) {
-      setState(() {
-        _minutesController.text = currentMinutes + value;
-      });
-    } else if (currentSeconds.length < 2) {
-      setState(() {
-        _secondsController.text = currentSeconds + value;
-      });
+
+void _formatControllerValue(TextEditingController controller) {
+  if (controller.text.length > 0) {
+    int value = int.parse(controller.text);
+    if (value >= 0 && value <= 9) {
+      controller.text = '0' + value.toString();
     }
   }
+}
 
   void _deleteLastDigit() {
     final currentMinutes = _minutesController.text;
@@ -104,57 +121,54 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                
                 Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 90,
-                        width: 100,
-                        child: TextField(
-                          controller: _minutesController,
-                          keyboardType: TextInputType.number,
-                          maxLength: 2,
-                          style: numTime,
-                          textAlign: TextAlign.center,
-                          decoration: const InputDecoration(
-                            //labelText: 'Min',
-                            hintText: '00',
-                            hintStyle: numTime,
-                            border: InputBorder.none,
-                            focusedBorder: InputBorder.none,
-                            enabledBorder: InputBorder.none,
-                          ),
-                          enabled: false, // Deshabilitar el campo de texto
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 90,
+                      width: 100,
+                      child: TextField(
+                        controller: _minutesController,
+                        keyboardType: TextInputType.number,
+                        maxLength: 2,
+                        style: numTime,
+                        textAlign: TextAlign.center,
+                        decoration: const InputDecoration(
+                          //labelText: 'Min',
+                          hintText: '00',
+                          hintStyle: numTime,
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
                         ),
+                        enabled: false, // Deshabilitar el campo de texto
                       ),
-                      const SizedBox(
-                        height: 90,
-                        child: Text(':', style: numTime)),
-                      SizedBox(
-                        height: 90,
-                        width: 100,
-                        child: TextField(
-                          controller: _secondsController,
-                          keyboardType: TextInputType.number,
-                          maxLength: 2,
-                          style: numTime,
-                          textAlign: TextAlign.center,
-                          decoration: const InputDecoration(
-                            //labelText: 'Seg',
-                            hintText: '00',
-                            hintStyle: numTime,
-                            border: InputBorder.none,
-                            focusedBorder: InputBorder.none,
-                            enabledBorder: InputBorder.none,
-                          ),
-                          enabled: false,
+                    ),
+                    const SizedBox(
+                        height: 90, child: Text(':', style: numTime)),
+                    SizedBox(
+                      height: 90,
+                      width: 100,
+                      child: TextField(
+                        controller: _secondsController,
+                        keyboardType: TextInputType.number,
+                        maxLength: 2,
+                        style: numTime,
+                        textAlign: TextAlign.center,
+                        decoration: const InputDecoration(
+                          //labelText: 'Seg',
+                          hintText: '00',
+                          hintStyle: numTime,
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
                         ),
+                        enabled: false,
                       ),
-                    ],
-                  ),
-                
+                    ),
+                  ],
+                ),
                 const Row(
                   children: [
                     Padding(
@@ -173,7 +187,6 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                     ),
                   ],
                 ),
-                
                 Row(
                   children: [
                     Padding(
@@ -197,13 +210,17 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                           style: ElevatedButton.styleFrom(
                               backgroundColor: cancelBbutt2,
                               foregroundColor: cancelFbutt2),
-                          onPressed: _deleteLastDigit,
+                          onPressed: () {
+                            Navigator.of(context).pop(MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  const DataPage(),
+                            ));
+                          },
                           child: const Text('Cancel',
                               style: TextStyle(fontSize: 16))),
                     ),
                   ],
                 ),
-                
                 Row(
                   children: [
                     Padding(
@@ -238,7 +255,6 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                     ),
                   ],
                 ),
-                
                 Row(
                   children: [
                     Padding(
@@ -273,7 +289,6 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                     ),
                   ],
                 ),
-                
                 Row(
                   children: [
                     Padding(
@@ -308,7 +323,6 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                     ),
                   ],
                 ),
-
                 Row(
                   children: [
                     Padding(
@@ -324,23 +338,23 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                     Padding(
                       padding: const EdgeInsets.all(6),
                       child: IconButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: cancelBbutt2,
-                              foregroundColor: cancelFbutt2),
-                          onPressed: _deleteLastDigit,
-                          icon: const Icon(Icons.backspace),
-                    ),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: cancelBbutt2,
+                            foregroundColor: cancelFbutt2),
+                        onPressed: _deleteLastDigit,
+                        icon: const Icon(Icons.backspace),
+                      ),
                     ),
                   ],
                 ),
-                
-                /*ElevatedButton(
+
+                ElevatedButton(
                   onPressed: startCountdown,
                   child: const Text('Iniciar cuenta regresiva'),
                 ),
                 Text(
                   'Tiempo restante: ${formatTime(_totalSecondsRemaining ~/ 60)}:${formatTime(_totalSecondsRemaining % 60)}',
-                ),*/
+                ),
               ],
             ),
           ],

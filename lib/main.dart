@@ -28,15 +28,15 @@ void main() {
       Permission.bluetoothConnect,
       Permission.bluetoothScan
     ].request().then((status) {
-      runApp(MyKabantaApp());
+      runApp(const MyKabantaApp());
     });
   } else {
-    runApp(MyKabantaApp());
+    runApp(const MyKabantaApp());
   }
 }
 
 class MyKabantaApp extends StatelessWidget {
-  MyKabantaApp({super.key});
+  const MyKabantaApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -161,8 +161,8 @@ class _DataPageState extends State<DataPage> {
       const Scenery(),
       const History(),
     ];
-    const  Widget fixedWidgetSignal = ContainerSignal();
 
+  const  Widget fixedWidgetSignal =  ContainerSignal();
     final Widget fixedWidgetClock = ContainerClock(device: device);
 
     return Scaffold(
