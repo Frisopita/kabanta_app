@@ -9,6 +9,8 @@ import 'package:provider/provider.dart';
 import '../variables.dart';
 import 'package:kabanta_app1/Providers/sliders.dart';
 
+bool _isButtonLongPressed = false;
+
 final List<String> excludedServiceUUIDs = [
   '00001800-0000-1000-8000-00805f9b34fb',
   '00001801-0000-1000-8000-00805f9b34fb'
@@ -31,8 +33,6 @@ class NSButt extends StatefulWidget {
 }
 
 class _NSButtState extends State<NSButt> {
-  bool _isButtonLongPressed = false;
-
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -48,7 +48,8 @@ class _NSButtState extends State<NSButt> {
             });
             // Muestra el AlertDialog al hacer clic
             context.read<BleStateProvider>().initService(widget.service);
-            Provider.of<BleStateProvider>(context, listen: false).updateState1(state1);
+            Provider.of<BleStateProvider>(context, listen: false)
+                .updateState1(state1);
             widget.onTap();
           },
           onLongPress: () {
@@ -241,7 +242,6 @@ class _NSButtState extends State<NSButt> {
             });
             widget.onLongPress();
           },
-          
           onTapUp: (_) {
             setState(() {
               _isButtonLongPressed = false;
@@ -266,9 +266,7 @@ class _NSButtState extends State<NSButt> {
               child: Text(
                 'NS',
                 style: TextStyle(
-                    color: colorforebutt1, 
-                    fontWeight: FontWeight.bold
-                ),
+                    color: colorforebutt1, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -298,8 +296,6 @@ class BSButt extends StatefulWidget {
 }
 
 class _BSButtState extends State<BSButt> {
-  bool _isButtonLongPressed = false;
-
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -315,7 +311,8 @@ class _BSButtState extends State<BSButt> {
             });
             // Muestra el AlertDialog al hacer clic
             context.read<BleStateProvider>().initService(widget.service);
-            Provider.of<BleStateProvider>(context, listen: false).updateState1(state1);
+            Provider.of<BleStateProvider>(context, listen: false)
+                .updateState1(state1);
             widget.onTap();
           },
           onLongPress: () {
@@ -537,9 +534,7 @@ class _BSButtState extends State<BSButt> {
               child: Text(
                 'BS',
                 style: TextStyle(
-                    color: colorforebutt1, 
-                    fontWeight: FontWeight.bold
-                ),
+                    color: colorforebutt1, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -569,8 +564,6 @@ class TSButt extends StatefulWidget {
 }
 
 class _TSButtState extends State<TSButt> {
-  bool _isButtonLongPressed = false;
-
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -586,7 +579,8 @@ class _TSButtState extends State<TSButt> {
             });
             // Muestra el AlertDialog al hacer clic
             context.read<BleStateProvider>().initService(widget.service);
-            Provider.of<BleStateProvider>(context, listen: false).updateState1(state1);
+            Provider.of<BleStateProvider>(context, listen: false)
+                .updateState1(state1);
             widget.onTap();
           },
           onLongPress: () {
@@ -808,9 +802,7 @@ class _TSButtState extends State<TSButt> {
               child: Text(
                 'TS',
                 style: TextStyle(
-                    color: colorforebutt1, 
-                    fontWeight: FontWeight.bold
-                ),
+                    color: colorforebutt1, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -840,8 +832,6 @@ class FAButt extends StatefulWidget {
 }
 
 class _FAButtState extends State<FAButt> {
-  bool _isButtonLongPressed = false;
-
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -857,7 +847,8 @@ class _FAButtState extends State<FAButt> {
             });
             // Muestra el AlertDialog al hacer clic
             context.read<BleStateProvider>().initService(widget.service);
-            Provider.of<BleStateProvider>(context, listen: false).updateState1(state1);
+            Provider.of<BleStateProvider>(context, listen: false)
+                .updateState1(state1);
             widget.onTap();
           },
           onLongPress: () {
@@ -1079,9 +1070,7 @@ class _FAButtState extends State<FAButt> {
               child: Text(
                 'FA',
                 style: TextStyle(
-                    color: colorforebutt2, 
-                    fontWeight: FontWeight.bold
-                ),
+                    color: colorforebutt2, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -1111,8 +1100,6 @@ class TS2Butt extends StatefulWidget {
 }
 
 class _TS2ButtState extends State<TS2Butt> {
-  bool _isButtonLongPressed = false;
-
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -1128,7 +1115,8 @@ class _TS2ButtState extends State<TS2Butt> {
             });
             // Muestra el AlertDialog al hacer clic
             context.read<BleStateProvider>().initService(widget.service);
-            Provider.of<BleStateProvider>(context, listen: false).updateState1(state1);
+            Provider.of<BleStateProvider>(context, listen: false)
+                .updateState1(state1);
             widget.onTap();
           },
           onLongPress: () {
@@ -1350,9 +1338,7 @@ class _TS2ButtState extends State<TS2Butt> {
               child: Text(
                 'TS',
                 style: TextStyle(
-                    color: colorforebutt2, 
-                    fontWeight: FontWeight.bold
-                ),
+                    color: colorforebutt2, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -1382,8 +1368,6 @@ class TVDButt extends StatefulWidget {
 }
 
 class _TVDButtState extends State<TVDButt> {
-  bool _isButtonLongPressed = false;
-
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -1399,7 +1383,8 @@ class _TVDButtState extends State<TVDButt> {
             });
             // Muestra el AlertDialog al hacer clic
             context.read<BleStateProvider>().initService(widget.service);
-            Provider.of<BleStateProvider>(context, listen: false).updateState1(state1);
+            Provider.of<BleStateProvider>(context, listen: false)
+                .updateState1(state1);
             widget.onTap();
           },
           onLongPress: () {
@@ -1621,9 +1606,7 @@ class _TVDButtState extends State<TVDButt> {
               child: Text(
                 'TVD',
                 style: TextStyle(
-                    color: colorforebutt2, 
-                    fontWeight: FontWeight.bold
-                ),
+                    color: colorforebutt2, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -1653,8 +1636,6 @@ class FLUButt extends StatefulWidget {
 }
 
 class _FLUButtState extends State<FLUButt> {
-  bool _isButtonLongPressed = false;
-
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -1670,7 +1651,8 @@ class _FLUButtState extends State<FLUButt> {
             });
             // Muestra el AlertDialog al hacer clic
             context.read<BleStateProvider>().initService(widget.service);
-            Provider.of<BleStateProvider>(context, listen: false).updateState1(state1);
+            Provider.of<BleStateProvider>(context, listen: false)
+                .updateState1(state1);
             widget.onTap();
           },
           onLongPress: () {
@@ -1892,9 +1874,7 @@ class _FLUButtState extends State<FLUButt> {
               child: Text(
                 'Flutter',
                 style: TextStyle(
-                    color: colorforebutt2, 
-                    fontWeight: FontWeight.bold
-                ),
+                    color: colorforebutt2, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -1924,8 +1904,6 @@ class TSVButt extends StatefulWidget {
 }
 
 class _TSVButtState extends State<TSVButt> {
-  bool _isButtonLongPressed = false;
-
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -1941,7 +1919,8 @@ class _TSVButtState extends State<TSVButt> {
             });
             // Muestra el AlertDialog al hacer clic
             context.read<BleStateProvider>().initService(widget.service);
-            Provider.of<BleStateProvider>(context, listen: false).updateState1(state1);
+            Provider.of<BleStateProvider>(context, listen: false)
+                .updateState1(state1);
             widget.onTap();
           },
           onLongPress: () {
@@ -2163,9 +2142,7 @@ class _TSVButtState extends State<TSVButt> {
               child: Text(
                 'TSV',
                 style: TextStyle(
-                    color: colorforebutt2, 
-                    fontWeight: FontWeight.bold
-                ),
+                    color: colorforebutt2, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -2195,8 +2172,6 @@ class TVMButt extends StatefulWidget {
 }
 
 class _TVMButtState extends State<TVMButt> {
-  bool _isButtonLongPressed = false;
-
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -2212,7 +2187,8 @@ class _TVMButtState extends State<TVMButt> {
             });
             // Muestra el AlertDialog al hacer clic
             context.read<BleStateProvider>().initService(widget.service);
-            Provider.of<BleStateProvider>(context, listen: false).updateState1(state1);
+            Provider.of<BleStateProvider>(context, listen: false)
+                .updateState1(state1);
             widget.onTap();
           },
           onLongPress: () {
@@ -2434,9 +2410,7 @@ class _TVMButtState extends State<TVMButt> {
               child: Text(
                 'TVM',
                 style: TextStyle(
-                    color: colorforebutt2, 
-                    fontWeight: FontWeight.bold
-                ),
+                    color: colorforebutt2, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -2466,8 +2440,6 @@ class BS0Butt extends StatefulWidget {
 }
 
 class _BS0ButtState extends State<BS0Butt> {
-  bool _isButtonLongPressed = false;
-
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -2483,7 +2455,8 @@ class _BS0ButtState extends State<BS0Butt> {
             });
             // Muestra el AlertDialog al hacer clic
             context.read<BleStateProvider>().initService(widget.service);
-            Provider.of<BleStateProvider>(context, listen: false).updateState1(state1);
+            Provider.of<BleStateProvider>(context, listen: false)
+                .updateState1(state1);
             widget.onTap();
           },
           onLongPress: () {
@@ -2705,9 +2678,7 @@ class _BS0ButtState extends State<BS0Butt> {
               child: Text(
                 'BS',
                 style: TextStyle(
-                    color: colorforebutt2, 
-                    fontWeight: FontWeight.bold
-                ),
+                    color: colorforebutt2, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -2737,8 +2708,6 @@ class BAVIButt extends StatefulWidget {
 }
 
 class _BAVIButtState extends State<BAVIButt> {
-  bool _isButtonLongPressed = false;
-
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -2754,7 +2723,8 @@ class _BAVIButtState extends State<BAVIButt> {
             });
             // Muestra el AlertDialog al hacer clic
             context.read<BleStateProvider>().initService(widget.service);
-            Provider.of<BleStateProvider>(context, listen: false).updateState1(state1);
+            Provider.of<BleStateProvider>(context, listen: false)
+                .updateState1(state1);
             widget.onTap();
           },
           onLongPress: () {
@@ -2976,9 +2946,7 @@ class _BAVIButtState extends State<BAVIButt> {
               child: Text(
                 'BAVI',
                 style: TextStyle(
-                    color: colorforebutt2, 
-                    fontWeight: FontWeight.bold
-                ),
+                    color: colorforebutt2, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -3008,8 +2976,6 @@ class BAVIIButt extends StatefulWidget {
 }
 
 class _BAVIIButtState extends State<BAVIIButt> {
-  bool _isButtonLongPressed = false;
-
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -3025,7 +2991,8 @@ class _BAVIIButtState extends State<BAVIIButt> {
             });
             // Muestra el AlertDialog al hacer clic
             context.read<BleStateProvider>().initService(widget.service);
-            Provider.of<BleStateProvider>(context, listen: false).updateState1(state1);
+            Provider.of<BleStateProvider>(context, listen: false)
+                .updateState1(state1);
             widget.onTap();
           },
           onLongPress: () {
@@ -3247,9 +3214,7 @@ class _BAVIIButtState extends State<BAVIIButt> {
               child: Text(
                 'BAVII',
                 style: TextStyle(
-                    color: colorforebutt2, 
-                    fontWeight: FontWeight.bold
-                ),
+                    color: colorforebutt2, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -3279,8 +3244,6 @@ class BAVIIIButt extends StatefulWidget {
 }
 
 class _BAVIIIButtState extends State<BAVIIIButt> {
-  bool _isButtonLongPressed = false;
-
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -3296,7 +3259,8 @@ class _BAVIIIButtState extends State<BAVIIIButt> {
             });
             // Muestra el AlertDialog al hacer clic
             context.read<BleStateProvider>().initService(widget.service);
-            Provider.of<BleStateProvider>(context, listen: false).updateState1(state1);
+            Provider.of<BleStateProvider>(context, listen: false)
+                .updateState1(state1);
             widget.onTap();
           },
           onLongPress: () {
@@ -3518,9 +3482,7 @@ class _BAVIIIButtState extends State<BAVIIIButt> {
               child: Text(
                 'BAVIII',
                 style: TextStyle(
-                    color: colorforebutt2, 
-                    fontWeight: FontWeight.bold
-                ),
+                    color: colorforebutt2, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -3550,8 +3512,6 @@ class B1Butt extends StatefulWidget {
 }
 
 class _B1ButtState extends State<B1Butt> {
-  bool _isButtonLongPressed = false;
-
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -3567,7 +3527,8 @@ class _B1ButtState extends State<B1Butt> {
             });
             // Muestra el AlertDialog al hacer clic
             context.read<BleStateProvider>().initService(widget.service);
-            Provider.of<BleStateProvider>(context, listen: false).updateState1(state1);
+            Provider.of<BleStateProvider>(context, listen: false)
+                .updateState1(state1);
             widget.onTap();
           },
           onLongPress: () {
@@ -3789,9 +3750,7 @@ class _B1ButtState extends State<B1Butt> {
               child: Text(
                 'B',
                 style: TextStyle(
-                    color: colorforebutt2, 
-                    fontWeight: FontWeight.bold
-                ),
+                    color: colorforebutt2, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -3821,8 +3780,6 @@ class B2Butt extends StatefulWidget {
 }
 
 class _B2ButtState extends State<B2Butt> {
-  bool _isButtonLongPressed = false;
-
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -3838,7 +3795,8 @@ class _B2ButtState extends State<B2Butt> {
             });
             // Muestra el AlertDialog al hacer clic
             context.read<BleStateProvider>().initService(widget.service);
-            Provider.of<BleStateProvider>(context, listen: false).updateState1(state1);
+            Provider.of<BleStateProvider>(context, listen: false)
+                .updateState1(state1);
             widget.onTap();
           },
           onLongPress: () {
@@ -4060,9 +4018,7 @@ class _B2ButtState extends State<B2Butt> {
               child: Text(
                 'B',
                 style: TextStyle(
-                    color: colorforebutt2, 
-                    fontWeight: FontWeight.bold
-                ),
+                    color: colorforebutt2, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -4092,8 +4048,6 @@ class B3Butt extends StatefulWidget {
 }
 
 class _B3ButtState extends State<B3Butt> {
-  bool _isButtonLongPressed = false;
-
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -4109,7 +4063,8 @@ class _B3ButtState extends State<B3Butt> {
             });
             // Muestra el AlertDialog al hacer clic
             context.read<BleStateProvider>().initService(widget.service);
-            Provider.of<BleStateProvider>(context, listen: false).updateState1(state1);
+            Provider.of<BleStateProvider>(context, listen: false)
+                .updateState1(state1);
             widget.onTap();
           },
           onLongPress: () {
@@ -4331,9 +4286,7 @@ class _B3ButtState extends State<B3Butt> {
               child: Text(
                 'B',
                 style: TextStyle(
-                    color: colorforebutt2, 
-                    fontWeight: FontWeight.bold
-                ),
+                    color: colorforebutt2, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -4363,8 +4316,6 @@ class B4Butt extends StatefulWidget {
 }
 
 class _B4ButtState extends State<B4Butt> {
-  bool _isButtonLongPressed = false;
-
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -4380,7 +4331,8 @@ class _B4ButtState extends State<B4Butt> {
             });
             // Muestra el AlertDialog al hacer clic
             context.read<BleStateProvider>().initService(widget.service);
-            Provider.of<BleStateProvider>(context, listen: false).updateState1(state1);
+            Provider.of<BleStateProvider>(context, listen: false)
+                .updateState1(state1);
             widget.onTap();
           },
           onLongPress: () {
@@ -4602,9 +4554,7 @@ class _B4ButtState extends State<B4Butt> {
               child: Text(
                 'B',
                 style: TextStyle(
-                    color: colorforebutt2, 
-                    fontWeight: FontWeight.bold
-                ),
+                    color: colorforebutt2, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -4634,8 +4584,6 @@ class B5Butt extends StatefulWidget {
 }
 
 class _B5ButtState extends State<B5Butt> {
-  bool _isButtonLongPressed = false;
-
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -4651,7 +4599,8 @@ class _B5ButtState extends State<B5Butt> {
             });
             // Muestra el AlertDialog al hacer clic
             context.read<BleStateProvider>().initService(widget.service);
-            Provider.of<BleStateProvider>(context, listen: false).updateState1(state1);
+            Provider.of<BleStateProvider>(context, listen: false)
+                .updateState1(state1);
             widget.onTap();
           },
           onLongPress: () {
@@ -4873,9 +4822,7 @@ class _B5ButtState extends State<B5Butt> {
               child: Text(
                 'B',
                 style: TextStyle(
-                    color: colorforebutt2, 
-                    fontWeight: FontWeight.bold
-                ),
+                    color: colorforebutt2, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -4905,8 +4852,6 @@ class HeartAttackButt extends StatefulWidget {
 }
 
 class _HeartAttackButtState extends State<HeartAttackButt> {
-  bool _isButtonLongPressed = false;
-
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -4922,7 +4867,8 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
             });
             // Muestra el AlertDialog al hacer clic
             context.read<BleStateProvider>().initService(widget.service);
-            Provider.of<BleStateProvider>(context, listen: false).updateState1(state1);
+            Provider.of<BleStateProvider>(context, listen: false)
+                .updateState1(state1);
             widget.onTap();
           },
           onLongPress: () {
@@ -5144,9 +5090,7 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
               child: Text(
                 'Heart Attack',
                 style: TextStyle(
-                    color: Colors.indigo, 
-                    fontWeight: FontWeight.bold
-                ),
+                    color: Colors.indigo, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -5158,7 +5102,6 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
     }
   }
 }
-
 
 class UppgradeButt extends StatelessWidget {
   final BluetoothService service;

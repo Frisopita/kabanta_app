@@ -162,8 +162,7 @@ class _DataPageState extends State<DataPage> {
       const History(),
     ];
 
-    const  Widget fixedWidgetSignal =  ContainerSignal();
-
+  const  Widget fixedWidgetSignal =  ContainerSignal();
     final Widget fixedWidgetClock = ContainerClock(device: device);
 
     return Scaffold(
