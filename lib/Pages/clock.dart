@@ -56,7 +56,6 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
     });
   }
 
-
   void _updateTextFieldValue(String value) {
     final currentSeconds = _secondsController.text;
     final currentSeconds2 = _secondsController2.text;
@@ -72,8 +71,7 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
         _secondsController2.text = currentSeconds;
         _secondsController.text = value;
       });
-    }
-    else if (currentMinutes.isEmpty) {
+    } else if (currentMinutes.isEmpty) {
       setState(() {
         _minutesController.text = value;
       });
@@ -84,7 +82,6 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
       });
     }
   }
-
 
   void _deleteLastDigit() {
     final currentMinutes = _minutesController.text;
@@ -144,36 +141,36 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 90,
+                      height: 65,
                       width: 40,
-                      child: TextField(
-                        controller: _minutesController2,
-                        keyboardType: TextInputType.number,
-                        maxLength: 2,
-                        style: numTime,
-                        textAlign: TextAlign.center,
-                        decoration: const InputDecoration(
-                          //labelText: 'Min',
-                          hintText: '0',
-                          hintStyle: numTime,
-                          border: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          enabledBorder: InputBorder.none,
+                      child: Center(
+                        child: TextField(
+                          controller: _minutesController2,
+                          keyboardType: TextInputType.number,
+                          maxLength: 1,
+                          style: numTime,
+                          textAlign: TextAlign.center,
+                          decoration: const InputDecoration(
+                            hintText: '0',
+                            hintStyle: numTime,
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                          ),
+                          enabled: false, // Deshabilitar el campo de texto
                         ),
-                        enabled: false, // Deshabilitar el campo de texto
                       ),
                     ),
                     SizedBox(
-                      height: 90,
+                      height: 65,
                       width: 40,
                       child: TextField(
                         controller: _minutesController,
                         keyboardType: TextInputType.number,
-                        maxLength: 2,
+                        maxLength: 1,
                         style: numTime,
                         textAlign: TextAlign.center,
                         decoration: const InputDecoration(
-                          //labelText: 'Min',
                           hintText: '0',
                           hintStyle: numTime,
                           border: InputBorder.none,
@@ -183,11 +180,27 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                         enabled: false, // Deshabilitar el campo de texto
                       ),
                     ),
-                    
+
                     const SizedBox(
-                        height: 90, child: Text(':', style: numTime)),
+                      height: 65,
+                      width: 40,
+                      child: TextField(
+                        keyboardType: TextInputType.number,
+                        maxLength: 1,
+                        style: numTime,
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                          hintText: ':',
+                          hintStyle: numTime,
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                        ),
+                        enabled: false, // Deshabilitar el campo de texto
+                      ),
+                    ),
                     SizedBox(
-                      height: 90,
+                      height: 65,
                       width: 40,
                       child: TextField(
                         controller: _secondsController2,
@@ -196,7 +209,6 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                         style: numTime,
                         textAlign: TextAlign.center,
                         decoration: const InputDecoration(
-                          //labelText: 'Seg',
                           hintText: '0',
                           hintStyle: numTime,
                           border: InputBorder.none,
@@ -207,7 +219,7 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 90,
+                      height: 65,
                       width: 40,
                       child: TextField(
                         controller: _secondsController,
@@ -216,7 +228,6 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                         style: numTime,
                         textAlign: TextAlign.center,
                         decoration: const InputDecoration(
-                          //labelText: 'Seg',
                           hintText: '0',
                           hintStyle: numTime,
                           border: InputBorder.none,
@@ -226,20 +237,19 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                         enabled: false,
                       ),
                     ),
-                    
                   ],
                 ),
                 const Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(8),
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
                       child: Text(
                         'Min',
                         style: nameTime,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(8),
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
                       child: Text(
                         'Sec',
                         style: nameTime,
@@ -251,33 +261,42 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(10),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: confirmBbutt1,
-                            foregroundColor: confirmFbutt1),
-                        onPressed: () {
-                          Navigator.of(context).pop(MaterialPageRoute(
-                            builder: (BuildContext context) => const DataPage(),
-                          ));
-                        },
-                        child: const Text('Confirm',
-                            style: TextStyle(fontSize: 16)),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(6),
-                      child: ElevatedButton(
+                      child: SizedBox(
+                        height: 40,
+                        width: 110,
+                        child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: cancelBbutt2,
-                              foregroundColor: cancelFbutt2),
+                              backgroundColor: confirmBbutt1,
+                              foregroundColor: confirmFbutt1),
                           onPressed: () {
                             Navigator.of(context).pop(MaterialPageRoute(
                               builder: (BuildContext context) =>
                                   const DataPage(),
                             ));
                           },
-                          child: const Text('Cancel',
-                              style: TextStyle(fontSize: 16))),
+                          child: const Text('Confirm',
+                              style: TextStyle(fontSize: 20)),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(6),
+                      child: SizedBox(
+                        height: 40,
+                        width: 110,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: cancelBbutt2,
+                                foregroundColor: cancelFbutt2),
+                            onPressed: () {
+                              Navigator.of(context).pop(MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    const DataPage(),
+                              ));
+                            },
+                            child: const Text('Cancel',
+                                style: TextStyle(fontSize: 20))),
+                      ),
                     ),
                   ],
                 ),
@@ -287,68 +306,51 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                       padding: const EdgeInsets.all(2),
                       child: SizedBox(
                         height: 50,
-                        width: 100,
+                        width: 90,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: colorbackbutt4,
                               foregroundColor: colorforebutt4),
                           onPressed: () => _updateTextFieldValue(1.toString()),
-                          child: Text(1.toString()),
+                          child: Text(
+                            1.toString(),
+                            style: TextStyle(fontSize: 23),
+                          ),
                         ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(2.toString()),
-                        child: Text(2.toString()),
+                      child: SizedBox(
+                        height: 50,
+                        width: 90,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt4,
+                              foregroundColor: colorforebutt4),
+                          onPressed: () => _updateTextFieldValue(2.toString()),
+                          child: Text(
+                            2.toString(),
+                            style: TextStyle(fontSize: 23),
+                          ),
+                        ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(3.toString()),
-                        child: Text(3.toString()),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(4.toString()),
-                        child: Text(4.toString()),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(5.toString()),
-                        child: Text(5.toString()),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(6.toString()),
-                        child: Text(6.toString()),
+                      child: SizedBox(
+                        height: 50,
+                        width: 90,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt4,
+                              foregroundColor: colorforebutt4),
+                          onPressed: () => _updateTextFieldValue(3.toString()),
+                          child: Text(
+                            3.toString(),
+                            style: TextStyle(fontSize: 23),
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -357,32 +359,53 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(7.toString()),
-                        child: Text(7.toString()),
+                      child: SizedBox(
+                        height: 50,
+                        width: 90,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt4,
+                              foregroundColor: colorforebutt4),
+                          onPressed: () => _updateTextFieldValue(4.toString()),
+                          child: Text(
+                            4.toString(),
+                            style: TextStyle(fontSize: 23),
+                          ),
+                        ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(8.toString()),
-                        child: Text(8.toString()),
+                      child: SizedBox(
+                        height: 50,
+                        width: 90,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt4,
+                              foregroundColor: colorforebutt4),
+                          onPressed: () => _updateTextFieldValue(5.toString()),
+                          child: Text(
+                            5.toString(),
+                            style: TextStyle(fontSize: 23),
+                          ),
+                        ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(9.toString()),
-                        child: Text(9.toString()),
+                      child: SizedBox(
+                        height: 50,
+                        width: 90,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt4,
+                              foregroundColor: colorforebutt4),
+                          onPressed: () => _updateTextFieldValue(6.toString()),
+                          child: Text(
+                            6.toString(),
+                            style: TextStyle(fontSize: 23),
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -391,12 +414,81 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: colorbackbutt4,
-                            foregroundColor: colorforebutt4),
-                        onPressed: () => _updateTextFieldValue(0.toString()),
-                        child: Text(0.toString()),
+                      child: SizedBox(
+                        height: 50,
+                        width: 90,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt4,
+                              foregroundColor: colorforebutt4),
+                          onPressed: () => _updateTextFieldValue(7.toString()),
+                          child: Text(
+                            7.toString(),
+                            style: TextStyle(fontSize: 23),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: SizedBox(
+                        height: 50,
+                        width: 90,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt4,
+                              foregroundColor: colorforebutt4),
+                          onPressed: () => _updateTextFieldValue(8.toString()),
+                          child: Text(
+                            8.toString(),
+                            style: TextStyle(fontSize: 23),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: SizedBox(
+                        height: 50,
+                        width: 90,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt4,
+                              foregroundColor: colorforebutt4),
+                          onPressed: () => _updateTextFieldValue(9.toString()),
+                          child: Text(
+                            9.toString(),
+                            style: TextStyle(fontSize: 23),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: SizedBox(
+                        height: 50,
+                        width: 55,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: SizedBox(
+                        height: 50,
+                        width: 90,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: colorbackbutt4,
+                              foregroundColor: colorforebutt4),
+                          onPressed: () => _updateTextFieldValue(0.toString()),
+                          child: Text(
+                            0.toString(),
+                            style: TextStyle(fontSize: 23),
+                          ),
+                        ),
                       ),
                     ),
                     Padding(
@@ -411,7 +503,6 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                     ),
                   ],
                 ),
-
                 ElevatedButton(
                   onPressed: startCountdown,
                   child: const Text('Iniciar cuenta regresiva'),
@@ -427,4 +518,3 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
     );
   }
 }
-
