@@ -17,9 +17,7 @@ class BleStateProvider extends ChangeNotifier {
 
   late double state1; 
 
-  BleStateProvider(
-    this.state1,
-  );
+  BleStateProvider([this.state1 = 0]);
 
   void updateState1(double newValue) {
     state1 = newValue;

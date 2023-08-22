@@ -146,9 +146,9 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                           backgroundColor: confirmBbutt1,
                           foregroundColor: confirmFbutt1),
                       onPressed: () {
-                        Navigator.of(context).pop(MaterialPageRoute(
-                          builder: (BuildContext context) => const DataPage(),
-                        ));
+                        final duration =
+                            Duration(minutes: minutes, seconds: seconds);
+                        Navigator.of(context).pop(duration);
                       },
                       child:
                           const Text('Confirm', style: TextStyle(fontSize: 20)),

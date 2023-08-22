@@ -1,6 +1,10 @@
 // ignore: file_names
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:kabanta_app1/providers/clock_provider.dart';
 import 'package:kabanta_app1/variables.dart';
+import 'package:provider/provider.dart';
+import 'package:collection/collection.dart';
 
 class History extends StatelessWidget {
   const History({super.key});
@@ -182,33 +186,47 @@ class _ProgramContainerState extends State<ProgramContainer> {
     });
   }
 
+  ExpansionTile _generateExpansionTile(UIState state) {
+    return ExpansionTile(
+      title: Padding(
+        padding: const EdgeInsets.fromLTRB(15, 0, 20, 0),
+        child: Row(
+          children: [
+            Text('${state.index}'),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(40, 0, 10, 0),
+              child: Text('Action ${state.index}'),
+            ),
+          ],
+        ),
+      ),
+      trailing: IconButton(
+        icon: const Icon(Icons.delete),
+        onPressed: () {
+          removeExpansionTile(index);
+        },
+      ),
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text('Content of Action ${state.index}'),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.9,
-      child: Column(
-        children: [
-          //1
-          SizedBox(
-            child: ElevatedButton(
-                onPressed: () {
-                  createExpansionTile();
-                },
-                child: Text('add')),
-          ),
-          if (widget.expansionTiles.isNotEmpty)
-            ...widget.expansionTiles.asMap().entries.map((entry) {
-              final index = entry.key;
-              final tile = entry.value;
-              return Column(
-                children: [
-                  tile,
-                  Divider(), // Opcional: agregar una l��nea divisoria
-                ],
-              );
-            }),
-        ],
-      ),
+    return Selector<ClockService, List<UIState>>(
+      selector: (_, clockService) => clockService.uiStates,
+      shouldRebuild: (previous, next) => const DeepCollectionEquality()
+        .equals(previous, next),
+      builder: (context, list, child) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: list.map(_generateExpansionTile).toList(),
+        );
+      },
     );
   }
 }
