@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:kabanta_app1/variables.dart';
 
@@ -148,7 +149,7 @@ class _ProgramContainerState extends State<ProgramContainer> {
 
   void createExpansionTile() {
     int newIndex =
-        widget.expansionTiles.length + 1; // Usar una nueva variable de ¨ªndice
+        widget.expansionTiles.length + 1; // Usar una nueva variable de ï¿½ï¿½ndice
     setState(() {
       widget.expansionTiles.add(
         ExpansionTile(
@@ -202,7 +203,7 @@ class _ProgramContainerState extends State<ProgramContainer> {
               return Column(
                 children: [
                   tile,
-                  Divider(), // Opcional: agregar una l¨ªnea divisoria
+                  Divider(), // Opcional: agregar una lï¿½ï¿½nea divisoria
                 ],
               );
             }),
