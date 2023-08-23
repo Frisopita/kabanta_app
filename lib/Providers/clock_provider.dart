@@ -6,6 +6,8 @@ class ClockService extends ChangeNotifier {
   final List<_StateTimerBLE> _states = [];
   Timer? _countdownTimer;
   Duration _duration = Duration.zero;
+  double? _id;
+  double? get id => _id; 
 
   Duration get duration => _duration;
   bool get isActive => _duration != Duration.zero;
@@ -43,6 +45,7 @@ class ClockService extends ChangeNotifier {
 
   void _deleteInternalState(_StateTimerBLE internalState) {
     _states.remove(internalState);
+    _id = internalState.id;
     notifyListeners();
   }
 

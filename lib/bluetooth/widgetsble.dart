@@ -4874,6 +4874,7 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
             widget.onTap();
           },
           onLongPress: () {
+             final service = context.read<ClockService>();
             // Muestra el AlertDialog al dejar presionado
             showDialog(
               context: context,
@@ -5047,7 +5048,6 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
                         Center(
                           child: ElevatedButton(
                             onPressed: () async {
-                              final service = context.read<ClockService>();
                               final Duration? result =
                                   await Navigator.push<Duration?>(
                                 context,

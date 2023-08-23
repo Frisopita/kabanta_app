@@ -195,7 +195,7 @@ class _ProgramContainerState extends State<ProgramContainer> {
             Text('${state.index}'),
             Padding(
               padding: const EdgeInsets.fromLTRB(40, 0, 10, 0),
-              child: Text('Action ${state.index}'),
+              child: Text('Action ${state.index}: ${state.duration}'),
             ),
           ],
         ),
@@ -203,7 +203,7 @@ class _ProgramContainerState extends State<ProgramContainer> {
       trailing: IconButton(
         icon: const Icon(Icons.delete),
         onPressed: () {
-          removeExpansionTile(index);
+          context.read<ClockService>().deleteState(state.index);
         },
       ),
       children: [
@@ -219,8 +219,8 @@ class _ProgramContainerState extends State<ProgramContainer> {
   Widget build(BuildContext context) {
     return Selector<ClockService, List<UIState>>(
       selector: (_, clockService) => clockService.uiStates,
-      shouldRebuild: (previous, next) => const DeepCollectionEquality()
-        .equals(previous, next),
+      //shouldRebuild: (previous, next) => const DeepCollectionEquality()
+        //.equals(previous, next),
       builder: (context, list, child) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,

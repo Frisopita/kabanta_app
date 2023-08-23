@@ -42,7 +42,12 @@ class MyKabantaApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        
+        ChangeNotifierProvider<ClockService>(create: (_)=>ClockService()),
+        ProxyProvider0(create: (context) => Provider.of(context, listen: false).id,
+        update: (context, value){
+          final id = Provider.of<ClockService>(context);
+          return id;
+        },),
         ChangeNotifierProvider<BleProvider>(
           /// lazy se usa para incializar un provider antes de tiempo:
           /// true: se incializa desde que se inserta en el Widget Tre e
