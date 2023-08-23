@@ -1,5 +1,15 @@
+// ignore: file_names
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:kabanta_app1/Providers/states.dart';
+import 'package:kabanta_app1/providers/clock_provider.dart';
 import 'package:kabanta_app1/variables.dart';
+import 'package:provider/provider.dart';
+import 'package:collection/collection.dart';
+import 'dart:async';
+
+
 
 class History extends StatelessWidget {
   const History({super.key});
@@ -124,6 +134,7 @@ class _HistoryContentState extends State<HistoryContent> {
 }
 
 class ProgramContainer extends StatefulWidget {
+  
   const ProgramContainer({
     super.key,
     required this.expansionTiles,
@@ -137,6 +148,7 @@ class ProgramContainer extends StatefulWidget {
 
 class _ProgramContainerState extends State<ProgramContainer> {
   int index = 0;
+  bool execute = false;
 
   void removeExpansionTile(int index) {
     setState(() {
@@ -146,68 +158,73 @@ class _ProgramContainerState extends State<ProgramContainer> {
     });
   }
 
-  void createExpansionTile() {
-    int newIndex =
-        widget.expansionTiles.length + 1; // Usar una nueva variable de ¨ªndice
-    setState(() {
-      widget.expansionTiles.add(
-        ExpansionTile(
-          title: Padding(
-            padding: const EdgeInsets.fromLTRB(15, 0, 20, 0),
-            child: Row(
-              children: [
-                Text('$newIndex'),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(40, 0, 10, 0),
-                  child: Text('Action $newIndex'),
-                ),
-              ],
-            ),
-          ),
+  ExpansionTile _generateExpansionTile(UIState state) {
+    String stateText = '';
+  switch (state.id) {
+    case 0:
+      stateText = 'First State1 Text';
+      break;
+    case 1:
+      stateText = 'Heart Attack';
+      break;
+    // Agrega m¨¢s casos seg¨²n sea necesario
+    default:
+      stateText = 'Default State1 Text';
+      break;
+  }    
+    if (state.duration.inSeconds == 1 && !execute ) {
+      context.read<BleStateProvider>().updateCharacteristic(state1);
+      execute = true;
+    }
+    return ExpansionTile(
+      title: Padding(
+        padding: const EdgeInsets.fromLTRB(15, 0, 20, 0),
+        child: Row(
           children: [
+            Text('${state.index}'),
             Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text('Content of Action $newIndex'),
+              padding: const EdgeInsets.fromLTRB(40, 0, 10, 0),
+              child: Row(
+                children: [
+                  Text('${stateText}'),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(60, 0, 0, 0),
+                    child: Text(
+                        '${(state.duration.inMinutes).toString().padLeft(2, '0')}:${(state.duration.inSeconds % 60).toString().padLeft(2, '0')}'),
+                  ),
+                ],
+              ),
             ),
           ],
-          trailing: IconButton(
-            icon: Icon(Icons.delete),
-            onPressed: () {
-              removeExpansionTile(index);
-            },
-          ),
         ),
-      );
-    });
+      ),
+      trailing: IconButton(
+        icon: const Icon(Icons.delete),
+        onPressed: () {
+          context.read<ClockService>().deleteState(state.index);
+        },
+      ),
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text('Content of Action ${state.index}'),
+        ),
+      ],
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.9,
-      child: Column(
-        children: [
-          //1
-          SizedBox(
-            child: ElevatedButton(
-                onPressed: () {
-                  createExpansionTile();
-                },
-                child: Text('add')),
-          ),
-          if (widget.expansionTiles.isNotEmpty)
-            ...widget.expansionTiles.asMap().entries.map((entry) {
-              final index = entry.key;
-              final tile = entry.value;
-              return Column(
-                children: [
-                  tile,
-                  Divider(), // Opcional: agregar una l¨ªnea divisoria
-                ],
-              );
-            }),
-        ],
-      ),
+    return Selector<ClockService, List<UIState>>(
+      selector: (_, clockService) => clockService.uiStates,
+      //shouldRebuild: (previous, next) => const DeepCollectionEquality()
+      //.equals(previous, next),
+      builder: (context, list, child) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: list.map(_generateExpansionTile).toList(),
+        );
+      },
     );
   }
 }

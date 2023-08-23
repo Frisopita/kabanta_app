@@ -8,6 +8,7 @@ import 'package:kabanta_app1/pages/vital.dart';
 import 'package:kabanta_app1/Providers/ble_provider.dart';
 import 'package:kabanta_app1/bluetooth/qrble.dart';
 import 'package:kabanta_app1/bluetooth/bluetooth.dart';
+import 'package:kabanta_app1/providers/clock_provider.dart';
 import 'package:kabanta_app1/widgets/containers.dart';
 import 'package:kabanta_app1/variables.dart';
 import 'package:provider/provider.dart';
@@ -41,7 +42,12 @@ class MyKabantaApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        
+        ChangeNotifierProvider<ClockService>(create: (_)=>ClockService()),
+        ProxyProvider0(create: (context) => Provider.of(context, listen: false).id,
+        update: (context, value){
+          final id = Provider.of<ClockService>(context);
+          return id;
+        },),
         ChangeNotifierProvider<BleProvider>(
           /// lazy se usa para incializar un provider antes de tiempo:
           /// true: se incializa desde que se inserta en el Widget Tre e
@@ -61,7 +67,7 @@ class MyKabantaApp extends StatelessWidget {
           initialData: flutter_blue.BluetoothState.unknown,
         ),
         ChangeNotifierProvider<BleStateProvider>(
-          create: (BuildContext context) => BleStateProvider(state1),
+          create: (BuildContext context) => BleStateProvider(0),
         ),
         ChangeNotifierProvider<DeviceProvider>(
           create: (BuildContext context) => DeviceProvider(),
@@ -165,116 +171,119 @@ class _DataPageState extends State<DataPage> {
   const  Widget fixedWidgetSignal =  ContainerSignal();
     final Widget fixedWidgetClock = ContainerClock(device: device);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Image.asset('Images/original.png',
-            fit: BoxFit.cover, height: 100, width: 130),
-        backgroundColor: Colors.white,
-        automaticallyImplyLeading: false,
-        actions: [
-          StreamBuilder<flutter_blue.BluetoothDeviceState>(
-            stream: device.state,
-            builder: (context, snapshot) {
-              if (snapshot.data ==
-                  flutter_blue.BluetoothDeviceState.connected) {
-                return Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.green.shade400,
+    return ChangeNotifierProvider<ClockService>(
+      create: (_) => ClockService(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Image.asset('Images/original.png',
+              fit: BoxFit.cover, height: 100, width: 130),
+          backgroundColor: Colors.white,
+          automaticallyImplyLeading: false,
+          actions: [
+            StreamBuilder<flutter_blue.BluetoothDeviceState>(
+              stream: device.state,
+              builder: (context, snapshot) {
+                if (snapshot.data ==
+                    flutter_blue.BluetoothDeviceState.connected) {
+                  return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.green.shade400,
+                        ),
+                        height: 20,
+                        width: 20,
                       ),
-                      height: 20,
-                      width: 20,
                     ),
-                  ),
-                );
-              } else {
-                return Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.red.shade400,
+                  );
+                } else {
+                  return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.red.shade400,
+                        ),
+                        height: 20,
+                        width: 20,
                       ),
-                      height: 20,
-                      width: 20,
                     ),
-                  ),
-                );
-              }
-            },
-          ),
-        ],
-      ),
-      body: Stack(
-        children: [
-          PageView(
-            controller: _pageController,
-            onPageChanged: (index) {
-              setState(() {
-                currentIndex = index;
-              });
-            },
-            children: widgetOptions,
-          ),
-          const Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: null,
-            child: fixedWidgetSignal,
-          ),
-          Positioned(
-            top: null,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: fixedWidgetClock,
-          ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
-          _pageController.animateToPage(
-            index,
-            duration: const Duration(milliseconds: 5),
-            curve: Curves.easeInOut,
-          );
-        },
-        currentIndex: currentIndex,
-        items: <BottomNavigationBarItem>[
-          //ECG Button
-          BottomNavigationBarItem(
-            label: 'ECG',
-            icon: Icon(Icons.monitor_heart,
-                color: currentIndex == 0 ? Colors.blueGrey : Colors.black),
-          ),
-          //Vital Button
-          BottomNavigationBarItem(
-            label: 'Vital Signs',
-            icon: Icon(Icons.accessibility_new,
-                color: currentIndex == 1 ? Colors.blueGrey : Colors.black),
-          ),
-          //Scenery Button
-          BottomNavigationBarItem(
-            label: 'Scenery',
-            icon: Icon(Icons.tag,
-                color: currentIndex == 2 ? Colors.blueGrey : Colors.black),
-          ),
-          //History Button
-          BottomNavigationBarItem(
-            label: 'History',
-            icon: Icon(Icons.history,
-                color: currentIndex == 3 ? Colors.blueGrey : Colors.black),
-          ),
-        ],
-        selectedItemColor: Colors.blueGrey,
+                  );
+                }
+              },
+            ),
+          ],
+        ),
+        body: Stack(
+          children: [
+            PageView(
+              controller: _pageController,
+              onPageChanged: (index) {
+                setState(() {
+                  currentIndex = index;
+                });
+              },
+              children: widgetOptions,
+            ),
+            const Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: null,
+              child: fixedWidgetSignal,
+            ),
+            Positioned(
+              top: null,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: fixedWidgetClock,
+            ),
+          ],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          onTap: (index) {
+            setState(() {
+              currentIndex = index;
+            });
+            _pageController.animateToPage(
+              index,
+              duration: const Duration(milliseconds: 5),
+              curve: Curves.easeInOut,
+            );
+          },
+          currentIndex: currentIndex,
+          items: <BottomNavigationBarItem>[
+            //ECG Button
+            BottomNavigationBarItem(
+              label: 'ECG',
+              icon: Icon(Icons.monitor_heart,
+                  color: currentIndex == 0 ? Colors.blueGrey : Colors.black),
+            ),
+            //Vital Button
+            BottomNavigationBarItem(
+              label: 'Vital Signs',
+              icon: Icon(Icons.accessibility_new,
+                  color: currentIndex == 1 ? Colors.blueGrey : Colors.black),
+            ),
+            //Scenery Button
+            BottomNavigationBarItem(
+              label: 'Scenery',
+              icon: Icon(Icons.tag,
+                  color: currentIndex == 2 ? Colors.blueGrey : Colors.black),
+            ),
+            //History Button
+            BottomNavigationBarItem(
+              label: 'History',
+              icon: Icon(Icons.history,
+                  color: currentIndex == 3 ? Colors.blueGrey : Colors.black),
+            ),
+          ],
+          selectedItemColor: Colors.blueGrey,
+        ),
       ),
     );
   }

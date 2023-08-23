@@ -16,24 +16,27 @@ class BleStateProvider extends ChangeNotifier {
   Stream<List<BLEWriteStates>> get stream => _stream;
 
   late double state1; 
+  BluetoothService? _service;
 
-  BleStateProvider(
-    this.state1,
-  );
+  BleStateProvider([this.state1 = 0]);
 
   void updateState1(double newValue) {
     state1 = newValue;
     notifyListeners();
   }
 
+  Future<void> updateCharacteristic(double newValue) async {
+    final s = _service;
+    if ((s ==null)) return;
+    return s.characteristics[8].write([newValue.toInt()], withoutResponse: true);
+  }
 
-  
   /// No importan, pero da error en el widget que dejamos de usar y no lo borre
   set id(String id) {}
   void setValue(Uint8List readValues) {}
 
   Future <void> initService(BluetoothService service) async {
-    
+    _service = service;
     List<BluetoothCharacteristic> listBle = service.characteristics
         .where((c) => allowedUUIDs.containsKey(c.uuid.toString())).toList();
 

@@ -5,6 +5,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:kabanta_app1/Providers/states.dart';
+import 'package:kabanta_app1/pages/clock.dart';
+import 'package:kabanta_app1/providers/clock_provider.dart';
 import 'package:provider/provider.dart';
 import '../variables.dart';
 import 'package:kabanta_app1/Providers/sliders.dart';
@@ -4872,6 +4874,7 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
             widget.onTap();
           },
           onLongPress: () {
+            final service = context.read<ClockService>();
             // Muestra el AlertDialog al dejar presionado
             showDialog(
               context: context,
@@ -5041,7 +5044,32 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
                               ),
                             ),
                           ],
-                        )
+                        ),
+                        Center(
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: colorbackbutt2,
+                                foregroundColor: colorforebutt2),
+                            onPressed: () async {
+                              final Duration? result =
+                                  await Navigator.push<Duration?>(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const ClockConfigScreen(),
+                                ),
+                              );
+                              if (result == null || !mounted) return;
+                              service.addState((
+                                duration: result,
+                                id: state1,
+                              ));
+                              setState(() {
+                                state1 = 1;
+                              });
+                            },
+                            child: const Text('Program'),
+                          ),
+                        ),
                       ],
                     ),
                   ),
