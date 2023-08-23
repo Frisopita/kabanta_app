@@ -16,7 +16,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart' as flutter_blue;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:kabanta_app1/Providers/device_provider.dart';
 import 'package:kabanta_app1/Providers/sliders.dart';
-import 'Pages/History.dart';
+import 'package:kabanta_app1/Pages/History.dart';
 import 'Providers/qrtext_provider.dart';
 
 void main() {
