@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:async/async.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -33,8 +31,6 @@ class BleStateProvider extends ChangeNotifier {
     return s.characteristics[8].write([newValue.toInt()], withoutResponse: true);
   }
 
-
-  
   /// No importan, pero da error en el widget que dejamos de usar y no lo borre
   set id(String id) {}
   void setValue(Uint8List readValues) {}

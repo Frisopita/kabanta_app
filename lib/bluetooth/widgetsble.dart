@@ -4874,7 +4874,7 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
             widget.onTap();
           },
           onLongPress: () {
-             final service = context.read<ClockService>();
+            final service = context.read<ClockService>();
             // Muestra el AlertDialog al dejar presionado
             showDialog(
               context: context,
@@ -5047,6 +5047,9 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
                         ),
                         Center(
                           child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: colorbackbutt2,
+                                foregroundColor: colorforebutt2),
                             onPressed: () async {
                               final Duration? result =
                                   await Navigator.push<Duration?>(
@@ -5060,6 +5063,9 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
                                 duration: result,
                                 id: state1,
                               ));
+                              setState(() {
+                                state1 = 1;
+                              });
                             },
                             child: const Text('Program'),
                           ),
