@@ -9,6 +9,8 @@ import 'package:provider/provider.dart';
 import 'package:collection/collection.dart';
 import 'dart:async';
 
+
+
 class History extends StatelessWidget {
   const History({super.key});
 
@@ -157,7 +159,19 @@ class _ProgramContainerState extends State<ProgramContainer> {
   }
 
   ExpansionTile _generateExpansionTile(UIState state) {
-    
+    String stateText = '';
+  switch (state.id) {
+    case 0:
+      stateText = 'First State1 Text';
+      break;
+    case 1:
+      stateText = 'Heart Attack';
+      break;
+    // Agrega m¨¢s casos seg¨²n sea necesario
+    default:
+      stateText = 'Default State1 Text';
+      break;
+  }    
     if (state.duration.inSeconds == 1 && !execute ) {
       context.read<BleStateProvider>().updateCharacteristic(state1);
       execute = true;
@@ -172,9 +186,9 @@ class _ProgramContainerState extends State<ProgramContainer> {
               padding: const EdgeInsets.fromLTRB(40, 0, 10, 0),
               child: Row(
                 children: [
-                  Text('Action ${state.index}'),
+                  Text('${stateText}'),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(100, 0, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(60, 0, 0, 0),
                     child: Text(
                         '${(state.duration.inMinutes).toString().padLeft(2, '0')}:${(state.duration.inSeconds % 60).toString().padLeft(2, '0')}'),
                   ),
