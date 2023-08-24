@@ -242,6 +242,18 @@ class _ECGState extends State<ECG> {
         .toList();
   }
 
+  List<Widget> _buildButtons(List<BluetoothService> services) {
+    return services
+        .map(
+          (s) => TestButtonsConstrains(
+            service: s,
+            onTap: () {},
+            onLongPress: () {},
+          ),
+        )
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -712,6 +724,18 @@ class _ECGState extends State<ECG> {
                             ),
                           ],
                         ),
+                       StreamBuilder<List<BluetoothService>>(
+                                //recibe la lista de servicios (services) del dispositivo
+                                stream: widget.device.services,
+                                initialData: const [],
+                                builder: (c, snapshot) {
+                                  return Column(
+                                    children: _buildButtons(snapshot
+                                        .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                                  );
+                                },
+                                //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
+                              ),
                       ],
                     ),
                   )
@@ -719,6 +743,8 @@ class _ECGState extends State<ECG> {
               ),
             ),
           ),
+          
+         
           //2
           Container(
             height: 80,

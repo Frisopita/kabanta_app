@@ -4837,6 +4837,187 @@ class _B5ButtState extends State<B5Butt> {
   }
 }
 
+class TestButtonsConstrains extends StatefulWidget {
+  final BluetoothService service;
+  final VoidCallback onTap;
+  final VoidCallback onLongPress;
+
+  const TestButtonsConstrains(
+      {Key? key,
+      required this.service,
+      required this.onTap,
+      required this.onLongPress})
+      : super(key: key);
+
+  @override
+  State<TestButtonsConstrains> createState() => _TestButtonsConstrainsState();
+}
+
+class _TestButtonsConstrainsState extends State<TestButtonsConstrains> {
+  @override
+  Widget build(BuildContext context) {
+    List<BluetoothCharacteristic> characteristics =
+        widget.service.characteristics.toList();
+    if (characteristics.isNotEmpty) {
+      if (excludedServiceUUIDs.contains(widget.service.uuid.toString())) {
+        return Container(); // Oculta el servicio
+      } else {
+        return ConstrainedBox(
+          constraints: BoxConstraints.tight(const Size(200, 60)),
+          child: GridView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: 4.0,
+              mainAxisSpacing: 4.0,
+              mainAxisExtent: 50,
+            ),
+            itemBuilder: (context, index) {
+              final value = index + 1;
+              String stateText = '';
+              switch (value) {
+                case 1:
+                  stateText = buttECG1;
+                  break;
+                case 2:
+                  stateText = buttECG2;
+                  break;
+                case 3:
+                  stateText = buttECG3;
+                  break;
+                // Agrega m¨¢s casos seg¨²n sea necesario
+                default:
+                  stateText = '';
+                  break;
+              }
+
+              return switch (index) {
+                < 3 => GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        state1 = value.toDouble();
+                      });
+                      // Muestra el AlertDialog al hacer clic
+                      context
+                          .read<BleStateProvider>()
+                          .initService(widget.service);
+                      Provider.of<BleStateProvider>(context, listen: false)
+                          .updateState1(state1);
+                      widget.onTap();
+                    },
+                    onLongPress: () {
+                      final service = context.read<ClockService>();
+                      // Muestra el AlertDialog al dejar presionado
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Long Click'),
+                            content: SizedBox(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.all(5),
+                                    child: Text(
+                                        'Al hacer un click largo se despliga la informacion de los datos enviados, ejemplo: '),
+                                  ),
+                                  Center(
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor: colorbackbutt2,
+                                          foregroundColor: colorforebutt2),
+                                      onPressed: () async {
+                                        final Duration? result =
+                                            await Navigator.push<Duration?>(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) =>
+                                                const ClockConfigScreen(),
+                                          ),
+                                        );
+                                        if (result == null || !mounted) return;
+                                        service.addState((
+                                          duration: result,
+                                          id: state1,
+                                        ));
+                                        setState(() {
+                                          state1 = value.toDouble();
+                                        });
+                                      },
+                                      child: const Text('Program'),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .pop(); // Cierra el AlertDialog
+                                },
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                      setState(() {
+                        _isButtonLongPressed = true;
+                      });
+                      widget.onLongPress();
+                    },
+                    onLongPressUp: () {
+                      setState(() {
+                        _isButtonLongPressed = false;
+                      });
+                    },
+                    onTapUp: (_) {
+                      setState(() {
+                        _isButtonLongPressed = false;
+                      });
+                    },
+                    child: Container(
+                      width: 95,
+                      height: 35,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: .5,
+                            blurRadius: .5,
+                            offset: const Offset(-1, 1),
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          stateText,
+                          style: const TextStyle(
+                              color: Colors.indigo,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ),
+                _ => const SizedBox(),
+              };
+            },
+            itemCount: 3,
+          ),
+        );
+      }
+    } else {
+      return Text(
+          '0x${widget.service.uuid.toString().toUpperCase().substring(4, 8)}');
+    }
+  }
+}
+
 class HeartAttackButt extends StatefulWidget {
   final BluetoothService service;
   final VoidCallback onTap;
@@ -4890,160 +5071,6 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
                           padding: EdgeInsets.all(5),
                           child: Text(
                               'Al hacer un click largo se despliga la informacion de los datos enviados, ejemplo: '),
-                        ),
-                        Row(
-                          children: [
-                            Image.asset(
-                              'Icons/corazon.png',
-                              width: 20,
-                              height: 20,
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.all(5),
-                              child: Row(
-                                children: [
-                                  Text('Heart Rate: '),
-                                  Text(
-                                    '250',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Image.asset(
-                              'Icons/temperatura.png',
-                              width: 20,
-                              height: 20,
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.all(5),
-                              child: Row(
-                                children: [
-                                  Text('Temperature: '),
-                                  Text(
-                                    '36',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Image.asset(
-                              'Icons/o2.png',
-                              width: 20,
-                              height: 20,
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.all(5),
-                              child: Row(
-                                children: [
-                                  Text('SpO2: '),
-                                  Text(
-                                    '70',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Image.asset(
-                              'Icons/pressure.png',
-                              width: 20,
-                              height: 20,
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.all(5),
-                              child: Row(
-                                children: [
-                                  Text('Sys Pressure: '),
-                                  Text(
-                                    '60',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Image.asset(
-                              'Icons/pressure.png',
-                              width: 20,
-                              height: 20,
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.all(5),
-                              child: Row(
-                                children: [
-                                  Text('Dias Pressure: '),
-                                  Text(
-                                    '35',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Image.asset(
-                              'Icons/pulso.png',
-                              width: 20,
-                              height: 20,
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.all(5),
-                              child: Row(
-                                children: [
-                                  Text('Frequency Rate: '),
-                                  Text(
-                                    '8',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Image.asset(
-                              'Icons/co2.png',
-                              width: 20,
-                              height: 20,
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.all(5),
-                              child: Row(
-                                children: [
-                                  Text('CO2: '),
-                                  Text(
-                                    '6',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
                         ),
                         Center(
                           child: ElevatedButton(
