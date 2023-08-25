@@ -97,6 +97,7 @@ String buttECG14 = 'B';
 String buttECG15 = 'B';
 String buttECG16 = 'B';
 String buttECG17 = 'B';
+String buttECG18 = 'Heart Attack';
 
 String buttConstName = 'Cliked';
 
@@ -126,7 +127,7 @@ double currentSliderValue5 = 35;
 double currentSliderValue6 = 8;
 double currentSliderValue7 = 6;
 
-double state1 = 0;
+double cases = 0;
 
 String status1 = '30';
 String status2 = '35';

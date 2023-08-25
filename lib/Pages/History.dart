@@ -159,21 +159,73 @@ class _ProgramContainerState extends State<ProgramContainer> {
   }
 
   ExpansionTile _generateExpansionTile(UIState state) {
-    String stateText = '';
+    String casesText = '';
   switch (state.id) {
     case 0:
-      stateText = 'First State1 Text';
+      casesText = buttECG0;
       break;
     case 1:
-      stateText = 'Heart Attack';
+      casesText = buttECG1;
       break;
-    // Agrega m¨¢s casos seg¨²n sea necesario
+    case 2:
+      casesText = buttECG2;
+      break;
+    case 3:
+      casesText = buttECG3;
+      break;
+    case 4:
+      casesText = buttECG4;
+      break;
+    case 5:
+      casesText = buttECG5;
+      break;
+    case 6:
+      casesText = buttECG6;
+      break;
+    case 7:
+      casesText = buttECG7;
+      break;
+    case 8:
+      casesText = buttECG8;
+      break;
+    case 9:
+      casesText = buttECG9;
+      break;
+    case 10:
+      casesText = buttECG10;
+      break;
+    case 11:
+      casesText = buttECG11;
+      break;
+    case 12:
+      casesText = buttECG12;
+      break;
+    case 13:
+      casesText = buttECG13;
+      break;
+    case 14:
+      casesText = buttECG14;
+      break;
+    case 15:
+      casesText = buttECG15;
+      break;
+    case 16:
+      casesText = buttECG16;
+      break;
+    case 17:
+      casesText = buttECG17;
+      break;
+    case 18:
+      casesText = buttECG18;
+      break;
+    
+    
     default:
-      stateText = 'Default State1 Text';
+      casesText = '';
       break;
   }    
     if (state.duration.inSeconds == 1 && !execute ) {
-      context.read<BleStateProvider>().updateCharacteristic(state1);
+      context.read<BleStateProvider>().updateCharacteristic(cases);
       execute = true;
     }
     return ExpansionTile(
@@ -186,7 +238,7 @@ class _ProgramContainerState extends State<ProgramContainer> {
               padding: const EdgeInsets.fromLTRB(40, 0, 10, 0),
               child: Row(
                 children: [
-                  Text('${stateText}'),
+                  Text('${casesText}'),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(60, 0, 0, 0),
                     child: Text(

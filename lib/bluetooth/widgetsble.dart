@@ -55,20 +55,20 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
             ),
             itemBuilder: (context, index) {
               final value = index;
-              String stateText = '';
+              String casesText = '';
               switch (value) {
                 case 0:
-                  stateText = buttECG1;
+                  casesText = buttECG0;
                   break;
                 case 1:
-                  stateText = buttECG2;
+                  casesText = buttECG1;
                   break;
                 case 2:
-                  stateText = buttECG3;
+                  casesText = buttECG2;
                   break;
                 // Agrega m¨¢s casos seg¨²n sea necesario
                 default:
-                  stateText = '';
+                  casesText = '';
                   break;
               }
 
@@ -76,14 +76,14 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
                 < 3 => GestureDetector(
                     onTap: () {
                       setState(() {
-                        state1 = value.toDouble();
+                        cases = value.toDouble();
                       });
                       // Muestra el AlertDialog al hacer clic
                       context
                           .read<BleStateProvider>()
                           .initService(widget.service);
                       Provider.of<BleStateProvider>(context, listen: false)
-                          .updateState1(state1);
+                          .updatecases(cases);
                       widget.onTap();
                     },
                     onLongPress: () {
@@ -121,10 +121,10 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
                                         if (result == null || !mounted) return;
                                         service.addState((
                                           duration: result,
-                                          id: state1,
+                                          id: cases,
                                         ));
                                         setState(() {
-                                          state1 = value.toDouble();
+                                          cases = value.toDouble();
                                         });
                                       },
                                       child: const Text('Program'),
@@ -177,7 +177,7 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
                       ),
                       child: Center(
                         child: Text(
-                          stateText,
+                          casesText,
                           style: TextStyle(
                               color: colorforebutt1,
                               fontWeight: FontWeight.bold),
@@ -235,29 +235,29 @@ class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
             ),
             itemBuilder: (context, index) {
               final value = index + 3;
-              String stateText = '';
+              String casesText = '';
               switch (value) {
                 case 3:
-                  stateText = buttECG3;
+                  casesText = buttECG3;
                   break;
                 case 4:
-                  stateText = buttECG4;
+                  casesText = buttECG4;
                   break;
                 case 5:
-                  stateText = buttECG5;
+                  casesText = buttECG5;
                   break;
                 case 6:
-                  stateText = buttECG6;
+                  casesText = buttECG6;
                   break;
                 case 7:
-                  stateText = buttECG7;
+                  casesText = buttECG7;
                   break;
                 case 8:
-                  stateText = buttECG8;
+                  casesText = buttECG8;
                   break;
                 // Agrega m¨¢s casos seg¨²n sea necesario
                 default:
-                  stateText = '';
+                  casesText = '';
                   break;
               }
 
@@ -265,14 +265,14 @@ class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
                 < 6 => GestureDetector(
                     onTap: () {
                       setState(() {
-                        state1 = value.toDouble();
+                        cases = value.toDouble();
                       });
                       // Muestra el AlertDialog al hacer clic
                       context
                           .read<BleStateProvider>()
                           .initService(widget.service);
                       Provider.of<BleStateProvider>(context, listen: false)
-                          .updateState1(state1);
+                          .updatecases(cases);
                       widget.onTap();
                     },
                     onLongPress: () {
@@ -310,10 +310,10 @@ class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
                                         if (result == null || !mounted) return;
                                         service.addState((
                                           duration: result,
-                                          id: state1,
+                                          id: cases,
                                         ));
                                         setState(() {
-                                          state1 = value.toDouble();
+                                          cases = value.toDouble();
                                         });
                                       },
                                       child: const Text('Program'),
@@ -366,7 +366,7 @@ class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
                       ),
                       child: Center(
                         child: Text(
-                          stateText,
+                          casesText,
                           style: TextStyle(
                               color: colorforebutt2,
                               fontWeight: FontWeight.bold),
@@ -424,38 +424,38 @@ class _ThirdWidgetButtonsState extends State<ThirdWidgetButtons> {
             ),
             itemBuilder: (context, index) {
               final value = index + 9;
-              String stateText = '';
+              String casesText = '';
               switch (value) {
                 case 9:
-                  stateText = buttECG9;
+                  casesText = buttECG9;
                   break;
                 case 10:
-                  stateText = buttECG10;
+                  casesText = buttECG10;
                   break;
                 case 11:
-                  stateText = buttECG11;
+                  casesText = buttECG11;
                   break;
                 case 12:
-                  stateText = buttECG12;
+                  casesText = buttECG12;
                   break;
                 case 13:
-                  stateText = buttECG13;
+                  casesText = buttECG13;
                   break;
                 case 14:
-                  stateText = buttECG14;
+                  casesText = buttECG14;
                   break;
                 case 15:
-                  stateText = buttECG15;
+                  casesText = buttECG15;
                   break;
                 case 16:
-                  stateText = buttECG16;
+                  casesText = buttECG16;
                   break;
                 case 17:
-                  stateText = buttECG17;
+                  casesText = buttECG17;
                   break;
                 // Agrega m¨¢s casos seg¨²n sea necesario
                 default:
-                  stateText = '';
+                  casesText = '';
                   break;
               }
 
@@ -463,14 +463,14 @@ class _ThirdWidgetButtonsState extends State<ThirdWidgetButtons> {
                 < 9 => GestureDetector(
                     onTap: () {
                       setState(() {
-                        state1 = value.toDouble();
+                        cases = value.toDouble();
                       });
                       // Muestra el AlertDialog al hacer clic
                       context
                           .read<BleStateProvider>()
                           .initService(widget.service);
                       Provider.of<BleStateProvider>(context, listen: false)
-                          .updateState1(state1);
+                          .updatecases(cases);
                       widget.onTap();
                     },
                     onLongPress: () {
@@ -508,10 +508,10 @@ class _ThirdWidgetButtonsState extends State<ThirdWidgetButtons> {
                                         if (result == null || !mounted) return;
                                         service.addState((
                                           duration: result,
-                                          id: state1,
+                                          id: cases,
                                         ));
                                         setState(() {
-                                          state1 = value.toDouble();
+                                          cases = value.toDouble();
                                         });
                                       },
                                       child: const Text('Program'),
@@ -564,7 +564,7 @@ class _ThirdWidgetButtonsState extends State<ThirdWidgetButtons> {
                       ),
                       child: Center(
                         child: Text(
-                          stateText,
+                          casesText,
                           style: TextStyle(
                               color: colorforebutt2,
                               fontWeight: FontWeight.bold),
@@ -614,12 +614,12 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
         return GestureDetector(
           onTap: () {
             setState(() {
-              state1 = 1;
+              cases = 18;
             });
             // Muestra el AlertDialog al hacer clic
             context.read<BleStateProvider>().initService(widget.service);
             Provider.of<BleStateProvider>(context, listen: false)
-                .updateState1(state1);
+                .updatecases(cases);
             widget.onTap();
           },
           onLongPress: () {
@@ -656,10 +656,10 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
                               if (result == null || !mounted) return;
                               service.addState((
                                 duration: result,
-                                id: state1,
+                                id: cases,
                               ));
                               setState(() {
-                                state1 = 1;
+                                cases = 18;
                               });
                             },
                             child: const Text('Program'),
