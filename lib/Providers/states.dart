@@ -15,17 +15,17 @@ class BleStateProvider extends ChangeNotifier {
 
   Stream<List<BLEWriteStates>> get stream => _stream;
 
-  late double cases; 
+  late double states; 
   BluetoothService? _service;
 
-  BleStateProvider([this.cases = 0]);
+  BleStateProvider([this.states = 0]);
 
-  void updatecases(double newValue) {
-    cases = newValue;
+  void updatestates(double newValue) {
+    states = newValue;
     notifyListeners();
   }
 
-  Future<void> updateCharacteristic(double newValue) async {
+  Future<void> updateCharacteristicState(double newValue) async {
     final s = _service;
     if ((s ==null)) return;
     return s.characteristics[8].write([newValue.toInt()], withoutResponse: true);
@@ -35,7 +35,7 @@ class BleStateProvider extends ChangeNotifier {
   set id(String id) {}
   void setValue(Uint8List readValues) {}
 
-  Future <void> initService(BluetoothService service) async {
+   Future <void> initService(BluetoothService service) async {
     _service = service;
     List<BluetoothCharacteristic> listBle = service.characteristics
         .where((c) => allowedUUIDs.containsKey(c.uuid.toString())).toList();
@@ -43,7 +43,7 @@ class BleStateProvider extends ChangeNotifier {
     await Future.forEach(listBle, (element) => element.setNotifyValue(true));
 
     Future<void> writeCharacteristic() async {
-      await service.characteristics[8].write([cases.toInt()], withoutResponse: true);
+      await service.characteristics[8].write([states.toInt()], withoutResponse: true);
     }
     writeCharacteristic();
 
@@ -61,6 +61,8 @@ class BleStateProvider extends ChangeNotifier {
     notifyListeners();
 
   }
+
+
 
   String get debug {
     return '''

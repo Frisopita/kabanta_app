@@ -2,6 +2,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:kabanta_app1/Providers/states.dart';
+import 'package:kabanta_app1/Providers/timer.dart';
 import 'package:kabanta_app1/pages/ECG.dart';
 import 'package:kabanta_app1/pages/Scenery.dart';
 import 'package:kabanta_app1/pages/vital.dart';
@@ -68,6 +69,9 @@ class MyKabantaApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<BleStateProvider>(
           create: (BuildContext context) => BleStateProvider(0),
+        ),
+        ChangeNotifierProvider<BleTimesProvider>(
+          create: (BuildContext context) => BleTimesProvider(0),
         ),
         ChangeNotifierProvider<DeviceProvider>(
           create: (BuildContext context) => DeviceProvider(),

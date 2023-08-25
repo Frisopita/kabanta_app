@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:kabanta_app1/Providers/states.dart';
+import 'package:kabanta_app1/Providers/timer.dart';
 import 'package:kabanta_app1/pages/clock.dart';
 import 'package:kabanta_app1/providers/clock_provider.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +36,7 @@ class FirstWidgetButtons extends StatefulWidget {
 }
 
 class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
+  
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -54,36 +56,35 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
               mainAxisExtent: 35,
             ),
             itemBuilder: (context, index) {
-              final value = index;
-              String casesText = '';
+              final value = index + 1;
+              String statesText = '';
               switch (value) {
-                case 0:
-                  casesText = buttECG0;
-                  break;
                 case 1:
-                  casesText = buttECG1;
+                  statesText = buttECG1;
                   break;
                 case 2:
-                  casesText = buttECG2;
+                  statesText = buttECG2;
+                  break;
+                case 3:
+                  statesText = buttECG3;
                   break;
                 // Agrega m¨¢s casos seg¨²n sea necesario
                 default:
-                  casesText = '';
+                  statesText = '';
                   break;
               }
 
-              return switch (index) {
-                < 3 => GestureDetector(
+              return switch (value) {
+                >= 1 && <= 3 => GestureDetector(
                     onTap: () {
                       setState(() {
-                        cases = value.toDouble();
+                        states = value.toDouble();
                       });
-                      // Muestra el AlertDialog al hacer clic
                       context
                           .read<BleStateProvider>()
                           .initService(widget.service);
                       Provider.of<BleStateProvider>(context, listen: false)
-                          .updatecases(cases);
+                          .updatestates(states);
                       widget.onTap();
                     },
                     onLongPress: () {
@@ -121,10 +122,10 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
                                         if (result == null || !mounted) return;
                                         service.addState((
                                           duration: result,
-                                          id: cases,
+                                          id: states,
                                         ));
                                         setState(() {
-                                          cases = value.toDouble();
+                                          states = value.toDouble();
                                         });
                                       },
                                       child: const Text('Program'),
@@ -177,7 +178,7 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
                       ),
                       child: Center(
                         child: Text(
-                          casesText,
+                          statesText,
                           style: TextStyle(
                               color: colorforebutt1,
                               fontWeight: FontWeight.bold),
@@ -215,6 +216,7 @@ class SecondWidgetButtons extends StatefulWidget {
 }
 
 class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
+  
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -234,45 +236,43 @@ class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
               mainAxisExtent: 35,
             ),
             itemBuilder: (context, index) {
-              final value = index + 3;
-              String casesText = '';
+              final value = index + 4;
+              String statesText = '';
               switch (value) {
-                case 3:
-                  casesText = buttECG3;
-                  break;
                 case 4:
-                  casesText = buttECG4;
+                  statesText = buttECG4;
                   break;
                 case 5:
-                  casesText = buttECG5;
+                  statesText = buttECG5;
                   break;
                 case 6:
-                  casesText = buttECG6;
+                  statesText = buttECG6;
                   break;
                 case 7:
-                  casesText = buttECG7;
+                  statesText = buttECG7;
                   break;
                 case 8:
-                  casesText = buttECG8;
+                  statesText = buttECG8;
                   break;
-                // Agrega m¨¢s casos seg¨²n sea necesario
+                case 9:
+                  statesText = buttECG9;
+                  break;
                 default:
-                  casesText = '';
+                  statesText = '';
                   break;
               }
 
-              return switch (index) {
-                < 6 => GestureDetector(
+              return switch (value) {
+                >= 4 && <= 9 => GestureDetector(
                     onTap: () {
                       setState(() {
-                        cases = value.toDouble();
+                        states = value.toDouble();
                       });
-                      // Muestra el AlertDialog al hacer clic
                       context
                           .read<BleStateProvider>()
                           .initService(widget.service);
                       Provider.of<BleStateProvider>(context, listen: false)
-                          .updatecases(cases);
+                          .updatestates(states);
                       widget.onTap();
                     },
                     onLongPress: () {
@@ -310,10 +310,10 @@ class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
                                         if (result == null || !mounted) return;
                                         service.addState((
                                           duration: result,
-                                          id: cases,
+                                          id: states,
                                         ));
                                         setState(() {
-                                          cases = value.toDouble();
+                                          states = value.toDouble();
                                         });
                                       },
                                       child: const Text('Program'),
@@ -366,7 +366,7 @@ class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
                       ),
                       child: Center(
                         child: Text(
-                          casesText,
+                          statesText,
                           style: TextStyle(
                               color: colorforebutt2,
                               fontWeight: FontWeight.bold),
@@ -423,54 +423,52 @@ class _ThirdWidgetButtonsState extends State<ThirdWidgetButtons> {
               mainAxisExtent: 35,
             ),
             itemBuilder: (context, index) {
-              final value = index + 9;
-              String casesText = '';
+              final value = index + 10;
+              String statesText = '';
               switch (value) {
-                case 9:
-                  casesText = buttECG9;
-                  break;
                 case 10:
-                  casesText = buttECG10;
+                  statesText = buttECG10;
                   break;
                 case 11:
-                  casesText = buttECG11;
+                  statesText = buttECG11;
                   break;
                 case 12:
-                  casesText = buttECG12;
+                  statesText = buttECG12;
                   break;
                 case 13:
-                  casesText = buttECG13;
+                  statesText = buttECG13;
                   break;
                 case 14:
-                  casesText = buttECG14;
+                  statesText = buttECG14;
                   break;
                 case 15:
-                  casesText = buttECG15;
+                  statesText = buttECG15;
                   break;
                 case 16:
-                  casesText = buttECG16;
+                  statesText = buttECG16;
                   break;
                 case 17:
-                  casesText = buttECG17;
+                  statesText = buttECG17;
                   break;
-                // Agrega m¨¢s casos seg¨²n sea necesario
+                case 18:
+                  statesText = buttECG18;
+                  break;
                 default:
-                  casesText = '';
+                  statesText = '';
                   break;
               }
 
-              return switch (index) {
-                < 9 => GestureDetector(
+              return switch (value) {
+                >= 10 && <= 18 => GestureDetector(
                     onTap: () {
                       setState(() {
-                        cases = value.toDouble();
+                        states = value.toDouble();
                       });
-                      // Muestra el AlertDialog al hacer clic
                       context
                           .read<BleStateProvider>()
                           .initService(widget.service);
                       Provider.of<BleStateProvider>(context, listen: false)
-                          .updatecases(cases);
+                          .updatestates(states);
                       widget.onTap();
                     },
                     onLongPress: () {
@@ -508,10 +506,10 @@ class _ThirdWidgetButtonsState extends State<ThirdWidgetButtons> {
                                         if (result == null || !mounted) return;
                                         service.addState((
                                           duration: result,
-                                          id: cases,
+                                          id: states,
                                         ));
                                         setState(() {
-                                          cases = value.toDouble();
+                                          states = value.toDouble();
                                         });
                                       },
                                       child: const Text('Program'),
@@ -564,7 +562,7 @@ class _ThirdWidgetButtonsState extends State<ThirdWidgetButtons> {
                       ),
                       child: Center(
                         child: Text(
-                          casesText,
+                          statesText,
                           style: TextStyle(
                               color: colorforebutt2,
                               fontWeight: FontWeight.bold),
@@ -603,6 +601,7 @@ class HeartAttackButt extends StatefulWidget {
 }
 
 class _HeartAttackButtState extends State<HeartAttackButt> {
+  
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -614,12 +613,9 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
         return GestureDetector(
           onTap: () {
             setState(() {
-              cases = 18;
+              states = 19;
             });
-            // Muestra el AlertDialog al hacer clic
-            context.read<BleStateProvider>().initService(widget.service);
-            Provider.of<BleStateProvider>(context, listen: false)
-                .updatecases(cases);
+            context.read<BleStateProvider>().updateCharacteristicState(states);
             widget.onTap();
           },
           onLongPress: () {
@@ -656,10 +652,10 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
                               if (result == null || !mounted) return;
                               service.addState((
                                 duration: result,
-                                id: cases,
+                                id: states,
                               ));
                               setState(() {
-                                cases = 18;
+                                states = 19;
                               });
                             },
                             child: const Text('Program'),
@@ -709,10 +705,10 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
                 ),
               ],
             ),
-            child: const Center(
+            child: Center(
               child: Text(
-                'Heart Attack',
-                style: TextStyle(
+                buttECG19,
+                style: const TextStyle(
                     color: Colors.indigo, fontWeight: FontWeight.bold),
               ),
             ),
@@ -744,8 +740,6 @@ class UppgradeButt extends StatelessWidget {
               backgroundColor: colorbackbutt2, foregroundColor: colorforebutt2),
           onPressed: () {
             context.read<BleWriteSliderProvider>().initService(service);
-            //context.read<BleProvider>().initService(service);
-            // Navigator.popUntil(context, (route) => route.isFirst);
           },
           child: const Text('Upgrade'),
         );
@@ -756,28 +750,37 @@ class UppgradeButt extends StatelessWidget {
   }
 }
 
-class PlayButt extends StatelessWidget {
+class PlayButt extends StatefulWidget {
   final BluetoothService service;
 
   const PlayButt({Key? key, required this.service}) : super(key: key);
 
   @override
+  State<PlayButt> createState() => _PlayButtState();
+}
+
+class _PlayButtState extends State<PlayButt> {
+  double times = 0;
+  @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
-        service.characteristics.toList();
+        widget.service.characteristics.toList();
     if (characteristics.isNotEmpty) {
-      if (excludedServiceUUIDs.contains(service.uuid.toString())) {
+      if (excludedServiceUUIDs.contains(widget.service.uuid.toString())) {
         return Container(); // Oculta el servicio
       } else {
         return IconButton(
           icon: const Icon(Icons.pause),
           onPressed: () {
-            context.read<BleWriteSliderProvider>().initService(service);
+            setState(() {
+              times = 1;
+            });
+            context.read<BleTimesProvider>().updateTimer(times);
           },
         );
       }
     } else {
-      return Text('0x${service.uuid.toString().toUpperCase().substring(4, 8)}');
+      return Text('0x${widget.service.uuid.toString().toUpperCase().substring(4, 8)}');
     }
   }
 }

@@ -79,25 +79,25 @@ Color colorforebutt4 = Colors.black;
 //end estilos de botones
 
 //Start variables ECG
-String buttECG0 = 'NS';
-String buttECG1 = 'BS';
-String buttECG2 = 'TS';
-String buttECG3 = 'FA';
-String buttECG4 = 'Flutter';
-String buttECG5 = 'TS';
-String buttECG6 = 'TSV';
-String buttECG7 = 'TVD';
-String buttECG8 = 'TVM';
-String buttECG9 = 'BS';
-String buttECG10 = 'BAVI';
-String buttECG11 = 'BAVII';
-String buttECG12 = 'BAVIII';
-String buttECG13 = 'B';
+String buttECG1 = 'NS';
+String buttECG2 = 'BS';
+String buttECG3 = 'TS';
+String buttECG4 = 'FA';
+String buttECG5 = 'Flutter';
+String buttECG6 = 'TS';
+String buttECG7 = 'TSV';
+String buttECG8 = 'TVD';
+String buttECG9 = 'TVM';
+String buttECG10 = 'BS';
+String buttECG11 = 'BAVI';
+String buttECG12 = 'BAVII';
+String buttECG13 = 'BAVIII';
 String buttECG14 = 'B';
 String buttECG15 = 'B';
 String buttECG16 = 'B';
 String buttECG17 = 'B';
-String buttECG18 = 'Heart Attack';
+String buttECG18 = 'B';
+String buttECG19 = 'Heart Attack';
 
 String buttConstName = 'Cliked';
 
@@ -127,7 +127,7 @@ double currentSliderValue5 = 35;
 double currentSliderValue6 = 8;
 double currentSliderValue7 = 6;
 
-double cases = 0;
+double states = 0;
 
 String status1 = '30';
 String status2 = '35';

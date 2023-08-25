@@ -9,8 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:collection/collection.dart';
 import 'dart:async';
 
-
-
 class History extends StatelessWidget {
   const History({super.key});
 
@@ -121,7 +119,9 @@ class _HistoryContentState extends State<HistoryContent> {
           child: SingleChildScrollView(
             child: isProgramActive
                 ? ProgramContainer(expansionTiles: expansionTiles)
-                : HistoryContainer(), // Mostrar el contenido relevante
+                : HistoryContainer(
+                    listTiles: [],
+                  ), // Mostrar el contenido relevante
           ),
         ),
         //3
@@ -134,7 +134,6 @@ class _HistoryContentState extends State<HistoryContent> {
 }
 
 class ProgramContainer extends StatefulWidget {
-  
   const ProgramContainer({
     super.key,
     required this.expansionTiles,
@@ -159,73 +158,72 @@ class _ProgramContainerState extends State<ProgramContainer> {
   }
 
   ExpansionTile _generateExpansionTile(UIState state) {
-    String casesText = '';
-  switch (state.id) {
-    case 0:
-      casesText = buttECG0;
-      break;
-    case 1:
-      casesText = buttECG1;
-      break;
-    case 2:
-      casesText = buttECG2;
-      break;
-    case 3:
-      casesText = buttECG3;
-      break;
-    case 4:
-      casesText = buttECG4;
-      break;
-    case 5:
-      casesText = buttECG5;
-      break;
-    case 6:
-      casesText = buttECG6;
-      break;
-    case 7:
-      casesText = buttECG7;
-      break;
-    case 8:
-      casesText = buttECG8;
-      break;
-    case 9:
-      casesText = buttECG9;
-      break;
-    case 10:
-      casesText = buttECG10;
-      break;
-    case 11:
-      casesText = buttECG11;
-      break;
-    case 12:
-      casesText = buttECG12;
-      break;
-    case 13:
-      casesText = buttECG13;
-      break;
-    case 14:
-      casesText = buttECG14;
-      break;
-    case 15:
-      casesText = buttECG15;
-      break;
-    case 16:
-      casesText = buttECG16;
-      break;
-    case 17:
-      casesText = buttECG17;
-      break;
-    case 18:
-      casesText = buttECG18;
-      break;
-    
-    
-    default:
-      casesText = '';
-      break;
-  }    
-    if (state.duration.inSeconds == 1 && !execute ) {
-      context.read<BleStateProvider>().updateCharacteristic(cases);
+    String statesText = '';
+    switch (state.id) {
+      case 1:
+        statesText = buttECG1;
+        break;
+      case 2:
+        statesText = buttECG2;
+        break;
+      case 3:
+        statesText = buttECG3;
+        break;
+      case 4:
+        statesText = buttECG4;
+        break;
+      case 5:
+        statesText = buttECG5;
+        break;
+      case 6:
+        statesText = buttECG6;
+        break;
+      case 7:
+        statesText = buttECG7;
+        break;
+      case 8:
+        statesText = buttECG8;
+        break;
+      case 9:
+        statesText = buttECG9;
+        break;
+      case 10:
+        statesText = buttECG10;
+        break;
+      case 11:
+        statesText = buttECG11;
+        break;
+      case 12:
+        statesText = buttECG12;
+        break;
+      case 13:
+        statesText = buttECG13;
+        break;
+      case 14:
+        statesText = buttECG14;
+        break;
+      case 15:
+        statesText = buttECG15;
+        break;
+      case 16:
+        statesText = buttECG16;
+        break;
+      case 17:
+        statesText = buttECG17;
+        break;
+      case 18:
+        statesText = buttECG18;
+        break;
+      case 19:
+        statesText = buttECG19;
+        break;
+      default:
+        statesText = '';
+        break;
+    }
+    if (state.duration.inSeconds == 1 && !execute) {
+      context.read<BleStateProvider>().updateCharacteristicState(states);
+      context.read<ClockService>().addStateTime((id: state.id, duration: state.duration));
       execute = true;
     }
     return ExpansionTile(
@@ -238,7 +236,7 @@ class _ProgramContainerState extends State<ProgramContainer> {
               padding: const EdgeInsets.fromLTRB(40, 0, 10, 0),
               child: Row(
                 children: [
-                  Text('${casesText}'),
+                  Text('${statesText}'),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(60, 0, 0, 0),
                     child: Text(
@@ -281,229 +279,116 @@ class _ProgramContainerState extends State<ProgramContainer> {
   }
 }
 
-class HistoryContainer extends StatelessWidget {
-  const HistoryContainer({super.key});
+class HistoryContainer extends StatefulWidget {
+  const HistoryContainer({super.key, required this.listTiles});
+
+  final List<ListTile> listTiles;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      //color: Colors.pink.shade200,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+  State<HistoryContainer> createState() => _HistoryContainerState();
+}
+
+class _HistoryContainerState extends State<HistoryContainer> {
+  ListTile _generateListTile(UIState2 state) {
+    String statesText = '';
+    switch (state.id) {
+      case 1:
+        statesText = buttECG1;
+        break;
+      case 2:
+        statesText = buttECG2;
+        break;
+      case 3:
+        statesText = buttECG3;
+        break;
+      case 4:
+        statesText = buttECG4;
+        break;
+      case 5:
+        statesText = buttECG5;
+        break;
+      case 6:
+        statesText = buttECG6;
+        break;
+      case 7:
+        statesText = buttECG7;
+        break;
+      case 8:
+        statesText = buttECG8;
+        break;
+      case 9:
+        statesText = buttECG9;
+        break;
+      case 10:
+        statesText = buttECG10;
+        break;
+      case 11:
+        statesText = buttECG11;
+        break;
+      case 12:
+        statesText = buttECG12;
+        break;
+      case 13:
+        statesText = buttECG13;
+        break;
+      case 14:
+        statesText = buttECG14;
+        break;
+      case 15:
+        statesText = buttECG15;
+        break;
+      case 16:
+        statesText = buttECG16;
+        break;
+      case 17:
+        statesText = buttECG17;
+        break;
+      case 18:
+        statesText = buttECG18;
+        break;
+      case 19:
+        statesText = buttECG19;
+        break;
+      default:
+        statesText = '';
+        break;
+    }
+
+    return ListTile(
+      title: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          //1
-          const Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: EdgeInsets.all(20),
-                child: Text(
-                  '0',
-                  style: labelStyle,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(20),
-                child: Text(
-                  '1',
-                  style: labelStyle,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(20),
-                child: Text(
-                  '2',
-                  style: labelStyle,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(20),
-                child: Text(
-                  '3',
-                  style: labelStyle,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(20),
-                child: Text(
-                  '4',
-                  style: labelStyle,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(20),
-                child: Text(
-                  '5',
-                  style: labelStyle,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(20),
-                child: Text(
-                  '6',
-                  style: labelStyle,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(20),
-                child: Text(
-                  '7',
-                  style: labelStyle,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(20),
-                child: Text(
-                  '8',
-                  style: labelStyle,
-                ),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+            child: Text('${state.index}'),
           ),
-          //2
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  textName1,
-                  style: labelStyle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  textName2,
-                  style: labelStyle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  textName3,
-                  style: labelStyle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  textName4,
-                  style: labelStyle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  textName5,
-                  style: labelStyle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  textName6,
-                  style: labelStyle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  textName7,
-                  style: labelStyle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  textName8,
-                  style: labelStyle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  textName9,
-                  style: labelStyle,
-                ),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: Text('$statesText'),
           ),
-          //3
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  time1,
-                  style: labelStyle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  time2,
-                  style: labelStyle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  time3,
-                  style: labelStyle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  time4,
-                  style: labelStyle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  time5,
-                  style: labelStyle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  time6,
-                  style: labelStyle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  time7,
-                  style: labelStyle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  time8,
-                  style: labelStyle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  time9,
-                  style: labelStyle,
-                ),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+            child: Text(
+                '${state.duration.inMinutes.toString().padLeft(2, '0')}:${(state.duration.inSeconds % 60).toString().padLeft(2, '0')}'),
           ),
         ],
       ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Selector<ClockService, List<UIState2>>(
+      selector: (_, clockService) => clockService.uiStates2,
+      builder: (context, list, child) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children:
+              list.map((uiStates2) => _generateListTile(uiStates2)).toList(),
+        );
+      },
     );
   }
 }
