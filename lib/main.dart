@@ -1,7 +1,9 @@
 //Test de kabanta UX
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:kabanta_app1/Providers/clocktime.dart';
 import 'package:kabanta_app1/Providers/states.dart';
+import 'package:kabanta_app1/Providers/timer.dart';
 import 'package:kabanta_app1/pages/ECG.dart';
 import 'package:kabanta_app1/pages/Scenery.dart';
 import 'package:kabanta_app1/pages/vital.dart';
@@ -67,12 +69,18 @@ class MyKabantaApp extends StatelessWidget {
           initialData: flutter_blue.BluetoothState.unknown,
         ),
         ChangeNotifierProvider<BleStateProvider>(
+          lazy: null,
           create: (BuildContext context) => BleStateProvider(0),
+        ),
+        ChangeNotifierProvider<BleTimesProvider>(
+          create: (BuildContext context) => BleTimesProvider(0),
         ),
         ChangeNotifierProvider<DeviceProvider>(
           create: (BuildContext context) => DeviceProvider(),
         ),
-        
+        ChangeNotifierProvider<ClockTime>(
+          create: (BuildContext context) => ClockTime(),
+        ),
         ChangeNotifierProvider<QrTextProvider>(
           create: (BuildContext context) => QrTextProvider(),
         ),

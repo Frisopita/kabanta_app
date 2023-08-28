@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 
 class ClockService extends ChangeNotifier {
   final List<_StateTimerBLE> _states = [];
+  final List<_StateHistoryBLE2> _stateshistory = [];
   Timer? _countdownTimer;
   Duration _duration = Duration.zero;
   double? _id;
   double? get id => _id; 
-
   Duration get duration => _duration;
   bool get isActive => _duration != Duration.zero;
 
@@ -16,10 +16,19 @@ class ClockService extends ChangeNotifier {
     .mapIndexed((index, s) => UIState(duration: s.initialDuration, id: s.id, index: index))
     .toList();
 
+  List<UIState2> get uiStates2 => _stateshistory
+    .mapIndexed((index2, s2) => UIState2(duration: s2.initialDuration, id: s2.id, index: index2))
+    .toList();
+
   void addState(({double id, Duration duration}) state) {
     final _state = _StateTimerBLE(state.id, state.duration, this);
-    _states.add(_state);
+    _states.add(_state );
     _state.start();
+  }
+
+  void addStateTime(({double id, Duration duration}) state) {
+    final _statehistory = _StateHistoryBLE2(state.id, state.duration, this);
+    _stateshistory.add(_statehistory);
   }
 
   void startTimer(Duration duration) {
@@ -54,6 +63,7 @@ class ClockService extends ChangeNotifier {
     _countdownTimer?.cancel();
     super.dispose();
   }
+
 }
 
 class UIState {
@@ -67,6 +77,19 @@ class UIState {
     required this.index,
   });
 }
+
+class UIState2 {
+  final double id;
+  final Duration duration;
+  final int index;
+
+  UIState2({
+    required this.duration,
+    required this.id,
+    required this.index,
+  });
+}
+
 
 class _StateTimerBLE {
   final double id;
@@ -94,4 +117,17 @@ class _StateTimerBLE {
   void dispose() {
     timer?.cancel();
   }
+}
+
+class _StateHistoryBLE2 {
+  final double id;
+  final ClockService service;
+  Timer? timer;
+  Duration initialDuration;
+
+  _StateHistoryBLE2(
+    this.id,
+    this.initialDuration,
+    this.service,
+  );
 }

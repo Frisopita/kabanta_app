@@ -15,27 +15,30 @@ class BleStateProvider extends ChangeNotifier {
 
   Stream<List<BLEWriteStates>> get stream => _stream;
 
-  late double state1; 
+  late double states; 
   BluetoothService? _service;
 
-  BleStateProvider([this.state1 = 0]);
+  BleStateProvider([this.states = 0]);
 
-  void updateState1(double newValue) {
-    state1 = newValue;
+  void updatestates(double newValue) {
+    states = newValue;
     notifyListeners();
   }
 
-  Future<void> updateCharacteristic(double newValue) async {
+  Future<void> updateCharacteristicState(double newValue) async {
     final s = _service;
     if ((s ==null)) return;
-    return s.characteristics[8].write([newValue.toInt()], withoutResponse: true);
+    Future<void> writeCharacteristic() async {
+      await s.characteristics[8].write([newValue.toInt()], withoutResponse: true);
+    }
+    writeCharacteristic();
   }
 
   /// No importan, pero da error en el widget que dejamos de usar y no lo borre
   set id(String id) {}
   void setValue(Uint8List readValues) {}
 
-  Future <void> initService(BluetoothService service) async {
+   Future <void> initService(BluetoothService service) async {
     _service = service;
     List<BluetoothCharacteristic> listBle = service.characteristics
         .where((c) => allowedUUIDs.containsKey(c.uuid.toString())).toList();
@@ -43,7 +46,7 @@ class BleStateProvider extends ChangeNotifier {
     await Future.forEach(listBle, (element) => element.setNotifyValue(true));
 
     Future<void> writeCharacteristic() async {
-      await service.characteristics[8].write([state1.toInt()], withoutResponse: true);
+      await service.characteristics[8].write([states.toInt()], withoutResponse: true);
     }
     writeCharacteristic();
 
@@ -61,6 +64,8 @@ class BleStateProvider extends ChangeNotifier {
     notifyListeners();
 
   }
+
+
 
   String get debug {
     return '''
