@@ -28,7 +28,10 @@ class BleStateProvider extends ChangeNotifier {
   Future<void> updateCharacteristicState(double newValue) async {
     final s = _service;
     if ((s ==null)) return;
-    return s.characteristics[8].write([newValue.toInt()], withoutResponse: true);
+    Future<void> writeCharacteristic() async {
+      await s.characteristics[8].write([newValue.toInt()], withoutResponse: true);
+    }
+    writeCharacteristic();
   }
 
   /// No importan, pero da error en el widget que dejamos de usar y no lo borre

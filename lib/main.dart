@@ -68,6 +68,7 @@ class MyKabantaApp extends StatelessWidget {
           initialData: flutter_blue.BluetoothState.unknown,
         ),
         ChangeNotifierProvider<BleStateProvider>(
+          lazy: null,
           create: (BuildContext context) => BleStateProvider(0),
         ),
         ChangeNotifierProvider<BleTimesProvider>(

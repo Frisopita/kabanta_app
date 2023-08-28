@@ -146,9 +146,7 @@ class ProgramContainer extends StatefulWidget {
 }
 
 class _ProgramContainerState extends State<ProgramContainer> {
-  int index = 0;
   bool execute = false;
-
   void removeExpansionTile(int index) {
     setState(() {
       if (index >= 0 && index < widget.expansionTiles.length) {
@@ -222,7 +220,7 @@ class _ProgramContainerState extends State<ProgramContainer> {
         break;
     }
     if (state.duration.inSeconds == 1 && !execute) {
-      context.read<BleStateProvider>().updateCharacteristicState(states);
+      context.read<BleStateProvider>().updateCharacteristicState(state.id);
       context.read<ClockService>().addStateTime((id: state.id, duration: state.duration));
       execute = true;
     }

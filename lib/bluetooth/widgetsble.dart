@@ -36,6 +36,8 @@ class FirstWidgetButtons extends StatefulWidget {
 }
 
 class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
+
+  double states = 0;
   
   @override
   Widget build(BuildContext context) {
@@ -111,6 +113,9 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
                                           backgroundColor: colorbackbutt2,
                                           foregroundColor: colorforebutt2),
                                       onPressed: () async {
+                                        setState(() {
+                                          states = value.toDouble();
+                                        });
                                         final Duration? result =
                                             await Navigator.push<Duration?>(
                                           context,
@@ -124,9 +129,6 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
                                           duration: result,
                                           id: states,
                                         ));
-                                        setState(() {
-                                          states = value.toDouble();
-                                        });
                                       },
                                       child: const Text('Program'),
                                     ),
@@ -216,6 +218,8 @@ class SecondWidgetButtons extends StatefulWidget {
 }
 
 class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
+
+  double states = 0;
   
   @override
   Widget build(BuildContext context) {
@@ -299,6 +303,9 @@ class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
                                           backgroundColor: colorbackbutt2,
                                           foregroundColor: colorforebutt2),
                                       onPressed: () async {
+                                        setState(() {
+                                          states = value.toDouble();
+                                        });
                                         final Duration? result =
                                             await Navigator.push<Duration?>(
                                           context,
@@ -312,9 +319,6 @@ class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
                                           duration: result,
                                           id: states,
                                         ));
-                                        setState(() {
-                                          states = value.toDouble();
-                                        });
                                       },
                                       child: const Text('Program'),
                                     ),
@@ -404,6 +408,7 @@ class ThirdWidgetButtons extends StatefulWidget {
 }
 
 class _ThirdWidgetButtonsState extends State<ThirdWidgetButtons> {
+  double states = 0;
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -495,6 +500,9 @@ class _ThirdWidgetButtonsState extends State<ThirdWidgetButtons> {
                                           backgroundColor: colorbackbutt2,
                                           foregroundColor: colorforebutt2),
                                       onPressed: () async {
+                                        setState(() {
+                                          states = value.toDouble();
+                                        });
                                         final Duration? result =
                                             await Navigator.push<Duration?>(
                                           context,
@@ -508,9 +516,6 @@ class _ThirdWidgetButtonsState extends State<ThirdWidgetButtons> {
                                           duration: result,
                                           id: states,
                                         ));
-                                        setState(() {
-                                          states = value.toDouble();
-                                        });
                                       },
                                       child: const Text('Program'),
                                     ),
@@ -601,7 +606,7 @@ class HeartAttackButt extends StatefulWidget {
 }
 
 class _HeartAttackButtState extends State<HeartAttackButt> {
-  
+  double states = 0;  
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -642,6 +647,9 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
                                 backgroundColor: colorbackbutt2,
                                 foregroundColor: colorforebutt2),
                             onPressed: () async {
+                              setState(() {
+                                states = 19;
+                              });
                               final Duration? result =
                                   await Navigator.push<Duration?>(
                                 context,
@@ -654,9 +662,6 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
                                 duration: result,
                                 id: states,
                               ));
-                              setState(() {
-                                states = 19;
-                              });
                             },
                             child: const Text('Program'),
                           ),
