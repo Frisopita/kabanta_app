@@ -21,14 +21,14 @@ class ClockService extends ChangeNotifier {
     .toList();
 
   void addState(({double id, Duration duration}) state) {
-    final _state = _StateTimerBLE(state.id, state.duration, this);
-    _states.add(_state );
-    _state.start();
+    final state0 = _StateTimerBLE(state.id, state.duration, this);
+    _states.add(state0 );
+    state0.start();
   }
 
   void addStateTime(({double id, Duration duration}) state) {
-    final _statehistory = _StateHistoryBLE2(state.id, state.duration, this);
-    _stateshistory.add(_statehistory);
+    final statehistory = _StateHistoryBLE2(state.id, state.duration, this);
+    _stateshistory.add(statehistory);
   }
 
   void startTimer(Duration duration) {

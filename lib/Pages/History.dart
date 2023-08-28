@@ -1,14 +1,10 @@
 // ignore: file_names
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:kabanta_app1/Providers/clocktime.dart';
 import 'package:kabanta_app1/Providers/states.dart';
 import 'package:kabanta_app1/providers/clock_provider.dart';
 import 'package:kabanta_app1/variables.dart';
 import 'package:provider/provider.dart';
-import 'package:collection/collection.dart';
-import 'dart:async';
 
 class History extends StatelessWidget {
   const History({super.key});
@@ -120,7 +116,7 @@ class _HistoryContentState extends State<HistoryContent> {
           child: SingleChildScrollView(
             child: isProgramActive
                 ? ProgramContainer(expansionTiles: expansionTiles)
-                : HistoryContainer(
+                : const HistoryContainer(
                     listTiles: [],
                   ), // Mostrar el contenido relevante
           ),
@@ -242,7 +238,7 @@ class _ProgramContainerState extends State<ProgramContainer> {
                 padding: const EdgeInsets.fromLTRB(40, 0, 10, 0),
                 child: Row(
                   children: [
-                    Text('${statesText}'),
+                    Text(statesText),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(60, 0, 0, 0),
                       child: Text(
@@ -367,7 +363,7 @@ class _HistoryContainerState extends State<HistoryContainer> {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: Text('$statesText'),
+            child: Text(statesText),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
