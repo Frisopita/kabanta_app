@@ -9,7 +9,6 @@ class ClockService extends ChangeNotifier {
   Duration _duration = Duration.zero;
   double? _id;
   double? get id => _id; 
-
   Duration get duration => _duration;
   bool get isActive => _duration != Duration.zero;
 
@@ -17,7 +16,7 @@ class ClockService extends ChangeNotifier {
     .mapIndexed((index, s) => UIState(duration: s.initialDuration, id: s.id, index: index))
     .toList();
 
-   List<UIState2> get uiStates2 => _stateshistory
+  List<UIState2> get uiStates2 => _stateshistory
     .mapIndexed((index2, s2) => UIState2(duration: s2.initialDuration, id: s2.id, index: index2))
     .toList();
 
@@ -64,6 +63,7 @@ class ClockService extends ChangeNotifier {
     _countdownTimer?.cancel();
     super.dispose();
   }
+
 }
 
 class UIState {

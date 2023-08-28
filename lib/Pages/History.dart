@@ -148,7 +148,7 @@ class ProgramContainer extends StatefulWidget {
 
 class _ProgramContainerState extends State<ProgramContainer> {
   bool execute = false;
-  
+
   void removeExpansionTile(int index) {
     setState(() {
       if (index >= 0 && index < widget.expansionTiles.length) {
@@ -157,123 +157,120 @@ class _ProgramContainerState extends State<ProgramContainer> {
     });
   }
 
-  
   @override
   Widget build(BuildContext context) {
-  final resultClockTime = Provider.of<ClockTime>(context);
+    final resultClockTime = Provider.of<ClockTime>(context);
 
-  ExpansionTile _generateExpansionTile(UIState state) {
-    String statesText = '';
-    switch (state.id) {
-      case 1:
-        statesText = buttECG1;
-        break;
-      case 2:
-        statesText = buttECG2;
-        break;
-      case 3:
-        statesText = buttECG3;
-        break;
-      case 4:
-        statesText = buttECG4;
-        break;
-      case 5:
-        statesText = buttECG5;
-        break;
-      case 6:
-        statesText = buttECG6;
-        break;
-      case 7:
-        statesText = buttECG7;
-        break;
-      case 8:
-        statesText = buttECG8;
-        break;
-      case 9:
-        statesText = buttECG9;
-        break;
-      case 10:
-        statesText = buttECG10;
-        break;
-      case 11:
-        statesText = buttECG11;
-        break;
-      case 12:
-        statesText = buttECG12;
-        break;
-      case 13:
-        statesText = buttECG13;
-        break;
-      case 14:
-        statesText = buttECG14;
-        break;
-      case 15:
-        statesText = buttECG15;
-        break;
-      case 16:
-        statesText = buttECG16;
-        break;
-      case 17:
-        statesText = buttECG17;
-        break;
-      case 18:
-        statesText = buttECG18;
-        break;
-      case 19:
-        statesText = buttECG19;
-        break;
-      default:
-        statesText = '';
-        break;
-    }
+    ExpansionTile _generateExpansionTile(UIState state) {
+      String statesText = '';
+      switch (state.id) {
+        case 1:
+          statesText = buttECG1;
+          break;
+        case 2:
+          statesText = buttECG2;
+          break;
+        case 3:
+          statesText = buttECG3;
+          break;
+        case 4:
+          statesText = buttECG4;
+          break;
+        case 5:
+          statesText = buttECG5;
+          break;
+        case 6:
+          statesText = buttECG6;
+          break;
+        case 7:
+          statesText = buttECG7;
+          break;
+        case 8:
+          statesText = buttECG8;
+          break;
+        case 9:
+          statesText = buttECG9;
+          break;
+        case 10:
+          statesText = buttECG10;
+          break;
+        case 11:
+          statesText = buttECG11;
+          break;
+        case 12:
+          statesText = buttECG12;
+          break;
+        case 13:
+          statesText = buttECG13;
+          break;
+        case 14:
+          statesText = buttECG14;
+          break;
+        case 15:
+          statesText = buttECG15;
+          break;
+        case 16:
+          statesText = buttECG16;
+          break;
+        case 17:
+          statesText = buttECG17;
+          break;
+        case 18:
+          statesText = buttECG18;
+          break;
+        case 19:
+          statesText = buttECG19;
+          break;
+        default:
+          statesText = '';
+          break;
+      }
 
-    
-    if (state.duration.inSeconds == 1 && !execute) {
-      context.read<BleStateProvider>().updateCharacteristicState(state.id);
-      context.read<ClockService>().addStateTime((id: state.id, duration: resultClockTime.firstDuration!));
-      execute = true;
-    }
-    return ExpansionTile(
-      title: Padding(
-        padding: const EdgeInsets.fromLTRB(15, 0, 20, 0),
-        child: Row(
-          children: [
-            Text('${state.index}'),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(40, 0, 10, 0),
-              child: Row(
-                children: [
-                  Text('${statesText}'),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(60, 0, 0, 0),
-                    child: Text(
-                        '${(state.duration.inMinutes).toString().padLeft(2, '0')}:${(state.duration.inSeconds % 60).toString().padLeft(2, '0')}'),
-                  ),
-                ],
+      if (state.duration.inSeconds == 1 && !execute) {
+        context.read<BleStateProvider>().updateCharacteristicState(state.id);
+        context.read<ClockService>().addStateTime(
+            (id: state.id, duration: resultClockTime.firstDuration!));
+        execute = true;
+      }
+      return ExpansionTile(
+        title: Padding(
+          padding: const EdgeInsets.fromLTRB(15, 0, 20, 0),
+          child: Row(
+            children: [
+              Text('${state.index}'),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(40, 0, 10, 0),
+                child: Row(
+                  children: [
+                    Text('${statesText}'),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(60, 0, 0, 0),
+                      child: Text(
+                          '${(state.duration.inMinutes).toString().padLeft(2, '0')}:${(state.duration.inSeconds % 60).toString().padLeft(2, '0')}'),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-      trailing: IconButton(
-        icon: const Icon(Icons.delete),
-        onPressed: () {
-          context.read<ClockService>().deleteState(state.index);
-        },
-      ),
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text('Content of Action ${state.index}'),
+        trailing: IconButton(
+          icon: const Icon(Icons.delete),
+          onPressed: () {
+            context.read<ClockService>().deleteState(state.index);
+          },
         ),
-      ],
-    );
-  }
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text('Content of Action ${state.index}'),
+          ),
+        ],
+      );
+    }
 
     return Selector<ClockService, List<UIState>>(
       selector: (_, clockService) => clockService.uiStates,
-      //shouldRebuild: (previous, next) => const DeepCollectionEquality()
-      //.equals(previous, next),
       builder: (context, list, child) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -362,7 +359,7 @@ class _HistoryContainerState extends State<HistoryContainer> {
     return ListTile(
       title: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
