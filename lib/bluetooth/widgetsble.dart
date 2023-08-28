@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:kabanta_app1/Providers/clocktime.dart';
 import 'package:kabanta_app1/Providers/states.dart';
 import 'package:kabanta_app1/Providers/timer.dart';
 import 'package:kabanta_app1/pages/clock.dart';
@@ -38,6 +39,7 @@ class FirstWidgetButtons extends StatefulWidget {
 class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
 
   double states = 0;
+ // Duration? firstDuration = Duration.zero; // Nueva variable
   
   @override
   Widget build(BuildContext context) {
@@ -113,9 +115,6 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
                                           backgroundColor: colorbackbutt2,
                                           foregroundColor: colorforebutt2),
                                       onPressed: () async {
-                                        setState(() {
-                                          states = value.toDouble();
-                                        });
                                         final Duration? result =
                                             await Navigator.push<Duration?>(
                                           context,
@@ -124,7 +123,11 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
                                                 const ClockConfigScreen(),
                                           ),
                                         );
+                                        setState(() {
+                                          states = value.toDouble();
+                                        });
                                         if (result == null || !mounted) return;
+                                        context.read<ClockTime>().setClockTimer(result);
                                         service.addState((
                                           duration: result,
                                           id: states,
@@ -315,6 +318,7 @@ class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
                                           ),
                                         );
                                         if (result == null || !mounted) return;
+                                        context.read<ClockTime>().setClockTimer(result);
                                         service.addState((
                                           duration: result,
                                           id: states,
@@ -512,6 +516,7 @@ class _ThirdWidgetButtonsState extends State<ThirdWidgetButtons> {
                                           ),
                                         );
                                         if (result == null || !mounted) return;
+                                        context.read<ClockTime>().setClockTimer(result);
                                         service.addState((
                                           duration: result,
                                           id: states,
@@ -658,6 +663,7 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
                                 ),
                               );
                               if (result == null || !mounted) return;
+                              context.read<ClockTime>().setClockTimer(result);
                               service.addState((
                                 duration: result,
                                 id: states,

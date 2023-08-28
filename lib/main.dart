@@ -1,6 +1,7 @@
 //Test de kabanta UX
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:kabanta_app1/Providers/clocktime.dart';
 import 'package:kabanta_app1/Providers/states.dart';
 import 'package:kabanta_app1/Providers/timer.dart';
 import 'package:kabanta_app1/pages/ECG.dart';
@@ -77,7 +78,9 @@ class MyKabantaApp extends StatelessWidget {
         ChangeNotifierProvider<DeviceProvider>(
           create: (BuildContext context) => DeviceProvider(),
         ),
-        
+        ChangeNotifierProvider<ClockTime>(
+          create: (BuildContext context) => ClockTime(),
+        ),
         ChangeNotifierProvider<QrTextProvider>(
           create: (BuildContext context) => QrTextProvider(),
         ),

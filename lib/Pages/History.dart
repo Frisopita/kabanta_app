@@ -2,6 +2,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:kabanta_app1/Providers/clocktime.dart';
 import 'package:kabanta_app1/Providers/states.dart';
 import 'package:kabanta_app1/providers/clock_provider.dart';
 import 'package:kabanta_app1/variables.dart';
@@ -147,6 +148,7 @@ class ProgramContainer extends StatefulWidget {
 
 class _ProgramContainerState extends State<ProgramContainer> {
   bool execute = false;
+  
   void removeExpansionTile(int index) {
     setState(() {
       if (index >= 0 && index < widget.expansionTiles.length) {
@@ -154,6 +156,11 @@ class _ProgramContainerState extends State<ProgramContainer> {
       }
     });
   }
+
+  
+  @override
+  Widget build(BuildContext context) {
+  final resultClockTime = Provider.of<ClockTime>(context);
 
   ExpansionTile _generateExpansionTile(UIState state) {
     String statesText = '';
@@ -219,9 +226,11 @@ class _ProgramContainerState extends State<ProgramContainer> {
         statesText = '';
         break;
     }
+
+    
     if (state.duration.inSeconds == 1 && !execute) {
       context.read<BleStateProvider>().updateCharacteristicState(state.id);
-      context.read<ClockService>().addStateTime((id: state.id, duration: state.duration));
+      context.read<ClockService>().addStateTime((id: state.id, duration: resultClockTime.firstDuration!));
       execute = true;
     }
     return ExpansionTile(
@@ -261,8 +270,6 @@ class _ProgramContainerState extends State<ProgramContainer> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
     return Selector<ClockService, List<UIState>>(
       selector: (_, clockService) => clockService.uiStates,
       //shouldRebuild: (previous, next) => const DeepCollectionEquality()
