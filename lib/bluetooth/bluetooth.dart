@@ -145,10 +145,10 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
     if (isLoading || errorType != null) return;
     isLoading = true;
     await device.connect();
-    await device.discoverServices();
+    final list = await device.discoverServices();
 
     if (!mounted) return;
-    context.read<DeviceProvider>().setDevice(device);
+    context.read<DeviceProvider>().setDevice(device, list);
 
     Navigator.pushReplacement(
       context,
