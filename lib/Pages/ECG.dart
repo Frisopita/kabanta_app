@@ -84,7 +84,7 @@ class _ECGState extends State<ECG> {
                     padding: const EdgeInsets.all(10),
                     child: StreamBuilder<List<BluetoothService>>(
                       //recibe la lista de servicios (services) del dispositivo
-                      stream: widget.device.services,
+                      stream: widget.device.servicesStream,
                       initialData: const [],
                       builder: (c, snapshot) {
                         return Column(
@@ -120,7 +120,7 @@ class _ECGState extends State<ECG> {
                     padding: const EdgeInsets.all(10),
                     child: StreamBuilder<List<BluetoothService>>(
                       //recibe la lista de servicios (services) del dispositivo
-                      stream: widget.device.services,
+                      stream: widget.device.servicesStream,
                       initialData: const [],
                       builder: (c, snapshot) {
                         return Column(
@@ -156,7 +156,7 @@ class _ECGState extends State<ECG> {
                     padding: const EdgeInsets.all(10),
                     child: StreamBuilder<List<BluetoothService>>(
                       //recibe la lista de servicios (services) del dispositivo
-                      stream: widget.device.services,
+                      stream: widget.device.servicesStream,
                       initialData: const [],
                       builder: (c, snapshot) {
                         return Column(
@@ -201,7 +201,7 @@ class _ECGState extends State<ECG> {
                                   spaceleft, spacetop, spaceright, spacebott),
                               child: StreamBuilder<List<BluetoothService>>(
                                 //recibe la lista de servicios (services) del dispositivo
-                                stream: widget.device.services,
+                                stream: widget.device.servicesStream,
                                 initialData: const [],
                                 builder: (c, snapshot) {
                                   return Column(

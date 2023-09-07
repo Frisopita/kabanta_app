@@ -54,7 +54,7 @@ class BluetoothScreenOffOn extends StatelessWidget {
                   ),
                   child: const Text('Activar Bluetooth'),
                   onPressed: () {
-                    FlutterBluePlus.instance.turnOn();
+                    FlutterBluePlus.turnOn();
                   },
                 ),
               ],
@@ -85,15 +85,15 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
   //Este initstate permite la busqueda de dispositivos Bluetooth una vez construido el widget
   void initState() {
     super.initState();
-    stream = FlutterBluePlus.instance.scanResults
+    stream = FlutterBluePlus.scanResults
         .map(
           (event) => widget.qrText.isEmpty
               ? null
               : event
-                  .firstWhereOrNull((scan) => scan.device.name == widget.qrText)
+                  .firstWhereOrNull((scan) => scan.device.localName == widget.qrText)
                   ?.device,
         )
-        .distinct((prev, curr) => prev?.name == curr?.name)
+        .distinct((prev, curr) => prev?.localName == curr?.localName)
         .listen((device) {
       lastScan = device;
       if (device != null) {
@@ -123,8 +123,7 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
 
   //actualiza cada 10s la busqueda
   Future<void> startScan() async {
-    await FlutterBluePlus.instance
-        .startScan(timeout: const Duration(seconds: 10));
+    await FlutterBluePlus.startScan(timeout: const Duration(seconds: 10));
     if (mounted && !isLoading && errorType == null) {
       setState(() => errorType = _ErrorType.notFound);
     }
@@ -161,7 +160,7 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
 
   @override
   void dispose() {
-    FlutterBluePlus.instance.stopScan().ignore();
+    FlutterBluePlus.stopScan().ignore();
     stream.cancel();
     super.dispose();
   }

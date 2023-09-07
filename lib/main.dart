@@ -64,9 +64,9 @@ class MyKabantaApp extends StatelessWidget {
         /// Lo ideal seria usar un wrapper y meter el stream dentro de un objeto o servicio que nosotros
         /// escribieramos
         
-        StreamProvider<flutter_blue.BluetoothState>.value(
-          value: flutter_blue.FlutterBluePlus.instance.state,
-          initialData: flutter_blue.BluetoothState.unknown,
+        StreamProvider<flutter_blue.BluetoothAdapterState>.value(
+          value: flutter_blue.FlutterBluePlus.adapterState,
+          initialData: flutter_blue.BluetoothAdapterState.unknown,
         ),
         ChangeNotifierProvider<BleStateProvider>(
           lazy: null,
@@ -106,9 +106,9 @@ class MyKabantaApp extends StatelessWidget {
 
         home: Builder(
           builder: (context) {
-            final blState = context.watch<flutter_blue.BluetoothState>();
+            final blState = context.watch<flutter_blue.BluetoothAdapterState>();
             //final blDvState =Provider.of<flutter_blue.BluetoothDeviceState>(context);
-              if (blState == flutter_blue.BluetoothState.on) {
+              if (blState == flutter_blue.BluetoothAdapterState.on) {
                 // Navigate to the screen for connected device
                 return const QrboardPage();
               } else {
@@ -188,11 +188,11 @@ class _DataPageState extends State<DataPage> {
           backgroundColor: Colors.white,
           automaticallyImplyLeading: false,
           actions: [
-            StreamBuilder<flutter_blue.BluetoothDeviceState>(
-              stream: device.state,
+            StreamBuilder<flutter_blue.BluetoothConnectionState>(
+              stream: device.connectionState,
               builder: (context, snapshot) {
                 if (snapshot.data ==
-                    flutter_blue.BluetoothDeviceState.connected) {
+                    flutter_blue.BluetoothConnectionState.connected) {
                   return Center(
                     child: Padding(
                       padding: const EdgeInsets.all(20),
