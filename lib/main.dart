@@ -1,25 +1,26 @@
 //Test de kabanta UX
 import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:kabanta_app1/providers/clocktime.dart';
-import 'package:kabanta_app1/providers/states.dart';
-import 'package:kabanta_app1/providers/timer.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart' as flutter_blue;
+import 'package:kabanta_app1/bluetooth/bluetooth.dart';
+import 'package:kabanta_app1/bluetooth/qrble.dart';
 import 'package:kabanta_app1/pages/ECG.dart';
+import 'package:kabanta_app1/pages/History.dart';
 import 'package:kabanta_app1/pages/Scenery.dart';
 import 'package:kabanta_app1/pages/vital.dart';
 import 'package:kabanta_app1/providers/ble_provider.dart';
-import 'package:kabanta_app1/bluetooth/qrble.dart';
-import 'package:kabanta_app1/bluetooth/bluetooth.dart';
 import 'package:kabanta_app1/providers/clock_provider.dart';
 import 'package:kabanta_app1/widgets/containers.dart';
-import 'package:kabanta_app1/variables.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart' as flutter_blue;
-import 'package:permission_handler/permission_handler.dart';
+import 'package:kabanta_app1/providers/clocktime.dart';
 import 'package:kabanta_app1/providers/device_provider.dart';
+import 'package:kabanta_app1/providers/qrtext_provider.dart';
 import 'package:kabanta_app1/providers/sliders.dart';
-import 'package:kabanta_app1/pages/History.dart';
-import 'Providers/qrtext_provider.dart';
+import 'package:kabanta_app1/providers/states.dart';
+import 'package:kabanta_app1/providers/timer.dart';
+import 'package:kabanta_app1/variables.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   if (Platform.isAndroid) {

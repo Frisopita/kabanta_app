@@ -4,14 +4,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:kabanta_app1/Providers/clocktime.dart';
-import 'package:kabanta_app1/Providers/states.dart';
-import 'package:kabanta_app1/Providers/timer.dart';
+import 'package:kabanta_app1/providers/clocktime.dart';
+import 'package:kabanta_app1/providers/states.dart';
+import 'package:kabanta_app1/providers/timer.dart';
 import 'package:kabanta_app1/pages/clock.dart';
 import 'package:kabanta_app1/providers/clock_provider.dart';
 import 'package:provider/provider.dart';
 import '../variables.dart';
-import 'package:kabanta_app1/Providers/sliders.dart';
+import 'package:kabanta_app1/providers/sliders.dart';
 
 bool _isButtonLongPressed = false;
 
