@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kabanta_app1/Pages/clock.dart';
+import 'package:kabanta_app1/providers/device_provider.dart';
 import 'package:kabanta_app1/variables.dart';
 import 'dart:async';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:kabanta_app1/bluetooth/widgetsble.dart';
+import 'package:provider/provider.dart';
 
 
 class ContainerSignal extends StatelessWidget {
@@ -179,6 +181,15 @@ class _ContainerClockState extends State<ContainerClock> {
                 icon: const Icon(Icons.stop),
                 onPressed: () {
                   _reset();
+                },
+              ),
+              Selector<DeviceProvider, List<BluetoothService>>(
+                selector: (context, deviceProvider) => deviceProvider.services,
+                builder: (context, services, _) {
+                  return Column(
+                    //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                    children: _buildUpgradeButt(services),
+                  );
                 },
               ),
               StreamBuilder<List<BluetoothService>>(

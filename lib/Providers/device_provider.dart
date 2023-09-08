@@ -7,7 +7,7 @@ class DeviceProvider extends ChangeNotifier {
   late BluetoothDevice device;
   List<BluetoothService> _services = const [];
 
-  List<BluetoothService> get service => _services;
+  List<BluetoothService> get services => _services;
 
   void setDevice(BluetoothDevice d, List<BluetoothService> services) {
     device = d;

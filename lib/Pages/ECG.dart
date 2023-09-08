@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:kabanta_app1/providers/device_provider.dart';
 import 'package:kabanta_app1/variables.dart';
-import '../bluetooth/widgetsble.dart';
+import 'package:kabanta_app1/bluetooth/widgetsble.dart';
+import 'package:provider/provider.dart';
 
 class ECG extends StatefulWidget {
   const ECG({Key? key, required this.device}) : super(key: key);
@@ -77,147 +79,128 @@ class _ECGState extends State<ECG> {
           //1
           Expanded(
             child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  //1 Widget de botones
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: StreamBuilder<List<BluetoothService>>(
-                      //recibe la lista de servicios (services) del dispositivo
-                      stream: widget.device.servicesStream,
-                      initialData: const [],
-                      builder: (c, snapshot) {
-                        return Column(
-                          children: _buildFirstButtons(snapshot
-                              .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
-                        );
-                      },
-                      //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
-                    ),
-                  ),
-                  //2 First Title
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(
-                        18, spacetop, spaceright, spacebott),
-                    child: const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'TACHYCARDIA',
-                        style: titleLabel,
+              child: Selector<DeviceProvider, List<BluetoothService>>(
+                selector: (context, deviceProvider) => deviceProvider.services,
+                builder: (context, services, _) {
+                  return Column(
+                    children: [
+                      //1 Widget de botones
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
+                        child: Column(
+                          //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                          children: _buildFirstButtons(services),
+                        ),
                       ),
-                    ),
-                  ),
-                  //3 First Line
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
-                    child: Container(
-                      height: 1, // Altura de la l��nea de separaci��n
-                      color: Colors.grey, // Color de la l��nea de separaci��n
-                    ),
-                  ),
-                  //4 First Button Widget
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: StreamBuilder<List<BluetoothService>>(
-                      //recibe la lista de servicios (services) del dispositivo
-                      stream: widget.device.servicesStream,
-                      initialData: const [],
-                      builder: (c, snapshot) {
-                        return Column(
-                          children: _buildSecondButtons(snapshot
-                              .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
-                        );
-                      },
-                      //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
-                    ),
-                  ),
-                  //5 Second Title
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(
-                        18, spacetop, spaceright, spacebott),
-                    child: const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'BRADYCARDIA',
-                        style: titleLabel,
+                      //2 First Title
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(
+                            18, spacetop, spaceright, spacebott),
+                        child: const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'TACHYCARDIA',
+                            style: titleLabel,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  //6 Second Line
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
-                    child: Container(
-                      height: 1, // Altura de la l��nea de separaci��n
-                      color: Colors.grey, // Color de la l��nea de separaci��n
-                    ),
-                  ),
-                  //7 Second Buttons Widget
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: StreamBuilder<List<BluetoothService>>(
-                      //recibe la lista de servicios (services) del dispositivo
-                      stream: widget.device.servicesStream,
-                      initialData: const [],
-                      builder: (c, snapshot) {
-                        return Column(
-                          children: _buildThirdButtons(snapshot
-                              .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
-                        );
-                      },
-                      //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
-                    ),
-                  ),
-                  //8 Third Title
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(
-                        18, spacetop, spaceright, spacebott),
-                    child: const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'HEART ATTACK',
-                        style: titleLabel,
+                      //3 First Line
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
+                        child: Container(
+                          height: 1, // Altura de la l��nea de separaci��n
+                          color: Colors.grey, // Color de la l��nea de separaci��n
+                        ),
                       ),
-                    ),
-                  ),
-                  //3 Third Line
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
-                    child: Container(
-                      height: 1, // Altura de la l��nea de separaci��n
-                      color: Colors.grey, // Color de la l��nea de separaci��n
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      children: [
-                        //Row de prueba
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                      //4 First Button Widget
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
+                        child: Column(
+                          //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                          children: _buildSecondButtons(services),
+                        ),
+                      ),
+                      //5 Second Title
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(
+                            18, spacetop, spaceright, spacebott),
+                        child: const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'BRADYCARDIA',
+                            style: titleLabel,
+                          ),
+                        ),
+                      ),
+                      //6 Second Line
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
+                        child: Container(
+                          height: 1, // Altura de la l��nea de separaci��n
+                          color: Colors.grey, // Color de la l��nea de separaci��n
+                        ),
+                      ),
+                      //7 Second Buttons Widget
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
+                        child: Column(
+                          //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                          children: _buildThirdButtons(services),
+                        ),
+                      ),
+                      //8 Third Title
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(
+                            18, spacetop, spaceright, spacebott),
+                        child: const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'HEART ATTACK',
+                            style: titleLabel,
+                          ),
+                        ),
+                      ),
+                      //3 Third Line
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
+                        child: Container(
+                          height: 1, // Altura de la l��nea de separaci��n
+                          color: Colors.grey, // Color de la l��nea de separaci��n
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
                           children: [
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(
-                                  spaceleft, spacetop, spaceright, spacebott),
-                              child: StreamBuilder<List<BluetoothService>>(
-                                //recibe la lista de servicios (services) del dispositivo
-                                stream: widget.device.servicesStream,
-                                initialData: const [],
-                                builder: (c, snapshot) {
-                                  return Column(
-                                    children: _buildHeartAttackButt(snapshot
-                                        .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
-                                  );
-                                },
-                                //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
-                              ),
+                            //Row de prueba
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(
+                                    spaceleft,
+                                    spacetop,
+                                    spaceright,
+                                    spacebott,
+                                  ),
+                                  //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
+                                  child: Column(
+                                    //muestra los ServiceTile generados por el metodo _buildServiceTiles.
+                                    children: _buildHeartAttackButt(services),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  )
-                ],
+                      )
+                    ],
+                  );
+                }
               ),
             ),
           ),
