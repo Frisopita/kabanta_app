@@ -7,15 +7,9 @@ import 'package:kabanta_app1/variables.dart';
 import 'package:kabanta_app1/bluetooth/widgetsble.dart';
 import 'package:provider/provider.dart';
 
-class ECG extends StatefulWidget {
-  const ECG({Key? key, required this.device}) : super(key: key);
-  final BluetoothDevice device;
+class ECG extends StatelessWidget {
+  const ECG({Key? key}) : super(key: key);
 
-  @override
-  State<ECG> createState() => _ECGState();
-}
-
-class _ECGState extends State<ECG> {
   List<Widget> _buildHeartAttackButt(List<BluetoothService> services) {
     return services
         .map(

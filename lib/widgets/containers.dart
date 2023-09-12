@@ -192,18 +192,6 @@ class _ContainerClockState extends State<ContainerClock> {
                   );
                 },
               ),
-              StreamBuilder<List<BluetoothService>>(
-                //recibe la lista de servicios (services) del dispositivo
-                stream: widget.device.services,
-                initialData: const [],
-                builder: (c, snapshot) {
-                  return Column(
-                    children: _buildUpgradeButt(snapshot
-                        .data!), //muestra los ServiceTile generados por el metodo _buildServiceTiles.
-                  );
-                },
-                //Los ServiceTile y CharacteristicTile se generan dinamicamente en funcion de los datos recibidos.
-              ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                 child: ElevatedButton(

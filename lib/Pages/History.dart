@@ -277,16 +277,11 @@ class _ProgramContainerState extends State<ProgramContainer> {
   }
 }
 
-class HistoryContainer extends StatefulWidget {
-  const HistoryContainer({super.key, required this.listTiles});
-
+class HistoryContainer extends StatelessWidget {
   final List<ListTile> listTiles;
 
-  @override
-  State<HistoryContainer> createState() => _HistoryContainerState();
-}
+  const HistoryContainer({super.key, required this.listTiles});
 
-class _HistoryContainerState extends State<HistoryContainer> {
   ListTile _generateListTile(UIState2 state) {
     String statesText = '';
     switch (state.id) {

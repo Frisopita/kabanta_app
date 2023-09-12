@@ -53,7 +53,7 @@ class BleStateProvider extends ChangeNotifier {
     listBle.removeLast();
     Iterable<Stream<BLEWriteStates>> streams = listBle
         .map(
-          (c) => c.value.map((event) {
+          (c) => c.lastValueStream.map((event) {
             String value = String.fromCharCodes(event);
             String uuid = c.uuid.toString();
             return BLEWriteStates(allowedUUIDs[uuid]!, value);

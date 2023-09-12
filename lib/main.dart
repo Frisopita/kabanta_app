@@ -1,13 +1,13 @@
 //Test de kabanta UX
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:kabanta_app1/Providers/clocktime.dart';
-import 'package:kabanta_app1/Providers/states.dart';
-import 'package:kabanta_app1/Providers/timer.dart';
+import 'package:kabanta_app1/providers/clocktime.dart';
+import 'package:kabanta_app1/providers/states.dart';
+import 'package:kabanta_app1/providers/timer.dart';
 import 'package:kabanta_app1/pages/ECG.dart';
 import 'package:kabanta_app1/pages/Scenery.dart';
 import 'package:kabanta_app1/pages/vital.dart';
-import 'package:kabanta_app1/Providers/ble_provider.dart';
+import 'package:kabanta_app1/providers/ble_provider.dart';
 import 'package:kabanta_app1/bluetooth/qrble.dart';
 import 'package:kabanta_app1/bluetooth/bluetooth.dart';
 import 'package:kabanta_app1/providers/clock_provider.dart';
@@ -16,9 +16,9 @@ import 'package:kabanta_app1/variables.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart' as flutter_blue;
 import 'package:permission_handler/permission_handler.dart';
-import 'package:kabanta_app1/Providers/device_provider.dart';
-import 'package:kabanta_app1/Providers/sliders.dart';
-import 'package:kabanta_app1/Pages/History.dart';
+import 'package:kabanta_app1/providers/device_provider.dart';
+import 'package:kabanta_app1/providers/sliders.dart';
+import 'package:kabanta_app1/pages/History.dart';
 import 'Providers/qrtext_provider.dart';
 
 void main() {
@@ -63,7 +63,7 @@ class MyKabantaApp extends StatelessWidget {
         /// Puedes iniciar el stream dentro de un provider y usarlo en toda la app.
         /// Lo ideal seria usar un wrapper y meter el stream dentro de un objeto o servicio que nosotros
         /// escribieramos
-        
+
         StreamProvider<flutter_blue.BluetoothAdapterState>.value(
           value: flutter_blue.FlutterBluePlus.adapterState,
           initialData: flutter_blue.BluetoothAdapterState.unknown,
@@ -95,7 +95,6 @@ class MyKabantaApp extends StatelessWidget {
             currentSliderValue7,
           ),
         ),
-        
       ],
       child: MaterialApp(
         // Quita el banner de debug en la parte superior derecha de la pantalla
@@ -108,13 +107,13 @@ class MyKabantaApp extends StatelessWidget {
           builder: (context) {
             final blState = context.watch<flutter_blue.BluetoothAdapterState>();
             //final blDvState =Provider.of<flutter_blue.BluetoothDeviceState>(context);
-              if (blState == flutter_blue.BluetoothAdapterState.on) {
-                // Navigate to the screen for connected device
-                return const QrboardPage();
-              } else {
-                // Navigate to the BluetoothScreenOffOn when Bluetooth is off
-                return const BluetoothScreenOffOn();
-              }
+            if (blState == flutter_blue.BluetoothAdapterState.on) {
+              // Navigate to the screen for connected device
+              return const QrboardPage();
+            } else {
+              // Navigate to the BluetoothScreenOffOn when Bluetooth is off
+              return const BluetoothScreenOffOn();
+            }
           },
         ),
       ),
@@ -169,11 +168,11 @@ class _DataPageState extends State<DataPage> {
   Widget build(BuildContext context) {
     final deviceProvider = Provider.of<DeviceProvider>(context);
     final device = deviceProvider.device;
-    final List<Widget> widgetOptions = <Widget>[
-      ECG(device: device),
-      const Vital(),
-      const Scenery(),
-      const History(),
+    const List<Widget> widgetOptions = <Widget>[
+      ECG(),
+      Vital(),
+      Scenery(),
+      History(),
     ];
 
   const  Widget fixedWidgetSignal =  ContainerSignal();

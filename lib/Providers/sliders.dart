@@ -93,7 +93,7 @@ class BleWriteSliderProvider extends ChangeNotifier {
 
     Iterable<Stream<BLEWrite>> streams = listBle
         .map(
-          (c) => c.value.map((event) {
+          (c) => c.lastValueStream.map((event) {
             String value = String.fromCharCodes(event);
             String uuid = c.uuid.toString();
             return BLEWrite(allowedUUIDs[uuid]!, value);
