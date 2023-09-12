@@ -72,7 +72,7 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
                 case 3:
                   statesText = buttECG3;
                   break;
-                // Agrega m¨¢s casos seg¨²n sea necesario
+                // Agrega mï¿½ï¿½s casos segï¿½ï¿½n sea necesario
                 default:
                   statesText = '';
                   break;
