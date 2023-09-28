@@ -4,7 +4,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:kabanta_app1/providers/clocktime.dart';
 import 'package:kabanta_app1/providers/states.dart';
 import 'package:kabanta_app1/providers/timer.dart';
 import 'package:kabanta_app1/pages/clock.dart';
@@ -127,10 +126,9 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
                                           states = value.toDouble();
                                         });
                                         if (result == null || !mounted) return;
-                                        context.read<ClockTime>().setClockTimer(result);
                                         service.addState((
                                           duration: result,
-                                          id: states,
+                                          type: states,
                                         ));
                                       },
                                       child: const Text('Program'),
@@ -318,10 +316,9 @@ class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
                                           ),
                                         );
                                         if (result == null || !mounted) return;
-                                        context.read<ClockTime>().setClockTimer(result);
                                         service.addState((
                                           duration: result,
-                                          id: states,
+                                          type: states,
                                         ));
                                       },
                                       child: const Text('Program'),
@@ -516,10 +513,9 @@ class _ThirdWidgetButtonsState extends State<ThirdWidgetButtons> {
                                           ),
                                         );
                                         if (result == null || !mounted) return;
-                                        context.read<ClockTime>().setClockTimer(result);
                                         service.addState((
                                           duration: result,
-                                          id: states,
+                                          type: states,
                                         ));
                                       },
                                       child: const Text('Program'),
@@ -665,11 +661,10 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
                                 ),
                               );
                               if (result == null || !mounted) return;
-                              context.read<ClockTime>().setClockTimer(result);
                               service.addState((
-                                duration: result,
-                                id: states,
-                              ));
+                                          duration: result,
+                                          type: states,
+                                        ));
                             },
                             child: const Text('Program'),
                           ),

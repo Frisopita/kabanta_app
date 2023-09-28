@@ -1,7 +1,5 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:kabanta_app1/Providers/clocktime.dart';
-import 'package:kabanta_app1/Providers/states.dart';
 import 'package:kabanta_app1/providers/clock_provider.dart';
 import 'package:kabanta_app1/variables.dart';
 import 'package:provider/provider.dart';
@@ -155,7 +153,6 @@ class _ProgramContainerState extends State<ProgramContainer> {
 
   @override
   Widget build(BuildContext context) {
-    final resultClockTime = Provider.of<ClockTime>(context);
 
     ExpansionTile _generateExpansionTile(UIState state) {
       String statesText = '';
@@ -222,12 +219,6 @@ class _ProgramContainerState extends State<ProgramContainer> {
           break;
       }
 
-      if (state.duration.inSeconds == 1 && !execute) {
-        context.read<BleStateProvider>().updateCharacteristicState(state.id);
-        context.read<ClockService>().addStateTime(
-            (id: state.id, duration: resultClockTime.firstDuration!));
-        execute = true;
-      }
       return ExpansionTile(
         title: Padding(
           padding: const EdgeInsets.fromLTRB(15, 0, 20, 0),
@@ -250,12 +241,6 @@ class _ProgramContainerState extends State<ProgramContainer> {
             ],
           ),
         ),
-        trailing: IconButton(
-          icon: const Icon(Icons.delete),
-          onPressed: () {
-            context.read<ClockService>().deleteState(state.index);
-          },
-        ),
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
@@ -277,14 +262,19 @@ class _ProgramContainerState extends State<ProgramContainer> {
   }
 }
 
-class HistoryContainer extends StatelessWidget {
-  final List<ListTile> listTiles;
-
+class HistoryContainer extends StatefulWidget {
   const HistoryContainer({super.key, required this.listTiles});
 
-  ListTile _generateListTile(UIState2 state) {
+  final List<ListTile> listTiles;
+
+  @override
+  State<HistoryContainer> createState() => _HistoryContainerState();
+}
+
+class _HistoryContainerState extends State<HistoryContainer> {
+  ListTile _generateListTile(ActivityTimer state) {
     String statesText = '';
-    switch (state.id) {
+    switch (state.type) {
       case 1:
         statesText = buttECG1;
         break;
@@ -354,7 +344,7 @@ class HistoryContainer extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-            child: Text('${state.index}'),
+            child: Text('${state.id}'),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -372,14 +362,14 @@ class HistoryContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<ClockService, List<UIState2>>(
-      selector: (_, clockService) => clockService.uiStates2,
+    return Selector<ClockService, List<ActivityTimer>>(
+      selector: (_, clockService) => clockService.activities,
       builder: (context, list, child) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children:
-              list.map((uiStates2) => _generateListTile(uiStates2)).toList(),
+              list.map((activities) => _generateListTile(activities)).toList(),
         );
       },
     );

@@ -12,7 +12,6 @@ import 'package:kabanta_app1/pages/vital.dart';
 import 'package:kabanta_app1/providers/ble_provider.dart';
 import 'package:kabanta_app1/providers/clock_provider.dart';
 import 'package:kabanta_app1/widgets/containers.dart';
-import 'package:kabanta_app1/providers/clocktime.dart';
 import 'package:kabanta_app1/providers/device_provider.dart';
 import 'package:kabanta_app1/providers/qrtext_provider.dart';
 import 'package:kabanta_app1/providers/sliders.dart';
@@ -78,9 +77,6 @@ class MyKabantaApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<DeviceProvider>(
           create: (BuildContext context) => DeviceProvider(),
-        ),
-        ChangeNotifierProvider<ClockTime>(
-          create: (BuildContext context) => ClockTime(),
         ),
         ChangeNotifierProvider<QrTextProvider>(
           create: (BuildContext context) => QrTextProvider(),

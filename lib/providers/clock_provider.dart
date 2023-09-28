@@ -1,34 +1,115 @@
 import 'dart:async';
-import 'package:collection/collection.dart';
+import 'package:async/async.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:kabanta_app1/variables.dart';
+
 
 class ClockService extends ChangeNotifier {
-  final List<_StateTimerBLE> _states = [];
-  final List<_StateHistoryBLE2> _stateshistory = [];
+  final List<ActivityTimer> _activities = [];
+  List<UIState> _uistates = [];
   Timer? _countdownTimer;
   Duration _duration = Duration.zero;
   double? _id;
-  double? get id => _id; 
+  double? get id => _id;
   Duration get duration => _duration;
   bool get isActive => _duration != Duration.zero;
+  Stream<List<BLEWriteState>> _stream = const Stream.empty();
+  Stream<List<BLEWriteState>> get stream => _stream;
+  late double states; 
+  BluetoothService? _service;
 
-  List<UIState> get uiStates => _states
-    .mapIndexed((index, s) => UIState(duration: s.initialDuration, id: s.id, index: index))
-    .toList();
-
-  List<UIState2> get uiStates2 => _stateshistory
-    .mapIndexed((index2, s2) => UIState2(duration: s2.initialDuration, id: s2.id, index: index2))
-    .toList();
-
-  void addState(({double id, Duration duration}) state) {
-    final state0 = _StateTimerBLE(state.id, state.duration, this);
-    _states.add(state0 );
-    state0.start();
+  void updatestates(double newValue) {
+    states = newValue;
+    notifyListeners();
   }
 
-  void addStateTime(({double id, Duration duration}) state) {
-    final statehistory = _StateHistoryBLE2(state.id, state.duration, this);
-    _stateshistory.add(statehistory);
+  Future<void> _updateCharacteristicState(double newValue) async {
+    final s = _service;
+    if ((s ==null)) return;
+    Future<void> writeCharacteristic() async {
+      await s.characteristics[8].write([newValue.toInt()], withoutResponse: true);
+    }
+    writeCharacteristic();
+  }
+
+  Future <void> initService(BluetoothService service) async {
+    _service = service;
+    List<BluetoothCharacteristic> listBle = service.characteristics
+        .where((c) => allowedUUIDs.containsKey(c.uuid.toString())).toList();
+
+    await Future.forEach(listBle, (element) => element.setNotifyValue(true));
+
+    Future<void> writeCharacteristic() async {
+      await service.characteristics[8].write([states.toInt()], withoutResponse: true);
+    }
+    writeCharacteristic();
+
+    listBle.removeLast();
+    Iterable<Stream<BLEWriteState>> streams = listBle
+        .map(
+          (c) => c.value.map((event) {
+            String value = String.fromCharCodes(event);
+            String uuid = c.uuid.toString();
+            return BLEWriteState(allowedUUIDs[uuid]!, value);
+          }),
+        );
+    _stream = StreamZip(streams);
+    
+    notifyListeners();
+
+  }
+
+
+  void _start() {
+    _countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) => _updateList());
+  }
+
+  void _cancel() {
+    _countdownTimer?.cancel();
+    _countdownTimer = null;
+  }
+
+  void _updateList() {
+    if (_uistates.isEmpty) {
+      _cancel();
+      return;
+    }
+    final List<UIState> internalList = [];
+    for (var i in _uistates) {
+      final state = i.duration == Duration.zero ? i : i.copyWith(duration: i.duration - const Duration(seconds: 1));
+      if (state.duration == Duration.zero){
+        final index = _activities.indexWhere((element) => element.id == state.activityid);
+        _activities[index] = _activities[index].copyWith(isComplete: true);
+        print('state id');
+        updatestates(state.id);
+        _updateCharacteristicState(state.id);
+        print(state.id);     
+        //initService(_service!); 
+      } else {
+        internalList.add(state);
+      }
+    }
+    if (internalList.isEmpty){
+      _cancel();
+    }
+    _uistates = internalList;
+    notifyListeners();
+  }
+
+  List<UIState> get uiStates => _uistates;
+
+  List<ActivityTimer> get activities => _activities.where((element) => element.isComplete).toList();
+
+  void addState(({double type, Duration duration}) state) {
+    final activity = ActivityTimer(id:_activities.length, type: state.type, duration: state.duration, isComplete: state.duration == Duration.zero);
+    if (_uistates.isEmpty) {
+      _start();
+    }
+    final uistate = UIState(activityid: activity.id,
+    id: state.type, duration: state.duration, index: _uistates.length);
+    _activities.add(activity);
+    _uistates.add(uistate);
   }
 
   void startTimer(Duration duration) {
@@ -44,90 +125,63 @@ class ClockService extends ChangeNotifier {
     });
   }
 
-  void _internalNotifer() => notifyListeners();
-
-  void deleteState(int index) {
-    final state = _states.removeAt(index);
-    state.dispose();
-    notifyListeners();
-  }
-
-  void _deleteInternalState(_StateTimerBLE internalState) {
-    _states.remove(internalState);
-    _id = internalState.id;
-    notifyListeners();
-  }
-
   @override
   void dispose() {
     _countdownTimer?.cancel();
     super.dispose();
   }
-
 }
 
 class UIState {
+  final int activityid;
   final double id;
   final Duration duration;
   final int index;
 
   UIState({
+    required this.activityid,
     required this.duration,
     required this.id,
     required this.index,
   });
+
+  UIState copyWith({
+    final double? id,
+    final Duration? duration,
+    final int? index,
+  }) {
+    return UIState(activityid: activityid, duration: duration ?? this.duration, id: id ?? this.id, index: index ?? this.index);
+  }
 }
 
-class UIState2 {
-  final double id;
+class ActivityTimer {
+  final int id;
+  final double type;
   final Duration duration;
-  final int index;
+  final bool isComplete;
 
-  UIState2({
-    required this.duration,
+  ActivityTimer({
     required this.id,
-    required this.index,
+    required this.type,
+    required this.duration,
+    required this.isComplete
   });
-}
 
 
-class _StateTimerBLE {
-  final double id;
-  final ClockService service;
-  Timer? timer;
-  Duration initialDuration;
-
-  _StateTimerBLE(
-    this.id,
-    this.initialDuration,
-    this.service,
-  );
-
-  void start() {
-    Timer.periodic(const Duration(seconds: 1), (timer) {
-      initialDuration -= const Duration(seconds: 1);
-      if (initialDuration == Duration.zero) {
-        service._deleteInternalState(this);
-        dispose();
-      }
-      service._internalNotifer();
-    });
+  ActivityTimer copyWith({
+  final int? id,
+  final double? type,
+  final Duration? duration,
+  final bool? isComplete,
+  }) {
+    return ActivityTimer(id: id ?? this.id, type: type ?? this.type, duration: duration ?? this.duration, isComplete: isComplete ?? this.isComplete);
   }
 
-  void dispose() {
-    timer?.cancel();
-  }
 }
 
-class _StateHistoryBLE2 {
-  final double id;
-  final ClockService service;
-  Timer? timer;
-  Duration initialDuration;
+class BLEWriteState {
+  final String id;
+  final String data;
 
-  _StateHistoryBLE2(
-    this.id,
-    this.initialDuration,
-    this.service,
-  );
+  const BLEWriteState(this.id, this.data);
 }
