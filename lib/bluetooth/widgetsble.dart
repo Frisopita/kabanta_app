@@ -4,14 +4,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:kabanta_app1/Providers/clocktime.dart';
-import 'package:kabanta_app1/Providers/states.dart';
-import 'package:kabanta_app1/Providers/timer.dart';
+import 'package:kabanta_app1/providers/states.dart';
+import 'package:kabanta_app1/providers/timer.dart';
 import 'package:kabanta_app1/pages/clock.dart';
 import 'package:kabanta_app1/providers/clock_provider.dart';
 import 'package:provider/provider.dart';
 import '../variables.dart';
-import 'package:kabanta_app1/Providers/sliders.dart';
+import 'package:kabanta_app1/providers/sliders.dart';
 
 bool _isButtonLongPressed = false;
 
@@ -72,7 +71,7 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
                 case 3:
                   statesText = buttECG3;
                   break;
-                // Agrega m¨¢s casos seg¨²n sea necesario
+                // Agrega mï¿½ï¿½s casos segï¿½ï¿½n sea necesario
                 default:
                   statesText = '';
                   break;
@@ -83,12 +82,12 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
                     onTap: () {
                       setState(() {
                         states = value.toDouble();
+                        Provider.of<BleStateProvider>(context, listen: false)
+                          .updatestates(states);
                       });
                       context
                           .read<BleStateProvider>()
                           .initService(widget.service);
-                      Provider.of<BleStateProvider>(context, listen: false)
-                          .updatestates(states);
                       widget.onTap();
                     },
                     onLongPress: () {
@@ -127,10 +126,9 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
                                           states = value.toDouble();
                                         });
                                         if (result == null || !mounted) return;
-                                        context.read<ClockTime>().setClockTimer(result);
                                         service.addState((
                                           duration: result,
-                                          id: states,
+                                          type: states,
                                         ));
                                       },
                                       child: const Text('Program'),
@@ -274,12 +272,12 @@ class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
                     onTap: () {
                       setState(() {
                         states = value.toDouble();
+                        Provider.of<BleStateProvider>(context, listen: false)
+                          .updatestates(states);
                       });
                       context
                           .read<BleStateProvider>()
                           .initService(widget.service);
-                      Provider.of<BleStateProvider>(context, listen: false)
-                          .updatestates(states);
                       widget.onTap();
                     },
                     onLongPress: () {
@@ -318,10 +316,9 @@ class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
                                           ),
                                         );
                                         if (result == null || !mounted) return;
-                                        context.read<ClockTime>().setClockTimer(result);
                                         service.addState((
                                           duration: result,
-                                          id: states,
+                                          type: states,
                                         ));
                                       },
                                       child: const Text('Program'),
@@ -472,12 +469,12 @@ class _ThirdWidgetButtonsState extends State<ThirdWidgetButtons> {
                     onTap: () {
                       setState(() {
                         states = value.toDouble();
+                        Provider.of<BleStateProvider>(context, listen: false)
+                          .updatestates(states);
                       });
                       context
                           .read<BleStateProvider>()
                           .initService(widget.service);
-                      Provider.of<BleStateProvider>(context, listen: false)
-                          .updatestates(states);
                       widget.onTap();
                     },
                     onLongPress: () {
@@ -516,10 +513,9 @@ class _ThirdWidgetButtonsState extends State<ThirdWidgetButtons> {
                                           ),
                                         );
                                         if (result == null || !mounted) return;
-                                        context.read<ClockTime>().setClockTimer(result);
                                         service.addState((
                                           duration: result,
-                                          id: states,
+                                          type: states,
                                         ));
                                       },
                                       child: const Text('Program'),
@@ -624,8 +620,10 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
           onTap: () {
             setState(() {
               states = 19;
+              Provider.of<BleStateProvider>(context, listen: false).updatestates(states);
             });
-            context.read<BleStateProvider>().updateCharacteristicState(states);
+            context.read<BleStateProvider>().initService(widget.service);
+            //context.read<BleStateProvider>().updateCharacteristicState(states);
             widget.onTap();
           },
           onLongPress: () {
@@ -663,11 +661,10 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
                                 ),
                               );
                               if (result == null || !mounted) return;
-                              context.read<ClockTime>().setClockTimer(result);
                               service.addState((
-                                duration: result,
-                                id: states,
-                              ));
+                                          duration: result,
+                                          type: states,
+                                        ));
                             },
                             child: const Text('Program'),
                           ),

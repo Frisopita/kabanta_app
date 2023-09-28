@@ -25,12 +25,12 @@ class BleProvider extends ChangeNotifier {
 
     await Future.forEach(listBle, (element) => element.setNotifyValue(true));
 
-    Future.forEach(listBle, (element) => element.onValueChangedStream.listen((value)async{}));  
+    Future.forEach(listBle, (element) => element.onValueReceived.listen((value)async{}));  
 
     listBle.removeLast();
     Iterable<Stream<BLE>> streams = listBle
         .map(
-          (c) => c.value.map((event) {
+          (c) => c.lastValueStream.map((event) {
             String value = String.fromCharCodes(event);
             String uuid = c.uuid.toString();
             return BLE(allowedUUIDs[uuid]!, value);

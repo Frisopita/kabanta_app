@@ -81,19 +81,19 @@ class BleWriteSliderProvider extends ChangeNotifier {
     await Future.forEach(listBle, (element) => element.setNotifyValue(true));
 
     Future<void> writeCharacteristic() async {
-      await service.characteristics[0].write([currentSliderValue1.toInt()], withoutResponse: true);
-      await service.characteristics[1].write([currentSliderValue2.toInt()], withoutResponse: true);
-      await service.characteristics[2].write([currentSliderValue3.toInt()], withoutResponse: true);
-      await service.characteristics[3].write([currentSliderValue4.toInt()], withoutResponse: true);
-      await service.characteristics[4].write([currentSliderValue5.toInt()], withoutResponse: true);
-      await service.characteristics[5].write([currentSliderValue6.toInt()], withoutResponse: true);
-      await service.characteristics[6].write([currentSliderValue7.toInt()], withoutResponse: true);
+      await service.characteristics[0].write([currentSliderValue1.toInt()]);
+      await service.characteristics[1].write([currentSliderValue2.toInt()]);
+      await service.characteristics[2].write([currentSliderValue3.toInt()]);
+      await service.characteristics[3].write([currentSliderValue4.toInt()]);
+      await service.characteristics[4].write([currentSliderValue5.toInt()]);
+      await service.characteristics[5].write([currentSliderValue6.toInt()]);
+      await service.characteristics[6].write([currentSliderValue7.toInt()]);
     }
     writeCharacteristic();
 
     Iterable<Stream<BLEWrite>> streams = listBle
         .map(
-          (c) => c.value.map((event) {
+          (c) => c.lastValueStream.map((event) {
             String value = String.fromCharCodes(event);
             String uuid = c.uuid.toString();
             return BLEWrite(allowedUUIDs[uuid]!, value);

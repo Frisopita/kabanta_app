@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:kabanta_app1/variables.dart';
 import 'package:provider/provider.dart';
-import 'package:kabanta_app1/Providers/sliders.dart';
+import 'package:kabanta_app1/providers/sliders.dart';
 
 Color colorbackbutt2 = Colors.white;
 Color colorforebutt2 = Colors.indigo;
@@ -24,16 +24,16 @@ class _VitalState extends State<Vital> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             //0
-             Container(
-                height: 50,
-                color: null,
-              ),
+            Container(
+              height: 50,
+              color: null,
+            ),
             //1
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     //Heart Rate
                     Row(
@@ -44,9 +44,11 @@ class _VitalState extends State<Vital> {
                           children: [
                             Row(
                               children: [
-                                Image.asset('Icons/corazon.png',
-                                width: 18,
-                                height: 18,),
+                                Image.asset(
+                                  'Icons/corazon.png',
+                                  width: 18,
+                                  height: 18,
+                                ),
                                 /*const Icon(
                                   Icons.favorite_border,
                                   size: 18,
@@ -101,13 +103,23 @@ class _VitalState extends State<Vital> {
                               child: Row(
                                 children: [
                                   Padding(
-                                    padding:
-                                        EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.05, 0, MediaQuery.of(context).size.width * 0.29, 0),
+                                    padding: EdgeInsets.fromLTRB(
+                                        MediaQuery.of(context).size.width *
+                                            0.05,
+                                        0,
+                                        MediaQuery.of(context).size.width *
+                                            0.29,
+                                        0),
                                     child: Text('${heartmin.toInt()}'),
                                   ),
                                   Padding(
-                                    padding:
-                                        EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.29, 0, MediaQuery.of(context).size.width * 0.05, 0),
+                                    padding: EdgeInsets.fromLTRB(
+                                        MediaQuery.of(context).size.width *
+                                            0.29,
+                                        0,
+                                        MediaQuery.of(context).size.width *
+                                            0.05,
+                                        0),
                                     child: Text('${heartmax.toInt()}'),
                                   ),
                                 ],
@@ -116,11 +128,13 @@ class _VitalState extends State<Vital> {
                           ],
                         ),
                         Container(
-                          margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.01 ),
+                          margin: EdgeInsets.all(
+                              MediaQuery.of(context).size.width * 0.01),
                           width: 45,
                           height: 45,
                           decoration: BoxDecoration(
-                              color: Colors.blue.shade50, shape: BoxShape.circle),
+                              color: Colors.blue.shade50,
+                              shape: BoxShape.circle),
                           child: Center(
                             child: Text(
                               status1,
@@ -130,7 +144,7 @@ class _VitalState extends State<Vital> {
                         ),
                       ],
                     ),
-      
+
                     //Temperature
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -140,9 +154,11 @@ class _VitalState extends State<Vital> {
                           children: [
                             Row(
                               children: [
-                                Image.asset('Icons/temperatura.png',
-                                width: 18,
-                                height: 18,),
+                                Image.asset(
+                                  'Icons/temperatura.png',
+                                  width: 18,
+                                  height: 18,
+                                ),
                                 /*Icon(
                                   Icons.thermostat,
                                   size: 18,
@@ -163,22 +179,23 @@ class _VitalState extends State<Vital> {
                                 height: slideheight,
                                 width: MediaQuery.of(context).size.width * 0.8,
                                 child: Slider(
-                                  value:
-                                      Provider.of<BleWriteSliderProvider>(context)
-                                          .currentSliderValue2,
+                                  value: Provider.of<BleWriteSliderProvider>(
+                                          context)
+                                      .currentSliderValue2,
                                   min: tempmin,
                                   max: tempmax,
                                   divisions: null,
-                                  label:
-                                      Provider.of<BleWriteSliderProvider>(context)
-                                          .currentSliderValue2
-                                          .round()
-                                          .toString(),
+                                  label: Provider.of<BleWriteSliderProvider>(
+                                          context)
+                                      .currentSliderValue2
+                                      .round()
+                                      .toString(),
                                   activeColor: Colors.blueGrey,
                                   inactiveColor: Colors.blueGrey.shade200,
                                   onChanged: (double value) {
                                     setState(() {
-                                      Provider.of<BleWriteSliderProvider>(context,
+                                      Provider.of<BleWriteSliderProvider>(
+                                              context,
                                               listen: false)
                                           .updateSliderValue2(value);
                                       status2 = '${value.round()}';
@@ -192,13 +209,21 @@ class _VitalState extends State<Vital> {
                               child: Row(
                                 children: [
                                   Padding(
-                                    padding:
-                                        EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.05, 0, MediaQuery.of(context).size.width * 0.3, 0),
+                                    padding: EdgeInsets.fromLTRB(
+                                        MediaQuery.of(context).size.width *
+                                            0.05,
+                                        0,
+                                        MediaQuery.of(context).size.width * 0.3,
+                                        0),
                                     child: Text('${tempmin.toInt()}'),
                                   ),
                                   Padding(
-                                    padding:
-                                        EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.3, 0, MediaQuery.of(context).size.width * 0.05, 0),
+                                    padding: EdgeInsets.fromLTRB(
+                                        MediaQuery.of(context).size.width * 0.3,
+                                        0,
+                                        MediaQuery.of(context).size.width *
+                                            0.05,
+                                        0),
                                     child: Text('${tempmax.toInt()}'),
                                   ),
                                 ],
@@ -207,11 +232,13 @@ class _VitalState extends State<Vital> {
                           ],
                         ),
                         Container(
-                          margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.01 ),
+                          margin: EdgeInsets.all(
+                              MediaQuery.of(context).size.width * 0.01),
                           width: 45,
                           height: 45,
                           decoration: BoxDecoration(
-                              color: Colors.blue.shade50, shape: BoxShape.circle),
+                              color: Colors.blue.shade50,
+                              shape: BoxShape.circle),
                           child: Center(
                             child: Text(
                               status2,
@@ -221,7 +248,7 @@ class _VitalState extends State<Vital> {
                         ),
                       ],
                     ),
-      
+
                     //SpO2
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -231,9 +258,11 @@ class _VitalState extends State<Vital> {
                           children: [
                             Row(
                               children: [
-                                Image.asset('Icons/o2.png',
-                                width: 18,
-                                height: 18,),
+                                Image.asset(
+                                  'Icons/o2.png',
+                                  width: 18,
+                                  height: 18,
+                                ),
                                 /*Icon(
                                   Icons.bloodtype,
                                   size: 18,
@@ -254,22 +283,23 @@ class _VitalState extends State<Vital> {
                                 height: slideheight,
                                 width: MediaQuery.of(context).size.width * 0.8,
                                 child: Slider(
-                                  value:
-                                      Provider.of<BleWriteSliderProvider>(context)
-                                          .currentSliderValue3,
+                                  value: Provider.of<BleWriteSliderProvider>(
+                                          context)
+                                      .currentSliderValue3,
                                   min: spo2min,
                                   max: spo2max,
                                   divisions: null,
-                                  label:
-                                      Provider.of<BleWriteSliderProvider>(context)
-                                          .currentSliderValue3
-                                          .round()
-                                          .toString(),
+                                  label: Provider.of<BleWriteSliderProvider>(
+                                          context)
+                                      .currentSliderValue3
+                                      .round()
+                                      .toString(),
                                   activeColor: Colors.blueGrey,
                                   inactiveColor: Colors.blueGrey.shade200,
                                   onChanged: (double value) {
                                     setState(() {
-                                      Provider.of<BleWriteSliderProvider>(context,
+                                      Provider.of<BleWriteSliderProvider>(
+                                              context,
                                               listen: false)
                                           .updateSliderValue3(value);
                                       status3 = '${value.round()}';
@@ -283,13 +313,23 @@ class _VitalState extends State<Vital> {
                               child: Row(
                                 children: [
                                   Padding(
-                                    padding:
-                                        EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.05, 0, MediaQuery.of(context).size.width * 0.29, 0),
+                                    padding: EdgeInsets.fromLTRB(
+                                        MediaQuery.of(context).size.width *
+                                            0.05,
+                                        0,
+                                        MediaQuery.of(context).size.width *
+                                            0.29,
+                                        0),
                                     child: Text('${spo2min.toInt()}'),
                                   ),
                                   Padding(
-                                    padding:
-                                        EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.29, 0, MediaQuery.of(context).size.width * 0.05, 0),
+                                    padding: EdgeInsets.fromLTRB(
+                                        MediaQuery.of(context).size.width *
+                                            0.29,
+                                        0,
+                                        MediaQuery.of(context).size.width *
+                                            0.05,
+                                        0),
                                     child: Text('${spo2max.toInt()}'),
                                   ),
                                 ],
@@ -298,11 +338,13 @@ class _VitalState extends State<Vital> {
                           ],
                         ),
                         Container(
-                          margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.01 ),
+                          margin: EdgeInsets.all(
+                              MediaQuery.of(context).size.width * 0.01),
                           width: 45,
                           height: 45,
                           decoration: BoxDecoration(
-                              color: Colors.blue.shade50, shape: BoxShape.circle),
+                              color: Colors.blue.shade50,
+                              shape: BoxShape.circle),
                           child: Center(
                             child: Text(
                               status3,
@@ -312,7 +354,7 @@ class _VitalState extends State<Vital> {
                         ),
                       ],
                     ),
-      
+
                     //Systolic Preassure
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -322,9 +364,11 @@ class _VitalState extends State<Vital> {
                           children: [
                             Row(
                               children: [
-                                Image.asset('Icons/pressure.png',
-                                width: 18,
-                                height: 18,),
+                                Image.asset(
+                                  'Icons/pressure.png',
+                                  width: 18,
+                                  height: 18,
+                                ),
                                 /*Icon(
                                   Icons.loyalty,
                                   size: 18,
@@ -345,22 +389,23 @@ class _VitalState extends State<Vital> {
                                 height: slideheight,
                                 width: MediaQuery.of(context).size.width * 0.8,
                                 child: Slider(
-                                  value:
-                                      Provider.of<BleWriteSliderProvider>(context)
-                                          .currentSliderValue4,
+                                  value: Provider.of<BleWriteSliderProvider>(
+                                          context)
+                                      .currentSliderValue4,
                                   min: sysmin,
                                   max: sysmax,
                                   divisions: null,
-                                  label:
-                                      Provider.of<BleWriteSliderProvider>(context)
-                                          .currentSliderValue4
-                                          .round()
-                                          .toString(),
+                                  label: Provider.of<BleWriteSliderProvider>(
+                                          context)
+                                      .currentSliderValue4
+                                      .round()
+                                      .toString(),
                                   activeColor: Colors.blueGrey,
                                   inactiveColor: Colors.blueGrey.shade200,
                                   onChanged: (double value) {
                                     setState(() {
-                                      Provider.of<BleWriteSliderProvider>(context,
+                                      Provider.of<BleWriteSliderProvider>(
+                                              context,
                                               listen: false)
                                           .updateSliderValue4(value);
                                       status4 = '${value.round()}';
@@ -374,13 +419,23 @@ class _VitalState extends State<Vital> {
                               child: Row(
                                 children: [
                                   Padding(
-                                    padding:
-                                        EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.05, 0, MediaQuery.of(context).size.width * 0.29, 0),
+                                    padding: EdgeInsets.fromLTRB(
+                                        MediaQuery.of(context).size.width *
+                                            0.05,
+                                        0,
+                                        MediaQuery.of(context).size.width *
+                                            0.29,
+                                        0),
                                     child: Text('${sysmin.toInt()}'),
                                   ),
                                   Padding(
-                                    padding:
-                                        EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.29, 0, MediaQuery.of(context).size.width * 0.05, 0),
+                                    padding: EdgeInsets.fromLTRB(
+                                        MediaQuery.of(context).size.width *
+                                            0.29,
+                                        0,
+                                        MediaQuery.of(context).size.width *
+                                            0.05,
+                                        0),
                                     child: Text('${sysmax.toInt()}'),
                                   ),
                                 ],
@@ -389,11 +444,13 @@ class _VitalState extends State<Vital> {
                           ],
                         ),
                         Container(
-                          margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.01 ),
+                          margin: EdgeInsets.all(
+                              MediaQuery.of(context).size.width * 0.01),
                           width: 45,
                           height: 45,
                           decoration: BoxDecoration(
-                              color: Colors.blue.shade50, shape: BoxShape.circle),
+                              color: Colors.blue.shade50,
+                              shape: BoxShape.circle),
                           child: Center(
                             child: Text(
                               status4,
@@ -403,7 +460,7 @@ class _VitalState extends State<Vital> {
                         ),
                       ],
                     ),
-      
+
                     //Diastolic Preassure
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -413,9 +470,11 @@ class _VitalState extends State<Vital> {
                           children: [
                             Row(
                               children: [
-                                Image.asset('Icons/pressure.png',
-                                width: 18,
-                                height: 18,),
+                                Image.asset(
+                                  'Icons/pressure.png',
+                                  width: 18,
+                                  height: 18,
+                                ),
                                 /*Icon(
                                   Icons.volunteer_activism,
                                   size: 18,
@@ -436,22 +495,23 @@ class _VitalState extends State<Vital> {
                                 height: slideheight,
                                 width: MediaQuery.of(context).size.width * 0.8,
                                 child: Slider(
-                                  value:
-                                      Provider.of<BleWriteSliderProvider>(context)
-                                          .currentSliderValue5,
+                                  value: Provider.of<BleWriteSliderProvider>(
+                                          context)
+                                      .currentSliderValue5,
                                   min: diamin,
                                   max: diamax,
                                   divisions: null,
-                                  label:
-                                      Provider.of<BleWriteSliderProvider>(context)
-                                          .currentSliderValue5
-                                          .round()
-                                          .toString(),
+                                  label: Provider.of<BleWriteSliderProvider>(
+                                          context)
+                                      .currentSliderValue5
+                                      .round()
+                                      .toString(),
                                   activeColor: Colors.blueGrey,
                                   inactiveColor: Colors.blueGrey.shade200,
                                   onChanged: (double value) {
                                     setState(() {
-                                      Provider.of<BleWriteSliderProvider>(context,
+                                      Provider.of<BleWriteSliderProvider>(
+                                              context,
                                               listen: false)
                                           .updateSliderValue5(value);
                                       status5 = '${value.round()}';
@@ -465,13 +525,23 @@ class _VitalState extends State<Vital> {
                               child: Row(
                                 children: [
                                   Padding(
-                                    padding:
-                                        EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.05, 0, MediaQuery.of(context).size.width * 0.29, 0),
+                                    padding: EdgeInsets.fromLTRB(
+                                        MediaQuery.of(context).size.width *
+                                            0.05,
+                                        0,
+                                        MediaQuery.of(context).size.width *
+                                            0.29,
+                                        0),
                                     child: Text('${diamin.toInt()}'),
                                   ),
                                   Padding(
-                                    padding:
-                                        EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.29, 0, MediaQuery.of(context).size.width * 0.05, 0),
+                                    padding: EdgeInsets.fromLTRB(
+                                        MediaQuery.of(context).size.width *
+                                            0.29,
+                                        0,
+                                        MediaQuery.of(context).size.width *
+                                            0.05,
+                                        0),
                                     child: Text('${diamax.toInt()}'),
                                   ),
                                 ],
@@ -480,11 +550,13 @@ class _VitalState extends State<Vital> {
                           ],
                         ),
                         Container(
-                         margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.01 ),
+                          margin: EdgeInsets.all(
+                              MediaQuery.of(context).size.width * 0.01),
                           width: 45,
                           height: 45,
                           decoration: BoxDecoration(
-                              color: Colors.blue.shade50, shape: BoxShape.circle),
+                              color: Colors.blue.shade50,
+                              shape: BoxShape.circle),
                           child: Center(
                             child: Text(
                               status5,
@@ -494,7 +566,7 @@ class _VitalState extends State<Vital> {
                         ),
                       ],
                     ),
-      
+
                     //FR
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -504,9 +576,11 @@ class _VitalState extends State<Vital> {
                           children: [
                             Row(
                               children: [
-                                Image.asset('Icons/pulso.png',
-                                width: 18,
-                                height: 18,),
+                                Image.asset(
+                                  'Icons/pulso.png',
+                                  width: 18,
+                                  height: 18,
+                                ),
                                 /*Icon(
                                   Icons.star_border,
                                   size: 18,
@@ -527,22 +601,23 @@ class _VitalState extends State<Vital> {
                                 height: slideheight,
                                 width: MediaQuery.of(context).size.width * 0.8,
                                 child: Slider(
-                                  value:
-                                      Provider.of<BleWriteSliderProvider>(context)
-                                          .currentSliderValue6,
+                                  value: Provider.of<BleWriteSliderProvider>(
+                                          context)
+                                      .currentSliderValue6,
                                   min: frmin,
                                   max: frmax,
                                   divisions: null,
-                                  label:
-                                      Provider.of<BleWriteSliderProvider>(context)
-                                          .currentSliderValue6
-                                          .round()
-                                          .toString(),
+                                  label: Provider.of<BleWriteSliderProvider>(
+                                          context)
+                                      .currentSliderValue6
+                                      .round()
+                                      .toString(),
                                   activeColor: Colors.blueGrey,
                                   inactiveColor: Colors.blueGrey.shade200,
                                   onChanged: (double value) {
                                     setState(() {
-                                      Provider.of<BleWriteSliderProvider>(context,
+                                      Provider.of<BleWriteSliderProvider>(
+                                              context,
                                               listen: false)
                                           .updateSliderValue6(value);
                                       status6 = '${value.round()}';
@@ -556,13 +631,23 @@ class _VitalState extends State<Vital> {
                               child: Row(
                                 children: [
                                   Padding(
-                                    padding:
-                                        EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.05, 0, MediaQuery.of(context).size.width * 0.31, 0),
+                                    padding: EdgeInsets.fromLTRB(
+                                        MediaQuery.of(context).size.width *
+                                            0.05,
+                                        0,
+                                        MediaQuery.of(context).size.width *
+                                            0.31,
+                                        0),
                                     child: Text('${frmin.toInt()}'),
                                   ),
                                   Padding(
-                                    padding:
-                                        EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.31, 0, MediaQuery.of(context).size.width * 0.05, 0),
+                                    padding: EdgeInsets.fromLTRB(
+                                        MediaQuery.of(context).size.width *
+                                            0.31,
+                                        0,
+                                        MediaQuery.of(context).size.width *
+                                            0.05,
+                                        0),
                                     child: Text('${frmax.toInt()}'),
                                   ),
                                 ],
@@ -571,11 +656,13 @@ class _VitalState extends State<Vital> {
                           ],
                         ),
                         Container(
-                          margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.01 ),
+                          margin: EdgeInsets.all(
+                              MediaQuery.of(context).size.width * 0.01),
                           width: 45,
                           height: 45,
                           decoration: BoxDecoration(
-                              color: Colors.blue.shade50, shape: BoxShape.circle),
+                              color: Colors.blue.shade50,
+                              shape: BoxShape.circle),
                           child: Center(
                             child: Text(
                               status6,
@@ -585,7 +672,7 @@ class _VitalState extends State<Vital> {
                         ),
                       ],
                     ),
-      
+
                     //CO2 Level
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -595,9 +682,11 @@ class _VitalState extends State<Vital> {
                           children: [
                             Row(
                               children: [
-                                Image.asset('Icons/co2.png',
-                                width: 20,
-                                height: 20,),
+                                Image.asset(
+                                  'Icons/co2.png',
+                                  width: 20,
+                                  height: 20,
+                                ),
                                 /*Icon(
                                   Icons.co2,
                                   size: 18,
@@ -618,22 +707,23 @@ class _VitalState extends State<Vital> {
                                 height: slideheight,
                                 width: MediaQuery.of(context).size.width * 0.8,
                                 child: Slider(
-                                  value:
-                                      Provider.of<BleWriteSliderProvider>(context)
-                                          .currentSliderValue7,
+                                  value: Provider.of<BleWriteSliderProvider>(
+                                          context)
+                                      .currentSliderValue7,
                                   min: co2min,
                                   max: co2max,
                                   divisions: null,
-                                  label:
-                                      Provider.of<BleWriteSliderProvider>(context)
-                                          .currentSliderValue7
-                                          .round()
-                                          .toString(),
+                                  label: Provider.of<BleWriteSliderProvider>(
+                                          context)
+                                      .currentSliderValue7
+                                      .round()
+                                      .toString(),
                                   activeColor: Colors.blueGrey,
                                   inactiveColor: Colors.blueGrey.shade200,
                                   onChanged: (double value) {
                                     setState(() {
-                                      Provider.of<BleWriteSliderProvider>(context,
+                                      Provider.of<BleWriteSliderProvider>(
+                                              context,
                                               listen: false)
                                           .updateSliderValue7(value);
                                       status7 = '${value.round()}';
@@ -647,13 +737,23 @@ class _VitalState extends State<Vital> {
                               child: Row(
                                 children: [
                                   Padding(
-                                    padding:
-                                        EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.05, 0, MediaQuery.of(context).size.width * 0.31, 0),
+                                    padding: EdgeInsets.fromLTRB(
+                                        MediaQuery.of(context).size.width *
+                                            0.05,
+                                        0,
+                                        MediaQuery.of(context).size.width *
+                                            0.31,
+                                        0),
                                     child: Text('${co2min.toInt()}'),
                                   ),
                                   Padding(
-                                    padding:
-                                        EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.31, 0, MediaQuery.of(context).size.width * 0.05, 0),
+                                    padding: EdgeInsets.fromLTRB(
+                                        MediaQuery.of(context).size.width *
+                                            0.31,
+                                        0,
+                                        MediaQuery.of(context).size.width *
+                                            0.05,
+                                        0),
                                     child: Text('${co2max.toInt()}'),
                                   ),
                                 ],
@@ -662,11 +762,13 @@ class _VitalState extends State<Vital> {
                           ],
                         ),
                         Container(
-                          margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.01 ),
+                          margin: EdgeInsets.all(
+                              MediaQuery.of(context).size.width * 0.01),
                           width: 45,
                           height: 45,
                           decoration: BoxDecoration(
-                              color: Colors.blue.shade50, shape: BoxShape.circle),
+                              color: Colors.blue.shade50,
+                              shape: BoxShape.circle),
                           child: Center(
                             child: Text(
                               status7,

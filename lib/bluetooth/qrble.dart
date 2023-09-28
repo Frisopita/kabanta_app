@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kabanta_app1/bluetooth/bluetooth.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:kabanta_app1/variables.dart';
-import 'package:kabanta_app1/Providers/qrtext_provider.dart';
+import 'package:kabanta_app1/providers/qrtext_provider.dart';
 import 'package:provider/provider.dart';
 
 class QrboardPage extends StatefulWidget {
