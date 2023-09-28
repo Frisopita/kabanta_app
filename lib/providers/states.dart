@@ -29,7 +29,7 @@ class BleStateProvider extends ChangeNotifier {
     final s = _service;
     if ((s ==null)) return;
     Future<void> writeCharacteristic() async {
-      await s.characteristics[8].write([newValue.toInt()], withoutResponse: true);
+      await s.characteristics[8].write([newValue.toInt()]);
     }
     writeCharacteristic();
   }
@@ -46,11 +46,10 @@ class BleStateProvider extends ChangeNotifier {
     await Future.forEach(listBle, (element) => element.setNotifyValue(true));
 
     Future<void> writeCharacteristic() async {
-      await service.characteristics[8].write([states.toInt()], withoutResponse: true);
+      await service.characteristics[8].write([states.toInt()]);
     }
     writeCharacteristic();
 
-    listBle.removeLast();
     Iterable<Stream<BLEWriteStates>> streams = listBle
         .map(
           (c) => c.lastValueStream.map((event) {

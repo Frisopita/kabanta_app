@@ -83,12 +83,12 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
                     onTap: () {
                       setState(() {
                         states = value.toDouble();
+                        Provider.of<BleStateProvider>(context, listen: false)
+                          .updatestates(states);
                       });
                       context
                           .read<BleStateProvider>()
                           .initService(widget.service);
-                      Provider.of<BleStateProvider>(context, listen: false)
-                          .updatestates(states);
                       widget.onTap();
                     },
                     onLongPress: () {
@@ -274,12 +274,12 @@ class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
                     onTap: () {
                       setState(() {
                         states = value.toDouble();
+                        Provider.of<BleStateProvider>(context, listen: false)
+                          .updatestates(states);
                       });
                       context
                           .read<BleStateProvider>()
                           .initService(widget.service);
-                      Provider.of<BleStateProvider>(context, listen: false)
-                          .updatestates(states);
                       widget.onTap();
                     },
                     onLongPress: () {
@@ -472,12 +472,12 @@ class _ThirdWidgetButtonsState extends State<ThirdWidgetButtons> {
                     onTap: () {
                       setState(() {
                         states = value.toDouble();
+                        Provider.of<BleStateProvider>(context, listen: false)
+                          .updatestates(states);
                       });
                       context
                           .read<BleStateProvider>()
                           .initService(widget.service);
-                      Provider.of<BleStateProvider>(context, listen: false)
-                          .updatestates(states);
                       widget.onTap();
                     },
                     onLongPress: () {
@@ -624,8 +624,10 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
           onTap: () {
             setState(() {
               states = 19;
+              Provider.of<BleStateProvider>(context, listen: false).updatestates(states);
             });
-            context.read<BleStateProvider>().updateCharacteristicState(states);
+            context.read<BleStateProvider>().initService(widget.service);
+            //context.read<BleStateProvider>().updateCharacteristicState(states);
             widget.onTap();
           },
           onLongPress: () {
