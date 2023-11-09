@@ -171,6 +171,7 @@ class _DataPageState extends State<DataPage> {
   Widget build(BuildContext context) {
     final deviceProvider = Provider.of<DeviceProvider>(context);
     final device = deviceProvider.device;
+    final qrtext = Provider.of<QrTextProvider>(context);
     const List<Widget> widgetOptions = <Widget>[
       ECG(),
       Vital(),
@@ -198,13 +199,33 @@ class _DataPageState extends State<DataPage> {
                   return Center(
                     child: Padding(
                       padding: const EdgeInsets.all(20),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.green.shade400,
+                      child: GestureDetector(
+                        onTap: () => showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text("Conectado"),
+                              content: Text("Dispositivo conectado a ${device.localName}"),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pop(); // Cierra el AlertDialog
+                                  },
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            );
+                          },
                         ),
-                        height: 20,
-                        width: 20,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.green.shade400,
+                          ),
+                          height: 20,
+                          width: 20,
+                        ),
                       ),
                     ),
                   );
@@ -212,13 +233,45 @@ class _DataPageState extends State<DataPage> {
                   return Center(
                     child: Padding(
                       padding: const EdgeInsets.all(20),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.red.shade400,
+                      child: GestureDetector(
+                        onTap: () => showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text("Sin conexion"),
+                              content: const Text("Dispositivo no conectado"),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pop(); // Cierra el AlertDialog
+                                  },
+                                  child: const Text('OK'),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const QrboardPage(),
+                                      ),
+                                    ); // Cierra el AlertDialog
+                                  },
+                                  child: const Text('Conectar'),
+                                ),
+                              ],
+                            );
+                          },
                         ),
-                        height: 20,
-                        width: 20,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.red.shade400,
+                          ),
+                          height: 20,
+                          width: 20,
+                        ),
                       ),
                     ),
                   );
