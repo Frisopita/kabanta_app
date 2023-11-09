@@ -44,12 +44,14 @@ class MyKabantaApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<ClockService>(create: (_)=>ClockService()),
-        ProxyProvider0(create: (context) => Provider.of(context, listen: false).id,
-        update: (context, value){
-          final id = Provider.of<ClockService>(context);
-          return id;
-        },),
+        ChangeNotifierProvider<ClockService>(create: (_) => ClockService()),
+        ProxyProvider0(
+          create: (context) => Provider.of(context, listen: false).id,
+          update: (context, value) {
+            final id = Provider.of<ClockService>(context);
+            return id;
+          },
+        ),
         ChangeNotifierProvider<BleProvider>(
           /// lazy se usa para incializar un provider antes de tiempo:
           /// true: se incializa desde que se inserta en el Widget Tre e
@@ -103,10 +105,14 @@ class MyKabantaApp extends StatelessWidget {
         home: Builder(
           builder: (context) {
             final blState = context.watch<flutter_blue.BluetoothAdapterState>();
-            //final blDvState =Provider.of<flutter_blue.BluetoothDeviceState>(context);
+            final device_provider = Provider.of<DeviceProvider>(context);
+            final qrtext = Provider.of<QrTextProvider>(context);
             if (blState == flutter_blue.BluetoothAdapterState.on) {
-              // Navigate to the screen for connected device
-              return const QrboardPage();
+              if (device_provider == qrtext) {
+                return const DataPage();
+              } else {
+                return const QrboardPage();
+              }
             } else {
               // Navigate to the BluetoothScreenOffOn when Bluetooth is off
               return const BluetoothScreenOffOn();
@@ -172,7 +178,7 @@ class _DataPageState extends State<DataPage> {
       History(),
     ];
 
-  const  Widget fixedWidgetSignal =  ContainerSignal();
+    const Widget fixedWidgetSignal = ContainerSignal();
     final Widget fixedWidgetClock = ContainerClock(device: device);
 
     return ChangeNotifierProvider<ClockService>(
