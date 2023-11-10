@@ -18,6 +18,7 @@ class ClockService extends ChangeNotifier {
   Stream<List<BLEWriteState>> get stream => _stream;
   late double states; 
   BluetoothService? _service;
+  BluetoothService? _lastService;
 
   void updatestates(double newValue) {
     states = newValue;
@@ -28,7 +29,7 @@ class ClockService extends ChangeNotifier {
     final s = _service;
     if ((s ==null)) return;
     Future<void> writeCharacteristic() async {
-      await s.characteristics[8].write([newValue.toInt()], withoutResponse: true);
+      await s.characteristics[8].write([newValue.toInt()]);
     }
     writeCharacteristic();
   }
@@ -39,12 +40,10 @@ class ClockService extends ChangeNotifier {
         .where((c) => allowedUUIDs.containsKey(c.uuid.toString())).toList();
 
     await Future.forEach(listBle, (element) => element.setNotifyValue(true));
-
     Future<void> writeCharacteristic() async {
-      await service.characteristics[8].write([states.toInt()], withoutResponse: true);
+      await service.characteristics[8].write([states.toInt()]);
     }
     writeCharacteristic();
-
     listBle.removeLast();
     Iterable<Stream<BLEWriteState>> streams = listBle
         .map(
@@ -55,11 +54,8 @@ class ClockService extends ChangeNotifier {
           }),
         );
     _stream = StreamZip(streams);
-    
     notifyListeners();
-
   }
-
 
   void _start() {
     _countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) => _updateList());
@@ -75,24 +71,37 @@ class ClockService extends ChangeNotifier {
       _cancel();
       return;
     }
+    
     final List<UIState> internalList = [];
+    
     for (var i in _uistates) {
       final state = i.duration == Duration.zero ? i : i.copyWith(duration: i.duration - const Duration(seconds: 1));
-      if (state.duration == Duration.zero){
+      
+      if (state.duration == Duration.zero) {
         final index = _activities.indexWhere((element) => element.id == state.activityid);
         _activities[index] = _activities[index].copyWith(isComplete: true);
         print('state id');
         updatestates(state.id);
         _updateCharacteristicState(state.id);
-        print(state.id);     
-        //initService(_service!); 
+        print(state.id);
+
+        // Verifica si _service es no nulo antes de llamar a initService
+        if (_service != null) {
+          // Verifica si initService ya se ha llamado anteriormente para el mismo servicio
+          if (_service != _lastService) {
+            initService(_service!);
+            _lastService = _service; // Actualiza el ¨²ltimo servicio utilizado
+          }
+        }
       } else {
         internalList.add(state);
       }
     }
-    if (internalList.isEmpty){
+
+    if (internalList.isEmpty) {
       _cancel();
     }
+
     _uistates = internalList;
     notifyListeners();
   }

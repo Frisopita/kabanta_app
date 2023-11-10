@@ -1,6 +1,8 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:kabanta_app1/providers/clock_provider.dart';
+import 'package:kabanta_app1/providers/device_provider.dart';
+import 'package:kabanta_app1/providers/states.dart';
 import 'package:kabanta_app1/variables.dart';
 import 'package:provider/provider.dart';
 
@@ -273,10 +275,14 @@ class HistoryContainer extends StatefulWidget {
 
 class _HistoryContainerState extends State<HistoryContainer> {
   ListTile _generateListTile(ActivityTimer state) {
+     final serviceProvider = Provider.of<DeviceProvider>(context);
+    final servish = serviceProvider.service;
     String statesText = '';
     switch (state.type) {
       case 1:
         statesText = buttECG1;
+       //Provider.of<BleStateProvider>(context, listen: false).updatestates(state as double);
+       context.read<ClockService>().initService(servish);
         break;
       case 2:
         statesText = buttECG2;

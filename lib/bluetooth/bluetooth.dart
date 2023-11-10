@@ -149,6 +149,7 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
 
     if (!mounted) return;
     context.read<DeviceProvider>().setDevice(device, list);
+    context.read<DeviceProvider>().setService(list);
 
     Navigator.pushReplacement(
       context,

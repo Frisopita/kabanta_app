@@ -469,12 +469,9 @@ class _ThirdWidgetButtonsState extends State<ThirdWidgetButtons> {
                     onTap: () {
                       setState(() {
                         states = value.toDouble();
-                        Provider.of<BleStateProvider>(context, listen: false)
-                          .updatestates(states);
+                        Provider.of<BleStateProvider>(context, listen: false).updatestates(states);
                       });
-                      context
-                          .read<BleStateProvider>()
-                          .initService(widget.service);
+                      context.read<BleStateProvider>().initService(widget.service);
                       widget.onTap();
                     },
                     onLongPress: () {

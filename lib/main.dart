@@ -204,13 +204,12 @@ class _DataPageState extends State<DataPage> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: const Text("Conectado"),
-                              content: Text("Dispositivo conectado a ${device.localName}"),
+                              title: const Text("Device State"),
+                              content: Text("Device connected to ${device.localName}"),
                               actions: [
                                 TextButton(
                                   onPressed: () {
-                                    Navigator.of(context)
-                                        .pop(); // Cierra el AlertDialog
+                                    Navigator.of(context).pop();
                                   },
                                   child: const Text('OK'),
                                 ),
@@ -238,13 +237,12 @@ class _DataPageState extends State<DataPage> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: const Text("Sin conexion"),
-                              content: const Text("Dispositivo no conectado"),
+                              title: const Text("Device State"),
+                              content: const Text("Device Disconnected"),
                               actions: [
                                 TextButton(
                                   onPressed: () {
-                                    Navigator.of(context)
-                                        .pop(); // Cierra el AlertDialog
+                                    Navigator.of(context).pop();
                                   },
                                   child: const Text('OK'),
                                 ),
@@ -258,7 +256,7 @@ class _DataPageState extends State<DataPage> {
                                       ),
                                     ); // Cierra el AlertDialog
                                   },
-                                  child: const Text('Conectar'),
+                                  child: const Text('Connect'),
                                 ),
                               ],
                             );
