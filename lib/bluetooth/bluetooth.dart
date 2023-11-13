@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:collection/collection.dart';
+import 'package:kabanta_app1/bluetooth/widgetsble.dart';
+import 'package:kabanta_app1/providers/clock_provider.dart';
 import 'package:kabanta_app1/providers/device_provider.dart';
 import 'package:kabanta_app1/bluetooth/qrble.dart';
 import 'package:kabanta_app1/main.dart';
@@ -90,7 +92,8 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
           (event) => widget.qrText.isEmpty
               ? null
               : event
-                  .firstWhereOrNull((scan) => scan.device.localName == widget.qrText)
+                  .firstWhereOrNull(
+                      (scan) => scan.device.localName == widget.qrText)
                   ?.device,
         )
         .distinct((prev, curr) => prev?.localName == curr?.localName)
@@ -144,19 +147,50 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
   Future<void> _connectToDevice(BluetoothDevice device) async {
     if (isLoading || errorType != null) return;
     isLoading = true;
-    await device.connect();
-    final list = await device.discoverServices();
 
-    if (!mounted) return;
-    context.read<DeviceProvider>().setDevice(device, list);
-    context.read<DeviceProvider>().setService(list);
+    try {
+      await device.connect();
+      final services = await device.discoverServices();
+      if (!mounted) return;
+      // Now you can access the services
+      print("Services discovered:");
+      for (var service in services) {
+        print("Service: ${service.uuid}");
+        for (var characteristic in service.characteristics) {
+          print("Characteristic: ${characteristic.uuid}");
+        }
+      }
 
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const DataPage(),
-      ),
-    );
+      final filteredServices = services.where(
+      (service) =>
+          !excludedServiceUUIDs.contains(service.uuid.toString()),
+    ).toList();
+
+    if (filteredServices.isEmpty) {
+      print("No hay servicios disponibles después de excluir los servicios específicos.");
+      return;
+    }
+
+    for (var service in filteredServices) {
+      context.read<ClockService>().setInitService(service);
+     // print("jiji");
+     // print(service);
+    }
+      context.read<DeviceProvider>().setDevice(device, services);
+      context.read<DeviceProvider>().setService(services);
+      //context.read<ClockService>().setInitService(services);
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const DataPage(),
+        ),
+      );
+    } catch (error) {
+      // Handle any errors that may occur during connection or service discovery
+      print("Error connecting to device: $error");
+      _showErrorIfAny();
+    }
   }
 
   @override
@@ -178,15 +212,21 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
             children: [
               OutlinedButton.icon(
                 onPressed: _retry,
-                icon:  Icon(Icons.refresh_rounded, color: colorbackbutt1,),
-                label: Text('Reintentar conectarse', style: TextStyle(color: colorbackbutt1),),
+                icon: Icon(
+                  Icons.refresh_rounded,
+                  color: colorbackbutt1,
+                ),
+                label: Text(
+                  'Reintentar conectarse',
+                  style: TextStyle(color: colorbackbutt1),
+                ),
               ),
               const SizedBox(height: 8.0),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                backgroundColor: colorbackbutt1,
-                foregroundColor: colorforebutt1,
-              ),
+                  backgroundColor: colorbackbutt1,
+                  foregroundColor: colorforebutt1,
+                ),
                 onPressed: () => Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
@@ -202,8 +242,14 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
         default:
           body = ElevatedButton.icon(
             onPressed: _retry,
-            icon: const Icon(Icons.refresh_rounded, color: Colors.indigo,),
-            label: const Text('Reintentar conectarse', style: TextStyle(color: Colors.indigo),),
+            icon: const Icon(
+              Icons.refresh_rounded,
+              color: Colors.indigo,
+            ),
+            label: const Text(
+              'Reintentar conectarse',
+              style: TextStyle(color: Colors.indigo),
+            ),
           );
           break;
       }

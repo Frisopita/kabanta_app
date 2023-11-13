@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:async/async.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:kabanta_app1/bluetooth/widgetsble.dart';
 import 'package:kabanta_app1/variables.dart';
-
 
 class ClockService extends ChangeNotifier {
   final List<ActivityTimer> _activities = [];
@@ -16,49 +16,30 @@ class ClockService extends ChangeNotifier {
   bool get isActive => _duration != Duration.zero;
   Stream<List<BLEWriteState>> _stream = const Stream.empty();
   Stream<List<BLEWriteState>> get stream => _stream;
-  late double states; 
-  BluetoothService? _service;
-  BluetoothService? _lastService;
+  late double states;
+  late BluetoothService _service;
+  BluetoothService get servis => _service;
 
   void updatestates(double newValue) {
     states = newValue;
     notifyListeners();
   }
 
-  Future<void> _updateCharacteristicState(double newValue) async {
-    final s = _service;
-    if ((s ==null)) return;
-    Future<void> writeCharacteristic() async {
-      await s.characteristics[8].write([newValue.toInt()]);
-    }
-    writeCharacteristic();
-  }
-
-  Future <void> initService(BluetoothService service) async {
-    _service = service;
-    List<BluetoothCharacteristic> listBle = service.characteristics
-        .where((c) => allowedUUIDs.containsKey(c.uuid.toString())).toList();
-
-    await Future.forEach(listBle, (element) => element.setNotifyValue(true));
-    Future<void> writeCharacteristic() async {
-      await service.characteristics[8].write([states.toInt()]);
-    }
-    writeCharacteristic();
-    listBle.removeLast();
-    Iterable<Stream<BLEWriteState>> streams = listBle
-        .map(
-          (c) => c.value.map((event) {
-            String value = String.fromCharCodes(event);
-            String uuid = c.uuid.toString();
-            return BLEWriteState(allowedUUIDs[uuid]!, value);
-          }),
-        );
-    _stream = StreamZip(streams);
+  setInitService(servish){
+    _service = servish;
+    print("si se inicializa");
+    print(_service);
     notifyListeners();
   }
 
+  Future<void> writeCharacteristic() async {
+      await _service.characteristics[8].setNotifyValue(true);
+      await _service.characteristics[8].write([states.toInt()]);
+  }
+
   void _start() {
-    _countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) => _updateList());
+    _countdownTimer =
+        Timer.periodic(const Duration(seconds: 1), (timer) => _updateList());
   }
 
   void _cancel() {
@@ -71,28 +52,24 @@ class ClockService extends ChangeNotifier {
       _cancel();
       return;
     }
-    
+
     final List<UIState> internalList = [];
-    
+
     for (var i in _uistates) {
-      final state = i.duration == Duration.zero ? i : i.copyWith(duration: i.duration - const Duration(seconds: 1));
-      
+      final state = i.duration == Duration.zero
+          ? i
+          : i.copyWith(duration: i.duration - const Duration(seconds: 1));
+
       if (state.duration == Duration.zero) {
-        final index = _activities.indexWhere((element) => element.id == state.activityid);
-        _activities[index] = _activities[index].copyWith(isComplete: true);
+        final index =
+            _activities.indexWhere((element) => element.id == state.activityid);
+        _activities[index] = _activities[index].copyWith(isComplete: true, service: _service);
         print('state id');
         updatestates(state.id);
-        _updateCharacteristicState(state.id);
         print(state.id);
-
-        // Verifica si _service es no nulo antes de llamar a initService
-        if (_service != null) {
-          // Verifica si initService ya se ha llamado anteriormente para el mismo servicio
-          if (_service != _lastService) {
-            initService(_service!);
-            _lastService = _service; // Actualiza el ¨²ltimo servicio utilizado
-          }
-        }
+        //print("sigue con datos");
+        //print(_service);
+       writeCharacteristic();
       } else {
         internalList.add(state);
       }
@@ -110,13 +87,21 @@ class ClockService extends ChangeNotifier {
 
   List<ActivityTimer> get activities => _activities.where((element) => element.isComplete).toList();
 
-  void addState(({double type, Duration duration}) state) {
-    final activity = ActivityTimer(id:_activities.length, type: state.type, duration: state.duration, isComplete: state.duration == Duration.zero);
+  void addState(({double type, Duration duration, BluetoothService servicetest}) state) {
+    final activity = ActivityTimer(
+        id: _activities.length,
+        type: state.type,
+        duration: state.duration,
+        isComplete: state.duration == Duration.zero,
+        service: state.servicetest);
     if (_uistates.isEmpty) {
       _start();
     }
-    final uistate = UIState(activityid: activity.id,
-    id: state.type, duration: state.duration, index: _uistates.length);
+    final uistate = UIState(
+        activityid: activity.id,
+        id: state.type,
+        duration: state.duration,
+        index: _uistates.length);
     _activities.add(activity);
     _uistates.add(uistate);
   }
@@ -159,7 +144,11 @@ class UIState {
     final Duration? duration,
     final int? index,
   }) {
-    return UIState(activityid: activityid, duration: duration ?? this.duration, id: id ?? this.id, index: index ?? this.index);
+    return UIState(
+        activityid: activityid,
+        duration: duration ?? this.duration,
+        id: id ?? this.id,
+        index: index ?? this.index);
   }
 }
 
@@ -168,24 +157,29 @@ class ActivityTimer {
   final double type;
   final Duration duration;
   final bool isComplete;
+  final BluetoothService service;
 
-  ActivityTimer({
-    required this.id,
-    required this.type,
-    required this.duration,
-    required this.isComplete
-  });
-
+  ActivityTimer(
+      {required this.id,
+      required this.type,
+      required this.duration,
+      required this.isComplete,
+      required this.service});
 
   ActivityTimer copyWith({
-  final int? id,
-  final double? type,
-  final Duration? duration,
-  final bool? isComplete,
+    final int? id,
+    final double? type,
+    final Duration? duration,
+    final bool? isComplete,
+    required final BluetoothService service
   }) {
-    return ActivityTimer(id: id ?? this.id, type: type ?? this.type, duration: duration ?? this.duration, isComplete: isComplete ?? this.isComplete);
+    return ActivityTimer(
+        id: id ?? this.id,
+        type: type ?? this.type,
+        duration: duration ?? this.duration,
+        isComplete: isComplete ?? this.isComplete,
+        service: service);
   }
-
 }
 
 class BLEWriteState {

@@ -282,7 +282,7 @@ class _HistoryContainerState extends State<HistoryContainer> {
       case 1:
         statesText = buttECG1;
        //Provider.of<BleStateProvider>(context, listen: false).updatestates(state as double);
-       context.read<ClockService>().initService(servish);
+       //context.read<ClockService>().setInitService(servish);
         break;
       case 2:
         statesText = buttECG2;

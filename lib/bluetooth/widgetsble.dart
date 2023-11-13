@@ -41,8 +41,7 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
 
   @override
   Widget build(BuildContext context) {
-    List<BluetoothCharacteristic> characteristics =
-        widget.service.characteristics.toList();
+    List<BluetoothCharacteristic> characteristics = widget.service.characteristics.toList();
     if (characteristics.isNotEmpty) {
       if (excludedServiceUUIDs.contains(widget.service.uuid.toString())) {
         return Container(); // Oculta el servicio
@@ -71,7 +70,6 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
                 case 3:
                   statesText = buttECG3;
                   break;
-                // Agrega m��s casos seg��n sea necesario
                 default:
                   statesText = '';
                   break;
@@ -131,6 +129,7 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
                                         service.addState((
                                           duration: result,
                                           type: states,
+                                          servicetest: widget.service
                                         ));
                                       },
                                       child: const Text('Program'),
@@ -323,6 +322,7 @@ class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
                                         service.addState((
                                           duration: result,
                                           type: states,
+                                          servicetest: widget.service
                                         ));
                                       },
                                       child: const Text('Program'),
@@ -523,6 +523,7 @@ class _ThirdWidgetButtonsState extends State<ThirdWidgetButtons> {
                                         service.addState((
                                           duration: result,
                                           type: states,
+                                          servicetest: widget.service
                                         ));
                                       },
                                       child: const Text('Program'),
@@ -674,6 +675,7 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
                               service.addState((
                                 duration: result,
                                 type: states,
+                                servicetest: widget.service
                               ));
                             },
                             child: const Text('Program'),
