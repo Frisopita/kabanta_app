@@ -147,52 +147,21 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
   Future<void> _connectToDevice(BluetoothDevice device) async {
     if (isLoading || errorType != null) return;
     isLoading = true;
+    await device.connect();
+    final list = await device.discoverServices();
 
-    try {
-      await device.connect();
-      final services = await device.discoverServices();
-      if (!mounted) return;
-      // Now you can access the services
-      print("Services discovered:");
-      for (var service in services) {
-        print("Service: ${service.uuid}");
-        for (var characteristic in service.characteristics) {
-          print("Characteristic: ${characteristic.uuid}");
-        }
-      }
+    if (!mounted) return;
+    context.read<DeviceProvider>().setDevice(device, list);
+    context.read<DeviceProvider>().setService(list);
 
-      final filteredServices = services.where(
-      (service) =>
-          !excludedServiceUUIDs.contains(service.uuid.toString()),
-    ).toList();
-
-    if (filteredServices.isEmpty) {
-      print("No hay servicios disponibles después de excluir los servicios específicos.");
-      return;
-    }
-
-    for (var service in filteredServices) {
-     //context.read<ClockService>().setInitService(service);
-     // print("jiji");
-     // print(service);
-    }
-      context.read<DeviceProvider>().setDevice(device, services);
-      context.read<DeviceProvider>().setService(services);
-      //context.read<ClockService>().setInitService(services);
-
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const DataPage(),
-        ),
-      );
-    } catch (error) {
-      // Handle any errors that may occur during connection or service discovery
-      print("Error connecting to device: $error");
-      _showErrorIfAny();
-    }
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const DataPage(),
+      ),
+    );
   }
-
+  
   @override
   void dispose() {
     FlutterBluePlus.stopScan().ignore();

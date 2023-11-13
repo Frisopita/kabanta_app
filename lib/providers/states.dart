@@ -1,7 +1,5 @@
-import 'package:async/async.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:kabanta_app1/variables.dart';
 
 class BLEWriteStates {
   final String id;
@@ -34,7 +32,6 @@ class BleStateProvider extends ChangeNotifier {
     writeCharacteristic();
   }
 
-  /// No importan, pero da error en el widget que dejamos de usar y no lo borre
   set id(String id) {}
   void setValue(Uint8List readValues) {}
 
@@ -50,8 +47,6 @@ class BleStateProvider extends ChangeNotifier {
     notifyListeners();
 
   }
-
-
 
   String get debug {
     return '''

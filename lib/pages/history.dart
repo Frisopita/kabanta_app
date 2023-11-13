@@ -275,14 +275,10 @@ class HistoryContainer extends StatefulWidget {
 
 class _HistoryContainerState extends State<HistoryContainer> {
   ListTile _generateListTile(ActivityTimer state) {
-     final serviceProvider = Provider.of<DeviceProvider>(context);
-    final servish = serviceProvider.service;
     String statesText = '';
     switch (state.type) {
       case 1:
         statesText = buttECG1;
-       //Provider.of<BleStateProvider>(context, listen: false).updatestates(state as double);
-       //context.read<ClockService>().setInitService(servish);
         break;
       case 2:
         statesText = buttECG2;
