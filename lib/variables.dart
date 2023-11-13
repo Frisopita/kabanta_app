@@ -98,6 +98,7 @@ String buttECG16 = 'B';
 String buttECG17 = 'B';
 String buttECG18 = 'B';
 String buttECG19 = 'Heart Attack';
+String buttStop = 'Stop';
 
 String buttConstName = 'Cliked';
 

@@ -1,17 +1,110 @@
 import 'package:flutter/material.dart';
 import 'package:kabanta_app1/Pages/clock.dart';
 import 'package:kabanta_app1/providers/device_provider.dart';
-import 'package:kabanta_app1/variables.dart';
 import 'dart:async';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:kabanta_app1/bluetooth/widgetsble.dart';
+import 'package:kabanta_app1/providers/states.dart';
 import 'package:provider/provider.dart';
+import 'package:kabanta_app1/variables.dart';
 
-
-class ContainerSignal extends StatelessWidget {
+class ContainerSignal extends StatefulWidget {
   const ContainerSignal({super.key});
+
+  @override
+  State<ContainerSignal> createState() => _ContainerSignalState();
+}
+
+class _ContainerSignalState extends State<ContainerSignal> {
   @override
   Widget build(BuildContext context) {
+    final states = Provider.of<BleStateProvider>(context);
+    final stateCase = states.states;
+    String statesText = '';
+    String imagePath = '';
+    switch (stateCase) {
+      case 1:
+        statesText = buttECG1;
+        imagePath = 'Images/arryt3.png';
+        break;
+      case 2:
+        statesText = buttECG2;
+        imagePath = 'Images/arryt3.png';
+        break;
+      case 3:
+        statesText = buttECG3;
+        imagePath = 'Images/arryt3.png';
+        break;
+      case 4:
+        statesText = buttECG4;
+        imagePath = 'Images/arryt3.png';
+        break;
+      case 5:
+        statesText = buttECG5;
+        imagePath = 'Images/arryt3.png';
+        break;
+      case 6:
+        statesText = buttECG6;
+        imagePath = 'Images/arryt3.png';
+        break;
+      case 7:
+        statesText = buttECG7;
+        imagePath = 'Images/arryt3.png';
+        break;
+      case 8:
+        statesText = buttECG8;
+        imagePath = 'Images/arryt3.png';
+        break;
+      case 9:
+        statesText = buttECG9;
+        imagePath = 'Images/arryt3.png';
+        break;
+      case 10:
+        statesText = buttECG10;
+        imagePath = 'Images/arryt3.png';
+        break;
+      case 11:
+        statesText = buttECG11;
+        imagePath = 'Images/arryt3.png';
+        break;
+      case 12:
+        statesText = buttECG12;
+        imagePath = 'Images/arryt3.png';
+        break;
+      case 13:
+        statesText = buttECG13;
+        imagePath = 'Images/arryt3.png';
+        break;
+      case 14:
+        statesText = buttECG14;
+        imagePath = 'Images/arryt3.png';
+        break;
+      case 15:
+        statesText = buttECG15;
+        imagePath = 'Images/arryt3.png';
+        break;
+      case 16:
+        statesText = buttECG16;
+        imagePath = 'Images/arryt3.png';
+        break;
+      case 17:
+        statesText = buttECG17;
+        imagePath = 'Images/arryt3.png';
+        break;
+      case 18:
+        statesText = buttECG18;
+        imagePath = 'Images/arryt3.png';
+        break;
+      case 19:
+        statesText = buttStop;
+        imagePath = 'Images/heartAttack.png';
+        break;
+      default:
+        statesText = '';
+        imagePath = 'Images/arryt3.png';
+        break;
+    }
+
     return SizedBox(
       width: double.infinity,
       height: 50,
@@ -34,9 +127,9 @@ class ContainerSignal extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: Colors.blueGrey.shade300,
                       borderRadius: BorderRadius.circular(2)),
-                  child: const Center(
+                  child: Center(
                     child: Text(
-                      'NS',
+                      statesText, // Cambiado de 'NS' a statesText
                       style: signaLabel,
                     ),
                   ),
@@ -45,12 +138,13 @@ class ContainerSignal extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(5),
                 child: SizedBox(
-                    width: 250,
-                    height: 30,
-                    child: Image.asset(
-                      'Images/arryt3.png',
-                      fit: BoxFit.contain,
-                    )),
+                  width: 250,
+                  height: 30,
+                  child: Image.asset(
+                    imagePath,
+                    fit: BoxFit.contain,
+                  ),
+                ),
               ),
             ],
           ),
@@ -74,8 +168,6 @@ class ContainerClock extends StatefulWidget {
 }
 
 class _ContainerClockState extends State<ContainerClock> {
-  
-  
   List<Widget> _buildUpgradeButt(List<BluetoothService> services) {
     return services
         .map(
@@ -138,7 +230,6 @@ class _ContainerClockState extends State<ContainerClock> {
 
   @override
   Widget build(BuildContext context) {
-
     return SizedBox(
       height: 80,
       width: double.infinity,
@@ -200,8 +291,9 @@ class _ContainerClockState extends State<ContainerClock> {
                       foregroundColor: colorforebutt2),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) =>  const ClockConfigScreen (),
-              ));
+                      builder: (BuildContext context) =>
+                          const ClockConfigScreen(),
+                    ));
                   },
                   child: const Text('Progam'),
                 ),
