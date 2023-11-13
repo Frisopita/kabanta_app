@@ -172,7 +172,7 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
     }
 
     for (var service in filteredServices) {
-      context.read<ClockService>().setInitService(service);
+     //context.read<ClockService>().setInitService(service);
      // print("jiji");
      // print(service);
     }

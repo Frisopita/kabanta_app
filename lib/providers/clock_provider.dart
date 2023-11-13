@@ -17,24 +17,16 @@ class ClockService extends ChangeNotifier {
   Stream<List<BLEWriteState>> _stream = const Stream.empty();
   Stream<List<BLEWriteState>> get stream => _stream;
   late double states;
-  late BluetoothService _service;
-  BluetoothService get servis => _service;
 
   void updatestates(double newValue) {
     states = newValue;
     notifyListeners();
   }
 
-  setInitService(servish){
-    _service = servish;
-    print("si se inicializa");
-    print(_service);
-    notifyListeners();
-  }
-
-  Future<void> writeCharacteristic() async {
-      await _service.characteristics[8].setNotifyValue(true);
-      await _service.characteristics[8].write([states.toInt()]);
+  Future<void> writeCharacteristic(BluetoothService servish) async {
+      await servish.characteristics[8].setNotifyValue(true);
+      await servish.characteristics[8].write([states.toInt()]);
+      print(states);
   }
 
   void _start() {
@@ -63,13 +55,13 @@ class ClockService extends ChangeNotifier {
       if (state.duration == Duration.zero) {
         final index =
             _activities.indexWhere((element) => element.id == state.activityid);
-        _activities[index] = _activities[index].copyWith(isComplete: true, service: _service);
+        _activities[index] = _activities[index].copyWith(isComplete: true);
         print('state id');
         updatestates(state.id);
         print(state.id);
         //print("sigue con datos");
         //print(_service);
-       writeCharacteristic();
+       writeCharacteristic(state.service);
       } else {
         internalList.add(state);
       }
@@ -92,8 +84,7 @@ class ClockService extends ChangeNotifier {
         id: _activities.length,
         type: state.type,
         duration: state.duration,
-        isComplete: state.duration == Duration.zero,
-        service: state.servicetest);
+        isComplete: state.duration == Duration.zero);
     if (_uistates.isEmpty) {
       _start();
     }
@@ -101,6 +92,7 @@ class ClockService extends ChangeNotifier {
         activityid: activity.id,
         id: state.type,
         duration: state.duration,
+        service: state.servicetest,
         index: _uistates.length);
     _activities.add(activity);
     _uistates.add(uistate);
@@ -131,24 +123,29 @@ class UIState {
   final double id;
   final Duration duration;
   final int index;
+  final BluetoothService service;
 
   UIState({
     required this.activityid,
     required this.duration,
     required this.id,
     required this.index,
+    required this.service
   });
 
   UIState copyWith({
     final double? id,
     final Duration? duration,
     final int? index,
+    //required final BluetoothService service
   }) {
     return UIState(
         activityid: activityid,
         duration: duration ?? this.duration,
         id: id ?? this.id,
-        index: index ?? this.index);
+        index: index ?? this.index,
+        service: service
+        );
   }
 }
 
@@ -157,28 +154,26 @@ class ActivityTimer {
   final double type;
   final Duration duration;
   final bool isComplete;
-  final BluetoothService service;
 
   ActivityTimer(
       {required this.id,
       required this.type,
       required this.duration,
       required this.isComplete,
-      required this.service});
+    });
 
   ActivityTimer copyWith({
     final int? id,
     final double? type,
     final Duration? duration,
     final bool? isComplete,
-    required final BluetoothService service
   }) {
     return ActivityTimer(
         id: id ?? this.id,
         type: type ?? this.type,
         duration: duration ?? this.duration,
         isComplete: isComplete ?? this.isComplete,
-        service: service);
+        );
   }
 }
 

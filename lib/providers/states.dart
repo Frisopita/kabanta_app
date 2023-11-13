@@ -40,25 +40,12 @@ class BleStateProvider extends ChangeNotifier {
 
    Future <void> initService(BluetoothService service) async {
     _service = service;
-    List<BluetoothCharacteristic> listBle = service.characteristics
-        .where((c) => allowedUUIDs.containsKey(c.uuid.toString())).toList();
-
-    await Future.forEach(listBle, (element) => element.setNotifyValue(true));
 
     Future<void> writeCharacteristic() async {
       await service.characteristics[8].write([states.toInt()]);
+      print(states);
     }
     writeCharacteristic();
-
-    Iterable<Stream<BLEWriteStates>> streams = listBle
-        .map(
-          (c) => c.lastValueStream.map((event) {
-            String value = String.fromCharCodes(event);
-            String uuid = c.uuid.toString();
-            return BLEWriteStates(allowedUUIDs[uuid]!, value);
-          }),
-        );
-    _stream = StreamZip(streams);
     
     notifyListeners();
 
