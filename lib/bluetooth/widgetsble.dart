@@ -36,10 +36,9 @@ class FirstWidgetButtons extends StatefulWidget {
 }
 
 class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
-
   double states = 0;
- // Duration? firstDuration = Duration.zero; // Nueva variable
-  
+  // Duration? firstDuration = Duration.zero; // Nueva variable
+
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -51,6 +50,7 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
         return ConstrainedBox(
           constraints: BoxConstraints.tight(const Size(400, 40)),
           child: GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
@@ -83,7 +83,7 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
                       setState(() {
                         states = value.toDouble();
                         Provider.of<BleStateProvider>(context, listen: false)
-                          .updatestates(states);
+                            .updatestates(states);
                       });
                       context
                           .read<BleStateProvider>()
@@ -99,6 +99,8 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
                           return AlertDialog(
                             title: const Text('Long Click'),
                             content: SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height * 0.13,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,7 +108,7 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
                                   const Padding(
                                     padding: EdgeInsets.all(5),
                                     child: Text(
-                                        'Al hacer un click largo se despliga la informacion de los datos enviados, ejemplo: '),
+                                        'Al hacer un click largo se despliegan la informacion de los datos enviados, ejemplo: '),
                                   ),
                                   Center(
                                     child: ElevatedButton(
@@ -219,9 +221,8 @@ class SecondWidgetButtons extends StatefulWidget {
 }
 
 class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
-
   double states = 0;
-  
+
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -233,6 +234,7 @@ class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
         return ConstrainedBox(
           constraints: BoxConstraints.tight(const Size(400, 80)),
           child: GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
@@ -273,7 +275,7 @@ class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
                       setState(() {
                         states = value.toDouble();
                         Provider.of<BleStateProvider>(context, listen: false)
-                          .updatestates(states);
+                            .updatestates(states);
                       });
                       context
                           .read<BleStateProvider>()
@@ -289,6 +291,8 @@ class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
                           return AlertDialog(
                             title: const Text('Long Click'),
                             content: SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height * 0.13,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -296,7 +300,7 @@ class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
                                   const Padding(
                                     padding: EdgeInsets.all(5),
                                     child: Text(
-                                        'Al hacer un click largo se despliga la informacion de los datos enviados, ejemplo: '),
+                                        'Al hacer un click largo se despliegan la informacion de los datos enviados, ejemplo: '),
                                   ),
                                   Center(
                                     child: ElevatedButton(
@@ -421,6 +425,7 @@ class _ThirdWidgetButtonsState extends State<ThirdWidgetButtons> {
         return ConstrainedBox(
           constraints: BoxConstraints.tight(const Size(400, 130)),
           child: GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
@@ -469,9 +474,12 @@ class _ThirdWidgetButtonsState extends State<ThirdWidgetButtons> {
                     onTap: () {
                       setState(() {
                         states = value.toDouble();
-                        Provider.of<BleStateProvider>(context, listen: false).updatestates(states);
+                        Provider.of<BleStateProvider>(context, listen: false)
+                            .updatestates(states);
                       });
-                      context.read<BleStateProvider>().initService(widget.service);
+                      context
+                          .read<BleStateProvider>()
+                          .initService(widget.service);
                       widget.onTap();
                     },
                     onLongPress: () {
@@ -483,6 +491,8 @@ class _ThirdWidgetButtonsState extends State<ThirdWidgetButtons> {
                           return AlertDialog(
                             title: const Text('Long Click'),
                             content: SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height * 0.13,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -490,7 +500,7 @@ class _ThirdWidgetButtonsState extends State<ThirdWidgetButtons> {
                                   const Padding(
                                     padding: EdgeInsets.all(5),
                                     child: Text(
-                                        'Al hacer un click largo se despliga la informacion de los datos enviados, ejemplo: '),
+                                        'Al hacer un click largo se despliegan la informacion de los datos enviados, ejemplo: '),
                                   ),
                                   Center(
                                     child: ElevatedButton(
@@ -604,7 +614,7 @@ class HeartAttackButt extends StatefulWidget {
 }
 
 class _HeartAttackButtState extends State<HeartAttackButt> {
-  double states = 0;  
+  double states = 0;
   @override
   Widget build(BuildContext context) {
     List<BluetoothCharacteristic> characteristics =
@@ -617,7 +627,8 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
           onTap: () {
             setState(() {
               states = 19;
-              Provider.of<BleStateProvider>(context, listen: false).updatestates(states);
+              Provider.of<BleStateProvider>(context, listen: false)
+                  .updatestates(states);
             });
             context.read<BleStateProvider>().initService(widget.service);
             //context.read<BleStateProvider>().updateCharacteristicState(states);
@@ -632,6 +643,8 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
                 return AlertDialog(
                   title: const Text('Long Click'),
                   content: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.13,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -639,7 +652,7 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
                         const Padding(
                           padding: EdgeInsets.all(5),
                           child: Text(
-                              'Al hacer un click largo se despliga la informacion de los datos enviados, ejemplo: '),
+                              'Al hacer un click largo se despliegan la informacion de los datos enviados, ejemplo: '),
                         ),
                         Center(
                           child: ElevatedButton(
@@ -659,9 +672,9 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
                               );
                               if (result == null || !mounted) return;
                               service.addState((
-                                          duration: result,
-                                          type: states,
-                                        ));
+                                duration: result,
+                                type: states,
+                              ));
                             },
                             child: const Text('Program'),
                           ),
@@ -785,7 +798,8 @@ class _PlayButtState extends State<PlayButt> {
         );
       }
     } else {
-      return Text('0x${widget.service.uuid.toString().toUpperCase().substring(4, 8)}');
+      return Text(
+          '0x${widget.service.uuid.toString().toUpperCase().substring(4, 8)}');
     }
   }
 }

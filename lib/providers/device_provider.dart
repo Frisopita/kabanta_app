@@ -20,10 +20,10 @@ class DeviceProvider extends ChangeNotifier {
   // Filtrar los servicios excluidos
   final filteredServices = services.where((s) => !excludedServiceUUIDs.contains(s.uuid.toString()));
 
-  // Verificar si quedan servicios despu®¶s de la exclusi®Æn
+  // Verificar si quedan servicios despu√©s de la exclusi√≥n
   if (filteredServices.isEmpty) {
-    // Manejar el caso en el que no hay servicios despu®¶s de la exclusi®Æn
-    throw Exception("No hay servicios disponibles despu®¶s de excluir los servicios espec®™ficos.");
+    // Manejar el caso en el que no hay servicios despu√©s de la exclusi√≥n
+    throw Exception("No hay servicios disponibles despu√©s de excluir los servicios espec√≠ficos.");
   }
 
   // Tomar el primer servicio restante
@@ -33,7 +33,7 @@ class DeviceProvider extends ChangeNotifier {
 
 
   /*void setService(List<BluetoothService> services) {
-    // Busca el servicio que est®¢ conectado al dispositivo y establece service
+    // Busca el servicio que est√° conectado al dispositivo y establece service
     for (BluetoothService s in services) {
       if (s.deviceId == device.id) {
         service = s;

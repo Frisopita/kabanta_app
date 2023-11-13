@@ -103,8 +103,8 @@ class ECG extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
                         child: Container(
-                          height: 1, // Altura de la l��nea de separaci��n
-                          color: Colors.grey, // Color de la l��nea de separaci��n
+                          height: 1, // Altura de la l锟斤拷nea de separaci锟斤拷n
+                          color: Colors.grey, // Color de la l锟斤拷nea de separaci锟斤拷n
                         ),
                       ),
                       //4 First Button Widget
@@ -132,8 +132,8 @@ class ECG extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
                         child: Container(
-                          height: 1, // Altura de la l��nea de separaci��n
-                          color: Colors.grey, // Color de la l��nea de separaci��n
+                          height: 1, // Altura de la l锟斤拷nea de separaci锟斤拷n
+                          color: Colors.grey, // Color de la l锟斤拷nea de separaci锟斤拷n
                         ),
                       ),
                       //7 Second Buttons Widget
@@ -161,8 +161,8 @@ class ECG extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
                         child: Container(
-                          height: 1, // Altura de la l��nea de separaci��n
-                          color: Colors.grey, // Color de la l��nea de separaci��n
+                          height: 1, // Altura de la l锟斤拷nea de separaci锟斤拷n
+                          color: Colors.grey, // Color de la l锟斤拷nea de separaci锟斤拷n
                         ),
                       ),
                       Padding(
