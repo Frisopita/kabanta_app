@@ -40,6 +40,14 @@ dependencies:
   provider: ^6.0.5
   qr_code_scanner: ^1.0.1
   async: ^2.11.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  #  image_path: "assets/images/icon-128x128.png"
+  image_path_android: "Images/imagotipo.png"
+  image_path_ios: "Images/imagotipo.png"
+  android: true # can specify file name here e.g. "ic_launcher"
+  ios: true # can specify file name here e.g. "My-Launcher-Icon"
 
 dev_dependencies:
   flutter_test:

@@ -211,7 +211,7 @@ class _DataPageState extends State<DataPage> {
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
-                                  child: const Text('OK'),
+                                  child: const Text('BACK'),
                                 ),
                               ],
                             );
