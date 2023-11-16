@@ -95,21 +95,24 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: const Text('Long Click'),
+                            title: const Text('SCENARY SCHEDULER'),
                             content: SizedBox(
                               width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 0.13,
-                              child: Column(
+                              height: MediaQuery.of(context).size.height * 0.07,
+                              child: const Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Padding(
+                                  Padding(
                                     padding: EdgeInsets.all(5),
                                     child: Text(
                                         'Al hacer un click largo se despliegan la informacion de los datos enviados, ejemplo: '),
                                   ),
-                                  Center(
-                                    child: ElevatedButton(
+                                ],
+                              ),
+                            ),
+                            actions: [
+                              TextButton(
                                       style: ElevatedButton.styleFrom(
                                           backgroundColor: colorbackbutt2,
                                           foregroundColor: colorforebutt2),
@@ -132,19 +135,17 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
                                           servicetest: widget.service
                                         ));
                                       },
-                                      child: const Text('Program'),
+                                      child: const Text('PROGRAM'),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            actions: [
                               TextButton(
+                                style: ElevatedButton.styleFrom(
+                                          backgroundColor: colorbackbutt2,
+                                          foregroundColor: colorforebutt2),
                                 onPressed: () {
                                   Navigator.of(context)
                                       .pop(); // Cierra el AlertDialog
                                 },
-                                child: const Text('OK'),
+                                child: const Text('BACK'),
                               ),
                             ],
                           );
@@ -288,21 +289,24 @@ class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: const Text('Long Click'),
+                            title: const Text('SCENARY SCHEDULER'),
                             content: SizedBox(
                               width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 0.13,
-                              child: Column(
+                              height: MediaQuery.of(context).size.height * 0.08,
+                              child: const Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Padding(
+                                  Padding(
                                     padding: EdgeInsets.all(5),
                                     child: Text(
                                         'Al hacer un click largo se despliegan la informacion de los datos enviados, ejemplo: '),
                                   ),
-                                  Center(
-                                    child: ElevatedButton(
+                                ],
+                              ),
+                            ),
+                            actions: [
+                              TextButton(
                                       style: ElevatedButton.styleFrom(
                                           backgroundColor: colorbackbutt2,
                                           foregroundColor: colorforebutt2),
@@ -325,19 +329,17 @@ class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
                                           servicetest: widget.service
                                         ));
                                       },
-                                      child: const Text('Program'),
+                                      child: const Text('PROGRAM'),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            actions: [
                               TextButton(
+                                style: ElevatedButton.styleFrom(
+                                          backgroundColor: colorbackbutt2,
+                                          foregroundColor: colorforebutt2),
                                 onPressed: () {
                                   Navigator.of(context)
                                       .pop(); // Cierra el AlertDialog
                                 },
-                                child: const Text('OK'),
+                                child: const Text('BACK'),
                               ),
                             ],
                           );
@@ -489,21 +491,25 @@ class _ThirdWidgetButtonsState extends State<ThirdWidgetButtons> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: const Text('Long Click'),
+                            title: const Text('SCENARY SCHEDULER'),
                             content: SizedBox(
                               width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 0.13,
-                              child: Column(
+                              height: MediaQuery.of(context).size.height * 0.08,
+                              child: const Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Padding(
+                                  Padding(
                                     padding: EdgeInsets.all(5),
                                     child: Text(
                                         'Al hacer un click largo se despliegan la informacion de los datos enviados, ejemplo: '),
                                   ),
-                                  Center(
-                                    child: ElevatedButton(
+                                ],
+                              ),
+                            ),
+                            actions: [
+                              
+                                  TextButton(
                                       style: ElevatedButton.styleFrom(
                                           backgroundColor: colorbackbutt2,
                                           foregroundColor: colorforebutt2),
@@ -528,17 +534,16 @@ class _ThirdWidgetButtonsState extends State<ThirdWidgetButtons> {
                                       },
                                       child: const Text('Program'),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            actions: [
+                                
                               TextButton(
+                                style: ElevatedButton.styleFrom(
+                                          backgroundColor: colorbackbutt2,
+                                          foregroundColor: colorforebutt2),
                                 onPressed: () {
                                   Navigator.of(context)
                                       .pop(); // Cierra el AlertDialog
                                 },
-                                child: const Text('OK'),
+                                child: const Text('BACK'),
                               ),
                             ],
                           );
@@ -642,21 +647,26 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: const Text('Long Click'),
+                  title: const Text('SCENARY SCHEDULER'),
                   content: SizedBox(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.13,
-                    child: Column(
+                    height: MediaQuery.of(context).size.height * 0.08,
+                    child: const Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.all(5),
                           child: Text(
-                              'Al hacer un click largo se despliegan la informacion de los datos enviados, ejemplo: '),
+                              'Add ___ to timed scenarios '),
                         ),
-                        Center(
-                          child: ElevatedButton(
+                        
+                      ],
+                    ),
+                  ),
+                  actions: [
+                    
+                          TextButton(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: colorbackbutt2,
                                 foregroundColor: colorforebutt2),
@@ -678,18 +688,17 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
                                 servicetest: widget.service
                               ));
                             },
-                            child: const Text('Program'),
+                            child: const Text('PROGRAM'),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  actions: [
+                        
                     TextButton(
+                      style: ElevatedButton.styleFrom(
+                                backgroundColor: colorbackbutt2,
+                                foregroundColor: colorforebutt2),
                       onPressed: () {
                         Navigator.of(context).pop(); // Cierra el AlertDialog
                       },
-                      child: const Text('OK'),
+                      child: const Text('BACK'),
                     ),
                   ],
                 );

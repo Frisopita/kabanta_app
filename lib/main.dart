@@ -244,7 +244,7 @@ class _DataPageState extends State<DataPage> {
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
-                                  child: const Text('OK'),
+                                  child: const Text('BACK'),
                                 ),
                                 TextButton(
                                   onPressed: () {
@@ -256,7 +256,7 @@ class _DataPageState extends State<DataPage> {
                                       ),
                                     ); // Cierra el AlertDialog
                                   },
-                                  child: const Text('Connect'),
+                                  child: const Text('CONNECT'),
                                 ),
                               ],
                             );

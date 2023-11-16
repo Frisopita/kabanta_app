@@ -43,7 +43,7 @@ class _DualActionButtonState extends State<DualActionButton> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-             title: const Text('Long Click'),
+             title: const Text('SCENARY SCHEDULER'),
               content: SizedBox(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,

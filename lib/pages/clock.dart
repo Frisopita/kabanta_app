@@ -232,13 +232,6 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                 itemCount: 12,
               ),
             ),
-            ElevatedButton(
-              onPressed: startCountdown,
-              child: const Text('Iniciar cuenta regresiva'),
-            ),
-            Text(
-              'Tiempo restante: ${formatTime(duration.inMinutes)}:${formatTime(duration.inSeconds % 60)}',
-            ),
           ],
         ),
       ),
