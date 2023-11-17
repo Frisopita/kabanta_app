@@ -41,7 +41,8 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
 
   @override
   Widget build(BuildContext context) {
-    List<BluetoothCharacteristic> characteristics = widget.service.characteristics.toList();
+    List<BluetoothCharacteristic> characteristics =
+        widget.service.characteristics.toList();
     if (characteristics.isNotEmpty) {
       if (excludedServiceUUIDs.contains(widget.service.uuid.toString())) {
         return Container(); // Oculta el servicio
@@ -98,49 +99,47 @@ class _FirstWidgetButtonsState extends State<FirstWidgetButtons> {
                             title: const Text('SCENARY SCHEDULER'),
                             content: SizedBox(
                               width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 0.07,
-                              child: const Column(
+                              height: MediaQuery.of(context).size.height * 0.04,
+                              child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsets.all(5),
-                                    child: Text(
-                                        'Al hacer un click largo se despliegan la informacion de los datos enviados, ejemplo: '),
+                                    padding: const EdgeInsets.all(5),
+                                    child: Text('Add $statesText to timed scenarios '),
                                   ),
                                 ],
                               ),
                             ),
                             actions: [
                               TextButton(
-                                      style: ElevatedButton.styleFrom(
-                                          backgroundColor: colorbackbutt2,
-                                          foregroundColor: colorforebutt2),
-                                      onPressed: () async {
-                                        final Duration? result =
-                                            await Navigator.push<Duration?>(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (_) =>
-                                                const ClockConfigScreen(),
-                                          ),
-                                        );
-                                        setState(() {
-                                          states = value.toDouble();
-                                        });
-                                        if (result == null || !mounted) return;
-                                        service.addState((
-                                          duration: result,
-                                          type: states,
-                                          servicetest: widget.service
-                                        ));
-                                      },
-                                      child: const Text('PROGRAM'),
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: colorbackbutt2,
+                                    foregroundColor: colorforebutt2),
+                                onPressed: () async {
+                                  final Duration? result =
+                                      await Navigator.push<Duration?>(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => const ClockConfigScreen(),
                                     ),
+                                  );
+                                  setState(() {
+                                    states = value.toDouble();
+                                  });
+                                  if (result == null || !mounted) return;
+                                  service.addState((
+                                    duration: result,
+                                    type: states,
+                                    servicetest: widget.service
+                                  ));
+                                },
+                                child: const Text('PROGRAM'),
+                              ),
                               TextButton(
                                 style: ElevatedButton.styleFrom(
-                                          backgroundColor: colorbackbutt2,
-                                          foregroundColor: colorforebutt2),
+                                    backgroundColor: colorbackbutt2,
+                                    foregroundColor: colorforebutt2),
                                 onPressed: () {
                                   Navigator.of(context)
                                       .pop(); // Cierra el AlertDialog
@@ -292,49 +291,47 @@ class _SecondWidgetButtonsState extends State<SecondWidgetButtons> {
                             title: const Text('SCENARY SCHEDULER'),
                             content: SizedBox(
                               width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 0.08,
-                              child: const Column(
+                              height: MediaQuery.of(context).size.height * 0.04,
+                              child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsets.all(5),
-                                    child: Text(
-                                        'Al hacer un click largo se despliegan la informacion de los datos enviados, ejemplo: '),
+                                    padding: const EdgeInsets.all(5),
+                                    child:  Text('Add $statesText to timed scenarios '),
                                   ),
                                 ],
                               ),
                             ),
                             actions: [
                               TextButton(
-                                      style: ElevatedButton.styleFrom(
-                                          backgroundColor: colorbackbutt2,
-                                          foregroundColor: colorforebutt2),
-                                      onPressed: () async {
-                                        setState(() {
-                                          states = value.toDouble();
-                                        });
-                                        final Duration? result =
-                                            await Navigator.push<Duration?>(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (_) =>
-                                                const ClockConfigScreen(),
-                                          ),
-                                        );
-                                        if (result == null || !mounted) return;
-                                        service.addState((
-                                          duration: result,
-                                          type: states,
-                                          servicetest: widget.service
-                                        ));
-                                      },
-                                      child: const Text('PROGRAM'),
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: colorbackbutt2,
+                                    foregroundColor: colorforebutt2),
+                                onPressed: () async {
+                                  setState(() {
+                                    states = value.toDouble();
+                                  });
+                                  final Duration? result =
+                                      await Navigator.push<Duration?>(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => const ClockConfigScreen(),
                                     ),
+                                  );
+                                  if (result == null || !mounted) return;
+                                  service.addState((
+                                    duration: result,
+                                    type: states,
+                                    servicetest: widget.service
+                                  ));
+                                },
+                                child: const Text('PROGRAM'),
+                              ),
                               TextButton(
                                 style: ElevatedButton.styleFrom(
-                                          backgroundColor: colorbackbutt2,
-                                          foregroundColor: colorforebutt2),
+                                    backgroundColor: colorbackbutt2,
+                                    foregroundColor: colorforebutt2),
                                 onPressed: () {
                                   Navigator.of(context)
                                       .pop(); // Cierra el AlertDialog
@@ -494,51 +491,47 @@ class _ThirdWidgetButtonsState extends State<ThirdWidgetButtons> {
                             title: const Text('SCENARY SCHEDULER'),
                             content: SizedBox(
                               width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 0.08,
-                              child: const Column(
+                              height: MediaQuery.of(context).size.height * 0.04,
+                              child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsets.all(5),
-                                    child: Text(
-                                        'Al hacer un click largo se despliegan la informacion de los datos enviados, ejemplo: '),
+                                    padding: const EdgeInsets.all(5),
+                                    child:  Text('Add $statesText to timed scenarios '),
                                   ),
                                 ],
                               ),
                             ),
                             actions: [
-                              
-                                  TextButton(
-                                      style: ElevatedButton.styleFrom(
-                                          backgroundColor: colorbackbutt2,
-                                          foregroundColor: colorforebutt2),
-                                      onPressed: () async {
-                                        setState(() {
-                                          states = value.toDouble();
-                                        });
-                                        final Duration? result =
-                                            await Navigator.push<Duration?>(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (_) =>
-                                                const ClockConfigScreen(),
-                                          ),
-                                        );
-                                        if (result == null || !mounted) return;
-                                        service.addState((
-                                          duration: result,
-                                          type: states,
-                                          servicetest: widget.service
-                                        ));
-                                      },
-                                      child: const Text('Program'),
-                                    ),
-                                
                               TextButton(
                                 style: ElevatedButton.styleFrom(
-                                          backgroundColor: colorbackbutt2,
-                                          foregroundColor: colorforebutt2),
+                                    backgroundColor: colorbackbutt2,
+                                    foregroundColor: colorforebutt2),
+                                onPressed: () async {
+                                  setState(() {
+                                    states = value.toDouble();
+                                  });
+                                  final Duration? result =
+                                      await Navigator.push<Duration?>(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => const ClockConfigScreen(),
+                                    ),
+                                  );
+                                  if (result == null || !mounted) return;
+                                  service.addState((
+                                    duration: result,
+                                    type: states,
+                                    servicetest: widget.service
+                                  ));
+                                },
+                                child: const Text('PROGRAM'),
+                              ),
+                              TextButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: colorbackbutt2,
+                                    foregroundColor: colorforebutt2),
                                 onPressed: () {
                                   Navigator.of(context)
                                       .pop(); // Cierra el AlertDialog
@@ -650,51 +643,47 @@ class _HeartAttackButtState extends State<HeartAttackButt> {
                   title: const Text('SCENARY SCHEDULER'),
                   content: SizedBox(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.08,
-                    child: const Column(
+                    height: MediaQuery.of(context).size.height * 0.04,
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsets.all(5),
-                          child: Text(
-                              'Add ___ to timed scenarios '),
+                          padding: const EdgeInsets.all(5),
+                          child: Text('Add $buttECG19 to timed scenarios '),
                         ),
-                        
                       ],
                     ),
                   ),
                   actions: [
-                    
-                          TextButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: colorbackbutt2,
-                                foregroundColor: colorforebutt2),
-                            onPressed: () async {
-                              setState(() {
-                                states = 19;
-                              });
-                              final Duration? result =
-                                  await Navigator.push<Duration?>(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => const ClockConfigScreen(),
-                                ),
-                              );
-                              if (result == null || !mounted) return;
-                              service.addState((
-                                duration: result,
-                                type: states,
-                                servicetest: widget.service
-                              ));
-                            },
-                            child: const Text('PROGRAM'),
-                          ),
-                        
                     TextButton(
                       style: ElevatedButton.styleFrom(
-                                backgroundColor: colorbackbutt2,
-                                foregroundColor: colorforebutt2),
+                          backgroundColor: colorbackbutt2,
+                          foregroundColor: colorforebutt2),
+                      onPressed: () async {
+                        setState(() {
+                          states = 19;
+                        });
+                        final Duration? result =
+                            await Navigator.push<Duration?>(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const ClockConfigScreen(),
+                          ),
+                        );
+                        if (result == null || !mounted) return;
+                        service.addState((
+                          duration: result,
+                          type: states,
+                          servicetest: widget.service
+                        ));
+                      },
+                      child: const Text('PROGRAM'),
+                    ),
+                    TextButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: colorbackbutt2,
+                          foregroundColor: colorforebutt2),
                       onPressed: () {
                         Navigator.of(context).pop(); // Cierra el AlertDialog
                       },

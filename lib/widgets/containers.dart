@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kabanta_app1/Pages/clock.dart';
+import 'package:kabanta_app1/providers/clock_provider.dart';
 import 'package:kabanta_app1/providers/device_provider.dart';
 import 'dart:async';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -22,6 +23,7 @@ class _ContainerSignalState extends State<ContainerSignal> {
     final stateCase = states.states;
     String statesText = '';
     String imagePath = '';
+
     switch (stateCase) {
       case 1:
         statesText = buttECG1;
