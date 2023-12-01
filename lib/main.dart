@@ -233,7 +233,9 @@ class _DataPageState extends State<DataPage> {
                     child: Padding(
                       padding: const EdgeInsets.all(20),
                       child: GestureDetector(
-                        onTap: () => showDialog(
+                        onTap: (){ 
+                          device.disconnect();
+                          showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
@@ -261,7 +263,8 @@ class _DataPageState extends State<DataPage> {
                               ],
                             );
                           },
-                        ),
+                        );
+                },
                         child: Container(
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
