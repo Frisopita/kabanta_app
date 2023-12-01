@@ -2,7 +2,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-//import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart' as flutter_blue;
 import 'package:kabanta_app1/bluetooth/bluetooth.dart';
 import 'package:kabanta_app1/bluetooth/qrble.dart';
