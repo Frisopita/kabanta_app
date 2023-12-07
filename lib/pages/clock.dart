@@ -171,9 +171,11 @@ class _ClockConfigScreenState extends State<ClockConfigScreen> {
                           seconds = 0;
                           _countdownTimer?.cancel();
                         });
+                        Navigator.of(context)
+                                      .pop(); 
                       },
                       child: const Text(
-                        'Clear',
+                        'Cancel',
                         style: TextStyle(fontSize: 20),
                       ),
                     ),

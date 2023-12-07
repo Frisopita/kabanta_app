@@ -205,7 +205,8 @@ class _DataPageState extends State<DataPage> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                               title: const Text("Device State"),
-                              content: Text("Device connected to ${device.localName}"),
+                              content: Text(
+                                  "Device connected to ${device.localName}"),
                               actions: [
                                 TextButton(
                                   onPressed: () {
@@ -233,38 +234,38 @@ class _DataPageState extends State<DataPage> {
                     child: Padding(
                       padding: const EdgeInsets.all(20),
                       child: GestureDetector(
-                        onTap: (){ 
+                        onTap: () {
                           device.disconnect();
                           showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text("Device State"),
-                              content: const Text("Device Disconnected"),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text('BACK'),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const QrboardPage(),
-                                      ),
-                                    ); // Cierra el AlertDialog
-                                  },
-                                  child: const Text('CONNECT'),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                },
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text("Device State"),
+                                content: const Text("Device Disconnected"),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('BACK'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const QrboardPage(),
+                                        ),
+                                      ); // Cierra el AlertDialog
+                                    },
+                                    child: const Text('CONNECT'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
                         child: Container(
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
