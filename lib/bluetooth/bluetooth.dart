@@ -38,14 +38,14 @@ class BluetoothScreenOffOn extends StatelessWidget {
                 const Padding(
                   padding: EdgeInsets.all(10),
                   child: Text(
-                    'Bluetooth apagado,',
+                    'Bluetooth is off,',
                     style: blueText,
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.all(10),
                   child: Text(
-                    'es necesario prenderlo',
+                    'to use the app, it is necessary to turn',
                     style: blueText,
                   ),
                 ),
@@ -54,7 +54,7 @@ class BluetoothScreenOffOn extends StatelessWidget {
                     backgroundColor: colorbackbutt1,
                     foregroundColor: colorforebutt1,
                   ),
-                  child: const Text('Activar Bluetooth'),
+                  child: const Text('Turn on Bluetooth'),
                   onPressed: () {
                     FlutterBluePlus.turnOn();
                   },
