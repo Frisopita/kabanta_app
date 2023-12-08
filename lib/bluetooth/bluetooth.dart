@@ -186,7 +186,7 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
                   color: colorbackbutt1,
                 ),
                 label: Text(
-                  'Reintentar conectarse',
+                  'Retry Connect',
                   style: TextStyle(color: colorbackbutt1),
                 ),
               ),
@@ -203,7 +203,7 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
                   ),
                 ),
                 icon: const Icon(Icons.arrow_back_rounded),
-                label: const Text('Cambiar ID'),
+                label: const Text('Change ID'),
               ),
             ],
           );
@@ -216,7 +216,7 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
               color: Colors.indigo,
             ),
             label: const Text(
-              'Reintentar conectarse',
+              'Retry Connect',
               style: TextStyle(color: Colors.indigo),
             ),
           );
